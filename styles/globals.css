@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -13,4 +17,30 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+input {
+  width: 100%;
+  transition: all 0.4s;
+}
+
+.btn {
+  outline: none;
+  padding: 12.31px 39px;
+  border-radius: 0;
+  cursor: pointer;
+  border: 2px solid var(--primaryColor);
+  box-shadow: none;
+  white-space: nowrap;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16.7456px;
+  line-height: 28px;
+  letter-spacing: -0.276302px;
+}
+
+.btn-gradient {
+  background: linear-gradient(90.72deg, rgb(64, 237, 195) 0%, rgb(127, 251, 169) 49.62%, rgb(211, 248, 154) 100%);
 }
