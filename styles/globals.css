@@ -24,16 +24,117 @@ input {
   transition: all 0.4s;
 }
 
+.page-section {
+  padding-top: 106.98px;
+  padding-bottom: 99.98px;
+  min-height: calc(100vh - 108.02px - 95.99px);
+}
+
+.section-title {
+  font-weight: 800;
+  font-size: 42px;
+  line-height: 100%;
+  letter-spacing: -0.045em;
+  text-transform: capitalize;
+  font-family: "Poppins";
+}
+
+.section-caption {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  letter-spacing: 0.1px;
+
+  color: #4d4d4d;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group input.btn,
+.form-group button.btn {
+  padding: 12px 47.5px;
+}
+
+.form-group.imp label::after {
+  content: "*";
+  color: #ff0000;
+}
+
+.form-group label {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 135%;
+}
+
+.form-group input:not(.btn) {
+  font-family: "Poppins";
+  background: #ffffff;
+  border: 1px solid #dcd8e7;
+  border-radius: 3px;
+  padding: 11.5px 27.18px;
+  height: 45px;
+}
+
+.form-group input:not(.btn).thick-border {
+  border: 1.6021px solid #000000;
+}
+.form-group input:not(.btn)::placeholder {
+  color: #c7c7c7;
+}
+.form-group input:not(.btn)::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #c7c7c7;
+}
+.form-group input:not(.btn)::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #c7c7c7;
+}
+.form-group input:not(.btn):-ms-input-placeholder {
+  /* IE 10+ */
+  color: #c7c7c7;
+}
+.form-group input:not(.btn):-moz-placeholder {
+  /* Firefox 18- */
+  color: #c7c7c7;
+}
+.form-group input:not(.btn):focus {
+  color: #000000;
+  background-color: #ffffff;
+  border-color: #dcd8e7;
+  outline: 0;
+  box-shadow: none;
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon input {
+  padding-right: 56px !important;
+}
+.input-with-icon .icon {
+  position: absolute;
+  right: 21px;
+  top: 16px;
+}
+
 .btn {
   outline: none;
   padding: 12.31px 39px;
   border-radius: 0;
   cursor: pointer;
-  border: 2px solid var(--primaryColor);
+  border: 2px solid rgba(0, 161, 65, 1);
   box-shadow: none;
   white-space: nowrap;
 
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
   font-weight: 600;
   font-size: 16.7456px;
@@ -41,6 +142,30 @@ input {
   letter-spacing: -0.276302px;
 }
 
+.btn-white,
+.btn-white:hover {
+  color: #000000;
+  background-color: #ffffff;
+  border: 1.10544px solid #000000;
+}
+
 .btn-gradient {
-  background: linear-gradient(90.72deg, rgb(64, 237, 195) 0%, rgb(127, 251, 169) 49.62%, rgb(211, 248, 154) 100%);
+  background: linear-gradient(
+    90.72deg,
+    rgb(64, 237, 195) 0%,
+    rgb(127, 251, 169) 49.62%,
+    rgb(211, 248, 154) 100%
+  );
+}
+
+.btn-primary,
+.btn-primary:hover {
+  padding: 11px 34px;
+  font-family: "Poppins";
+
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 19px;
+  text-align: center;
+  letter-spacing: 0.0813187px;
 }

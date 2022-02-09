@@ -31,9 +31,11 @@ module.exports = {
       },
       colors: {
         'buttonGreen': '#00A141',
+        primary: '#00A141',
         green: 'rgb(64, 237, 195)',
         'green-500': 'rgb(127, 251, 169)',
         yellow: 'rgb(211, 248, 154)',
+        ash: '#757575',
         purple: colors.violet,
       },
       fontSize: {
@@ -42,6 +44,15 @@ module.exports = {
         }],
         'subtitle': ['12.0865px', {
           lineHeight: '14px'
+        }],
+        'brand': ['34.4024px', {
+          lineHeight: '52px'
+        }],
+        'landing': ['52px', {
+          lineHeight: '61px'
+        }],
+        'subLanding': ['18px', {
+          lineHeight: '27px'
         }]
       }
     }

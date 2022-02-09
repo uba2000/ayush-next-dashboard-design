@@ -1,8 +1,14 @@
+import React, { useState } from 'react';
 import Link from 'next/link';
-import React from 'react';
 import AuthLayout from '../components/AuthLayout';
 
 function Signin() {
+
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
+
   return (
     <AuthLayout>
       <div className="z-20 w-full max-w-sm">
@@ -72,25 +78,29 @@ function Signin() {
                 onChange={(e) => setAgreeToTerms(e.target.value)}
               />
               <label for="termsAgree" className="text-white text-xs ml-2 font-poppins flex-grow flex-shrink">
-                I agree to the Terms of Service and Privacy Policy.
+                Remember me
               </label>
             </div>
-            <div className="">
-              <Link href={'/forget-password'}>
-                Forget Password?
+            <div className="text-white text-right text-xs font-poppins flex items-center">
+              <Link href='/forget-password'>
+                <a>
+                  Forget Password?
+                </a>
               </Link>
             </div>
           </div>
           <div className="mt-3">
-            <button className="w-full bg-gradient-to-r from-green via-green-500 to-yellow text-black py-3 px-4 font-bold text-base rounded-md">
-              Create An Account
+            <button className="w-full bg-gradient-to-r from-green via-green-500 to-yellow text-black font-inter py-3 px-4 font-bold text-base rounded-md">
+              Sign In
             </button>
           </div>
           <div className="mt-3 text-center">
             <p className="text-white text-inter font-inter">
-              Have an account?&nbsp;
-              <Link href={`/signin`}>
-                <span className="">Sign In</span>
+              Looking for a new Account?&nbsp;
+              <Link href='/signup'>
+                <a>
+                  <span className="font-semibold">Sign Up</span>
+                </a>
               </Link>
             </p>
           </div>

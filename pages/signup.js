@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Layout } from '../components/Layout';
 import AuthLayout from '../components/AuthLayout';
 
-const Signin = () => {
+const Signup = () => {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -92,16 +92,16 @@ const Signin = () => {
             </label>
           </div>
           <div className="mt-3">
-            <button className="w-full bg-gradient-to-r from-green via-green-500 to-yellow text-black py-3 px-4 font-bold text-base rounded-md">
+            <button className="font-inter w-full bg-gradient-to-r from-green via-green-500 to-yellow text-black py-3 px-4 font-bold text-base rounded-md">
               Create An Account
             </button>
           </div>
           <div className="mt-3 text-center">
             <p className="text-white text-inter font-inter">
               Have an account?&nbsp;
-              <Link href='/login'>
+              <Link href='/signin'>
                 <a>
-                  <span className="">Sign In</span>
+                  <span className="font-semibold">Sign In</span>
                 </a>
               </Link>
             </p>
@@ -112,4 +112,4 @@ const Signin = () => {
   );
 }
 
-export default Signin;
+export default Signup;
