@@ -1,11 +1,11 @@
 import React from 'react'
 
-function DashboardLanding({ landingText, subLandingText }) {
+function DashboardLanding({ landingText, subLandingText, children }) {
   return (
     <section className='' style={{ marginBottom: '120px' }}>
       <div className="text-center">
         <div className="mb-4">
-          <h2 className='text-landing font-bold font-poppins'>
+          <h2 className='text-landing font-bold font-poppins capitalize'>
             {landingText}
           </h2>
         </div>
@@ -14,6 +14,7 @@ function DashboardLanding({ landingText, subLandingText }) {
             {subLandingText}
           </p>
         </div>
+        {children}
       </div>
     </section>
   )

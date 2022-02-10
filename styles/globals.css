@@ -169,3 +169,20 @@ input {
   text-align: center;
   letter-spacing: 0.0813187px;
 }
+
+.pop-in-animation {
+  opacity: 0;
+  animation: pop-in 100ms cubic-bezier(0.2, 0, 0.38, 0.9) forwards;
+}
+
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
