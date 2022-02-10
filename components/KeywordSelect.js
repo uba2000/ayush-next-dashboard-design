@@ -10,18 +10,20 @@ export class KeywordSelect extends Component {
   }
 
   clickKeywordHandler = () => {
-    this.setState(() => ({
-
-    }))
+    this.setState((prevState) => {
+      return {
+        checked: !prevState.checked
+      }
+    })
   }
 
   render() {
     const { title } = this.props;
     const { checked } = this.state;
     return (
-      <div className="relative mb-4 cursor-pointer">
+      <div className="relative mb-4 cursor-pointer" onClick={this.clickKeywordHandler}>
         <div className="flex justify-between items-center border border-solid border-black rounded-2xl" style={{ padding: '15px 47px' }}>
-          <p className="mb-0 flex-grow flex-shrink font-poppins font-medium" style={{ fontSize: '22px', lineHeight: '36px', color: '#040404' }}>
+          <p className="text-left mb-0 flex-grow flex-shrink font-poppins font-medium" style={{ fontSize: '22px', lineHeight: '36px', color: '#040404' }}>
             {title}
           </p>
           <div className="ml-2" style={{ width: '30px', minWidth: '30px', height: '30px' }}>
@@ -32,7 +34,7 @@ export class KeywordSelect extends Component {
             </div>}
           </div>
         </div>
-        <input type="checkbox" name="" id="" className="opacity-0 z-2 absolute" />
+        <input type="checkbox" name="" id="" className="d-none w-0 opacity-0 z-2 absolute" checked={checked} />
       </div>
     )
   }
