@@ -6,7 +6,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: -apple-system, BlinkMacSystemFont, "Poppins", Segoe UI, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
@@ -123,6 +123,69 @@ input {
   position: absolute;
   right: 21px;
   top: 16px;
+}
+
+.input-search {
+  background: rgba(220, 223, 229, 0.5);
+  border: 1px solid #dcd8e7;
+  border-radius: 3px;
+  padding: 12px 30px;
+  height: 43px;
+  font-family: "Poppins";
+}
+
+.section-seperator {
+  width: 100%;
+  height: 2px;
+  background-color: #dcdfe5;
+  margin: 28.5px 0;
+}
+
+table {
+  border: none;
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #fff;
+  font-family: "Poppins";
+  line-height: 120%;
+  letter-spacing: 0.005em;
+  text-align: left;
+}
+
+table thead {
+  border-style: solid;
+  border-color: #dcdfe5;
+  border-top-width: 2px;
+  border-bottom-width: 2px;
+}
+
+table thead th {
+  padding: 28.5px 0;
+  font-weight: bold;
+  font-size: 17.0647px;
+}
+
+table tbody tr td {
+  padding: 22.39px 0 19.32px;
+}
+
+table tbody tr:not(:first-child) td {
+  padding-top: 19.32px;
+}
+
+table tbody td.main {
+  font-weight: normal;
+  font-size: 17.0647px;
+}
+
+table tbody td.tag {
+  font-weight: normal;
+  font-size: 10.0571px;
+}
+
+table tbody td.days {
+  font-weight: normal;
+  font-size: 15px;
 }
 
 .btn {

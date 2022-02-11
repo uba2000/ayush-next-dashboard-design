@@ -53,6 +53,9 @@ module.exports = {
         }],
         'subLanding': ['18px', {
           lineHeight: '27px'
+        }],
+        'wild': ['19.1978px', {
+          lineHeight: '135%'
         }]
       }
     }

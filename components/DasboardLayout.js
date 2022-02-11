@@ -7,7 +7,9 @@ function DashboardLayout({ children }) {
     <div>
       <DashboardNav />
       <div className="page-section flex justify-center">
-        {children}
+        <div className="container mx-0">
+          {children}
+        </div>
       </div>
       {/* footer */}
       <DashboardFooter />
