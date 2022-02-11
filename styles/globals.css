@@ -141,6 +141,69 @@ input {
   margin: 28.5px 0;
 }
 
+.article-generator-container {
+  display: grid;
+  grid-template-columns: 22.7% auto 14.9%;
+}
+
+.article-generator-container .generator-options {
+  background-color: #fff;
+  border: 0.856364px solid #dcd8e7;
+  padding: 14px 10px;
+}
+
+.article-generator-container .generator-options .generator-title {
+  font-weight: bold;
+  font-size: 13.7px;
+  line-height: 28px;
+}
+
+.option-container {
+  border: 1px solid #dcd8e7;
+	background-color: #fff;
+	transition: background-color 100ms;
+}
+
+.option-container:not(:last-child) {
+		margin-bottom: 6px;
+	}
+
+  .option-container:hover {
+    background-color: #00A141;
+  }
+
+  .option-container:hover .option-select p {
+    color: #fff;
+  }
+
+.option-container:hover .tick-svg path {
+  fill: #fff;
+}
+
+.option-container:hover .loader-svg #body {
+  opacity: 0.5;
+  fill: #fff;
+}
+
+.option-container:hover .loader-svg #section {
+  fill: #fff;
+}
+
+.option-select {
+  display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 6px 20px;
+}
+
+.option-select p {
+  font-family: "Poppins";
+  font-weight: 500;
+  font-size: 9.08816px;
+  line-height: 15px;
+}
+
 table {
   border: none;
   border-collapse: collapse;

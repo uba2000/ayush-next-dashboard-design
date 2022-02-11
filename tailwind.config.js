@@ -9,6 +9,10 @@ module.exports = {
     './components/**/*.{js,jsx,ts,tsx,vue}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: '15px',
+    },
     extend: {
       minHeight: (theme) => ({
         ...theme('spacing'),

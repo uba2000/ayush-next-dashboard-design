@@ -31,7 +31,7 @@ function DashboardNav() {
                   </a>
                 </Link>
               </li>
-              <li className='inline py-2 px-6'>
+              <li className='inline py-2 pl-6'>
                 <Link href='/'>
                   <a className='btn btn-white'>
                     My Account

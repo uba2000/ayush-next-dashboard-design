@@ -2,14 +2,17 @@ import React from 'react';
 import DashboardFooter from './DashboardFooter';
 import DashboardNav from './DashboardNav';
 
-function DashboardLayout({ children }) {
+function DashboardLayout({ children, customChildren }) {
+
   return (
     <div>
       <DashboardNav />
       <div className="page-section flex justify-center">
-        <div className="container mx-0">
+        {!customChildren ? <div className="container mx-0">
           {children}
-        </div>
+        </div> : <div>
+          {children}
+        </div>}
       </div>
       {/* footer */}
       <DashboardFooter />
