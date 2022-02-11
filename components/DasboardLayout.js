@@ -10,7 +10,7 @@ function DashboardLayout({ children, customChildren }) {
       <div className="page-section flex justify-center">
         {!customChildren ? <div className="container mx-0">
           {children}
-        </div> : <div>
+        </div> : <div className='w-full'>
           {children}
         </div>}
       </div>
