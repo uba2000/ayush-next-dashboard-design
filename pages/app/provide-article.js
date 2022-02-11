@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 import DashboardLayout from '../../components/DasboardLayout'
 import DashboardLanding from '../../components/DashboardLanding'
@@ -24,9 +25,11 @@ function ProvideArticle() {
           </FormGroup>
 
           <div className="">
-            <button className="btn btn-primary bg-primary text-white font-poppins">
-              Start Project
-            </button>
+            <Link href='/app/features'>
+              <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
+                Start Project
+              </a>
+            </Link>
           </div>
         </form>
       </FrameBox>

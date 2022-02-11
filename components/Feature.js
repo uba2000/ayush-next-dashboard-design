@@ -16,6 +16,7 @@ function Feature({ title, content }) {
         </p>
       </div>
       <div className="">
+        {/* store state goto /keywords */}
         <button className="btn btn-primary bg-primary text-white font-poppins">
           Generate
         </button>

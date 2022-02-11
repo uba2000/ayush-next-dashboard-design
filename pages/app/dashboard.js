@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 import DashboardLayout from '../../components/DasboardLayout'
 import DashboardLanding from '../../components/DashboardLanding'
@@ -23,9 +24,11 @@ function Dashboard() {
               nisi sollicitudin amet Duis amet ipsum.
             </p>
             <div className="">
-              <button className="btn btn-primary bg-primary text-white font-poppins">
-                Get Started
-              </button>
+              <Link href='/app/new-project'>
+                <a className="block w-fit mx-auto btn btn-primary bg-primary text-white font-poppins">
+                  Get Started
+                </a>
+              </Link>
             </div>
           </div>
         </div>

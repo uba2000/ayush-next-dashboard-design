@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 import DashboardLayout from '../../components/DasboardLayout'
 import DashboardLanding from '../../components/DashboardLanding'
@@ -16,6 +17,11 @@ function keywords() {
           </FormGroup>
           <FormGroup>
             <input type="submit" className='btn btn-primary w-fit bg-primary text-white' value='Generate' />
+            <Link href='/app/select-keywords'>
+              <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
+                Generate
+              </a>
+            </Link>
           </FormGroup>
         </form>
       </DashboardLanding>

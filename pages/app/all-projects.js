@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React, { Component } from 'react'
 import DashboardLayout from '../../components/DasboardLayout'
 import DashboardLanding from '../../components/DashboardLanding'
@@ -13,9 +14,11 @@ export class AllProjects extends Component {
         >
           <div className="mt-12">
             <div className="flex justify-end mb-8">
-              <button className="btn btn-primary bg-primary text-white">
-                New Project
-              </button>
+              <Link href='/app/new-project'>
+                <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
+                  New Project
+                </a>
+              </Link>
             </div>
             <div className="flex justify-between">
               <div className="">

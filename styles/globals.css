@@ -212,6 +212,13 @@ table tbody td.days {
   border: 1.10544px solid #000000;
 }
 
+.btn-reset,
+.btn-reset:hover {
+  color: #000000;
+  background-color: #ffffff;
+  border: none;
+}
+
 .btn-gradient {
   background: linear-gradient(
     90.72deg,
@@ -231,6 +238,41 @@ table tbody td.days {
   line-height: 19px;
   text-align: center;
   letter-spacing: 0.0813187px;
+}
+
+.overlay {
+  background: radial-gradient(
+    90.16% 143.01% at 15.32% 21.04%,
+    rgba(225, 250, 255, 0.1) 0%,
+    rgba(198, 232, 255, 0.0223958) 77.08%,
+    rgba(240, 248, 255, 0) 100%
+  );
+  background-blend-mode: overlay, normal;
+  backdrop-filter: blur(39px);
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
+
+.modal-container {
+  background: #ffffff;
+  border: 1px solid #0d0d0d;
+  width: 100%;
+  max-width: 818px;
+  padding: 96px 179px;
+  text-align: center;
+}
+
+.modal-container .title {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 135%;
+  margin-bottom: 13px;
+}
+
+.modal-container .subtitle {
+  margin-bottom: 19px;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: 0.1px;
 }
 
 .pop-in-animation {
