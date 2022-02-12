@@ -1,0 +1,55 @@
+import React from 'react'
+import DashboardLayout from '../DasboardLayout'
+import styles from '../../../styles/Account.module.css'
+import Link from 'next/link'
+
+
+function AccountLayout({ children }) {
+  return (
+    <DashboardLayout>
+      <div className="container">
+        <div className={styles.accountContainer}>
+          <div className={styles.accountAside}>
+            <ul>
+              <li>
+                <Link href='/app/account'>
+                  <a>
+                    Profile Settings
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href='/app/account'>
+                  <a>
+                    Team Member
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href='/app/account'>
+                  <a>
+                    Limit & Usage
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href='/app/account'>
+                  <a>
+                    Your Billing
+                  </a>
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className={styles.accountMain}>
+            <div className="container py-14 my-1">
+              {children}
+            </div>
+          </div>
+        </div>
+      </div>
+    </DashboardLayout>
+  )
+}
+
+export default AccountLayout

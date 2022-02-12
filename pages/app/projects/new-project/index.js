@@ -20,7 +20,7 @@ function NewProject() {
 
       {/* Create Project */}
       <FrameBox>
-        <form action="">
+        <form action="" className='w-full'>
           <FormGroup label='Project Title' imp={true} labelFor="project">
             <input id='project' type='text' placeholder='Your Campaign, Product, or client' />
           </FormGroup>

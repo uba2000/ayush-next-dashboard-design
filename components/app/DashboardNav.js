@@ -32,7 +32,7 @@ function DashboardNav() {
                 </Link>
               </li>
               <li className='inline py-2 pl-6'>
-                <Link href='/'>
+                <Link href='/app/account'>
                   <a className='btn btn-white'>
                     My Account
                   </a>

@@ -15,7 +15,7 @@ function ProvideArticle() {
 
       {/* Create Project */}
       <FrameBox>
-        <form action="">
+        <form action="" className='w-full'>
           <FormGroup label='Article Title' imp={true} labelFor="aTitle">
             <input id='aTitle' type='text' placeholder='How to start digital marketing' />
           </FormGroup>

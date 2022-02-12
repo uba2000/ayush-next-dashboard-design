@@ -1,0 +1,65 @@
+.accountContainer {
+  border: 1px solid #f7f9fa;
+  display: grid;
+  grid-template-columns: 213px auto;
+}
+
+.accountAside {
+  max-width: 213px;
+  border-right: 1px solid #f7f9fa;
+}
+
+.accountAside ul li a {
+  border-bottom: 1px solid #f7f9fa;
+  padding: 28px 51px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 27px;
+  display: flex;
+  white-space: nowrap;
+
+  color: #000000;
+}
+
+.accountAside ul li a.active,
+.accountMain {
+  background-color: #f7f9fa;
+}
+
+.formGroupLabel {
+  font-style: normal;
+  font-weight: normal !important;
+  font-size: 16.3721px !important;
+  line-height: 25px !important;
+
+  /* black */
+
+  color: #000000;
+}
+
+.formGroupInput {
+  font-weight: 600;
+  font-size: 16.3721px;
+  line-height: 25px;
+}
+
+.formGroupInput::placeholder {
+  font-weight: normal;
+}
+.formGroupInput::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  font-weight: normal;
+}
+.formGroupInput::-moz-placeholder {
+  /* Firefox 19+ */
+  font-weight: normal;
+}
+.formGroupInput:-ms-input-placeholder {
+  /* IE 10+ */
+  font-weight: normal;
+}
+.formGroupInput:-moz-placeholder {
+  /* Firefox 18- */
+  font-weight: normal;
+}
