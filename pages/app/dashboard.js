@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import React from 'react'
-import DashboardLayout from '../../components/DasboardLayout'
-import DashboardLanding from '../../components/DashboardLanding'
-import FrameBox from '../../components/FrameBox'
+import DashboardLayout from '../../components/app/DasboardLayout'
+import DashboardLanding from '../../components/app/DashboardLanding'
+import FrameBox from '../../components/app/FrameBox'
 
 function Dashboard() {
   return (
@@ -24,7 +24,7 @@ function Dashboard() {
               nisi sollicitudin amet Duis amet ipsum.
             </p>
             <div className="">
-              <Link href='/app/new-project'>
+              <Link href='/app/projects/new-project'>
                 <a className="block w-fit mx-auto btn btn-primary bg-primary text-white font-poppins">
                   Get Started
                 </a>

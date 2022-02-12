@@ -25,7 +25,7 @@ input {
 }
 
 .page-section {
-  padding-top: 106.98px;
+  padding-top: 100.98px;
   padding-bottom: 99.98px;
   min-height: calc(100vh - 108.02px - 95.99px);
 }
@@ -143,16 +143,28 @@ input {
 
 .article-generator-container {
   display: grid;
+  grid-gap: 15px;
   grid-template-columns: 22.7% auto 14.9%;
 }
 
-.article-generator-container .generator-options {
+.generator-container {
   background-color: #fff;
-  border: 0.856364px solid #dcd8e7;
   padding: 14px 10px;
 }
 
-.article-generator-container .generator-options .generator-title {
+.generator-container:not(.nb) {
+  border: 0.856364px solid #dcd8e7;
+}
+
+.generator-container .content {
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 27px;
+  text-align: justify;
+  color: #4d4d4d;
+}
+
+.article-generator-container .generator-title {
   font-weight: bold;
   font-size: 13.7px;
   line-height: 28px;
@@ -281,6 +293,13 @@ table tbody td.days {
   border: 1.10544px solid #000000;
 }
 
+.btn-primary--outline,
+.btn-primary--outline:hover {
+  color: #00a141;
+  background-color: #ffffff;
+  border: 1.10544px solid #00a141;
+}
+
 .btn-reset,
 .btn-reset:hover {
   color: #000000;
@@ -301,12 +320,29 @@ table tbody td.days {
 .btn-primary:hover {
   padding: 11px 34px;
   font-family: "Poppins";
+  color: white;
 
   font-weight: bold;
   font-size: 13px;
   line-height: 19px;
   text-align: center;
   letter-spacing: 0.0813187px;
+  background-color: #00a141;
+}
+
+.btn-dark,
+.btn-dark:hover {
+  padding: 11px 34px;
+  font-family: "Poppins";
+
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 19px;
+  text-align: center;
+  letter-spacing: 0.0813187px;
+  border-color: #000000;
+  color: #ffffff;
+  background-color: #000000;
 }
 
 .overlay {
@@ -319,6 +355,61 @@ table tbody td.days {
   background-blend-mode: overlay, normal;
   backdrop-filter: blur(39px);
   transform: matrix(1, 0, 0, 1, 0, 0);
+}
+
+.custom-checkbox-container {
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+
+.custom-checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.custom-checkbox-container .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: transparent;
+}
+
+.custom-checkbox-container
+  input:checked
+  ~ .custom-checkbox-container
+  .checkmark {
+  background-color: #52926c;
+}
+
+.custom-checkbox-container .checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.custom-checkbox-container
+  input:checked
+  ~ .custom-checkbox-container
+  .checkmark::after {
+  display: block !important;
+}
+
+.custom-checkbox-container .checkmark::after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .modal-container {

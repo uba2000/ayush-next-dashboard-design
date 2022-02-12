@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
-import DashboardLayout from '../../components/DasboardLayout'
-import DashboardLanding from '../../components/DashboardLanding'
-import FormGroup from '../../components/FormGroup'
-import FrameBox from '../../components/FrameBox'
+import DashboardLayout from '../../../../components/app/DasboardLayout'
+import DashboardLanding from '../../../../components/app/DashboardLanding'
+import FormGroup from '../../../../components/FormGroup'
+import FrameBox from '../../../../components/app/FrameBox'
 
 function ProvideArticle() {
   return (
@@ -25,7 +25,7 @@ function ProvideArticle() {
           </FormGroup>
 
           <div className="">
-            <Link href='/app/features'>
+            <Link href='/app/projects/new-project/features'>
               <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
                 Start Project
               </a>

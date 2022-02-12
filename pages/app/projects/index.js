@@ -1,9 +1,8 @@
 import Link from 'next/link'
 import React, { Component } from 'react'
-import DashboardLayout from '../../components/app/DasboardLayout'
-import DashboardLanding from '../../components/app/DashboardLanding'
-import ProjectList from '../../components/app/project/ProjectList'
-import Pagination from '../../components/Pagination'
+import DashboardLayout from '../../../components/app/DasboardLayout'
+import DashboardLanding from '../../../components/app/DashboardLanding'
+import ProjectList from '../../../components/app/project/ProjectList'
 
 export class AllProjects extends Component {
   constructor(props) {

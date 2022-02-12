@@ -1,7 +1,7 @@
 import React from 'react'
-import DashboardLayout from '../../components/DasboardLayout'
-import DashboardLanding from '../../components/DashboardLanding'
-import Feature from '../../components/Feature'
+import DashboardLayout from '../../../../components/app/DasboardLayout'
+import DashboardLanding from '../../../../components/app/DashboardLanding'
+import Feature from '../../../../components/app/Feature'
 
 function features() {
   return (
@@ -14,12 +14,14 @@ function features() {
       <div className="grid grid-cols-2 gap-4">
         <div className="">
           <Feature
+            link='/app/projects/new-project/keywords'
             title='Automated  Article Generation'
             content='Let us do the hard work and you will get the entire article automatically'
           />
         </div>
         <div className="">
           <Feature
+            link='/app/projects/new-project/keywords'
             title='Manual  Article Generation'
             content='Curate your article just like you want to. Select H2s and make the article yours. '
           />

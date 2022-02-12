@@ -35,12 +35,14 @@ module.exports = {
       },
       colors: {
         'buttonGreen': '#00A141',
-        primary: '#00A141',
-        green: 'rgb(64, 237, 195)',
+        'primary': '#00A141',
+        'green': 'rgb(64, 237, 195)',
         'green-500': 'rgb(127, 251, 169)',
-        yellow: 'rgb(211, 248, 154)',
-        ash: '#757575',
-        purple: colors.violet,
+        'yellow': 'rgb(211, 248, 154)',
+        'ash': '#757575',
+        'gray-500': '#44444F',
+        'gray-900': '#E2E2EA',
+        'purple': colors.violet,
       },
       fontSize: {
         'title': ['33.7069px', {

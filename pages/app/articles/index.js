@@ -1,57 +1,51 @@
 import Link from 'next/link'
 import React, { Component } from 'react'
-import DashboardLayout from '../../components/app/DasboardLayout'
-import DashboardLanding from '../../components/app/DashboardLanding'
-import ProjectList from '../../components/app/project/ProjectList'
-import Pagination from '../../components/Pagination'
+import ArticleLayout from '../../../components/app/article/ArticleLayout'
+import ArticlesList from '../../../components/app/article/ArticlesList'
+import DashboardLayout from '../../../components/app/DasboardLayout'
 
-export class AllProjects extends Component {
+export class index extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      projects: []
+      articles: []
     }
   }
 
   componentDidMount() {
-    const project = {
-      title: 'Digtial Marketing Articles',
+    const article = {
+      title: 'How to start agency',
       tags: ['Graphic design', 'digital marketing'],
       date: '2 days ago',
       checked: false
     }
-    let projects = []
+    let articles = []
     for (let i = 0; i < 40; i++) {
-      projects.push(project)
+      articles.push(article)
     }
     this.setState({
-      projects: projects
+      articles: articles
     })
   }
 
+
   render() {
-
-    const { projects } = this.state;
-
     return (
       <DashboardLayout>
-        <DashboardLanding
-          landingText='All Projects'
-          subLandingText='I am so lorem ipum deloas In deloas with deloas Lorem ipsum dolo amet, consectetur adipiscing elit Porta pharetra scelerisque lacus id vitae aenean'
-        >
-          <div className="mt-12">
+        <ArticleLayout>
+          <div>
             <div className="flex justify-end mb-8">
               <Link href='/app/new-project'>
                 <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
-                  New Project
+                  Write New Article
                 </a>
               </Link>
             </div>
             <div className="flex justify-between">
               <div className="">
                 <p className="text-wild capitalize font-semibold font-poppins">
-                  All Projects
+                  All Articles
                 </p>
               </div>
               <div className="flex items-center">
@@ -61,12 +55,12 @@ export class AllProjects extends Component {
                 <input type="text" className="input-search" placeholder='How To...' />
               </div>
             </div>
-            <ProjectList projects={projects} />
+            <ArticlesList articles={this.state.articles} />
           </div>
-        </DashboardLanding>
+        </ArticleLayout>
       </DashboardLayout>
     )
   }
 }
 
-export default AllProjects
+export default index

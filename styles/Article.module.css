@@ -1,0 +1,71 @@
+.breadcrumbs {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15.9994px;
+  line-height: 14px;
+  letter-spacing: -0.03em;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.breadcrumbs li {
+  display: inline;
+  padding: 0 8px;
+  position: relative;
+}
+
+.breadcrumbs li:last-child {
+  color: #000000;
+}
+
+.breadcrumbs li:not(:last-child)::after {
+  content: "/";
+  position: absolute;
+  right: -4px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.articleEditHeaderTitle {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 17.0647px;
+  line-height: 120%;
+
+  letter-spacing: 0.005em;
+  text-transform: capitalize;
+
+  color: #000000;
+}
+
+.articleEditHeaderTags {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11.0093px;
+  line-height: 120%;
+  text-align: center;
+  letter-spacing: 0.005em;
+  text-transform: capitalize;
+
+  color: #000000;
+}
+
+.articleHeaderOverscore {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 10.8108px;
+  line-height: 120%;
+  letter-spacing: 0.005em;
+
+  color: #000000;
+  margin-bottom: 6px;
+
+  opacity: 0.8;
+}
+
+.articleHeaderOverscoreStats {
+  font-weight: 500;
+  font-size: 10.8108px;
+  line-height: 120%;
+  letter-spacing: 0.005em;
+  color: #00a141;
+}

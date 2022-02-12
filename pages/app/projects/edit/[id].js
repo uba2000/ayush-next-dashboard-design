@@ -1,18 +1,14 @@
 import React, { useState } from 'react'
-import DashboardLayout from '../../components/DasboardLayout'
-import DashboardLanding from '../../components/DashboardLanding'
-import FormGroup from '../../components/FormGroup'
-import FrameBox from '../../components/FrameBox'
+import DashboardLayout from '../../../../components/app/DasboardLayout'
+// import DashboardLanding from '../../components/app/DashboardLanding'
+import FormGroup from '../../../../components/FormGroup'
+import FrameBox from '../../../../components/app/FrameBox'
 
 function EditProject() {
 
   const [title, setTitle] = useState('Graphic Design Articles');
   const [tags, setTags] = useState('graphic design, digital marketing, marketing');
   const [industry, setIndustry] = useState('Digital Marketing');
-
-  const btnStyle = {
-    width: 'fit-content'
-  }
 
   return (
     <DashboardLayout>
@@ -40,7 +36,7 @@ function EditProject() {
 
           <div className="flex items-center">
             <div className='form-group' style={{ marginBottom: '0px' }}>
-              <input type="submit" style={btnStyle} className="btn btn-primary bg-primary text-white" value='Continue' />
+              <input type="submit" className="w-fit btn btn-primary bg-primary text-white" value='Continue' />
             </div>
 
             <div className="ml-2">

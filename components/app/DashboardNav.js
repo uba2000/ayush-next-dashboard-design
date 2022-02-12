@@ -18,14 +18,14 @@ function DashboardNav() {
           <div className="flex justify-end items-center">
             <ul>
               <li className='inline py-2 px-6'>
-                <Link href='/'>
+                <Link href='/app/projects/new-project'>
                   <a className='font-medium text-base'>
                     Create
                   </a>
                 </Link>
               </li>
               <li className='inline py-2 px-6'>
-                <Link href='/'>
+                <Link href='/app/projects'>
                   <a className='font-medium text-base'>
                     Projects
                   </a>

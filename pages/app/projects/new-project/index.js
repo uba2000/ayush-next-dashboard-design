@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
-import DashboardLayout from '../../components/DasboardLayout'
-import DashboardLanding from '../../components/DashboardLanding'
-import FormGroup from '../../components/FormGroup'
-import FrameBox from '../../components/FrameBox'
+import DashboardLayout from '../../../../components/app/DasboardLayout'
+import DashboardLanding from '../../../../components/app/DashboardLanding'
+import FormGroup from '../../../../components/FormGroup'
+import FrameBox from '../../../../components/app/FrameBox'
 
 function NewProject() {
 
@@ -41,7 +41,7 @@ function NewProject() {
           </FormGroup>
 
           <div className='form-group' style={{ marginBottom: '0px' }}>
-            <Link href='/app/provide-article'>
+            <Link href='/app/projects/new-project/provide-article'>
               <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
                 Continue
               </a>

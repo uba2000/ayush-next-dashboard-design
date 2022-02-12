@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import React from 'react'
-import DashboardLayout from '../../components/DasboardLayout'
-import DashboardLanding from '../../components/DashboardLanding'
-import FormGroup from '../../components/FormGroup'
+import DashboardLayout from '../../../../components/app/DasboardLayout'
+import DashboardLanding from '../../../../components/app/DashboardLanding'
+import FormGroup from '../../../../components/FormGroup'
 
 function keywords() {
   return (
@@ -16,9 +16,9 @@ function keywords() {
             <input style={{ maxWidth: '560.14px', width: '100%' }} type="text" className='thick-border mx-auto' placeholder='Keywords: seo' />
           </FormGroup>
           <FormGroup>
-            <input type="submit" className='btn btn-primary w-fit bg-primary text-white' value='Generate' />
-            <Link href='/app/select-keywords'>
-              <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
+            {/* <input type="submit" className='btn btn-primary w-fit bg-primary text-white' value='Generate' /> */}
+            <Link href='/app/projects/new-project/select-keywords'>
+              <a className="block mx-auto w-fit btn btn-primary bg-primary text-white font-poppins">
                 Generate
               </a>
             </Link>

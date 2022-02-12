@@ -1,7 +1,8 @@
+import Link from 'next/link'
 import React, { Component } from 'react'
-import DashboardLayout from '../../components/DasboardLayout'
-import DashboardLanding from '../../components/DashboardLanding'
-import KeywordSelect from '../../components/KeywordSelect'
+import DashboardLayout from '../../../../components/app/DasboardLayout'
+import DashboardLanding from '../../../../components/app/DashboardLanding'
+import KeywordSelect from '../../../../components/app/KeywordSelect'
 
 export class SelectKeywords extends Component {
 
@@ -62,7 +63,9 @@ export class SelectKeywords extends Component {
                 </svg>
               </div>
               <div className="">
-                <button style={this.btnStyle} className="btn btn-primary bg-primary text-white">Next</button>
+                <Link href='/app/articles/automated-generator'>
+                  <a style={this.btnStyle} className="btn btn-primary bg-primary text-white">Next</a>
+                </Link>
               </div>
             </div>
 

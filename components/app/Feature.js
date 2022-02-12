@@ -1,6 +1,7 @@
+import Link from 'next/link'
 import React from 'react'
 
-function Feature({ title, content }) {
+function Feature({ title, content, link }) {
   return (
     <div
       className="bg-white rounded-2xl"
@@ -17,9 +18,11 @@ function Feature({ title, content }) {
       </div>
       <div className="">
         {/* store state goto /keywords */}
-        <button className="btn btn-primary bg-primary text-white font-poppins">
-          Generate
-        </button>
+        <Link href={link}>
+          <a className="btn btn-primary bg-primary text-white font-poppins">
+            Generate
+          </a>
+        </Link>
       </div>
     </div>
   )
