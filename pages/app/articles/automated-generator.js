@@ -10,11 +10,13 @@ export class ManualGenarate extends Component {
     return (
       <DashboardLayout customChildren={true}>
         <div className="lg:container px-4">
-          <div className="grid article-generator-container">
-            <GeneratorOptions
-              title="Generated Articles"
-            />
-            <div className="generator-container">
+          <div className="grid article-generator-container md:grid-cols-[22.7%_auto_14.9%] grid-cols-1">
+            <div className="md:mb-0 mb-4">
+              <GeneratorOptions
+                title="Generated Articles"
+              />
+            </div>
+            <div className="generator-container md:mb-0 mb-4">
               <GeneratorMain />
               <GeneratorMain />
             </div>

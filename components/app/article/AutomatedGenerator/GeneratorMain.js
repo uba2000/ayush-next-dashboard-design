@@ -4,11 +4,11 @@ import Refresh from '../../../Refresh'
 export class GeneratorMain extends Component {
   render() {
     return (
-      <div className="generator-container mb-5 generator-main" style={{ padding: '30px 32px' }}>
+      <div className="generator-container md:px-8 px-4 mb-5 generator-main" style={{ padding: '30px 32px' }}>
         <div className="relative">
           <div className="mb-4 flex justify-between">
-            <div>
-              <h2 className="text-3xl leading-9 font-bold capitalize text-black">
+            <div className='mr-4 md:mr-0'>
+              <h2 className="md:text-3xl text-xl leading-9 font-bold capitalize text-black">
                 What is SEO and how it works?
               </h2>
             </div>
