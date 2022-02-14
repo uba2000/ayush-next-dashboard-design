@@ -5,7 +5,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <div>
       <Head>
-        <meta name="viewport" content="width=1200"></meta>
+        {/* <meta name="viewport" content="width=1200"></meta> */}
         <link
           rel='stylesheet'
           href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'

@@ -14,7 +14,7 @@ function EditProject() {
     <DashboardLayout>
       {/* Create Project */}
       <FrameBox>
-        <form action="">
+        <form action="" className='w-full'>
           <FormGroup label='Project Title' imp={true} labelFor="project">
             <input id='project' type='text' value={title} onChange={(e) => setTitle(e.target.value)} placeholder='Your Campaign, Product, or client' />
           </FormGroup>

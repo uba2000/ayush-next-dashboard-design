@@ -5,12 +5,12 @@ function DashboardLanding({ landingText, subLandingText, children }) {
     <section className='' style={{ marginBottom: '120px' }}>
       <div className="text-center">
         <div className="mb-4">
-          <h2 className='text-landing font-bold font-poppins capitalize'>
+          <h2 className='md:text-landing text-[42px] font-bold font-poppins capitalize'>
             {landingText}
           </h2>
         </div>
         <div className="mx-auto" style={{ maxWidth: '737px' }}>
-          <p className="mb-0 text-subLanding text-ash font-poppins">
+          <p className="mb-0 md:text-subLanding text-[13px] leading-[19px] text-ash font-poppins">
             {subLandingText}
           </p>
         </div>

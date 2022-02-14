@@ -5,15 +5,15 @@ function DashboardFooter() {
   return (
     <footer className='border-t border-t-black text-base py-7 flex justify-center'>
       <div className="font-poppins container" style={{ fontSize: '15px', lineHeight: '35px' }}>
-        <div className="grid grid-cols-2">
-          <div className="">
+        <div className="grid md:grid-cols-2 grid-cols-1">
+          <div className="mb-3 md:mb-0">
             <p className="mb-0">
               &copy; 2022 .ai, All rights reserved.
             </p>
           </div>
           <div className="">
-            <ul className='flex justify-end'>
-              <li className="inline font-medium px-3">
+            <ul className='flex md:justify-end'>
+              <li className="inline font-medium md:px-3 pr-3">
                 <Link href='/'>
                   <a> Privacy Policy </a>
                 </Link>

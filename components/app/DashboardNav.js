@@ -11,11 +11,13 @@ function DashboardNav() {
     <header id="header" style={headerStyle} className='font-poppins flex items-center bg-white'>
       <div className="container mx-auto">
         <div className="flex justify-between">
-          <div className="text-brand font-extrabold font-poppins text-black">
-            SEO Content .Ai
-          </div>
+          <Link href='/app/dashboard'>
+            <a className="block whitespace-nowrap md:text-brand text-[30.4024px] font-extrabold font-poppins text-black">
+              SEO Content .Ai
+            </a>
+          </Link>
 
-          <div className="flex justify-end items-center">
+          <div className="md:flex hidden justify-end items-center">
             <ul>
               <li className='inline py-2 px-6'>
                 <Link href='/app/projects/new-project'>
@@ -39,6 +41,12 @@ function DashboardNav() {
                 </Link>
               </li>
             </ul>
+          </div>
+
+          <div className="md:hidden flex justify-center items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
           </div>
         </div>
       </div>
