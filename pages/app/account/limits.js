@@ -11,7 +11,7 @@ function limits() {
             <h4>Subscription Information</h4>
           </div>
           <div className={styles.accountFrameboxCardSection}>
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-2 gap-2">
               <p>
                 Current plan
               </p>
@@ -21,7 +21,7 @@ function limits() {
             </div>
           </div>
           <div className={styles.accountFrameboxCardSection}>
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-2 gap-2">
               <p>
                 Next Billing Date
               </p>
@@ -31,7 +31,7 @@ function limits() {
             </div>
           </div>
           <div className={styles.accountFrameboxCardSection}>
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-2 gap-2">
               <p>
                 Usage reset date for weekly limits
               </p>
@@ -41,7 +41,7 @@ function limits() {
             </div>
           </div>
           <div className={styles.accountFrameboxCardSection}>
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-2 gap-2">
               <p>
                 Usage reset date for month limits
               </p>
@@ -56,7 +56,7 @@ function limits() {
             <h4>Subscription Limits</h4>
           </div>
           <div className={styles.accountFrameboxCardSection}>
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-2 gap-2">
               <p>
                 AI-Writing
               </p>
@@ -66,7 +66,7 @@ function limits() {
             </div>
           </div>
           <div className={styles.accountFrameboxCardSection}>
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-2 gap-2">
               <p>
                 AI-Rewriting
               </p>
@@ -76,7 +76,7 @@ function limits() {
             </div>
           </div>
           <div className={styles.accountFrameboxCardSection}>
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-2 gap-2">
               <p>
                 AI-Simplifying
               </p>
@@ -86,7 +86,7 @@ function limits() {
             </div>
           </div>
           <div className={styles.accountFrameboxCardSection}>
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-2 gap-2">
               <p>
                 AI-Expanding
               </p>

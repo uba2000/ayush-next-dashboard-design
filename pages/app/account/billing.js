@@ -12,7 +12,7 @@ function billing() {
   const [subscriptionsNav, setSubscriptionsNav] = useState(true)
   const [invoiceNav, setInvoiceNav] = useState(false)
   const [methodsNav, setMethodsNav] = useState(false)
-  const [availablePaymentMethod, setAvailablePaymentMethod] = useState(true)
+  const [availablePaymentMethod, setAvailablePaymentMethod] = useState(false)
 
   function toggleNav(nav) {
     setSubscriptionsNav(false)
@@ -29,7 +29,7 @@ function billing() {
   return (
     <AccountLayout>
       <div className="mb-8">
-        <div className='accountFrameboxNav'>
+        <div className='accountFrameboxNav overflow-x-auto'>
           <div onClick={() => toggleNav('s')} className={`accountFrameboxNavItem ${subscriptionsNav && 'accountFrameboxNavItemActive'}`}>
             Subscriptions
           </div>

@@ -10,8 +10,10 @@ function AccountBillingSubscription() {
           Active Subscriptions
         </p>
       </div>
-      <AccountBillingTable />
-      <div className="mt-6 px-7 mb-6">
+      <div className="overflow-x-auto">
+        <AccountBillingTable />
+      </div>
+      <div className="mt-6 px-7 mb-6 grid md:grid-cols-[163px_245px] grid-cols-1 gap-4">
         <button className="btn btn-primary">Upgrade Plan</button>
         <button className="btn btn-danger">Cancel Subscriptions</button>
       </div>
