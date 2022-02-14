@@ -27,7 +27,7 @@ function pricing() {
                   checked={enabled}
                   onChange={setEnabled}
                   className={`${enabled ? 'bg-primary-300' : 'bg-primary-100'}
-          relative inline-flex items-center flex-shrink-0 h-[39.04px] w-[63px] border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+          relative inline-flex items-center flex-shrink-0 h-[39.04px] w-[82px] p-[10px] border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
                 >
                   <span className="sr-only">Use setting</span>
                   <span
@@ -46,51 +46,101 @@ function pricing() {
             </div>
           </div>
           <div className='grid grid-cols-3 mt-5 gap-[30px]'>
-            <div className="">
-              <p className="text-4 leading-[22px] font-bold mb-[10px]">Starter Plan</p>
-              <div className="flex mb-5">
-                <div className='text-[22px] leading-[33px]'>$</div>
-                <div>
-                  <div className="font-helvetica">
-                    <span className='text-[56px] leading-[57px]'>24</span>
-                    <span className='text-[22px] leading-[33px]'>.99/mo</span>
+            {!enabled ? (
+              <>
+                <div className="">
+                  <p className="text-4 leading-[22px] font-bold mb-[10px]">Starter Plan</p>
+                  <div className="flex mb-5">
+                    <div className='text-[22px] leading-[33px]'>$</div>
+                    <div>
+                      <div className="font-helvetica">
+                        <span className='text-[56px] leading-[57px]'>24</span>
+                        <span className='text-[22px] leading-[33px]'>.99/mo</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <button className='btn btn-deactive w-full text-base leading-5'>Subscribe</button>
                   </div>
                 </div>
-              </div>
-              <div>
-                <button className='btn btn-deactive w-full text-base leading-5'>Subscribe</button>
-              </div>
-            </div>
-            <div className="">
-              <p className="text-4 leading-[22px] font-bold mb-[10px]">Standard Plan</p>
-              <div className="flex mb-5">
-                <div className='text-[22px] leading-[33px]'>$</div>
-                <div>
-                  <div className="font-helvetica">
-                    <span className='text-[56px] leading-[57px]'>74</span>
-                    <span className='text-[22px] leading-[33px]'>.99/mo</span>
+                <div className="">
+                  <p className="text-4 leading-[22px] font-bold mb-[10px]">Standard Plan</p>
+                  <div className="flex mb-5">
+                    <div className='text-[22px] leading-[33px]'>$</div>
+                    <div>
+                      <div className="font-helvetica">
+                        <span className='text-[56px] leading-[57px]'>74</span>
+                        <span className='text-[22px] leading-[33px]'>.99/mo</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <button className='btn btn-primary w-full rounded-[3px] text-base leading-5 font-bold'>Current Plan</button>
                   </div>
                 </div>
-              </div>
-              <div>
-                <button className='btn btn-primary w-full rounded-[3px] text-base leading-5 font-bold'>Current Plan</button>
-              </div>
-            </div>
-            <div className="">
-              <p className="text-4 leading-[22px] font-bold mb-[10px]">Premium Plan</p>
-              <div className="flex mb-5">
-                <div className='text-[22px] leading-[33px]'>$</div>
-                <div>
-                  <div className="font-helvetica">
-                    <span className='text-[56px] leading-[57px]'>149</span>
-                    <span className='text-[22px] leading-[33px]'>.99/mo</span>
+                <div className="">
+                  <p className="text-4 leading-[22px] font-bold mb-[10px]">Premium Plan</p>
+                  <div className="flex mb-5">
+                    <div className='text-[22px] leading-[33px]'>$</div>
+                    <div>
+                      <div className="font-helvetica">
+                        <span className='text-[56px] leading-[57px]'>149</span>
+                        <span className='text-[22px] leading-[33px]'>.99/mo</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <button className='btn btn-deactive w-full text-base leading-5'>Subscribe</button>
                   </div>
                 </div>
+              </>
+            ) : (<>
+              <div className="">
+                <p className="text-4 leading-[22px] font-bold mb-[10px]">Starter Plan</p>
+                <div className="flex mb-5">
+                  <div className='text-[22px] leading-[33px]'>$</div>
+                  <div>
+                    <div className="font-helvetica">
+                      <span className='text-[56px] leading-[57px]'>299</span>
+                      <span className='text-[22px] leading-[33px]'>.88/yr</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <button className='btn btn-deactive w-full text-base leading-5'>Subscribe</button>
+                </div>
               </div>
-              <div>
-                <button className='btn btn-deactive w-full text-base leading-5'>Subscribe</button>
+              <div className="">
+                <p className="text-4 leading-[22px] font-bold mb-[10px]">Standard Plan</p>
+                <div className="flex mb-5">
+                  <div className='text-[22px] leading-[33px]'>$</div>
+                  <div>
+                    <div className="font-helvetica">
+                      <span className='text-[56px] leading-[57px]'>899</span>
+                      <span className='text-[22px] leading-[33px]'>.88/yr</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <button className='btn btn-primary w-full rounded-[3px] text-base leading-5 font-bold'>Current Plan</button>
+                </div>
               </div>
-            </div>
+              <div className="">
+                <p className="text-4 leading-[22px] font-bold mb-[10px]">Premium Plan</p>
+                <div className="flex mb-5">
+                  <div className='text-[22px] leading-[33px]'>$</div>
+                  <div>
+                    <div className="font-helvetica">
+                      <span className='text-[56px] leading-[57px]'>1,799</span>
+                      <span className='text-[22px] leading-[33px]'>.99/yr</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <button className='btn btn-deactive w-full text-base leading-5'>Subscribe</button>
+                </div>
+              </div>
+            </>)}
           </div>
         </div>
         <div className="">
