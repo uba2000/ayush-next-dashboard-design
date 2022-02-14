@@ -26,11 +26,11 @@ function AccountPaymentMethods() {
       </div>
       {cardChecked && <div className={styles.accountFrameboxCardSection}>
         <div className="pl-[23px] pr-[23px] py-6 cardItemStyle">
-          <div className="grid grid-cols-2 gap-[18.32px]">
+          <div className="grid md:grid-cols-2 gap-[18.32px] grid-cols-1">
             <FormGroup label='Card Number' labelFor='cardno'>
               <input id='cardno' type="text" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} className={styles.formGroupInput} />
             </FormGroup>
-            <div className="grid grid-cols-2 gap-[18.32px]">
+            <div className="grid md:grid-cols-2 gap-[18.32px] grid-cols-1">
               <FormGroup label='Expiration Date' labelFor='expDate'>
                 <input id='expDate' type="text" value={expDate} onChange={(e) => setExpDate(e.target.value)} placeholder='MM/YY' className={styles.formGroupInput} />
               </FormGroup>
@@ -39,7 +39,7 @@ function AccountPaymentMethods() {
               </FormGroup>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-[18.32px]">
+          <div className="grid md:grid-cols-2 gap-[18.32px] grid-cols-1">
             <FormGroup label='First Name' labelFor='firstName'>
               <input id='firstName' type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className={styles.formGroupInput} />
             </FormGroup>
