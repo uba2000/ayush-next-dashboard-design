@@ -1,5 +1,7 @@
 .breadcrumbs {
   font-family: Poppins;
+  display: flex;
+  flex-wrap: wrap;
   font-style: normal;
   font-weight: 500;
   font-size: 15.9994px;
@@ -10,7 +12,7 @@
 
 .breadcrumbs li {
   display: inline;
-  padding: 0 8px;
+  padding: 8px;
   position: relative;
 }
 
