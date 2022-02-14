@@ -5,12 +5,14 @@ import Link from 'next/link'
 import AccountBillingSubscription from '../../../components/app/account/AccountBillingSubscription'
 import AccountBillingInvoices from '../../../components/app/account/AccountBillingInvoices'
 import AccountPaymentMethods from '../../../components/app/account/AccountPaymentMethods'
+import AccountAvailablePaymentMethod from '../../../components/app/account/AccountAvailablePaymentMethod'
 
 function billing() {
 
   const [subscriptionsNav, setSubscriptionsNav] = useState(true)
   const [invoiceNav, setInvoiceNav] = useState(false)
   const [methodsNav, setMethodsNav] = useState(false)
+  const [availablePaymentMethod, setAvailablePaymentMethod] = useState(true)
 
   function toggleNav(nav) {
     setSubscriptionsNav(false)
@@ -41,7 +43,9 @@ function billing() {
         <div className='border border-solid border-gray-800 bg-white w-full' style={{ minHeight: '62.45px' }}>
           {subscriptionsNav && <AccountBillingSubscription />}
           {invoiceNav && <AccountBillingInvoices />}
-          {methodsNav && <AccountPaymentMethods />}
+          {methodsNav && (
+            !availablePaymentMethod ? <AccountPaymentMethods /> : <AccountAvailablePaymentMethod />
+          )}
         </div>
       </div>
       {subscriptionsNav && <div className={styles.accountFramebox}>

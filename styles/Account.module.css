@@ -156,3 +156,28 @@
   line-height: 29px;
   color: #000000;
 }
+
+.accountPaymentAvailableContainer {
+  position: relative;
+  padding: 25px 23px;
+  padding-left: 63px;
+}
+
+.removerPaymentContainer {
+  position: absolute;
+  top: 3px;
+  left: -35px;
+  cursor: pointer;
+  height: 16.67px;
+  width: 16.67px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.removerPayment {
+  width: 10px;
+  height: 1.67px;
+  background-color: #000000;
+  display: block;
+}

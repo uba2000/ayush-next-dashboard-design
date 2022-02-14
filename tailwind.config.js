@@ -34,6 +34,7 @@ module.exports = {
         poppins: ['Poppins',],
         inter: ['Inter',],
         helvetica: ['Poppins',],
+        roboto: ['Poppins',],
       },
       colors: {
         'buttonGreen': '#00A141',
