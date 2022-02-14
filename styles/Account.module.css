@@ -42,6 +42,13 @@
   font-weight: 600;
   font-size: 16.3721px;
   line-height: 25px;
+  font-family: "Poppins";
+  background: #ffffff;
+  border: 1px solid #dcd8e7;
+  border-radius: 3px;
+  padding: 11.5px 27.18px;
+  /* height: 45px; */
+  width: 100%;
 }
 
 .formGroupInput::placeholder {
@@ -62,4 +69,90 @@
 .formGroupInput:-moz-placeholder {
   /* Firefox 18- */
   font-weight: normal;
+}
+
+.accountFramebox {
+  background-color: #ffffff;
+  border: 0.90956px solid #dcd8e7;
+  padding: 21px 30px;
+  width: 100%;
+  margin-bottom: 33px;
+}
+
+.accountFrameboxCardSection {
+  background: #ffffff;
+  padding: 18.5px 30px;
+}
+
+.accountFrameboxCardSection:not(:last-child) {
+  border-bottom: 0.90956px solid #dcd8e7;
+}
+
+.accountFrameboxCardSection h4 {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 36px;
+  color: #000000;
+  /* white-space: nowrap; */
+}
+
+.accountFrameboxCardSection p {
+  font-weight: 500;
+  font-size: 16.3721px;
+  line-height: 25px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  display: block;
+  /* white-space: nowrap; */
+}
+
+.accountFrameboxTitle {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 36px;
+  color: #000000;
+  margin-bottom: 9px;
+}
+
+.accountFrameboxContent {
+  margin-bottom: 21.83px;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 27px;
+  color: #000000;
+}
+
+.accountTableHead {
+  border-bottom: 0.90956px solid #dcd8e7;
+}
+
+.accountTableHead th {
+  padding: 21px 30px;
+  font-weight: 600;
+  font-size: 13.0398px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.accountTableBody td {
+  white-space: nowrap;
+  padding: 13px 30px;
+  font-weight: normal;
+  font-size: 13.0398px;
+  line-height: 20px;
+}
+
+.pricingTItle {
+  font-weight: bold;
+  font-size: 32.7492px;
+  line-height: 48px;
+  color: #000000;
+}
+
+.pricingSubTitle {
+  font-weight: normal;
+  font-size: 19.4801px;
+  line-height: 29px;
+  color: #000000;
 }

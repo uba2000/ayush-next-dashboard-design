@@ -2,6 +2,7 @@ const colors = require('tailwindcss/colors')
 
 
 module.exports = {
+  important: true,
   content: [
     // Example content paths...
     './public/**/*.html',
@@ -32,16 +33,23 @@ module.exports = {
       fontFamily: {
         poppins: ['Poppins',],
         inter: ['Inter',],
+        helvetica: ['Poppins',],
       },
       colors: {
         'buttonGreen': '#00A141',
+        'primary-100': 'rgba(0, 161, 65, 0.1)',
+        'primary-300': 'rgba(0, 161, 65, 0.3)',
+        'primary-700': 'rgba(0, 161, 65, 0.7)',
         'primary': '#00A141',
+        'primary-light': '#F8FFFB',
         'green': 'rgb(64, 237, 195)',
         'green-500': 'rgb(127, 251, 169)',
         'yellow': 'rgb(211, 248, 154)',
         'ash': '#757575',
         'gray-500': '#44444F',
+        'gray-800': '#dcd8e7',
         'gray-900': '#E2E2EA',
+        'gray-1000': '#f7f9fa',
         'purple': colors.violet,
       },
       fontSize: {

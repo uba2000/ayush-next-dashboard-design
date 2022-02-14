@@ -233,38 +233,58 @@ table {
   text-align: left;
 }
 
-table thead {
+table.vary tbody td {
+  padding: 15.5px 20px;
+}
+
+table.vary tbody tr:nth-child(odd) {
+  background-color: rgba(233, 255, 242, 0.3);
+}
+
+table:not(.new) thead {
   border-style: solid;
   border-color: #dcdfe5;
   border-top-width: 2px;
   border-bottom-width: 2px;
 }
 
-table thead th {
+table:not(.new) thead th,
+table.section thead th {
   padding: 28.5px 0;
   font-weight: bold;
   font-size: 17.0647px;
 }
 
-table tbody tr td {
+table.section thead th {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+table:not(.new) tbody tr td,
+table.section tbody tr td {
   padding: 22.39px 0 19.32px;
 }
 
-table tbody tr:not(:first-child) td {
+table.section tbody tr td {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+table:not(.new) tbody tr:not(:first-child) td {
   padding-top: 19.32px;
 }
 
-table tbody td.main {
+table:not(.new) tbody td.main {
   font-weight: normal;
   font-size: 17.0647px;
 }
 
-table tbody td.tag {
+table:not(.new) tbody td.tag {
   font-weight: normal;
   font-size: 10.0571px;
 }
 
-table tbody td.days {
+table:not(.new) tbody td.days {
   font-weight: normal;
   font-size: 15px;
 }
@@ -272,7 +292,6 @@ table tbody td.days {
 .btn {
   outline: none;
   padding: 12.31px 39px;
-  border-radius: 0;
   cursor: pointer;
   border: 2px solid rgba(0, 161, 65, 1);
   box-shadow: none;
@@ -290,11 +309,13 @@ table tbody td.days {
 .btn-white:hover {
   color: #000000;
   background-color: #ffffff;
+  border-radius: 0;
   border: 1.10544px solid #000000;
 }
 
 .btn-primary--outline,
 .btn-primary--outline:hover {
+  border-radius: 0;
   color: #00a141;
   background-color: #ffffff;
   border: 1.10544px solid #00a141;
@@ -302,12 +323,22 @@ table tbody td.days {
 
 .btn-reset,
 .btn-reset:hover {
+  border-radius: 0;
   color: #000000;
-  background-color: #ffffff;
+  background-color: transparent;
+  border: none;
+}
+
+.btn-danger,
+.btn-danger:hover {
+  border-radius: 0;
+  color: #ff0000;
+  background-color: transparent;
   border: none;
 }
 
 .btn-gradient {
+  border-radius: 0;
   background: linear-gradient(
     90.72deg,
     rgb(64, 237, 195) 0%,
@@ -318,6 +349,7 @@ table tbody td.days {
 
 .btn-primary,
 .btn-primary:hover {
+  border-radius: 0;
   padding: 11px 34px;
   font-family: "Poppins";
   color: white;
@@ -330,8 +362,25 @@ table tbody td.days {
   background-color: #00a141;
 }
 
+.btn-deactive,
+.btn-deactive:hover {
+  border-radius: 0;
+  padding: 11px 34px;
+  font-family: "Helvetica";
+  color: #000000;
+
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 19px;
+  text-align: center;
+  letter-spacing: 0.0813187px;
+  border-color: #f8fffb;
+  background-color: #f8fffb;
+}
+
 .btn-dark,
 .btn-dark:hover {
+  border-radius: 0;
   padding: 11px 34px;
   font-family: "Poppins";
 
@@ -466,4 +515,23 @@ table tbody td.days {
   to {
     transform: rotate(360deg);
   }
+}
+
+.accountFrameboxNav {
+  background-color: transparent;
+  display: flex;
+}
+
+.accountFrameboxNavItem {
+  padding: 6.5px 30px;
+  font-weight: 500;
+  font-size: 13.0398px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.accountFrameboxNavItemActive {
+  background-color: #ffffff;
+  border: 0.90956px solid #dcd8e7;
+  border-bottom: none;
 }

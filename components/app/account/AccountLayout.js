@@ -19,21 +19,21 @@ function AccountLayout({ children }) {
                 </Link>
               </li>
               <li>
-                <Link href='/app/account'>
+                <Link href='/app/account/team'>
                   <a>
                     Team Member
                   </a>
                 </Link>
               </li>
               <li>
-                <Link href='/app/account'>
+                <Link href='/app/account/limits'>
                   <a>
                     Limit & Usage
                   </a>
                 </Link>
               </li>
               <li>
-                <Link href='/app/account'>
+                <Link href='/app/account/billing'>
                   <a>
                     Your Billing
                   </a>

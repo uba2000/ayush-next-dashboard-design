@@ -1,0 +1,22 @@
+import React from 'react'
+import AccountBillingTable from './AccountBillingTable'
+import styles from '../../../styles/Account.module.css'
+
+function AccountBillingSubscription() {
+  return (
+    <>
+      <div className={styles.accountFrameboxCardSection}>
+        <p>
+          Active Subscriptions
+        </p>
+      </div>
+      <AccountBillingTable />
+      <div className="mt-6 px-7 mb-6">
+        <button className="btn btn-primary">Upgrade Plan</button>
+        <button className="btn btn-danger">Cancel Subscriptions</button>
+      </div>
+    </>
+  )
+}
+
+export default AccountBillingSubscription
