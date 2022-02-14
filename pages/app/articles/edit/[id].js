@@ -68,7 +68,7 @@ export class EditArticle extends Component {
                   </div>
                 </div>
               </div>
-              <div className="generator-container relative" style={{ padding: '25px 50px' }}>
+              <div className="generator-container relative py-[25px] md:px-[50px] px-4">
                 <div className="content">
                   This means offering your services at a monthly or yearly rate. This way, your client doesn’t have to pay you for hours worked or the number of projects you work on. All they have to do is pay a flat sum to avail your services.
 
@@ -111,7 +111,7 @@ export class EditArticle extends Component {
                   {/* pencil */}
                 </div>
               </div>
-              <div className="flex mt-5 justify-end">
+              <div className="md:flex grid grid-cols-1 gap-5 mt-5 md:justify-end">
                 <button className="btn btn-reset" style={{ marginRight: '6.54px', fontFamily: 'Poppins' }}>
                   Download
                 </button>
