@@ -41,15 +41,15 @@ export class AllProjects extends Component {
         >
           <div className="mt-12">
             <div className="flex justify-end mb-8">
-              <Link href='/app/new-project'>
+              <Link href='/app/projects/new-project'>
                 <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
                   New Project
                 </a>
               </Link>
             </div>
-            <div className="flex justify-between">
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
               <div className="">
-                <p className="text-wild capitalize font-semibold font-poppins">
+                <p className="text-left text-wild capitalize font-semibold font-poppins">
                   All Projects
                 </p>
               </div>

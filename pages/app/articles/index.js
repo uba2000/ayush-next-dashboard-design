@@ -34,7 +34,7 @@ export class index extends Component {
     return (
       <DashboardLayout>
         <ArticleLayout>
-          <div>
+          <div className='mt-8'>
             <div className="flex justify-end mb-8">
               <Link href='/app/new-project'>
                 <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
@@ -42,7 +42,7 @@ export class index extends Component {
                 </a>
               </Link>
             </div>
-            <div className="flex justify-between">
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
               <div className="">
                 <p className="text-wild capitalize font-semibold font-poppins">
                   All Articles

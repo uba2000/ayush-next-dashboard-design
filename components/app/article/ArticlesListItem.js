@@ -84,7 +84,7 @@ function ArticleListItem(props) {
           {date}
         </span>
       </td>
-      <Menu as='td' className='relative inline-block'>
+      <Menu as='td' className='relative'>
         <div>
           <Menu.Button className='inline-flex justify-center'>
             <svg

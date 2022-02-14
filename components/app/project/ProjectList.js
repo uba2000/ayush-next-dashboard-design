@@ -17,11 +17,11 @@ function ProjectList(props) {
   }
   return (
     <>
-      <div className="mt-8">
+      <div className="mt-8 overflow-x-auto">
         <table>
           <thead>
             <tr>
-              <th className='cursor-pointer' style={{ width: '10%' }}>
+              <th className='cursor-pointer' style={{ width: '10%', minWidth: '98px' }}>
                 <div className="flex items-center justify-center">
                   <label className="custom-checkbox-container">
                     <input type="checkbox" />
@@ -29,22 +29,22 @@ function ProjectList(props) {
                   </label>
                 </div>
               </th>
-              <th style={{ width: '40%' }}>
+              <th style={{ width: '40%', minWidth: '397pxpx' }}>
                 <span className="capitalize">
                   All Projects
                 </span>
               </th>
-              <th style={{ width: '20%' }}>
+              <th style={{ width: '20%', minWidth: '198px' }}>
                 <span className="capitalize">
                   Project Tags
                 </span>
               </th>
-              <th style={{ width: '20%' }}>
+              <th style={{ width: '20%', minWidth: '198px' }}>
                 <span className="capitalize">
                   Date
                 </span>
               </th>
-              <th></th>
+              <th style={{ minWidth: '98px' }}></th>
             </tr>
           </thead>
           <tbody>

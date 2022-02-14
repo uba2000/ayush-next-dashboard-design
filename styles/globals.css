@@ -253,6 +253,7 @@ table.section thead th {
   padding: 28.5px 0;
   font-weight: bold;
   font-size: 17.0647px;
+  white-space: nowrap;
 }
 
 table.section thead th {
@@ -262,7 +263,13 @@ table.section thead th {
 
 table:not(.new) tbody tr td,
 table.section tbody tr td {
-  padding: 22.39px 0 19.32px;
+  padding: 22.39px 0px 19.32px;
+}
+
+table:not(.new) thead th,
+table:not(.new) tbody tr td {
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 table.section tbody tr td {
