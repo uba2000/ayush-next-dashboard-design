@@ -11,7 +11,7 @@ function features() {
         subLandingText='I am so lorem ipum deloas In deloas with deloas Lorem ipsum dolo amet, consectetur adipiscing elit Porta pharetra scelerisque lacus id vitae aenean'
       />
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-[30px]">
         <div className="">
           <Feature
             link='/app/projects/new-project/keywords'

@@ -13,7 +13,7 @@ function keywords() {
       >
         <form action="">
           <FormGroup>
-            <input style={{ maxWidth: '560.14px', width: '100%' }} type="text" className='thick-border mx-auto' placeholder='Keywords: seo' />
+            <input style={{ maxWidth: '560.14px', width: '100%' }} type="text" className='thick-border mx-auto focus:border-black' placeholder='Keywords: seo' />
           </FormGroup>
           <FormGroup>
             {/* <input type="submit" className='btn btn-primary w-fit bg-primary text-white' value='Generate' /> */}

@@ -44,7 +44,7 @@ export class GeneratorOption extends Component {
     const { title } = this.props;
     const { checked, load } = this.state;
     return (
-      <div className="option-container relative border border-solid bg-white cursor-pointer" onClick={this.clickOption}>
+      <div className="option-container relative border border-solid bg-white hover:bg-primary cursor-pointer" onClick={this.clickOption}>
         <div className="option-select text-left">
           <p className="mb-0 flex-grow flex-shrink">
             {title}

@@ -41,10 +41,10 @@ function OverallScore() {
         </div>
       </div>
       <div className="flex mt-4">
-        <button className="btn btn-primary text-white" style={{ ...btn, marginRight: '6.54px' }}>
+        <button className="btn btn-primary text-white mb-[6.54px]" style={{ ...btn, marginRight: '6.54px' }}>
           Publish to Wordpress
         </button>
-        <button className="btn btn-primary--outline" style={btn}>
+        <button className="btn btn-primary--outline  mb-[6.54px]" style={btn}>
           Download
         </button>
       </div>

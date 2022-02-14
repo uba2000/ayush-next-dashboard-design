@@ -15,7 +15,7 @@ function Dashboard() {
       {/*  Generate Box*/}
       <FrameBox>
         <div style={{ height: '586px' }} className="flex items-center mx-auto">
-          <div className="text-center">
+          <div className="text-center px-[182.5px] py-[201px]">
             <h3 className="section-title mb-3">
               Start generating content
             </h3>
