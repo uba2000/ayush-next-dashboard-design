@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 function AuthNav() {
   return (
-    <div className="relative flex w-full text-white px-12 md:px-2 py-10 justify-between items-center z-10">
+    <div className="relative flex w-full text-white md:px-2 py-10 justify-between items-center z-10">
       <Link href="/">
         <a>
           <div className="font-bold text-2xl md:text-3xl font-poppins">
@@ -11,10 +11,10 @@ function AuthNav() {
           </div>
         </a>
       </Link>
-      <div className="hidden text md:text-xl font-poppins md:flex">
+      <div className="text md:text-xl font-poppins flex">
         <Link href="/signin">
-          <a className="text-white border border-white rounded-md py-3 px-7 cursor-pointer text-bold">
-            <span className='text-bold'>Sign In</span>
+          <a className="text-white h-[40.94px] flex items-center px-[29.49px] py-0 border border-white rounded-md cursor-pointer text-bold">
+            <span className='text-[13.1067px]'>Sign In</span>
           </a>
         </Link>
       </div>

@@ -10,7 +10,7 @@ function AuthLayout({ children }) {
         <AuthNav />
 
         { /* MAIN BODY */}
-        <div className='flex container justify-center'>
+        <div className='flex container justify-center px-0'>
           <GradientDesign />
 
 

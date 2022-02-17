@@ -8,6 +8,7 @@ function keywords() {
   return (
     <DashboardLayout>
       <DashboardLanding
+        oneChild={true}
         landingText='Please A Keyword'
         subLandingText='I am so lorem ipum deloas In working with you Lorem ipsum dolo amet, consectetur adipiscing elit Porta pharetra scelerisque lacus id vitae aenean'
       >

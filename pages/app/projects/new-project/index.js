@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React, { useState, Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import DashboardLayout from '../../../../components/app/DasboardLayout'
 import DashboardLanding from '../../../../components/app/DashboardLanding'
@@ -14,7 +14,15 @@ function NewProject() {
   const btnStyle = {
     width: 'fit-content'
   }
+  const [projectTitle, setProjectTitle] = useState('')
+  const [showPredict, setPredictTitle] = useState(false)
   const [selectedIndustry, setSelectedIndustry] = useState(industries[1])
+
+  const predictTitle = (value) => {
+    setProjectTitle(value);
+    if (projectTitle.length > 2) setPredictTitle(true);
+    else setPredictTitle(false);
+  }
 
   return (
     <DashboardLayout>
@@ -27,7 +35,35 @@ function NewProject() {
       <FrameBox>
         <form action="" className='w-full'>
           <FormGroup label='Project Title' imp={true} labelFor="project">
-            <input id='project' type='text' placeholder='Your Campaign, Product, or client' />
+            <input id='project' type='text' value={projectTitle} onChange={(e) => predictTitle(e.target.value)} placeholder='Your Campaign, Product, or client' />
+            <Transition
+              as={Fragment}
+              show={showPredict}
+              enter='transition ease-out duration-100 overflow-hidden'
+              enterFrom='transform min-h-0'
+              enterTo='transform max-h-[105px] h-auto'
+              leave='transition ease-in'
+              leaveFrom='transform duration-75 max-h-[105px] h-auto'
+              leaveTo='transform min-h-0'
+            >
+              <ul className='predict-title'>
+                <li className='px-[27.18px] py-[10px]'>
+                  <span>
+                    {projectTitle} <span className='font-bold'>Class Notes</span>
+                  </span>
+                </li>
+                <li className='px-[27.18px] py-[10px]'>
+                  <span>
+                    {projectTitle} <span className='font-bold'>Agency</span>
+                  </span>
+                </li>
+                <li className='px-[27.18px] py-[10px]'>
+                  <span>
+                    {projectTitle} <span className='font-bold'>Book Article</span>
+                  </span>
+                </li>
+              </ul>
+            </Transition>
           </FormGroup>
 
           <FormGroup label='Prize Tags' imp={true} labelFor="prize">

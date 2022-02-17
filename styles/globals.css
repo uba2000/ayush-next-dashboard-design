@@ -19,6 +19,13 @@ a {
   box-sizing: border-box;
 }
 
+.foot-link {
+  background: -webkit-linear-gradient(315deg, #40edc3 0%, #7ffba9 50%, #d3f89a);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 input {
   width: 100%;
   transition: all 0.4s;
