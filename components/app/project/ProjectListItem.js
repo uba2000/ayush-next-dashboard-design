@@ -4,21 +4,21 @@ import Link from 'next/link'
 
 function ProjectListItem(props) {
   const { title, tags, date, checked } = props.item
-
-  const [open, setOpen] = useState(true)
   const [projectChecked, setProjectChecked] = useState(checked)
 
+  let [isOpen, setIsOpen] = useState(false)
+
   function closeModal() {
-    setOpen(false)
+    setIsOpen(false)
   }
 
   function openModal() {
-    setOpen(true)
+    setIsOpen(true)
   }
 
   return (
     <tr>
-      <Transition appear show={open} as={Fragment}>
+      <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
           className="fixed inset-0 z-10 overflow-y-auto"
@@ -34,8 +34,7 @@ function ProjectListItem(props) {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              {/* <Dialog.Overlay className="fixed inset-0" /> */}
-              <Dialog.Overlay className=' fixed transition-opacity' />
+              <Dialog.Overlay className="fixed inset-0 overlay" />
             </Transition.Child>
 
             {/* This element is to trick the browser into centering the modal contents. */}
@@ -54,21 +53,18 @@ function ProjectListItem(props) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              {/* <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl"> */}
-              <div className='modal-container'>
-                <div>
-                  <Dialog.Title
-                    as="h3"
-                    // className="text-lg font-medium leading-6 text-gray-900"
-                    className='title'
-                  >
-                    Are you sure?
-                  </Dialog.Title>
-                  <div className="subtitle">
-                    <span>Deleting is final and cannot be reversed. are you sure you still want to proceed?</span>
-                  </div>
+              <div className="inline-block modal-container my-8 overflow-hidden text-center align-middle transition-all transform bg-white">
+                <Dialog.Title
+                  as="h3"
+                  className="title"
+                >
+                  Are you sure?
+                </Dialog.Title>
+                <div className="subtitle">
+                  <span>Deleting is final and cannot be reversed. are you sure you still want to proceed?</span>
                 </div>
-                <div className="flex justify-center">
+
+                <div className="mt-4">
                   <button className="btn btn-primary bg-primary text-white">
                     Confirm
                   </button>

@@ -5,58 +5,71 @@ import Link from 'next/link'
 function ArticleListItem(props) {
   const { title, tags, date, checked } = props.item
 
-  const [open, setOpen] = useState(false)
   const [articleChecked, setArticleChecked] = useState(checked)
+
+  let [isOpen, setIsOpen] = useState(false)
+
+  function closeModal() {
+    setIsOpen(false)
+  }
+
+  function openModal() {
+    setIsOpen(true)
+  }
 
   return (
     <tr>
-      <Transition.Root as={Fragment} show={open}>
-        <Dialog className='z-50 fixed' onClose={setOpen} as='div'>
-          <div className="flex justify-center items-center min-h-screen">
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-10 overflow-y-auto"
+          onClose={closeModal}
+        >
+          <div className="min-h-screen px-4 text-center">
             <Transition.Child
               as={Fragment}
-              enter='ease-out duration-300'
-              enterFrom='opacity-0'
-              enterTo='opacity-100'
-              leave='ease-in duration-200'
-              leaveFrom='opacity-100'
-              leaveTo='opacity-0'
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
             >
-              <Dialog.Overlay className=' fixed transition-opacity' />
-
+              <Dialog.Overlay className="fixed inset-0 overlay" />
             </Transition.Child>
+
+            {/* This element is to trick the browser into centering the modal contents. */}
             <span
-              className='hidden sm:inline-block sm:align-middle sm:h-screen'
-              aria-hidden='true'
+              className="inline-block h-screen align-middle"
+              aria-hidden="true"
             >
               &#8203;
             </span>
             <Transition.Child
               as={Fragment}
-              enter='ease-out duration-300'
-              enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
-              enterTo='opacity-100 translate-y-0 sm:scale-100'
-              leave='ease-in duration-200'
-              leaveFrom='opacity-100 translate-y-0 sm:scale-100'
-              leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
             >
-              <div className="modal-container">
-                <div>
-                  <Dialog.Title
-                    as='h3'
-                    className='title'
-                  >
-                    Are you sure?
-                  </Dialog.Title>
-                  <div className="subtitle">
-                    <span>Deleting is final and cannot be reversed. are you sure you still want to proceed?</span>
-                  </div>
+              <div className="inline-block modal-container my-8 overflow-hidden text-center align-middle transition-all transform bg-white">
+                <Dialog.Title
+                  as="h3"
+                  className="title"
+                >
+                  Are you sure?
+                </Dialog.Title>
+                <div className="subtitle">
+                  <span>Deleting is final and cannot be reversed. are you sure you still want to proceed?</span>
                 </div>
-                <div className="flex justify-center">
+
+                <div className="mt-4">
                   <button className="btn btn-primary bg-primary text-white">
                     Confirm
                   </button>
-                  <button onClick={() => setOpen(false)} className="ml-3 btn btn-reset">
+                  <button onClick={closeModal} className="ml-3 btn btn-reset">
                     Cancel
                   </button>
                 </div>
@@ -64,7 +77,7 @@ function ArticleListItem(props) {
             </Transition.Child>
           </div>
         </Dialog>
-      </Transition.Root>
+      </Transition>
       <td>
         <div className="flex items-center justify-center cursor-pointer" onClick={() => setArticleChecked(!articleChecked)}>
           {!articleChecked ? (
@@ -139,12 +152,12 @@ function ArticleListItem(props) {
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <a
-                      href='#' onClick={() => setOpen(true)}
-                      className='whitespace-nowrap bg-white hover:bg-buttonGreen hover:text-white block px-4 py-2 text-sm'
+                    <button
+                      type='button' onClick={openModal}
+                      className='w-full whitespace-nowrap bg-white hover:bg-buttonGreen hover:text-white block px-4 py-2 text-sm'
                     >
                       Delete Article
-                    </a>
+                    </button>
                   )}
                 </Menu.Item>
               </div>
