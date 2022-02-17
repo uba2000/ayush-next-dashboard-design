@@ -49,7 +49,7 @@ function pricing() {
             </div>
           </div>
           {!enabled ? (
-            <div className='grid md:grid-cols-[172px_172px_200px] mt-5  gap-[30px] ml-auto'>
+            <div className='grid md:grid-cols-[172px_172px_200px] grid-cols-2 mt-5 gap-[30px] ml-auto'>
               <div className="">
                 <p className="text-4 leading-[22px] font-bold mb-[10px]">Starter Plan</p>
                 <div className="flex mb-5">
@@ -96,7 +96,7 @@ function pricing() {
                 </div>
               </div>
             </div>
-          ) : (<div className='grid md:grid-cols-[172px_172px_200px] mt-5  gap-[30px] ml-auto'>
+          ) : (<div className='grid md:grid-cols-[172px_172px_200px] grid-cols-2 mt-5 gap-[30px] ml-auto'>
             <div className="">
               <p className="text-4 leading-[22px] font-bold mb-[10px]">Starter Plan</p>
               <div className="flex mb-5">
