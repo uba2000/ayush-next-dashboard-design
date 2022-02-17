@@ -77,8 +77,8 @@ function ProjectListItem(props) {
           </div>
         </Dialog>
       </Transition>
-      <td>
-        <div className="flex items-center justify-center cursor-pointer" onClick={() => setProjectChecked(!projectChecked)}>
+      <td className='pl-0'>
+        <div className="flex items-center justify-left cursor-pointer" onClick={() => setProjectChecked(!projectChecked)}>
           {!projectChecked ? (
             <div className='h-5 w-5 rounded border border-solid border-[#767676]'></div>
           ) : (

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Filter } from '../../../ui/icons/Filter'
 import ProjectListItem from './ProjectListItem'
 
 function ProjectList(props) {
@@ -22,8 +23,8 @@ function ProjectList(props) {
         <table>
           <thead>
             <tr>
-              <th className='cursor-pointer' style={{ width: '10%', minWidth: '98px' }}>
-                <div className="flex items-center justify-center" onClick={() => setCheckAllProjects(!checkAllProjects)}>
+              <th className='pl-0 cursor-pointer' style={{ width: '1%', minWidth: '50px' }}>
+                <div className="flex items-center justify-left" onClick={() => setCheckAllProjects(!checkAllProjects)}>
                   {!checkAllProjects ? (
                     <div className='h-5 w-5 rounded border border-solid border-[#767676]'></div>
                   ) : (
@@ -35,22 +36,24 @@ function ProjectList(props) {
                   )}
                 </div>
               </th>
-              <th style={{ width: '40%', minWidth: '397pxpx' }}>
+              <th style={{ width: '50%', minWidth: '397pxpx' }}>
                 <span className="capitalize">
                   All Projects
                 </span>
               </th>
-              <th style={{ width: '20%', minWidth: '198px' }}>
+              <th style={{ width: '27%', minWidth: '169px' }}>
                 <span className="capitalize">
                   Project Tags
                 </span>
               </th>
-              <th style={{ width: '20%', minWidth: '198px' }}>
+              <th style={{ width: '12%', minWidth: '144px' }}>
                 <span className="capitalize">
                   Date
                 </span>
               </th>
-              <th style={{ minWidth: '98px' }}></th>
+              <th style={{ minWidth: '50px' }}>
+                <Filter />
+              </th>
             </tr>
           </thead>
           <tbody>

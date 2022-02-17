@@ -78,8 +78,8 @@ function ArticleListItem(props) {
           </div>
         </Dialog>
       </Transition>
-      <td>
-        <div className="flex items-center justify-center cursor-pointer" onClick={() => setArticleChecked(!articleChecked)}>
+      <td className='pl-0'>
+        <div className="flex items-center justify-left cursor-pointer" onClick={() => setArticleChecked(!articleChecked)}>
           {!articleChecked ? (
             <div className='h-5 w-5 rounded border border-solid border-[#767676]'></div>
           ) : (
