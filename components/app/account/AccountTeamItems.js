@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from 'react'
-import { Listbox, Transition, Dialog } from '@headlessui/react'
+import { Listbox, Transition, Dialog, Menu } from '@headlessui/react'
+import Link from 'next/link'
 
 const roles = ['owner', 'admin', 'editor']
 
@@ -65,17 +66,17 @@ function AccountTeamItems() {
       </Transition.Root>
       <td>Michael Mitc</td>
       <td>commichael.mitc@example.com</td>
-      <td>
+      <td className='relative'>
         <div className="mr-7">
           <Listbox as='div' value={selectedRole} onChange={setSelectedRole}>
             {({ open }) => (
               <>
                 <div className="relative">
                   <span className="inline-block w-full">
-                    <Listbox.Button className='text-center bg-gray-1000 border border-solid border-gray-800 py-2 pl-8 pr-9' style={{ minWidth: '112px' }}>
+                    <Listbox.Button className='text-center bg-gray-1000 border w-full border-solid border-gray-800 py-2 pl-8 pr-9' style={{ minWidth: '112px' }}>
                       <span className='block truncate capitalize text-left'>{selectedRole}</span>
-                      <span className='absolute right-3 top-2'>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <span className='absolute right-3 top-[11.5px]'>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                         </svg>
                       </span>
@@ -108,6 +109,55 @@ function AccountTeamItems() {
             )}
           </Listbox>
         </div>
+        <Menu as='div' className='inline-block absolute top-6 right-[33px]'>
+          <div className='relative'>
+            <div>
+              <Menu.Button className='inline-flex justify-center'>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  className='icon icon-tabler icon-tabler-dots'
+                  width='20'
+                  height='20'
+                  viewBox='0 0 24 24'
+                  strokeWidth='1.5'
+                  stroke='#2c3e50'
+                  fill='none'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                >
+                  <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+                  <circle cx='5' cy='12' r='1' />
+                  <circle cx='12' cy='12' r='1' />
+                  <circle cx='19' cy='12' r='1' />
+                </svg>
+              </Menu.Button>
+            </div>
+
+            <Transition
+              as={Fragment}
+              enter='transition ease-out duration-100'
+              enterFrom='transform opacity-0 scale-95'
+              enterTo='transform opacity-100 scale-100'
+              leave='transition ease-in duration-75'
+              leaveFrom='transform opacity-100 scale-100'
+              leaveTo='transform opacity-0 scale-95'
+            >
+              <Menu.Items className='z-30 origin-top-right absolute right-0 mt-2 w-32  shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none'>
+                <div className='py-1'>
+                  <Menu.Item>
+                    <Link href='/app/account/team'>
+                      <a
+                        className='whitespace-nowrap bg-white hover:bg-gray-1000 hover:text-black block px-4 py-2 text-sm'
+                      >
+                        Edit Access
+                      </a>
+                    </Link>
+                  </Menu.Item>
+                </div>
+              </Menu.Items>
+            </Transition>
+          </div>
+        </Menu>
       </td>
     </tr>
   )
