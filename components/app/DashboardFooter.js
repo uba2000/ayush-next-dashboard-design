@@ -8,7 +8,7 @@ function DashboardFooter() {
         <div className="grid md:grid-cols-2 grid-cols-1">
           <div className="mb-3 md:mb-0">
             <p className="mb-0">
-              &copy; 2022 .ai, All rights reserved.
+              &copy; 2021 SEO Content.Ai, All Rights Reserved.
             </p>
           </div>
           <div className="">
