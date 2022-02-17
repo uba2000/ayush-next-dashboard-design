@@ -53,7 +53,7 @@ function ProjectListItem(props) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block modal-container my-8 overflow-hidden text-center align-middle transition-all transform bg-white">
+              <div className="inline-block modal-container rounded-2xl my-8 overflow-hidden text-center align-middle transition-all transform bg-white">
                 <Dialog.Title
                   as="h3"
                   className="title"
