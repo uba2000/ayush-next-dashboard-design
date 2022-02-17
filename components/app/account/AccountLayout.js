@@ -1,13 +1,8 @@
 import React from 'react'
+
 import DashboardLayout from '../DasboardLayout'
 import styles from '../../../styles/Account.module.css'
-import Link from 'next/link'
-
-// const StyledLink = styled(Link)`
-//   color: red;
-//   background: blue;
-// `
-
+import Link from "next/link"
 
 function AccountLayout({ children }) {
   return (
@@ -18,28 +13,28 @@ function AccountLayout({ children }) {
             <div className={styles.accountAside}>
               <ul>
                 <li>
-                  <Link href='/app/account'>
+                  <Link exact href='/app/account' activeClassName="active">
                     <a>
                       Profile Settings
                     </a>
                   </Link>
                 </li>
                 <li>
-                  <Link href='/app/account/team'>
+                  <Link exact href='/app/account/team' activeClassName="active">
                     <a>
                       Team Member
                     </a>
                   </Link>
                 </li>
                 <li>
-                  <Link href='/app/account/limits'>
+                  <Link exact href='/app/account/limits' activeClassName="active">
                     <a>
                       Limit & Usage
                     </a>
                   </Link>
                 </li>
                 <li>
-                  <Link href='/app/account/billing'>
+                  <Link exact href='/app/account/billing' activeClassName="active">
                     <a>
                       Your Billing
                     </a>

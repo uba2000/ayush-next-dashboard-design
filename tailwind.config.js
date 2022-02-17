@@ -4,7 +4,6 @@ const colors = require('tailwindcss/colors')
 module.exports = {
   important: true,
   content: [
-    // Example content paths...
     './public/**/*.html',
     './pages/**/*.{js,jsx,ts,tsx,vue}',
     './components/**/*.{js,jsx,ts,tsx,vue}',

@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { Switch } from '@headlessui/react'
+
+import { RoundTickActive } from '../../../ui/icons/round-tick-active'
+import { RoundTickInactive } from '../../../ui/icons/round-tick-inactive'
 import styles from '../../../styles/Account.module.css'
 import DashboardLayout from '../../../components/app/DasboardLayout'
 import DashboardLanding from '../../../components/app/DashboardLanding'
@@ -13,7 +16,7 @@ function pricing() {
         subLandingText='I am so lorem ipum deloas In deloas with deloas Lorem ipsum dolo amet, consectetur adipiscing elit Porta pharetra scelerisque lacus id vitae aenean' />
 
       <div className="">
-        <div className="grid grid-cols-2 gap-2 mb-[97px]">
+        <div className="grid grid-cols-1 xl:gap-2 gap-5 xl:grid-cols-2 mb-[97px]">
           <div>
             <div className='mb-2'>
               <h2 className={styles.pricingTItle}>Monthly Price</h2>
@@ -45,69 +48,21 @@ function pricing() {
               </div>
             </div>
           </div>
-          <div className='grid grid-cols-3 mt-5 gap-[30px]'>
-            {!enabled ? (
-              <>
-                <div className="">
-                  <p className="text-4 leading-[22px] font-bold mb-[10px]">Starter Plan</p>
-                  <div className="flex mb-5">
-                    <div className='text-[22px] leading-[33px]'>$</div>
-                    <div>
-                      <div className="font-helvetica">
-                        <span className='text-[56px] leading-[57px]'>24</span>
-                        <span className='text-[22px] leading-[33px]'>.99/mo</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <button className='btn btn-deactive w-full text-base leading-5'>Subscribe</button>
-                  </div>
-                </div>
-                <div className="">
-                  <p className="text-4 leading-[22px] font-bold mb-[10px]">Standard Plan</p>
-                  <div className="flex mb-5">
-                    <div className='text-[22px] leading-[33px]'>$</div>
-                    <div>
-                      <div className="font-helvetica">
-                        <span className='text-[56px] leading-[57px]'>74</span>
-                        <span className='text-[22px] leading-[33px]'>.99/mo</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <button className='btn btn-primary w-full rounded-[3px] text-base leading-5 font-bold'>Current Plan</button>
-                  </div>
-                </div>
-                <div className="">
-                  <p className="text-4 leading-[22px] font-bold mb-[10px]">Premium Plan</p>
-                  <div className="flex mb-5">
-                    <div className='text-[22px] leading-[33px]'>$</div>
-                    <div>
-                      <div className="font-helvetica">
-                        <span className='text-[56px] leading-[57px]'>149</span>
-                        <span className='text-[22px] leading-[33px]'>.99/mo</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <button className='btn btn-deactive w-full text-base leading-5'>Subscribe</button>
-                  </div>
-                </div>
-              </>
-            ) : (<>
+          {!enabled ? (
+            <div className='grid md:grid-cols-[172px_172px_200px] mt-5  gap-[30px] ml-auto'>
               <div className="">
                 <p className="text-4 leading-[22px] font-bold mb-[10px]">Starter Plan</p>
                 <div className="flex mb-5">
                   <div className='text-[22px] leading-[33px]'>$</div>
                   <div>
                     <div className="font-helvetica">
-                      <span className='text-[56px] leading-[57px]'>299</span>
-                      <span className='text-[22px] leading-[33px]'>.88/yr</span>
+                      <span className='text-[56px] leading-[57px]'>24</span>
+                      <span className='text-[22px] leading-[33px]'>.99/mo</span>
                     </div>
                   </div>
                 </div>
                 <div>
-                  <button className='btn btn-deactive w-full text-base leading-5'>Subscribe</button>
+                  <button className='btn btn-deactive w-full text-base leading-5 bg-[#F4F4F4]'>Subscribe</button>
                 </div>
               </div>
               <div className="">
@@ -116,8 +71,8 @@ function pricing() {
                   <div className='text-[22px] leading-[33px]'>$</div>
                   <div>
                     <div className="font-helvetica">
-                      <span className='text-[56px] leading-[57px]'>899</span>
-                      <span className='text-[22px] leading-[33px]'>.88/yr</span>
+                      <span className='text-[56px] leading-[57px]'>74</span>
+                      <span className='text-[22px] leading-[33px]'>.99/mo</span>
                     </div>
                   </div>
                 </div>
@@ -131,17 +86,63 @@ function pricing() {
                   <div className='text-[22px] leading-[33px]'>$</div>
                   <div>
                     <div className="font-helvetica">
-                      <span className='text-[56px] leading-[57px]'>1,799</span>
-                      <span className='text-[22px] leading-[33px]'>.99/yr</span>
+                      <span className='text-[56px] leading-[57px]'>149</span>
+                      <span className='text-[22px] leading-[33px]'>.99/mo</span>
                     </div>
                   </div>
                 </div>
                 <div>
-                  <button className='btn btn-deactive w-full text-base leading-5'>Subscribe</button>
+                  <button className='btn btn-deactive w-full text-base leading-5  bg-[#F4F4F4]'>Subscribe</button>
                 </div>
               </div>
-            </>)}
-          </div>
+            </div>
+          ) : (<div className='grid md:grid-cols-[172px_172px_200px] mt-5  gap-[30px] ml-auto'>
+            <div className="">
+              <p className="text-4 leading-[22px] font-bold mb-[10px]">Starter Plan</p>
+              <div className="flex mb-5">
+                <div className='text-[22px] leading-[33px]'>$</div>
+                <div>
+                  <div className="font-helvetica">
+                    <span className='text-[56px] leading-[57px]'>299</span>
+                    <span className='text-[22px] leading-[33px]'>.88/yr</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button className='btn btn-deactive w-full text-base leading-5 bg-[#F4F4F4]'>Subscribe</button>
+              </div>
+            </div>
+            <div className="">
+              <p className="text-4 leading-[22px] font-bold mb-[10px]">Standard Plan</p>
+              <div className="flex mb-5">
+                <div className='text-[22px] leading-[33px]'>$</div>
+                <div>
+                  <div className="font-helvetica">
+                    <span className='text-[56px] leading-[57px]'>899</span>
+                    <span className='text-[22px] leading-[33px]'>.88/yr</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button className='btn btn-primary w-full rounded-[3px] text-base leading-5 font-bold'>Current Plan</button>
+              </div>
+            </div>
+            <div className="">
+              <p className="text-4 leading-[22px] font-bold mb-[10px]">Premium Plan</p>
+              <div className="flex mb-5">
+                <div className='text-[22px] leading-[33px]'>$</div>
+                <div>
+                  <div className="font-helvetica">
+                    <span className='text-[56px] leading-[57px]'>1,799</span>
+                    <span className='text-[22px] leading-[33px]'>.99/yr</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button className='btn btn-deactive w-full text-base leading-5 bg-[#F4F4F4]'>Subscribe</button>
+              </div>
+            </div>
+          </div>)}
         </div>
         <div className="">
           <div className="mb-[48px]">
@@ -158,21 +159,57 @@ function pricing() {
               <tbody>
                 <tr>
                   <td>AI-Writing</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
                 </tr>
                 <tr>
                   <td>AI-Rewriting</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
                 </tr>
                 <tr>
                   <td>AI-Simplifying</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                </tr>
+                <tr>
+                  <td>AI-Expanding</td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                </tr>
+                <tr>
+                  <td>Headline Relevance</td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                </tr>
+                <tr>
+                  <td>Sentiment Analysis</td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                </tr>
+                <tr>
+                  <td>Emotional Suggestions</td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickActive /></td>
+                </tr>
+                <tr>
+                  <td>Topic Suggestions</td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickActive /></td>
+                </tr>
+                <tr>
+                  <td>Sources SUggestion</td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
                 </tr>
               </tbody>
             </table>
@@ -191,21 +228,63 @@ function pricing() {
               <tbody>
                 <tr>
                   <td>Minimalist Interface</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
                 </tr>
                 <tr>
                   <td>Spelling & Grammar</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
                 </tr>
                 <tr>
                   <td>Word Character Count</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                </tr>
+                <tr>
+                  <td>Shortcuts</td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                </tr>
+                <tr>
+                  <td>Dark Theme</td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                </tr>
+                <tr>
+                  <td>Import URL</td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                </tr>
+                <tr>
+                  <td>WordPress Integration</td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickActive /></td>
+                </tr>
+                <tr>
+                  <td>Prioritize Task</td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickActive /></td>
+                </tr>
+                <tr>
+                  <td>Competitive Adverb Analysis</td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickActive /></td>
+                </tr>
+                <tr>
+                  <td>Dyslexia &amp; Colorblind modes</td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickActive /></td>
                 </tr>
               </tbody>
             </table>
@@ -224,21 +303,45 @@ function pricing() {
               <tbody>
                 <tr>
                   <td>Meta Optimization</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
                 </tr>
                 <tr>
                   <td>Competitive Semantic AI</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
                 </tr>
                 <tr>
                   <td>Keywords Score</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                </tr>
+                <tr>
+                  <td>Opportunities Detection</td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                </tr>
+                <tr>
+                  <td>Use of Subheadings</td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickActive /></td>
+                </tr>
+                <tr>
+                  <td>Use od Subheadings</td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                  <td><RoundTickActive /></td>
+                </tr>
+                <tr>
+                  <td>Unique Hyperlinks</td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickInactive /></td>
+                  <td><RoundTickActive /></td>
                 </tr>
               </tbody>
             </table>

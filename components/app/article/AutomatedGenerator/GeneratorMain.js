@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Refresh from '../../../Refresh'
+import { Pencil } from '../../../../ui/icons'
 
 export class GeneratorMain extends Component {
   render() {
@@ -16,7 +17,9 @@ export class GeneratorMain extends Component {
               <div className="mr-3">
                 <Refresh isPrimary={true} />
               </div>
-              <div className=""></div>
+              <div className="">
+                <Pencil />
+              </div>
             </div>
           </div>
           <div className="generator-container nb" >

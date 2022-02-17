@@ -1,10 +1,20 @@
 import React, { useState } from 'react'
+
+import {
+  RadioChecked,
+  IconRadio,
+  Paypal,
+  Maestro,
+  Visa,
+  Mastercard,
+  PaypayButton
+} from '../../../ui/icons/index'
 import styles from '../../../styles/Account.module.css'
 import FormGroup from '../../FormGroup'
 
 function AccountPaymentMethods() {
   const [cardChecked, setCardChecked] = useState(true)
-  const [payPalChecked, setPayPalChecked] = useState(false)
+  const [payPalChecked, setPayPalChecked] = useState(!cardChecked)
   const [cardNumber, setCardNumber] = useState('')
   const [expDate, setExpDate] = useState('')
   const [secCode, setSecCode] = useState('')
@@ -18,9 +28,12 @@ function AccountPaymentMethods() {
       <div className={styles.accountFrameboxCardSection}>
         <div className="flex">
           <div className='mr-[18px]'>
-            <input type="radio" id='cardPayment' name='paymentMethod' checked={cardChecked} onChange={(e) => setCardChecked(e.target.checked)} />
+            <input type="radio" className='hidden' id='cardPayment' name='payment_method' checked={cardChecked} onChange={(e) => setCardChecked(e.target.checked)} />
+            {cardChecked ? <RadioChecked /> : <IconRadio />}
           </div>
-          <label htmlFor='cardPayment' className='text-[15.7287px] leading-[135%] text-[#404145] mr-[18px]'>Credit & Debit cards </label>
+          <label htmlFor='cardPayment' className='flex items-center text-[15.7287px] leading-[135%] text-[#404145] mr-[18px]'>
+            Credit & Debit cards <span className='ml-[17.31px]'><Visa /></span><span className='ml-[9.16px]'><Mastercard /></span><span className='ml-[9.16px]'><Maestro /></span>
+          </label>
           <div></div>
         </div>
       </div>
@@ -52,9 +65,12 @@ function AccountPaymentMethods() {
       <div className={styles.accountFrameboxCardSection}>
         <div className="flex">
           <div className='mr-[18px]'>
-            <input type="radio" id='paypalPayment' name='paymentMethod' checked={payPalChecked} onChange={(e) => setPayPalChecked(e.target.checked)} />
+            <input type="radio" id='paypalPayment' className='hidden' name='payment_method' checked={payPalChecked} onChange={(e) => setPayPalChecked(e.target.checked)} />
+            {payPalChecked ? <RadioChecked /> : <IconRadio />}
           </div>
-          <label htmlFor='paypalPayment' className='text-[15.7287px] leading-[135%] text-[#404145] mr-[18px]'>PayPal</label>
+          <label htmlFor='paypalPayment' className='flex items-center text-[15.7287px] leading-[135%] text-[#404145] mr-[18px]'>
+            <Paypal />
+          </label>
           <div></div>
         </div>
       </div>
@@ -67,10 +83,7 @@ function AccountPaymentMethods() {
         </button>
       </div>}
       {payPalChecked && <div className={styles.accountFrameboxCardSection}>
-        <button className="btn btn-primary mr-4 bg-[#009CDE]">
-          <span className='mr-[4.38px]'></span>
-          <span>Setup</span>
-        </button>
+        <PaypayButton />
       </div>}
     </>
   )

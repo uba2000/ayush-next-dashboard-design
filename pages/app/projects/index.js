@@ -53,11 +53,11 @@ export class AllProjects extends Component {
                   All Projects
                 </p>
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center justify-end">
                 <p className="mr-4 text-wild capitalize font-semibold font-poppins">
                   Search
                 </p>
-                <input type="text" className="input-search" placeholder='How To...' />
+                <input type="text" className="input-search max-w-[293px]" placeholder='How To...' />
               </div>
             </div>
             <ProjectList projects={projects} />

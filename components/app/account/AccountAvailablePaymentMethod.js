@@ -1,4 +1,7 @@
 import React from 'react'
+
+import Mastercard from '../../../ui/icons/mastercard'
+import RoundTickActive from '../../../ui/icons/round-tick-active'
 import styles from '../../../styles/Account.module.css'
 
 function AccountAvailablePaymentMethod() {
@@ -13,8 +16,9 @@ function AccountAvailablePaymentMethod() {
             <span className={styles.removerPaymentContainer}>
               <span className={styles.removerPayment}> </span>
             </span>
-            <span>
+            <span className='w-10 flex items-center justify-center mr-[10px] pt-[4.5px] px-2 pb-[3px] h-6 bg-[#F6F8FA] rounded'>
               {/* mastercard icon */}
+              <Mastercard />
             </span>
             <div className='flex flex-col relative'>
               <span className='text-[14px] leading-[21px] text-[#181C32]'>Mastecard</span>
@@ -28,7 +32,7 @@ function AccountAvailablePaymentMethod() {
             </button>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
           <div className="grid grid-cols-2 gap-1">
             <p className='font-roboto text-[14px] leading-5 text-[#A1A5B7]'>Name</p>
             <p className='font-roboto text-[14px] leading-5 text-[#3F4254]'>Emma Smith</p>
@@ -72,10 +76,11 @@ function AccountAvailablePaymentMethod() {
           </div>
           <div className="grid grid-cols-2 gap-1">
             <p className='font-roboto text-[14px] leading-5 text-[#A1A5B7]'>CVC check</p>
-            <p className='font-roboto text-[14px] leading-5 text-[#3F4254]'>
+            <p className='flex font-roboto text-[14px] leading-5 text-[#3F4254]'>
               <span>Passed</span>
+              <span>&nbsp;</span>
               <span>
-                {/* tick */}
+                <RoundTickActive />
               </span>
             </p>
           </div>

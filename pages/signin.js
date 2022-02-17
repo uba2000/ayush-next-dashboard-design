@@ -97,6 +97,7 @@ function Signin() {
           <div className="mt-3 text-center">
             <p className="text-white text-inter font-inter">
               Looking for a new Account?&nbsp;
+              {/* background: -webkit-linear-gradient(315deg,#42d392 25%,#647eff);background-clip: text;-webkit-background-clip: text;-webkit-text-fill-color: transparent; */}
               <Link href='/signup'>
                 <a>
                   <span className="font-semibold">Sign Up</span>

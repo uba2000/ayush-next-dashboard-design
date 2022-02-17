@@ -16,9 +16,9 @@ function ArticleLayout({ children, crumbs }) {
           Articles
         </li>
         {
-          hCrumbs.map(crumb => {
+          hCrumbs.map((crumb, index) => {
             return (
-              <li>
+              <li key={index}>
                 {crumb}
               </li>
             )

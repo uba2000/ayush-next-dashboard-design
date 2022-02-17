@@ -36,7 +36,7 @@ export class index extends Component {
         <ArticleLayout>
           <div className='mt-8'>
             <div className="flex justify-end mb-8">
-              <Link href='/app/new-project'>
+              <Link href='/app/projects/new-project/features'>
                 <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
                   Write New Article
                 </a>
@@ -48,11 +48,11 @@ export class index extends Component {
                   All Articles
                 </p>
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center justify-end">
                 <p className="mr-4 text-wild capitalize font-semibold font-poppins">
                   Search
                 </p>
-                <input type="text" className="input-search" placeholder='How To...' />
+                <input type="text" className="input-search max-w-[293px]" placeholder='How To...' />
               </div>
             </div>
             <ArticlesList articles={this.state.articles} />
