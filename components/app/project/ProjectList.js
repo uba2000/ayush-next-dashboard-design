@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Filter } from '../../../ui/icons/Filter'
+import { Filter } from '../../../ui/icons/filter'
 import ProjectListItem from './ProjectListItem'
 
 function ProjectList(props) {
