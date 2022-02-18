@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import dynamic from "next/dynamic"
+
 import ArticleLayout from '../../../../components/app/article/ArticleLayout'
 import DashboardLayout from '../../../../components/app/DasboardLayout'
 import styles from '../../../../styles/Article.module.css'
 import accountStyles from '../../../../styles/Account.module.css'
-import ArticleEditor from '../../../../components/app/article/ArticleEditor'
+// import ArticleEditor from '../../../../components/app/article/ArticleEditor'
 
 export class EditArticle extends Component {
 
@@ -18,6 +20,7 @@ export class EditArticle extends Component {
       tags: ['Graphic design', 'digital marketing'].join(', '),
       reserveTags: ['Graphic design', 'digital marketing'].join(', '),
       stateArticleContent: this.articleContent,
+      showEditor: false,
       stats: {
         wordCount: 1000,
         plagiarism: 0,
@@ -27,13 +30,28 @@ export class EditArticle extends Component {
     }
   }
 
+
   setStateArticleContent(article) {
     this.setState({
       stateArticleContent: article
     })
   }
 
+  showEditorHandler = () => {
+    this.setState((prevState) => {
+      return {
+        showEditor: !prevState.showEditor
+      }
+    })
+  }
+
   render() {
+    const ArticleEditor = dynamic(
+      () => {
+        return import('../../../../components/app/article/ArticleEditor')
+      },
+      { ssr: false }
+    )
     const { stats } = this.state
     return (
       <DashboardLayout>
@@ -184,7 +202,42 @@ export class EditArticle extends Component {
                   </div>
                 </div>
               </div>
-              <ArticleEditor articleContent={this.state.stateArticleContent} setArticleContent={this.setStateArticleContent} />
+              <div className="generator-container relative md:pt-[25px] pt-[70px] pb-[25px] md:px-[70px] px-4">
+                <div className="content">
+                  {!this.state.showEditor ? (<>{this.articleContent}</>) : (
+                    // <ArticleEditor articleContent={this.state.stateArticleContent} setArticleContent={this.setStateArticleContent} />
+                    <></>
+                  )}
+                </div>
+                <div className="absolute top-6 right-6 cursor-pointer" onClick={this.showEditorHandler}>
+                  {/* pencil */}
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='icon icon-tabler icon-tabler-pencil'
+                    width='24'
+                    height='24'
+                    viewBox='0 0 24 24'
+                    strokeWidth='1'
+                    stroke='white'
+                    fill='#00A141'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  >
+                    <path
+                      stroke='none'
+                      d='M0 0h24v24H0z'
+                      fill='none'
+                    ></path>
+                    <path d='M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4'></path>
+                    <line x1='13.5' y1='6.5' x2='17.5' y2='10.5'></line>
+                  </svg>
+                </div>
+                {this.state.showEditor && <div className='flex'>
+                  <button className="mx-auto btn btn-primary mt-[140px] text-black border-[#dcd8e780] bg-[#dcd8e780] font-bold">
+                    Generate Content
+                  </button>
+                </div>}
+              </div>
               <div className="md:flex grid grid-cols-1 gap-5 mt-5 md:justify-end">
                 <button className="btn btn-reset" style={{ marginRight: '6.54px', fontFamily: 'Poppins' }}>
                   Download

@@ -29,6 +29,20 @@ export class index extends Component {
     })
   }
 
+  tickAllArticles = () => {
+    let a = this.state.articles;
+    let b = [];
+    for (let i = 0; i < this.state.articles.length; i++) {
+      a[i].checked = !a[i].checked;
+      b.push(a[i]);
+    }
+    // console.log(a);
+    this.setState({
+      articles: a
+    })
+    // console.log(this.state.articles);
+  }
+
 
   render() {
     return (
@@ -55,7 +69,7 @@ export class index extends Component {
                 <input type="text" className="input-search max-w-[293px]" placeholder='How To...' />
               </div>
             </div>
-            <ArticlesList articles={this.state.articles} />
+            <ArticlesList articles={this.state.articles} tickAll={this.tickAllArticles} />
           </div>
         </ArticleLayout>
       </DashboardLayout>

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ArticleListItem from './ArticlesListItem'
 
 function ArticlesList(props) {
-  const { articles, perpage } = props
+  const { articles, perpage, tickAll } = props
   const [page, setPage] = useState(1)
   const [checkAllArticles, setCheckAllArticles] = useState(false)
 
@@ -16,6 +16,12 @@ function ArticlesList(props) {
       return <ArticleListItem item={item} key={index} />
     })
   }
+
+  function checkAllArticlesHandler(va) {
+    setCheckAllArticles(va);
+    tickAll();
+  }
+
   return (
     <>
       <div className="mt-8 overflow-x-auto">
@@ -23,7 +29,7 @@ function ArticlesList(props) {
           <thead>
             <tr>
               <th className='pl-0 cursor-pointer' style={{ width: '1%', minWidth: '50px' }}>
-                <div className="flex items-center justify-center" onClick={() => setCheckAllArticles(!checkAllArticles)}>
+                <div className="flex items-center justify-center" onClick={() => checkAllArticlesHandler(!checkAllArticles)}>
                   {!checkAllArticles ? (
                     <div className='h-5 w-5 rounded border border-solid border-[#767676]'></div>
                   ) : (

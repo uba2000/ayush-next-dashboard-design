@@ -3,7 +3,7 @@ import { Menu, Transition, Dialog } from '@headlessui/react'
 import Link from 'next/link'
 
 function ArticleListItem(props) {
-  const { title, tags, date, checked } = props.item
+  let { title, tags, date, checked } = props.item
 
   const [articleChecked, setArticleChecked] = useState(checked)
 
@@ -79,7 +79,7 @@ function ArticleListItem(props) {
         </Dialog>
       </Transition>
       <td className='pl-0'>
-        <div className="flex items-center justify-left cursor-pointer" onClick={() => setArticleChecked(!articleChecked)}>
+        <div className="flex items-center justify-left cursor-pointer" onClick={() => { setArticleChecked(!articleChecked); checked = !articleChecked; }}>
           {!articleChecked ? (
             <div className='h-5 w-5 rounded border border-solid border-[#767676]'></div>
           ) : (
@@ -96,7 +96,7 @@ function ArticleListItem(props) {
           {title}
         </span>
       </td>
-      <td className='tag'>
+      <td className='days'>
         <span>
           {tags.join(', ')}
         </span>

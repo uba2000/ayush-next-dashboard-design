@@ -95,7 +95,7 @@ function ProjectListItem(props) {
           {title}
         </span>
       </td>
-      <td className='tag'>
+      <td className='days'>
         <span>
           {tags.join(', ')}
         </span>
