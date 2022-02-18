@@ -114,7 +114,7 @@ function Team() {
           </div>
         </div>
         {confirmNav && (<div className='border border-solid border-gray-800 bg-white w-full overflow-auto' style={{ minHeight: '62.45px' }}><AccountTeamTable /></div>)}
-        {pendingNav && (<div className='flex items-center justify-center border border-solid border-gray-800 bg-white w-full' style={{ minHeight: '62.45px' }}><div className='text-center py-9'>
+        {pendingNav && (<div className='flex items-center justify-center border border-solid border-gray-800 bg-white w-full min-h-[295px]' style={{ minHeight: '62.45px' }}><div className='text-center py-9'>
           <span className="capitalize font-bold text-3xl">There is no <br />pending account</span>
         </div></div>)}
       </div>

@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-react-calendars/styles/material.css";
+
 html,
 body {
   padding: 0;
@@ -17,6 +23,18 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.datepicker-control-section {
+  max-width: 246px;
+  margin: 30px auto;
+  padding-top: 50px;
+}
+
+.e-date-wrapper,
+.e-date-wrapper:hover {
+  border: none !important;
+  border-color: transparent !important;
 }
 
 .foot-link {

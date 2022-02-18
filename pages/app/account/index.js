@@ -1,10 +1,15 @@
 import React, { useState, Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
+import { DatePickerComponent } from '@syncfusion/ej2-react-calendars'
+
 import AccountLayout from '../../../components/app/account/AccountLayout'
 import FormGroup from '../../../components/app/account/FormGroup'
 import styles from '../../../styles/Account.module.css'
 
 const genders = ['male', 'female']
+const startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 10)
+const endDate = new Date(new Date().getFullYear(), new Date().getMonth(), 20)
+const dates = ['21 January 2021', '22 January 2021', '23 January 2021']
 
 function index() {
 
@@ -12,7 +17,9 @@ function index() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [addressH, setAddressH] = useState('');
+  const [dateValue, setDateValue] = useState('20 January 2021')
   const [selectedGender, setSelectedGender] = useState(genders[1])
+
 
   return (
     <AccountLayout>
@@ -70,7 +77,46 @@ function index() {
             </Listbox>
           </FormGroup>
           <FormGroup label='Date of Birth'>
-
+            <Listbox as='div' id='date' value={dateValue} onChange={setDateValue}>
+              {({ open }) => (
+                <>
+                  <div className="relative">
+                    <span className="inline-block w-full">
+                      <Listbox.Button className={styles.formGroupInput}>
+                        <span className='block truncate capitalize text-left'>{dateValue}</span>
+                        <span className='absolute right-4 top-4'>
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </span>
+                      </Listbox.Button>
+                    </span>
+                    <Transition
+                      show={open}
+                      as={Fragment}
+                      enter='ease-out duration-300'
+                      enterFrom='opacity-0'
+                      enterTo='opacity-100'
+                      leave='transition ease-in duration-200'
+                      leaveFrom='opacity-100'
+                      leaveTo='opacity-0'
+                    >
+                      <Listbox.Options static className='absolute w-full border bg-white border-gray-800'>
+                        {dates.map((date) => (
+                          <Listbox.Option key={date} value={date}>
+                            {({ selected, active }) => (
+                              <div className={`capitalize cursor-pointer select-none relative py-2 pl-10 pr-4 transition ease-in duration-200  ${active ? 'text-white bg-primary' : 'text-black'}`}>
+                                <span className={`${selected ? 'font-bold' : 'font-normal'}`}>{date}</span>
+                              </div>
+                            )}
+                          </Listbox.Option>
+                        ))}
+                      </Listbox.Options>
+                    </Transition>
+                  </div>
+                </>
+              )}
+            </Listbox>
           </FormGroup>
         </div>
         <FormGroup label='Address' labelFor='address'>

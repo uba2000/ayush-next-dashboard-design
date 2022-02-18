@@ -39,16 +39,16 @@
 }
 
 .formGroupInput {
-  font-weight: 600;
-  font-size: 16.3721px;
-  line-height: 25px;
-  font-family: "Poppins";
-  background: #ffffff;
-  border: 1px solid #dcd8e7;
-  border-radius: 3px;
-  padding: 11.5px 27.18px;
+  font-weight: 600 !important;
+  font-size: 16.3721px !important;
+  line-height: 25px !important;
+  font-family: "Poppins" !important;
+  background: #ffffff !important;
+  border: 1px solid #dcd8e7 !important;
+  border-radius: 3px !important;
+  padding: 11.5px 27.18px !important;
   /* height: 45px; */
-  width: 100%;
+  width: 100% !important;
 }
 
 .formGroupInput::placeholder {

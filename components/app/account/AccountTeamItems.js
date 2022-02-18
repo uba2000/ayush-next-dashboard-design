@@ -112,23 +112,9 @@ function AccountTeamItems() {
         <Menu as='div' className='inline-block absolute top-6 right-[33px]'>
           <div className='relative'>
             <div>
-              <Menu.Button className='inline-flex justify-center'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  className='icon icon-tabler icon-tabler-dots'
-                  width='20'
-                  height='20'
-                  viewBox='0 0 24 24'
-                  strokeWidth='1.5'
-                  stroke='#2c3e50'
-                  fill='none'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                >
-                  <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                  <circle cx='5' cy='12' r='1' />
-                  <circle cx='12' cy='12' r='1' />
-                  <circle cx='19' cy='12' r='1' />
+              <Menu.Button className='inline-flex justify-center text-[#DCD8E7]'>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                 </svg>
               </Menu.Button>
             </div>

@@ -13,7 +13,7 @@ import styles from '../../../styles/Account.module.css'
 import FormGroup from '../../FormGroup'
 
 function AccountPaymentMethods() {
-  const [cardChecked, setCardChecked] = useState(true)
+  const [cardChecked, setCardChecked] = useState(false)
   const [payPalChecked, setPayPalChecked] = useState(!cardChecked)
   const [cardNumber, setCardNumber] = useState('')
   const [expDate, setExpDate] = useState('')
@@ -28,7 +28,7 @@ function AccountPaymentMethods() {
       <div className={styles.accountFrameboxCardSection}>
         <div className="flex">
           <div className='mr-[18px]'>
-            <input type="radio" className='hidden' id='cardPayment' name='payment_method' checked={cardChecked} onChange={(e) => setCardChecked(e.target.checked)} />
+            <input type="checkbox" className='hidden' id='cardPayment' name='payment_method' checked={cardChecked} onChange={(e) => { setCardChecked(!cardChecked); setPayPalChecked(!cardChecked) }} />
             {cardChecked ? <RadioChecked /> : <IconRadio />}
           </div>
           <label htmlFor='cardPayment' className='flex items-center text-[15.7287px] leading-[135%] text-[#404145] mr-[18px]'>
@@ -65,8 +65,8 @@ function AccountPaymentMethods() {
       <div className={styles.accountFrameboxCardSection}>
         <div className="flex">
           <div className='mr-[18px]'>
-            <input type="radio" id='paypalPayment' className='hidden' name='payment_method' checked={payPalChecked} onChange={(e) => setPayPalChecked(e.target.checked)} />
-            {payPalChecked ? <RadioChecked /> : <IconRadio />}
+            <input type="checkbox" id='paypalPayment' className='hidden' name='payment_method' checked={payPalChecked} onChange={(e) => { setPayPalChecked(cardChecked); setCardChecked(!cardChecked); }} />
+            {!cardChecked ? <RadioChecked /> : <IconRadio />}
           </div>
           <label htmlFor='paypalPayment' className='flex items-center text-[15.7287px] leading-[135%] text-[#404145] mr-[18px]'>
             <Paypal />
@@ -82,7 +82,7 @@ function AccountPaymentMethods() {
           Reset
         </button>
       </div>}
-      {payPalChecked && <div className={styles.accountFrameboxCardSection}>
+      {!cardChecked && <div className={styles.accountFrameboxCardSection}>
         <PaypayButton />
       </div>}
     </>
