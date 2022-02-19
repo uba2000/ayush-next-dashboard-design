@@ -5,7 +5,6 @@ import ArticleLayout from '../../../../../../components/app/article/ArticleLayou
 import DashboardLayout from '../../../../../../components/app/DasboardLayout'
 import styles from '../../../../../../styles/Article.module.css'
 import accountStyles from '../../../../../../styles/Account.module.css'
-// import ArticleEditor from '../../../../components/app/article/ArticleEditor'
 
 export class EditArticle extends Component {
 
