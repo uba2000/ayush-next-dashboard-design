@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import DashboardLayout from '../../../components/app/DasboardLayout'
-import GeneratorMainBody from '../../../components/app/article/GeneratorMainBody'
-import GeneratorOptions from '../../../components/app/article/GeneratorOptions'
-import OverallScore from '../../../components/app/article/OverallScore'
+import DashboardLayout from '../../../../../components/app/DasboardLayout'
+import GeneratorMainBody from '../../../../../components/app/article/GeneratorMainBody'
+import GeneratorOptions from '../../../../../components/app/article/GeneratorOptions'
+import OverallScore from '../../../../../components/app/article/OverallScore'
 
 export class ManualGenarate extends Component {
 

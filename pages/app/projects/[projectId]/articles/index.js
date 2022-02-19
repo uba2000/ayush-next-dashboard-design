@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import React, { Component } from 'react'
-import ArticleLayout from '../../../components/app/article/ArticleLayout'
-import ArticlesList from '../../../components/app/article/ArticlesList'
-import DashboardLayout from '../../../components/app/DasboardLayout'
+
+import ArticleLayout from '../../../../../components/app/article/ArticleLayout'
+import ArticlesList from '../../../../../components/app/article/ArticlesList'
+import DashboardLayout from '../../../../../components/app/DasboardLayout'
 
 export class index extends Component {
   constructor(props) {

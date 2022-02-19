@@ -63,7 +63,7 @@ export class SelectKeywords extends Component {
                 </svg>
               </div>
               <div className="">
-                <Link href='/app/articles/automated-generator'>
+                <Link href='/app/projects/123/articles/automated-generator'>
                   <a style={this.btnStyle} className="btn block btn-primary md:px-[72.17px] px-4 w-full bg-primary text-white">Next</a>
                 </Link>
               </div>

@@ -21,7 +21,7 @@ function ProjectListItem(props) {
 
   function doubleClickHandler(e) {
     if (e.detail == 2) {
-      router.push('/app/articles')
+      router.push('/app/projects/123/articles')
     }
   }
 

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import dynamic from "next/dynamic"
 
-import ArticleLayout from '../../../../components/app/article/ArticleLayout'
-import DashboardLayout from '../../../../components/app/DasboardLayout'
-import styles from '../../../../styles/Article.module.css'
-import accountStyles from '../../../../styles/Account.module.css'
+import ArticleLayout from '../../../../../../components/app/article/ArticleLayout'
+import DashboardLayout from '../../../../../../components/app/DasboardLayout'
+import styles from '../../../../../../styles/Article.module.css'
+import accountStyles from '../../../../../../styles/Account.module.css'
 // import ArticleEditor from '../../../../components/app/article/ArticleEditor'
 
 export class EditArticle extends Component {

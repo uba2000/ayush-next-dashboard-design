@@ -142,7 +142,7 @@ function ArticleListItem(props) {
             <Menu.Items className='z-30 origin-top-right absolute right-0 mt-2 w-32  shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none'>
               <div className='py-1'>
                 <Menu.Item>
-                  <Link href='/app/articles/edit/123'>
+                  <Link href='/app/projects/123/articles/edit/123'>
                     <a
                       className='whitespace-nowrap bg-white hover:bg-buttonGreen hover:text-white block px-4 py-2 text-sm'
                     >
