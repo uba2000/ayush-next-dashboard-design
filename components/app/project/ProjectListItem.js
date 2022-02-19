@@ -1,10 +1,13 @@
 import React, { Fragment, useState } from 'react'
+import { useRouter } from 'next/router'
 import { Menu, Transition, Dialog } from '@headlessui/react'
 import Link from 'next/link'
 
 function ProjectListItem(props) {
   const { title, tags, date, checked } = props.item
   const [projectChecked, setProjectChecked] = useState(checked)
+
+  const router = useRouter()
 
   let [isOpen, setIsOpen] = useState(false)
 
@@ -16,8 +19,14 @@ function ProjectListItem(props) {
     setIsOpen(true)
   }
 
+  function doubleClickHandler(e) {
+    if (e.detail == 2) {
+      router.push('/app/articles')
+    }
+  }
+
   return (
-    <tr>
+    <tr onClick={doubleClickHandler}>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
