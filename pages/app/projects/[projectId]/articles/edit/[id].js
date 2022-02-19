@@ -47,7 +47,7 @@ export class EditArticle extends Component {
   render() {
     const ArticleEditor = dynamic(
       () => {
-        return import('../../../../components/app/article/ArticleEditor')
+        return import('../../../../../../components/app/article/ArticleEditor')
       },
       { ssr: false }
     )
