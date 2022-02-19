@@ -26,7 +26,7 @@ function ProjectListItem(props) {
   }
 
   return (
-    <tr onClick={doubleClickHandler}>
+    <tr onClick={doubleClickHandler} className='cursor-pointer'>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
