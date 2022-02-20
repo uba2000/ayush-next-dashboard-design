@@ -116,8 +116,8 @@ function ProjectListItem(props) {
       </td>
       <Menu as='td'>
         <div className='relative'>
-          <div>
-            <Menu.Button className='inline-flex justify-center'>
+          <div className='flex'>
+            <Menu.Button className='inline-flex mx-auto justify-center'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 className='icon icon-tabler icon-tabler-dots'

@@ -55,7 +55,7 @@ export class EditArticle extends Component {
     return (
       <DashboardLayout>
         <div className="-mt-11">
-          <ArticleLayout crumbs={[' How to start the agency']}>
+          <ArticleLayout crumbs={[{ txt: 'How to start the agency' }]}>
             <div className="mt-16">
               <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-4 mb-4">
                 <div className="flex flex-col">

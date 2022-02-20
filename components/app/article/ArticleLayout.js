@@ -1,4 +1,6 @@
 import React from 'react'
+import Link from 'next/link'
+
 import styles from '../../../styles/Article.module.css'
 
 function ArticleLayout({ children, crumbs }) {
@@ -7,19 +9,32 @@ function ArticleLayout({ children, crumbs }) {
     <div className="w-full">
       <ul className={styles.breadcrumbs}>
         <li>
-          Home
+          <Link href="/app/dashboard">
+            <a>Home</a>
+          </Link>
         </li>
         <li>
-          Projects
+          <Link href="/app/projects">
+            <a>Projects</a>
+          </Link>
         </li>
         <li>
-          Articles
+          <Link href="/app/projects/123/articles">
+            <a>Articles</a>
+          </Link>
         </li>
         {
           hCrumbs.map((crumb, index) => {
             return (
               <li key={index}>
-                {crumb}
+                {index != (hCrumbs.length - 1) ? (<Link href={crumb.link}>
+                  <a>{crumb.txt}</a>
+                </Link>) : (
+                  <>
+                    {crumb.txt}
+                  </>
+                )
+                }
               </li>
             )
           })}
