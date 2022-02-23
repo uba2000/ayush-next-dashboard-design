@@ -30,10 +30,10 @@ module.exports = {
         '1/3': '33.333333%'
       },
       fontFamily: {
-        poppins: ['Poppins',],
+        poppins: ['Poppins', 'sans-serif',],
         inter: ['Inter',],
-        helvetica: ['Poppins',],
-        roboto: ['Poppins',],
+        helvetica: ['Helvetica',],
+        roboto: ['Roboto', 'sans-serif',],
       },
       colors: {
         'buttonGreen': '#00A141',

@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Helvetica";
+  src: url(/fonts/Helvetica/HelveticaRegular.ttf);
+}
+
 html,
 body {
   padding: 0;
