@@ -15,7 +15,7 @@ function index() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [addressH, setAddressH] = useState('');
-  const [selectedDateValue, setSelectedDateValue] = useState()
+  const [selectedDateValue, setSelectedDateValue] = useState(new Date())
   const [selectedGender, setSelectedGender] = useState(genders[1])
 
 
@@ -75,13 +75,20 @@ function index() {
             </Listbox>
           </FormGroup>
           <FormGroup label='Date of Birth'>
-            <DatePicker
-              selected={selectedDateValue}
-              onChange={date => setSelectedDateValue(date)}
-              dateFormat='yyyy-MMMM-dd'
-              maxDate={new Date()}
-              className={styles.formGroupInput}
-            />
+            <div className="relative">
+              <DatePicker
+                selected={selectedDateValue}
+                onChange={date => setSelectedDateValue(date)}
+                dateFormat='dd MMMM yyyy'
+                maxDate={new Date()}
+                className={styles.formGroupInput}
+              />
+              <span className='absolute right-4 top-[12px] cursor-pointer'>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </span>
+            </div>
           </FormGroup>
         </div>
         <FormGroup label='Address' labelFor='address'>
