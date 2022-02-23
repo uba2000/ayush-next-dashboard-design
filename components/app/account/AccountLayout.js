@@ -6,9 +6,6 @@ import styles from '../../../styles/Account.module.css'
 import Link from "next/link"
 
 function AccountLayout({ children }) {
-
-
-
   return (
     <DashboardLayout>
       <div className="container md:px-4 px-0">

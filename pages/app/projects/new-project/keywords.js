@@ -1,10 +1,14 @@
 import Link from 'next/link'
 import React from 'react'
+import { useRouter } from 'next/router'
+
 import DashboardLayout from '../../../../components/app/DasboardLayout'
 import DashboardLanding from '../../../../components/app/DashboardLanding'
 import FormGroup from '../../../../components/FormGroup'
 
 function keywords() {
+
+  const router = useRouter()
   return (
     <DashboardLayout>
       <DashboardLanding
@@ -14,11 +18,11 @@ function keywords() {
       >
         <form action="">
           <FormGroup>
-            <input style={{ maxWidth: '560.14px', width: '100%' }} type="text" className='thick-border mx-auto focus:border-black' placeholder='Keywords: seo' />
+            <input type="text" className='w-full max-w-[560.14px] thick-border mx-auto focus:border-black' placeholder='Keywords: seo' />
           </FormGroup>
           <FormGroup>
             {/* <input type="submit" className='btn btn-primary w-fit bg-primary text-white' value='Generate' /> */}
-            <Link href='/app/projects/new-project/select-keywords'>
+            <Link href={`/app/projects/new-project/select-keywords?g=${router.query.g}`}>
               <a className="block mx-auto w-fit btn btn-primary bg-primary text-white font-poppins">
                 Generate
               </a>
