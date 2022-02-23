@@ -9,7 +9,7 @@ function AccountTeamTable() {
         <tr>
           <th style={{ width: '30%' }}>User Name</th>
           <th style={{ width: '50%' }}>Email</th>
-          <th style={{ width: '20%' }}>Access Level</th>
+          <th style={{ width: '20%', minWidth: '245.22px' }}>Access Level</th>
         </tr>
       </thead>
       <tbody className={styles.accountTableBody}>
@@ -17,7 +17,7 @@ function AccountTeamTable() {
           <td>Theresa Webb</td>
           <td>Theresa.webb@example.com</td>
           <td>
-            <div className="text-center bg-gray-1000 border border-solid border-gray-800 py-2 px-9 mr-7">
+            <div className="text-center max-w-[146px] bg-gray-1000 border border-solid border-gray-800 py-2 px-9 mr-7">
               Owner
             </div>
           </td>

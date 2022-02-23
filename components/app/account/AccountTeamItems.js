@@ -71,10 +71,10 @@ function AccountTeamItems() {
           <Listbox as='div' value={selectedRole} onChange={setSelectedRole}>
             {({ open }) => (
               <>
-                <div className="relative">
+                <div className="relative max-w-[146px]">
                   <span className="inline-block w-full">
-                    <Listbox.Button className='text-center bg-gray-1000 border w-full border-solid border-gray-800 py-2 pl-8 pr-9' style={{ minWidth: '112px' }}>
-                      <span className='block truncate capitalize text-left'>{selectedRole}</span>
+                    <Listbox.Button className='text-center max-w-[146px] bg-white border w-full border-solid border-gray-800 py-2 pl-8 pr-9' style={{ minWidth: '112px' }}>
+                      <span className='text-center block truncate capitalize'>{selectedRole}</span>
                       <span className='absolute right-3 top-[11.5px]'>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
@@ -96,7 +96,7 @@ function AccountTeamItems() {
                       {roles.map((role) => (
                         <Listbox.Option key={role} value={role} onClick={() => setOpen(true)}>
                           {({ selected, active }) => (
-                            <div className={`capitalize cursor-pointer select-none relative py-2 px-9 transition ease-in duration-600  ${active ? 'text-black bg-gray-1000' : 'text-black'}`}>
+                            <div className={`capitalize cursor-pointer select-none relative py-2 px-9 transition ease-in duration-600 text-center  ${active ? 'text-black bg-gray-1000' : 'text-black'}`}>
                               <span className={`${selected ? 'font-normal' : 'font-normal'}`}>{role}</span>
                             </div>
                           )}
