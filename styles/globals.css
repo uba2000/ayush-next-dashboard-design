@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-react-calendars/styles/material.css";
-
 html,
 body {
   padding: 0;
@@ -35,6 +29,30 @@ a {
 .e-date-wrapper:hover {
   border: none !important;
   border-color: transparent !important;
+}
+
+.react-datepicker__month-container,
+.react-datepicker {
+  @apply font-poppins !important;
+}
+
+.react-datepicker {
+  border: 1px solid #dcd8e7 !important;
+}
+
+.react-datepicker__header {
+  background-color: #f7f9fa !important;
+  border-bottom: 1px solid #dcd8e7 !important;
+}
+
+.react-datepicker__day--disabled,
+.react-datepicker__navigation-icon::before {
+  color: #c7c7cd !important;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  @apply bg-primary !important;
 }
 
 .foot-link {

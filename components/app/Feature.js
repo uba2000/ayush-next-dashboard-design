@@ -4,22 +4,22 @@ import React from 'react'
 function Feature({ title, content, link }) {
   return (
     <div
-      className="bg-white rounded-2xl"
+      className="bg-white rounded-2xl max-h-[292px]"
       style={{ boxShadow: '0px 2px 24px -3px rgba(0, 0, 0, 0.1)', padding: '67.04px 30px' }}>
       <div className="mb-2">
-        <h5 style={{ fontSize: '24.9009px', lineHeight: '29px', letterSpacing: '-0.025em' }} className="font-bold capitalize font-poppins">
+        <h5 style={{ letterSpacing: '-0.025em' }} className="leading-[29px] text-[24.9009px] font-bold capitalize font-poppins">
           {title}
         </h5>
       </div>
       <div className="mb-2 pb-1">
-        <p className="mb-0 font-poppins" style={{ fontSize: '15.7647px', lineHeight: '24px', color: '#4d4d4d' }}>
+        <p className="mb-0 font-poppins text-[15.7647px] leading-[24px] text-[#4d4d4d]" style={{ letterSpacing: '-0.025em' }}>
           {content}
         </p>
       </div>
-      <div className="">
+      <div className="mt-[11.04px]">
         {/* store state goto /keywords */}
         <Link href={link}>
-          <a className="btn btn-primary bg-primary text-white font-poppins">
+          <a className="block max-w-[143.11px] btn btn-primary bg-primary text-white font-poppins py-[3.9583px] px-[42.0571px]">
             Generate
           </a>
         </Link>

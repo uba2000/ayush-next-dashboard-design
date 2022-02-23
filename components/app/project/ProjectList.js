@@ -51,7 +51,7 @@ function ProjectList(props) {
                   Date
                 </span>
               </th>
-              <th style={{ minWidth: '50px' }}>
+              <th style={{ minWidth: '50px' }} className="flex justify-center cursor-pointer">
                 <Filter />
               </th>
             </tr>
