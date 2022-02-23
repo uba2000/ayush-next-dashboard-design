@@ -14,17 +14,19 @@ function features() {
         <div className="grid md:grid-cols-2 grid-cols-1 gap-[30px]">
           <div className="">
             <Feature
-              link='/app/projects/new-project/keywords'
-              title='Automated  Article Generation'
+              link='/app/projects/new-project/keywords?g=a'
               content='Let us do the hard work and you will get the entire article automatically'
-            />
+            >
+              Automated <br /> Article Generation
+            </Feature>
           </div>
           <div className="">
             <Feature
-              link='/app/projects/new-project/keywords'
-              title='Manual  Article Generation'
+              link='/app/projects/new-project/keywords?g=m'
               content='Curate your article just like you want to. Select H2s and make the article yours. '
-            />
+            >
+              Manual <br /> Article Generation
+            </Feature>
           </div>
         </div>
       </div>

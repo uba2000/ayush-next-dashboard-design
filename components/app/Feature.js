@@ -1,14 +1,14 @@
 import Link from 'next/link'
 import React from 'react'
 
-function Feature({ title, content, link }) {
+function Feature({ title, content, link, children }) {
   return (
     <div
       className="bg-white rounded-2xl max-h-[292px]"
       style={{ boxShadow: '0px 2px 24px -3px rgba(0, 0, 0, 0.1)', padding: '67.04px 30px' }}>
       <div className="mb-2">
         <h5 style={{ letterSpacing: '-0.025em' }} className="leading-[29px] text-[24.9009px] font-bold capitalize font-poppins">
-          {title}
+          {children}
         </h5>
       </div>
       <div className="mb-2 pb-1">

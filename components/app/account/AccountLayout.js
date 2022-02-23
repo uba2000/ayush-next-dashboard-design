@@ -1,10 +1,14 @@
 import React from 'react'
 
+import ActiveLink from '../../ActiveLink'
 import DashboardLayout from '../DasboardLayout'
 import styles from '../../../styles/Account.module.css'
 import Link from "next/link"
 
 function AccountLayout({ children }) {
+
+
+
   return (
     <DashboardLayout>
       <div className="container md:px-4 px-0">
@@ -13,32 +17,24 @@ function AccountLayout({ children }) {
             <div className={styles.accountAside}>
               <ul>
                 <li>
-                  <Link exact href='/app/account' activeClassName="active">
-                    <a>
-                      Profile Settings
-                    </a>
-                  </Link>
+                  <ActiveLink href='/app/account'>
+                    Profile Settings
+                  </ActiveLink>
                 </li>
                 <li>
-                  <Link exact href='/app/account/team' activeClassName="active">
-                    <a>
-                      Team Member
-                    </a>
-                  </Link>
+                  <ActiveLink href='/app/account/team'>
+                    Team Member
+                  </ActiveLink>
                 </li>
                 <li>
-                  <Link exact href='/app/account/limits' activeClassName="active">
-                    <a>
-                      Limit & Usage
-                    </a>
-                  </Link>
+                  <ActiveLink href='/app/account/limits'>
+                    Limit & Usage
+                  </ActiveLink>
                 </li>
                 <li>
-                  <Link exact href='/app/account/billing' activeClassName="active">
-                    <a>
-                      Your Billing
-                    </a>
-                  </Link>
+                  <ActiveLink href='/app/account/billing'>
+                    Your Billing
+                  </ActiveLink>
                 </li>
               </ul>
             </div>
