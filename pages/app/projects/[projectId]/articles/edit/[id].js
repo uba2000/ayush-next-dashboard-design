@@ -44,6 +44,10 @@ export class EditArticle extends Component {
     })
   }
 
+  saveArticle = () => {
+    this.showEditorHandler();
+  }
+
   render() {
     const ArticleEditor = dynamic(
       () => {
@@ -204,11 +208,10 @@ export class EditArticle extends Component {
               <div className="generator-container relative md:pt-[25px] pt-[70px] pb-[25px] md:px-[70px] px-4">
                 <div className="content">
                   {!this.state.showEditor ? (<>{this.articleContent}</>) : (
-                    // <ArticleEditor articleContent={this.state.stateArticleContent} setArticleContent={this.setStateArticleContent} />
-                    <></>
+                    <ArticleEditor />
                   )}
                 </div>
-                <div className="absolute top-6 right-6 cursor-pointer" onClick={this.showEditorHandler}>
+                {!this.state.showEditor && <div className="absolute top-6 right-6 cursor-pointer" onClick={this.showEditorHandler}>
                   {/* pencil */}
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -230,7 +233,7 @@ export class EditArticle extends Component {
                     <path d='M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4'></path>
                     <line x1='13.5' y1='6.5' x2='17.5' y2='10.5'></line>
                   </svg>
-                </div>
+                </div>}
                 {this.state.showEditor && <div className='flex'>
                   <button className="mx-auto btn btn-primary mt-[140px] text-black border-[#dcd8e780] bg-[#dcd8e780] font-bold">
                     Generate Content
@@ -238,12 +241,18 @@ export class EditArticle extends Component {
                 </div>}
               </div>
               <div className="md:flex grid grid-cols-1 gap-5 mt-5 md:justify-end">
-                <button className="btn btn-reset" style={{ marginRight: '6.54px', fontFamily: 'Poppins' }}>
+                {!this.state.showEditor ? (<><button className="btn btn-reset font-poppins mr-[6.54px]">
                   Download
                 </button>
-                <button className="btn btn-primary text-white" style={{ fontSize: '16px' }}>
-                  Publish to Wordpress
-                </button>
+                  <button className="btn btn-primary text-white text-base">
+                    Publish to Wordpress
+                  </button></>) : (
+                  <>
+                    <button onClick={this.saveArticle} className="btn btn-primary ml-auto text-white text-base w-full max-w-[226px]">
+                      Save article
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </ArticleLayout>
