@@ -111,21 +111,26 @@ export class GeneratorMainBody extends Component {
               </div>
             </div>
           </div>
-          <div className="relative generator-container md:px-[64.15px] px-4 pt-3 pb-4">
+          <div className={`relative generator-container  ${!this.state.showEditor ? 'pt-[64.15px] md:pt-3 md:px-[64.15px] px-4' : 'pt-[98.15px] px-4'} pb-4`}>
             <div className='content'>
               {!this.state.showEditor ? (<>{this.articleContent}</>) : (
                 <ArticleEditor />
               )}
             </div>
             <div className="absolute right-4 top-5">
-              <div className="grid grid-rows-2 gap-3">
+              {!this.state.showEditor ? (<div className="grid md:grid-cols-1 grid-cols-2 gap-3">
                 <span onClick={this.showEditorHandler} className='cursor-pointer'>
                   <Pencil />
                 </span>
                 <span className='cursor-pointer'>
                   <LanguageClarity />
                 </span>
-              </div>
+              </div>) : (
+                <div className="">
+                  <button className="btn btn-reset">Reset</button>
+                  <button className="btn btn-primary" onClick={this.showEditorHandler}>Save</button>
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -19,6 +19,21 @@ export class ArticleEditor extends Component {
     })
   }
 
+  toolbarObject = {
+    options: ['inline', 'blockType', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'emoji', 'image', 'remove', 'history'],
+    inline: {
+      options: ['bold', 'italic', 'underline', 'strikethrough'],
+      // bold: { icon: bold, className: undefined },
+      // italic: { icon: italic, className: undefined },
+      // underline: { icon: underline, className: undefined },
+      // strikethrough: { icon: strikethrough, className: undefined },
+    },
+    blockType: {
+      inDropdown: true,
+      options: ['Normal', 'H1', 'H2', 'H3'],
+    },
+  }
+
 
   render() {
     const { editorState } = this.state;
@@ -26,13 +41,7 @@ export class ArticleEditor extends Component {
       <Editor
         editorState={editorState}
         onEditorStateChange={this.onEditorStateChange}
-        toolbar={{
-          inline: { inDropdown: true },
-          list: { inDropdown: true },
-          textAlign: { inDropdown: true },
-          link: { inDropdown: true },
-          history: { inDropdown: true },
-        }}
+        toolbar={this.toolbarObject}
       />
     )
   }

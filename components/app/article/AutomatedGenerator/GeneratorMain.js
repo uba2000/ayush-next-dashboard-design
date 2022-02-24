@@ -31,23 +31,28 @@ export class GeneratorMain extends Component {
     )
     return (
       <div className="generator-container md:px-8 px-4 mb-5 generator-main" style={{ padding: '30px 32px' }}>
-        <div className="relative">
-          <div className="mb-4 flex justify-between">
-            <div className='mr-4 md:mr-0'>
+        <div className="relative pt-[64.15px] md:pt-0">
+          <div className="flex justify-between px-[10px]">
+            {!this.state.showEditor && <div className='mr-4 md:mr-0'>
               <h2 className="md:text-3xl text-xl leading-9 font-bold capitalize text-black">
                 What is SEO and how it works?
               </h2>
-            </div>
-            <div className='flex items-center'>
-              <div className="mr-3">
+            </div>}
+            <div className='flex items-center absolute right-4 top-0'>
+              {!this.state.showEditor ? (<><div className="mr-3">
                 <Refresh isPrimary={true} />
               </div>
-              <div className="cursor-pointer" onClick={this.showEditorHandler}>
-                <Pencil />
-              </div>
+                <div className="cursor-pointer" onClick={this.showEditorHandler}>
+                  <Pencil />
+                </div></>) : (
+                <div className="">
+                  <button className="btn btn-reset">Reset</button>
+                  <button className="btn btn-primary" onClick={this.showEditorHandler}>Save</button>
+                </div>
+              )}
             </div>
           </div>
-          <div className="generator-container nb" >
+          <div className={`nb generator-container  ${!this.state.showEditor ? 'md:pt-3' : 'md:pt-[77px] pt-[23px]'} pb-4`}>
             <div className="content">
               {!this.state.showEditor ? (<>{this.articleContent}</>) : (
                 <ArticleEditor />
