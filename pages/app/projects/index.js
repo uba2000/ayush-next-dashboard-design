@@ -1,8 +1,10 @@
 import Link from 'next/link'
 import React, { Component } from 'react'
+
 import DashboardLayout from '../../../components/app/DasboardLayout'
 import DashboardLanding from '../../../components/app/DashboardLanding'
 import ProjectList from '../../../components/app/project/ProjectList'
+import SearchInput from '../../../components/SearchInput'
 
 export class AllProjects extends Component {
   constructor(props) {
@@ -57,7 +59,7 @@ export class AllProjects extends Component {
                 <p className="mr-4 text-wild capitalize font-semibold font-poppins">
                   Search
                 </p>
-                <input type="text" className="input-search max-w-[293px]" placeholder='How To...' />
+                <SearchInput />
               </div>
             </div>
             <ProjectList projects={projects} />

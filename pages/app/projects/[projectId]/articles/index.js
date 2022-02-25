@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import ArticleLayout from '../../../../../components/app/article/ArticleLayout'
 import ArticlesList from '../../../../../components/app/article/ArticlesList'
 import DashboardLayout from '../../../../../components/app/DasboardLayout'
+import SearchInput from '../../../../../components/SearchInput'
 
 export class index extends Component {
   constructor(props) {
@@ -68,7 +69,7 @@ export class index extends Component {
                   <p className="mr-4 text-wild capitalize font-semibold font-poppins">
                     Search
                   </p>
-                  <input type="text" className="input-search max-w-[293px]" placeholder='How To...' />
+                  <SearchInput />
                 </div>
               </div>
               <ArticlesList articles={this.state.articles} tickAll={this.tickAllArticles} />

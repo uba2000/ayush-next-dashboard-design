@@ -1,11 +1,14 @@
 import React, { Fragment, useState } from 'react'
 import { Menu, Transition, Dialog } from '@headlessui/react'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 function ArticleListItem(props) {
   let { title, tags, date, checked } = props.item
 
   const [articleChecked, setArticleChecked] = useState(checked)
+
+  const router = useRouter()
 
   let [isOpen, setIsOpen] = useState(false)
 
@@ -17,8 +20,14 @@ function ArticleListItem(props) {
     setIsOpen(true)
   }
 
+  function doubleClickHandler(e) {
+    if (e.detail == 2) {
+      router.push('/app/projects/123/articles/edit/123')
+    }
+  }
+
   return (
-    <tr>
+    <tr onClick={doubleClickHandler} className='cursor-pointer'>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -66,7 +75,7 @@ function ArticleListItem(props) {
                 </div>
 
                 <div className="mt-4">
-                  <button className="btn btn-primary bg-primary text-white">
+                  <button className="btn btn-primary bg-[#FF1212] border-[#FF1212] text-white">
                     Confirm
                   </button>
                   <button onClick={closeModal} className="ml-3 btn btn-reset">
