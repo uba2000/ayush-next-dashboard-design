@@ -81,6 +81,9 @@ function index() {
                 onChange={date => setSelectedDateValue(date)}
                 dateFormat='dd MMMM yyyy'
                 maxDate={new Date()}
+                showYearDropdown={true}
+                showMonthDropdown={true}
+                scrollableYearDropdown={true}
                 className={styles.formGroupInput}
               />
               <span className='absolute right-4 top-[12px] cursor-pointer'>
