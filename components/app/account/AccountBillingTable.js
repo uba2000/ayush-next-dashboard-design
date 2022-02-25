@@ -22,29 +22,6 @@ function AccountBillingTable() {
           <td className='font-bold'>6 jan 2021</td>
           <td className='font-bold'>99.00 USD</td>
         </tr>
-        <tr>
-          <td className='font-bold'>+ 2 user searts</td>
-          <td className='font-bold'></td>
-          <td className='font-bold'></td>
-          <td className='font-bold'></td>
-          <td className='font-bold'>66.00 USD</td>
-        </tr>
-        <tr>
-          <td className='font-bold'>+ 2 user searts</td>
-          <td className='font-bold'></td>
-          <td className='font-bold'></td>
-          <td className='font-bold'></td>
-          <td className='font-bold'></td>
-        </tr>
-        <tr>
-          <td className='font-bold'>
-            + Add more projects
-          </td>
-          <td className='font-bold'></td>
-          <td className='font-bold'></td>
-          <td className='font-bold'></td>
-          <td className='font-bold'></td>
-        </tr>
 
       </tbody>
     </table>

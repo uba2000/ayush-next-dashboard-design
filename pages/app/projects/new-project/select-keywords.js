@@ -14,7 +14,6 @@ function SelectKeywords() {
   const [load, setLoad] = useState(false)
 
   const btnStyle = {
-    padding: '6.79px 72.17px',
     fontWeight: 'bold',
     fontSize: '20.4499px',
     lineHeight: '31px',
@@ -44,7 +43,7 @@ function SelectKeywords() {
           </div>
           <div className="mt-5 grid md:grid-cols-3 gap-4 grid-cols-2">
             <div className="">
-              <button style={btnStyle} className="btn btn-primary bg-primary md:px-[72.17px] px-4 w-full text-white">Back</button>
+              <button style={btnStyle} className="btn btn-primary bg-primary w-full text-white">Back</button>
             </div>
             <div className="flex items-center justify-center cursor-pointer" onClick={refreshHandler}>
               <svg width="27" height="27" className={load && 'spinning-loader'} viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,7 +54,7 @@ function SelectKeywords() {
               <Link
                 href={`/app/projects/123/articles/${router.query.g == 'a' ? 'automated-generator' : 'manual-generate'}`}
               >
-                <a style={btnStyle} className="btn block btn-primary md:px-[72.17px] px-4 w-full bg-primary text-white">Next</a>
+                <a style={btnStyle} className="btn block btn-primary w-full bg-primary text-white">Next</a>
               </Link>
             </div>
           </div>

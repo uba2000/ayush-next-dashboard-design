@@ -11,7 +11,7 @@ function OverallScore() {
     fontSize: '15px',
     lineHeight: '120%',
     letterSpacing: '0.005em',
-    padding: '8.68px 12.77px'
+    // padding: '8.68px 12.77px'
   }
   return (
     <div className="flex flex-col">
