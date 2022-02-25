@@ -20,7 +20,7 @@ function Dashboard() {
               Start generating content
             </h3>
             <p className="section-caption md:text-[18px] text-[13px] md:leading-[21px] leading-[17px] mb-3">
-              Lorem ipsum dolor sit amet consectetur adipiscing elit Eget lobortis
+              Lorem ipsum dolor sit amet consectetur adipiscing elit Eget <br /> lobortis
               nisi sollicitudin amet Duis amet ipsum.
             </p>
             <div className="">

@@ -19,7 +19,7 @@ function Feature({ title, content, link, children }) {
       <div className="mt-[11.04px]">
         {/* store state goto /keywords */}
         <Link href={link}>
-          <a className="block max-w-[143.11px] btn btn-primary bg-primary text-white font-poppins py-[3.9583px] px-[42.0571px]">
+          <a className="block max-w-[143px] btn btn-primary bg-primary text-white font-poppins text-[12px] py-[3.9583px] px-[42.0571px]">
             Generate
           </a>
         </Link>
