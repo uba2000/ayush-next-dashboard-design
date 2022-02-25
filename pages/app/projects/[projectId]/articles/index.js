@@ -48,31 +48,33 @@ export class index extends Component {
   render() {
     return (
       <DashboardLayout>
-        <ArticleLayout>
-          <div className='mt-8'>
-            <div className="flex justify-end mb-8">
-              <Link href='/app/projects/new-project/features'>
-                <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
-                  Write New Article
-                </a>
-              </Link>
-            </div>
-            <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
-              <div className="">
-                <p className="text-wild capitalize font-semibold font-poppins">
-                  All Articles
-                </p>
+        <div className="-mt-11">
+          <ArticleLayout>
+            <div className='mt-8'>
+              <div className="flex justify-end mb-8">
+                <Link href='/app/projects/new-project/features'>
+                  <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
+                    Write New Article
+                  </a>
+                </Link>
               </div>
-              <div className="flex items-center justify-end">
-                <p className="mr-4 text-wild capitalize font-semibold font-poppins">
-                  Search
-                </p>
-                <input type="text" className="input-search max-w-[293px]" placeholder='How To...' />
+              <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
+                <div className="">
+                  <p className="text-wild capitalize font-semibold font-poppins">
+                    All Articles
+                  </p>
+                </div>
+                <div className="flex items-center justify-end">
+                  <p className="mr-4 text-wild capitalize font-semibold font-poppins">
+                    Search
+                  </p>
+                  <input type="text" className="input-search max-w-[293px]" placeholder='How To...' />
+                </div>
               </div>
+              <ArticlesList articles={this.state.articles} tickAll={this.tickAllArticles} />
             </div>
-            <ArticlesList articles={this.state.articles} tickAll={this.tickAllArticles} />
-          </div>
-        </ArticleLayout>
+          </ArticleLayout>
+        </div>
       </DashboardLayout>
     )
   }
