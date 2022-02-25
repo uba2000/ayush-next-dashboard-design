@@ -24,7 +24,7 @@ function pricing() {
             <div className="mb-5">
               <p className={styles.pricingSubTitle}>Additional taxes may apply depending on your country.</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center min-h-[45px]">
               <div className="mr-5">
                 <Switch
                   checked={enabled}
@@ -41,11 +41,11 @@ function pricing() {
                 </Switch>
               </div>
               <div className="mr-5">
-                <p className="text-[19.53px]">Yearly</p>
+                <p className="text-[19.53px]">{enabled ? 'Yearly' : 'Monthly'}</p>
               </div>
-              <div className="">
+              {enabled && <div className="">
                 <button className="btn btn-primary rounded-[9.523px]">-20%  Discount</button>
-              </div>
+              </div>}
             </div>
           </div>
           {!enabled ? (
