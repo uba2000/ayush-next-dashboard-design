@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { Transition, Dialog } from '@headlessui/react'
+import Link from 'next/link'
 
 import AccountBillingTable from './AccountBillingTable'
 import styles from '../../../styles/Account.module.css'
@@ -85,7 +86,11 @@ function AccountBillingSubscription() {
         <AccountBillingTable />
       </div>
       <div className="mt-6 px-7 mb-6 grid md:grid-cols-[163px_245px] grid-cols-1 gap-4">
-        <button className="btn btn-primary">Upgrade Plan</button>
+        <Link href='/app/account/pricing'>
+          <a>
+            <button className='btn btn-primary'>Upgrade Plan</button>
+          </a>
+        </Link>
         <button className="btn btn-danger" onClick={openModal}>Cancel Subscriptions</button>
       </div>
     </>

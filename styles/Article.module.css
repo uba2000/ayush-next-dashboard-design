@@ -30,7 +30,7 @@
 .articleEditHeaderTitle {
   font-style: normal;
   font-weight: bold;
-  font-size: 17.0647px;
+  font-size: 23.3952px;
   line-height: 120%;
 
   letter-spacing: 0.005em;
@@ -42,7 +42,7 @@
 .articleEditHeaderTags {
   font-style: normal;
   font-weight: normal;
-  font-size: 11.0093px;
+  font-size: 15px;
   line-height: 120%;
   text-align: center;
   letter-spacing: 0.005em;
@@ -54,7 +54,7 @@
 .articleHeaderOverscore {
   font-style: normal;
   font-weight: bold;
-  font-size: 10.8108px;
+  font-size: 14px;
   line-height: 120%;
   letter-spacing: 0.005em;
 
@@ -62,12 +62,14 @@
   margin-bottom: 6px;
 
   opacity: 0.8;
+  white-space: nowrap;
 }
 
 .articleHeaderOverscoreStats {
   font-weight: 500;
-  font-size: 10.8108px;
+  font-size: 12px;
   line-height: 120%;
   letter-spacing: 0.005em;
   color: #00a141;
+  white-space: nowrap;
 }
