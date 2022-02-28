@@ -74,7 +74,7 @@ function ProjectListItem(props) {
                 </div>
 
                 <div className="mt-4">
-                  <button className="btn btn-primary bg-primary text-white">
+                  <button className="btn btn-primary bg-[#FF1212] border-[#FF1212] text-white">
                     Confirm
                   </button>
                   <button onClick={closeModal} className="ml-3 btn btn-reset">
