@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import ArticleListItem from './ArticlesListItem'
 
 function ArticlesList(props) {
-  const { articles, perpage, tickAll } = props
+  const { articles, perpage } = props
+
+  const [articleList, setArticleList] = useState(articles)
   const [page, setPage] = useState(1)
   const [checkAllArticles, setCheckAllArticles] = useState(false)
 
@@ -17,9 +19,21 @@ function ArticlesList(props) {
     })
   }
 
+  const tickAllArticles = (va) => {
+    console.log('ticking');
+    let a = articleList;
+    let b = [];
+    for (let i = 0; i < articles.length; i++) {
+      a[i].checked = va;
+      b.push(a[i]);
+      console.log(va);
+    }
+    setArticleList(articles)
+  }
+
   function checkAllArticlesHandler(va) {
     setCheckAllArticles(va);
-    tickAll();
+    tickAllArticles(va);
   }
 
   return (
@@ -60,7 +74,13 @@ function ArticlesList(props) {
             </tr>
           </thead>
           <tbody>
-            {buildArticlesList(articles)}
+            {
+              articles.length <= 10 ? articles.map((item, index) => {
+                return <ArticleListItem item={item} key={index} />
+              }) : articles.slice((page - 1) * 10, page * 10).map((item, index) => {
+                return <ArticleListItem item={item} key={index} />
+              })
+            }
           </tbody>
         </table>
       </div>
