@@ -21,7 +21,6 @@ function ProjectList(props) {
 
   const tickAProject = (index, va) => {
     let a = projectList
-    console.log(index, va);
     a[index].checked = va
     setProjectList(a)
   }

@@ -20,7 +20,6 @@ function ArticlesList(props) {
 
   const tickAnArticle = (index, va) => {
     let a = articleList
-    console.log(index, va);
     a[index].checked = va
     setArticleList(a)
   }

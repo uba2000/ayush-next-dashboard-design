@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import ArticleLayout from '../../../../../components/app/article/ArticleLayout'
 import ArticlesList from '../../../../../components/app/article/ArticlesList'
