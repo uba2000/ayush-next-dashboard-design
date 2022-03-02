@@ -8,27 +8,21 @@ function ArticlesList(props) {
   const [page, setPage] = useState(1)
   const [checkAllArticles, setCheckAllArticles] = useState(false)
 
-  const buildArticlesList = (articles) => {
-    if (articles.length <= 10) {
-      return articles.map((item, index) => {
-        return <ArticleListItem item={item} key={index} />
-      })
-    }
-    return articles.slice((page - 1) * 10, page * 10).map((item, index) => {
-      return <ArticleListItem item={item} key={index} />
-    })
-  }
-
   const tickAllArticles = (va) => {
-    console.log('ticking');
     let a = articleList;
     let b = [];
     for (let i = 0; i < articles.length; i++) {
       a[i].checked = va;
       b.push(a[i]);
-      console.log(va);
     }
-    setArticleList(articles)
+    setArticleList(b)
+  }
+
+  const tickAnArticle = (index, va) => {
+    let a = articleList
+    console.log(index, va);
+    a[index].checked = va
+    setArticleList(a)
   }
 
   function checkAllArticlesHandler(va) {
@@ -55,7 +49,7 @@ function ArticlesList(props) {
                   )}
                 </div>
               </th>
-              <th style={{ width: '50%', minWidth: '397pxpx' }}>
+              <th style={{ width: '50%', minWidth: '397px' }}>
                 <span className="capitalize">
                   Articles
                 </span>
@@ -75,10 +69,20 @@ function ArticlesList(props) {
           </thead>
           <tbody>
             {
-              articles.length <= 10 ? articles.map((item, index) => {
-                return <ArticleListItem item={item} key={index} />
-              }) : articles.slice((page - 1) * 10, page * 10).map((item, index) => {
-                return <ArticleListItem item={item} key={index} />
+              articleList.length <= 10 ? articleList.map((item, index) => {
+                return <ArticleListItem 
+                  item={item} 
+                  key={index} 
+                  articleIndex={index} 
+                  handleTick={tickAnArticle} 
+                />
+              }) : articleList.slice((page - 1) * 10, page * 10).map((item, index) => {
+                return <ArticleListItem 
+                  item={item} 
+                  key={index} 
+                  articleIndex={index} 
+                  handleTick={tickAnArticle} 
+                />
               })
             }
           </tbody>

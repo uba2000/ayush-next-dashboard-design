@@ -4,19 +4,33 @@ import ProjectListItem from './ProjectListItem'
 
 function ProjectList(props) {
   const { projects, perpage } = props
+
+  const [projectList, setProjectList] = useState(projects)
   const [page, setPage] = useState(1)
   const [checkAllProjects, setCheckAllProjects] = useState(false)
 
-  const buildProjectList = (projects) => {
-    if (projects.length <= 10) {
-      return projects.map((item, index) => {
-        return <ProjectListItem item={item} key={index} />
-      })
+  const tickAllProjects = (va) => {
+    let a = projectList;
+    let b = [];
+    for (let i = 0; i < projects.length; i++) {
+      a[i].checked = va;
+      b.push(a[i]);
     }
-    return projects.slice((page - 1) * 10, page * 10).map((item, index) => {
-      return <ProjectListItem item={item} key={index} />
-    })
+    setProjectList(b)
   }
+
+  const tickAProject = (index, va) => {
+    let a = projectList
+    console.log(index, va);
+    a[index].checked = va
+    setProjectList(a)
+  }
+
+  function checkAllProjectsHandler(va) {
+    setCheckAllProjects(va);
+    tickAllProjects(va);
+  }
+
   return (
     <>
       <div className="mt-8 overflow-x-auto">
@@ -24,7 +38,7 @@ function ProjectList(props) {
           <thead>
             <tr>
               <th className='pl-0 cursor-pointer' style={{ width: '1%', minWidth: '50px' }}>
-                <div className="flex items-center justify-left" onClick={() => setCheckAllProjects(!checkAllProjects)}>
+                <div className="flex items-center justify-left" onClick={() => checkAllProjectsHandler(!checkAllProjects)}>
                   {!checkAllProjects ? (
                     <div className='h-5 w-5 rounded border border-solid border-[#767676]'></div>
                   ) : (
@@ -57,7 +71,23 @@ function ProjectList(props) {
             </tr>
           </thead>
           <tbody>
-            {buildProjectList(projects)}
+          {
+              projectList.length <= 10 ? projectList.map((item, index) => {
+                return <ProjectListItem 
+                  item={item} 
+                  key={index} 
+                  projectIndex={index}
+                  handleTick={tickAProject}
+                />
+              }) : projectList.slice((page - 1) * 10, page * 10).map((item, index) => {
+                return <ProjectListItem 
+                  item={item} 
+                  key={index} 
+                  projectIndex={index}
+                  handleTick={tickAProject}
+                />
+              })
+            }
           </tbody>
         </table>
       </div>

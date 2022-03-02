@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 function ArticleListItem(props) {
-  let { title, tags, date, checked, } = props.item
+  let { title, tags, date, checked } = props.item
 
   const [articleChecked, setArticleChecked] = useState(checked)
 
@@ -20,19 +20,19 @@ function ArticleListItem(props) {
     setIsOpen(true)
   }
 
-  function doubleClickHandler(e) {
+  const doubleClickHandler = (e) => {
     if (e.detail == 2) {
       router.push('/app/projects/123/articles/edit/123')
     }
   }
 
   const check = (va) => {
-    setArticleChecked(!va); 
-    checked = !va;
-    console.log('checked');
+    setArticleChecked(va);
+    checked = va;
+    props.handleTick(props.articleIndex, va)
   }
 
-  useEffect( () => { check(!articleChecked) }, [] )
+  // useEffect( () => { check(!articleChecked) })
 
   return (
     <tr onClick={doubleClickHandler} className='cursor-pointer'>
@@ -96,7 +96,7 @@ function ArticleListItem(props) {
         </Dialog>
       </Transition>
       <td className='pl-0'>
-        <div className="flex items-center justify-left cursor-pointer" onClick={() => { check(!articleChecked) }}>
+        <div className="flex items-center justify-left cursor-pointer" onClick={() => { check(!checked) }}>
           {!checked ? (
             <div className='h-5 w-5 rounded border border-solid border-[#767676]'></div>
           ) : (

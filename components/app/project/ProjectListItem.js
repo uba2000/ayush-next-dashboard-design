@@ -5,6 +5,7 @@ import Link from 'next/link'
 
 function ProjectListItem(props) {
   const { title, tags, date, checked } = props.item
+
   const [projectChecked, setProjectChecked] = useState(checked)
 
   const router = useRouter()
@@ -19,10 +20,16 @@ function ProjectListItem(props) {
     setIsOpen(true)
   }
 
-  function doubleClickHandler(e) {
+  const doubleClickHandler = (e) => {
     if (e.detail == 2) {
       router.push('/app/projects/123/articles')
     }
+  }
+
+  const check = (va) => {
+    setProjectChecked(va);
+    checked = va;
+    props.handleTick(props.projectIndex, va)
   }
 
   return (
@@ -87,8 +94,8 @@ function ProjectListItem(props) {
         </Dialog>
       </Transition>
       <td className='pl-0'>
-        <div className="flex items-center justify-left cursor-pointer" onClick={() => setProjectChecked(!projectChecked)}>
-          {!projectChecked ? (
+        <div className="flex items-center justify-left cursor-pointer" onClick={() => check(!checked)}>
+          {!checked ? (
             <div className='h-5 w-5 rounded border border-solid border-[#767676]'></div>
           ) : (
             <div className="pop-in-animation">

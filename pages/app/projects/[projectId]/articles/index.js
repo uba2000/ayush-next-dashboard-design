@@ -23,20 +23,6 @@ function index() {
 
   const [articles, setArticles] = useState(populateArticle())
 
-  // const tickAllArticles = () => {
-  //   console.log('ticking');
-  //   let a = articles;
-  //   let b = [];
-  //   for (let i = 0; i < articles.length; i++) {
-  //     a[i].checked = !a[i].checked;
-  //     b.push(a[i]);
-  //     console.log(a[i].checked);
-  //   }
-  //   setArticles(articles)
-  // }
-
-  // useEffect( () => { tickAllArticles() }, [articles] )
-
   return (
     <DashboardLayout>
       <div className="-mt-11">
