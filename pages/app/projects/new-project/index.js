@@ -16,6 +16,7 @@ function NewProject() {
   }
   const [projectTitle, setProjectTitle] = useState('')
   const [showPredict, setPredictTitle] = useState(false)
+  const [tags, setTags] = useState('');
   const [selectedIndustry, setSelectedIndustry] = useState('')
   const [showPredictIndustry, setShowPredictIndustry] = useState(false)
 
@@ -52,18 +53,18 @@ function NewProject() {
               leaveTo='transform min-h-0'
             >
               <ul className='predict-title max-h-[176px] overflow-y-scroll'>
-                <li className='px-[27.18px] py-[10px]'>
-                  <span>
+              <li className='px-[27.18px] py-[10px]'>
+                  <span className='cursor-pointer' onClick={() => { setProjectTitle(`${projectTitle} Class Notes`); setPredictTitle(false) }}>
                     {projectTitle} <span className='font-bold'>Class Notes</span>
                   </span>
                 </li>
                 <li className='px-[27.18px] py-[10px]'>
-                  <span>
+                  <span className='cursor-pointer' onClick={() => { setProjectTitle(`${projectTitle} Agency`); setPredictTitle(false) }}>
                     {projectTitle} <span className='font-bold'>Agency</span>
                   </span>
                 </li>
                 <li className='px-[27.18px] py-[10px]'>
-                  <span>
+                  <span className='cursor-pointer' onClick={() => { setProjectTitle(`${projectTitle} Book Article`); setPredictTitle(false) }}>
                     {projectTitle} <span className='font-bold'>Book Article</span>
                   </span>
                 </li>
@@ -72,7 +73,7 @@ function NewProject() {
           </FormGroup>
 
           <FormGroup label='Prize Tags' imp={true} labelFor="prize">
-            <input id='prize' type='text' placeholder='graphic design, digital marketing, marketing' />
+            <input id='prize' type='text' value={tags} onChange={e => setTags(e.target.value)} placeholder='graphic design, digital marketing, marketing' />
           </FormGroup>
 
           <FormGroup label='Industry(optional)' labelFor='indutry'>

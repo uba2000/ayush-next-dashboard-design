@@ -16,8 +16,17 @@ function index() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [addressH, setAddressH] = useState('');
-  const [selectedDateValue, setSelectedDateValue] = useState(new Date())
+  const [selectedDateValue, setSelectedDateValue] = useState(new Date().toISOString().slice(0, 10))
   const [selectedGender, setSelectedGender] = useState(genders[1])
+
+  const disabledDates = () => {
+    let today, day, month, year;
+    today = new Date();
+    day = today.getDate() + 1;
+    month = today.getMonth() + 1;
+    year = today.getFullYear();
+    return `${year} ${month} ${day}`;
+  }
 
 
   return (
@@ -76,8 +85,8 @@ function index() {
             </Listbox>
           </FormGroup>
           <FormGroup label='Date of Birth'>
-            <div className="relative hidden">
-              <DatePicker
+            <div className="relative">
+              {/* <DatePicker
                 selected={selectedDateValue}
                 onChange={date => setSelectedDateValue(date)}
                 dateFormat='dd MMMM yyyy'
@@ -86,8 +95,13 @@ function index() {
                 showMonthDropdown={true}
                 scrollableYearDropdown={true}
                 className={styles.formGroupInput}
+              /> */}
+              <input type='date'
+                onChange={e => setSelectedDateValue(e.target.value)}
+                value={selectedDateValue}
+                max={disabledDates}
               />
-              <span className='absolute right-4 top-[12px] cursor-pointer'>
+              <span className='absolute right-4 top-[12px] cursor-pointer hidden'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                 </svg>

@@ -1,14 +1,30 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
+import { Transition } from '@headlessui/react'
+
 import DashboardLayout from '../../../../components/app/DasboardLayout'
 // import DashboardLanding from '../../components/app/DashboardLanding'
 import FormGroup from '../../../../components/FormGroup'
 import FrameBox from '../../../../components/app/FrameBox'
 
+const industries = ['Finance', 'Production', 'Technology', 'Economics', 'Agriculture']
+
 function EditProject() {
 
-  const [title, setTitle] = useState('Graphic Design Articles');
+  const [projectTitle, setProjectTitle] = useState('Graphic Design Articles')
+  const [showPredict, setPredictTitle] = useState(false)
   const [tags, setTags] = useState('graphic design, digital marketing, marketing');
-  const [industry, setIndustry] = useState('Digital Marketing');
+  const [selectedIndustry, setSelectedIndustry] = useState('Finance')
+  const [showPredictIndustry, setShowPredictIndustry] = useState(false)
+
+  const predictTitle = (value) => {
+    setProjectTitle(value);
+    setPredictTitle(projectTitle.length > 2)
+  }
+
+  const predictIndustry = (value) => {
+    setSelectedIndustry(value)
+    setShowPredictIndustry(selectedIndustry.length > 2)
+  }
 
   return (
     <DashboardLayout>
@@ -16,22 +32,65 @@ function EditProject() {
       <FrameBox>
         <form action="" className='w-full'>
           <FormGroup label='Project Title' imp={true} labelFor="project">
-            <input id='project' type='text' value={title} onChange={(e) => setTitle(e.target.value)} placeholder='Your Campaign, Product, or client' />
+            <input id='project' type='text' value={projectTitle} onChange={(e) => predictTitle(e.target.value)} placeholder='Your Campaign, Product, or client' />
+            <Transition
+              as={Fragment}
+              show={showPredict}
+              enter='transition ease-out duration-100 overflow-hidden'
+              enterFrom='transform min-h-0'
+              enterTo='transform max-h-[105px] h-auto'
+              leave='transition ease-in'
+              leaveFrom='transform duration-75 max-h-[105px] h-auto'
+              leaveTo='transform min-h-0'
+            >
+              <ul className='predict-title max-h-[176px] overflow-y-scroll'>
+                <li className='px-[27.18px] py-[10px]'>
+                  <span className='cursor-pointer' onClick={() => { setProjectTitle(`${projectTitle} Class Notes`); setPredictTitle(false) }}>
+                    {projectTitle} <span className='font-bold'>Class Notes</span>
+                  </span>
+                </li>
+                <li className='px-[27.18px] py-[10px]'>
+                  <span className='cursor-pointer' onClick={() => { setProjectTitle(`${projectTitle} Agency`); setPredictTitle(false) }}>
+                    {projectTitle} <span className='font-bold'>Agency</span>
+                  </span>
+                </li>
+                <li className='px-[27.18px] py-[10px]'>
+                  <span className='cursor-pointer' onClick={() => { setProjectTitle(`${projectTitle} Book Article`); setPredictTitle(false) }}>
+                    {projectTitle} <span className='font-bold'>Book Article</span>
+                  </span>
+                </li>
+              </ul>
+            </Transition>
           </FormGroup>
 
           <FormGroup label='Prize Tags' imp={true} labelFor="prize">
             <input id='prize' type='text' value={tags} onChange={(e) => setTags(e.target.value)} placeholder='graphic design, digital marketing, marketing' />
           </FormGroup>
 
-          <FormGroup label='Industry(optional)' labelFor="indutry">
-            <div className="input-with-icon">
-              <input id='indutry' type='text' value={industry} onChange={(e) => setIndustry(e.target.value)} placeholder='Your Campaign, Product, or client' />
-              <div class="icon">
-                <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9.77213 12.8421C9.37373 13.4067 8.53642 13.4067 8.13802 12.8421L0.541296 2.07656C0.0738534 1.41413 0.547604 0.5 1.35835 0.5L16.5518 0.500002C17.3626 0.500002 17.8363 1.41413 17.3689 2.07656L9.77213 12.8421Z" fill="black" />
-                </svg>
-              </div>
-            </div>
+          <FormGroup label='Industry(optional)' labelFor='indutry'>
+            <input id='industry' type="text" value={selectedIndustry} onChange={(e) => predictIndustry(e.target.value)} placeholder='Industry' />
+            <Transition
+              as={Fragment}
+              show={showPredictIndustry}
+              enter='transition ease-out duration-100 overflow-hidden'
+              enterFrom='transform min-h-0'
+              enterTo='transform max-h-[105px] h-auto'
+              leave='transition ease-in'
+              leaveFrom='transform duration-75 max-h-[105px] h-auto'
+              leaveTo='transform min-h-0'
+            >
+              <ul className='predict-title max-h-[176px] overflow-y-scroll'>
+                {industries.map((industry) => {
+                  return (
+                    <li className='px-[27.18px] py-[10px]'>
+                      <span className='cursor-pointer' onClick={() => { setSelectedIndustry(industry); setShowPredictIndustry(false) }}>
+                        <span className='font-bold'>{industry}</span>
+                      </span>
+                    </li>
+                  )
+                })}
+              </ul>
+            </Transition>
           </FormGroup>
 
           <div className="flex items-center">

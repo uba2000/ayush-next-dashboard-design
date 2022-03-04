@@ -2,24 +2,31 @@ import React, { useState } from 'react'
 import ArticleListItem from './ArticlesListItem'
 
 function ArticlesList(props) {
-  const { articles, perpage, tickAll } = props
+  const { articles, perpage } = props
+
+  const [articleList, setArticleList] = useState(articles)
   const [page, setPage] = useState(1)
   const [checkAllArticles, setCheckAllArticles] = useState(false)
 
-  const buildArticlesList = (articles) => {
-    if (articles.length <= 10) {
-      return articles.map((item, index) => {
-        return <ArticleListItem item={item} key={index} />
-      })
+  const tickAllArticles = (va) => {
+    let a = articleList;
+    let b = [];
+    for (let i = 0; i < articles.length; i++) {
+      a[i].checked = va;
+      b.push(a[i]);
     }
-    return articles.slice((page - 1) * 10, page * 10).map((item, index) => {
-      return <ArticleListItem item={item} key={index} />
-    })
+    setArticleList(b)
+  }
+
+  const tickAnArticle = (index, va) => {
+    let a = articleList
+    a[index].checked = va
+    setArticleList(a)
   }
 
   function checkAllArticlesHandler(va) {
     setCheckAllArticles(va);
-    tickAll();
+    tickAllArticles(va);
   }
 
   return (
@@ -41,7 +48,7 @@ function ArticlesList(props) {
                   )}
                 </div>
               </th>
-              <th style={{ width: '50%', minWidth: '397pxpx' }}>
+              <th style={{ width: '50%', minWidth: '397px' }}>
                 <span className="capitalize">
                   Articles
                 </span>
@@ -60,7 +67,23 @@ function ArticlesList(props) {
             </tr>
           </thead>
           <tbody>
-            {buildArticlesList(articles)}
+            {
+              articleList.length <= 10 ? articleList.map((item, index) => {
+                return <ArticleListItem 
+                  item={item} 
+                  key={index} 
+                  articleIndex={index} 
+                  handleTick={tickAnArticle} 
+                />
+              }) : articleList.slice((page - 1) * 10, page * 10).map((item, index) => {
+                return <ArticleListItem 
+                  item={item} 
+                  key={index} 
+                  articleIndex={index} 
+                  handleTick={tickAnArticle} 
+                />
+              })
+            }
           </tbody>
         </table>
       </div>

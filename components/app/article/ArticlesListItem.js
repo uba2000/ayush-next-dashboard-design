@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { Menu, Transition, Dialog } from '@headlessui/react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -20,11 +20,19 @@ function ArticleListItem(props) {
     setIsOpen(true)
   }
 
-  function doubleClickHandler(e) {
+  const doubleClickHandler = (e) => {
     if (e.detail == 2) {
       router.push('/app/projects/123/articles/edit/123')
     }
   }
+
+  const check = (va) => {
+    setArticleChecked(va);
+    checked = va;
+    props.handleTick(props.articleIndex, va)
+  }
+
+  // useEffect( () => { check(!articleChecked) })
 
   return (
     <tr onClick={doubleClickHandler} className='cursor-pointer'>
@@ -88,8 +96,8 @@ function ArticleListItem(props) {
         </Dialog>
       </Transition>
       <td className='pl-0'>
-        <div className="flex items-center justify-left cursor-pointer" onClick={() => { setArticleChecked(!articleChecked); checked = !articleChecked; }}>
-          {!articleChecked ? (
+        <div className="flex items-center justify-left cursor-pointer" onClick={() => { check(!checked) }}>
+          {!checked ? (
             <div className='h-5 w-5 rounded border border-solid border-[#767676]'></div>
           ) : (
             <div className="pop-in-animation">
