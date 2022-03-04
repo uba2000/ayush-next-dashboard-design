@@ -1,11 +1,12 @@
 import React, { useState, Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
-import DatePicker from 'react-datepicker'
+// import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import AccountLayout from '../../../components/app/account/AccountLayout'
 import FormGroup from '../../../components/app/account/FormGroup'
 import styles from '../../../styles/Account.module.css'
+import DatePicker from '../../../components/app/DatePicker'
 
 const genders = ['male', 'female']
 
@@ -75,7 +76,7 @@ function index() {
             </Listbox>
           </FormGroup>
           <FormGroup label='Date of Birth'>
-            <div className="relative">
+            <div className="relative hidden">
               <DatePicker
                 selected={selectedDateValue}
                 onChange={date => setSelectedDateValue(date)}
@@ -92,6 +93,7 @@ function index() {
                 </svg>
               </span>
             </div>
+            <DatePicker />
           </FormGroup>
         </div>
         <FormGroup label='Address' labelFor='address'>
