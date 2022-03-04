@@ -107,7 +107,6 @@ function index() {
                 </svg>
               </span>
             </div>
-            <DatePicker />
           </FormGroup>
         </div>
         <FormGroup label='Address' labelFor='address'>

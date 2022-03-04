@@ -109,11 +109,11 @@ function Team() {
           <div onClick={() => toggleNav('c')} className={`accountFrameboxNavItem ${confirmNav && 'accountFrameboxNavItemActive'}`}>
             Confirmed
           </div>
-          <div className='accountFrameboxNavItem' onClick={() => toggleNav('p')} className={`accountFrameboxNavItem ${pendingNav && 'accountFrameboxNavItemActive'}`}>
+          <div onClick={() => toggleNav('p')} className={`accountFrameboxNavItem ${pendingNav && 'accountFrameboxNavItemActive'}`}>
             Pending
           </div>
         </div>
-        {confirmNav && (<div className='border border-solid border-gray-800 bg-white w-full overflow-auto' style={{ minHeight: '62.45px' }}><AccountTeamTable /></div>)}
+        {confirmNav && (<div className='border border-solid border-gray-800 bg-white w-full' style={{ minHeight: '62.45px', height: 'auto' }}><AccountTeamTable /></div>)}
         {pendingNav && (<div className='flex items-center justify-center border border-solid border-gray-800 bg-white w-full min-h-[295px]' style={{ minHeight: '62.45px' }}><div className='text-center py-9'>
           <span className="capitalize font-bold text-3xl">There is no <br />pending account</span>
         </div></div>)}
