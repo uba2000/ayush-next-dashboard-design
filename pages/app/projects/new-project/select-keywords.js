@@ -30,6 +30,7 @@ function SelectKeywords() {
     <DashboardLayout>
       <DashboardLanding
         landingText='h1 selection'
+        oneChild={true}
         subLandingText='I am so lorem ipum deloas In deloas with deloas Lorem ipsum dolo amet, consectetur adipiscing elit Porta pharetra scelerisque lacus id vitae aenean'
       >
         <div className="mx-auto max-w-[737px]">

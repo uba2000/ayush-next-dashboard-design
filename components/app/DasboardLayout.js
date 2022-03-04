@@ -8,7 +8,7 @@ function DashboardLayout({ children, customChildren }) {
     <div>
       <DashboardNav />
       <div className="page-section flex justify-center">
-        {!customChildren ? <div className="container mx-0">
+        {!customChildren ? <div className="container mx-0 flex justify-center items-center flex-col">
           {children}
         </div> : <div className='w-full'>
           {children}
