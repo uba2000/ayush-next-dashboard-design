@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
+import Link from 'next/link'
+
 import styles from '../../../styles/Account.module.css'
 import AccountLayout from '../../../components/app/account/AccountLayout'
-import Link from 'next/link'
 import AccountBillingSubscription from '../../../components/app/account/AccountBillingSubscription'
 import AccountBillingInvoices from '../../../components/app/account/AccountBillingInvoices'
 import AccountPaymentMethods from '../../../components/app/account/AccountPaymentMethods'
@@ -33,10 +34,10 @@ function billing() {
           <div onClick={() => toggleNav('s')} className={`accountFrameboxNavItem ${subscriptionsNav && 'accountFrameboxNavItemActive'}`}>
             Subscriptions
           </div>
-          <div className='accountFrameboxNavItem' onClick={() => toggleNav('i')} className={`accountFrameboxNavItem ${invoiceNav && 'accountFrameboxNavItemActive'}`}>
+          <div onClick={() => toggleNav('i')} className={`accountFrameboxNavItem ${invoiceNav && 'accountFrameboxNavItemActive'}`}>
             Invoices
           </div>
-          <div className='accountFrameboxNavItem' onClick={() => toggleNav('m')} className={`accountFrameboxNavItem ${methodsNav && 'accountFrameboxNavItemActive'}`}>
+          <div onClick={() => toggleNav('m')} className={`accountFrameboxNavItem ${methodsNav && 'accountFrameboxNavItemActive'}`}>
             Payment Methods
           </div>
         </div>

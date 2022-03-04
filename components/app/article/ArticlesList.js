@@ -31,7 +31,7 @@ function ArticlesList(props) {
 
   return (
     <>
-      <div className="mt-8 overflow-x-auto">
+      <div className="mt-8">
         <table>
           <thead>
             <tr>
@@ -69,18 +69,18 @@ function ArticlesList(props) {
           <tbody>
             {
               articleList.length <= 10 ? articleList.map((item, index) => {
-                return <ArticleListItem 
-                  item={item} 
-                  key={index} 
-                  articleIndex={index} 
-                  handleTick={tickAnArticle} 
+                return <ArticleListItem
+                  item={item}
+                  key={index}
+                  articleIndex={index}
+                  handleTick={tickAnArticle}
                 />
               }) : articleList.slice((page - 1) * 10, page * 10).map((item, index) => {
-                return <ArticleListItem 
-                  item={item} 
-                  key={index} 
-                  articleIndex={index} 
-                  handleTick={tickAnArticle} 
+                return <ArticleListItem
+                  item={item}
+                  key={index}
+                  articleIndex={index}
+                  handleTick={tickAnArticle}
                 />
               })
             }

@@ -34,7 +34,7 @@ export class KeywordSelect extends Component {
             </div>}
           </div>
         </div>
-        <input type="checkbox" name="" id="" className="d-none w-0 opacity-0 z-2 absolute" checked={checked} />
+        {/* <input type="checkbox" name="" id="" className="d-none w-0 opacity-0 z-2 absolute" onChange={(e) => } checked={checked} /> */}
       </div>
     )
   }

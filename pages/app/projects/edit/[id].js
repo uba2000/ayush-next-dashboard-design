@@ -80,9 +80,9 @@ function EditProject() {
               leaveTo='transform min-h-0'
             >
               <ul className='predict-title max-h-[176px] overflow-y-scroll'>
-                {industries.map((industry) => {
+                {industries.map((industry, index) => {
                   return (
-                    <li className='px-[27.18px] py-[10px]'>
+                    <li className='px-[27.18px] py-[10px]' key={index}>
                       <span className='cursor-pointer' onClick={() => { setSelectedIndustry(industry); setShowPredictIndustry(false) }}>
                         <span className='font-bold'>{industry}</span>
                       </span>

@@ -151,10 +151,12 @@ function pricing() {
             </h4>
             <table className="new vary mt-[30px]">
               <thead>
-                <th style={{ width: '60%' }}></th>
-                <th style={{ width: '13.33%' }}></th>
-                <th style={{ width: '13.33%' }}></th>
-                <th style={{ width: '13.33%' }}></th>
+                <tr>
+                  <th style={{ width: '60%' }}></th>
+                  <th style={{ width: '13.33%' }}></th>
+                  <th style={{ width: '13.33%' }}></th>
+                  <th style={{ width: '13.33%' }}></th>
+                </tr>
               </thead>
               <tbody>
                 <tr>
@@ -220,10 +222,12 @@ function pricing() {
             </h4>
             <table className="new vary mt-[30px]">
               <thead>
-                <th style={{ width: '60%' }}></th>
-                <th style={{ width: '13.33%' }}></th>
-                <th style={{ width: '13.33%' }}></th>
-                <th style={{ width: '13.33%' }}></th>
+                <tr>
+                  <th style={{ width: '60%' }}></th>
+                  <th style={{ width: '13.33%' }}></th>
+                  <th style={{ width: '13.33%' }}></th>
+                  <th style={{ width: '13.33%' }}></th>
+                </tr>
               </thead>
               <tbody>
                 <tr>
@@ -295,10 +299,12 @@ function pricing() {
             </h4>
             <table className="new vary">
               <thead>
-                <th style={{ width: '60%' }}></th>
-                <th style={{ width: '13.33%' }}></th>
-                <th style={{ width: '13.33%' }}></th>
-                <th style={{ width: '13.33%' }}></th>
+                <tr>
+                  <th style={{ width: '60%' }}></th>
+                  <th style={{ width: '13.33%' }}></th>
+                  <th style={{ width: '13.33%' }}></th>
+                  <th style={{ width: '13.33%' }}></th>
+                </tr>
               </thead>
               <tbody>
                 <tr>

@@ -32,7 +32,7 @@ function ProjectList(props) {
 
   return (
     <>
-      <div className="mt-8 overflow-x-auto">
+      <div className="mt-8">
         <table>
           <thead>
             <tr>
@@ -70,18 +70,18 @@ function ProjectList(props) {
             </tr>
           </thead>
           <tbody>
-          {
+            {
               projectList.length <= 10 ? projectList.map((item, index) => {
-                return <ProjectListItem 
-                  item={item} 
-                  key={index} 
+                return <ProjectListItem
+                  item={item}
+                  key={index}
                   projectIndex={index}
                   handleTick={tickAProject}
                 />
               }) : projectList.slice((page - 1) * 10, page * 10).map((item, index) => {
-                return <ProjectListItem 
-                  item={item} 
-                  key={index} 
+                return <ProjectListItem
+                  item={item}
+                  key={index}
                   projectIndex={index}
                   handleTick={tickAProject}
                 />

@@ -2,7 +2,7 @@ import React from 'react'
 
 function DashboardLanding({ landingText, subLandingText, children, oneChild }) {
   return (
-    <section className={`${!oneChild ? 'mb-[120px]' : ''}`}>
+    <section className={`w-full  ${!oneChild ? 'mb-[120px]' : ''}`}>
       <div className="text-center">
         <div className="mb-4">
           <h2 className='md:text-landing text-[42px] font-bold font-poppins capitalize'>

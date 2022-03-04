@@ -58,7 +58,7 @@ export class EditArticle extends Component {
     const { stats } = this.state
     return (
       <DashboardLayout>
-        <div className="-mt-11">
+        <div className="-mt-11 w-full">
           <ArticleLayout crumbs={[{ txt: 'How to start the agency' }]}>
             <div className="mt-16">
               <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-4 mb-4">

@@ -25,7 +25,7 @@ function index() {
 
   return (
     <DashboardLayout>
-      <div className="-mt-11">
+      <div className="-mt-11 w-full">
         <ArticleLayout>
           <div className='mt-8'>
             <div className="flex justify-end mb-8">
