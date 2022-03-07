@@ -27,11 +27,11 @@ function AccountPaymentMethods() {
       </div>
       <div className={styles.accountFrameboxCardSection}>
         <div className="flex">
-          <div className='mr-[18px]'>
+          <div>
             <input type="checkbox" className='hidden' id='cardPayment' name='payment_method' checked={cardChecked} onChange={(e) => { setCardChecked(!cardChecked); setPayPalChecked(!cardChecked) }} />
-            {cardChecked ? <RadioChecked /> : <IconRadio />}
           </div>
           <label htmlFor='cardPayment' className='flex items-center text-[15.7287px] leading-[135%] text-[#404145] mr-[18px]'>
+            <span className='mr-[18px]'>{cardChecked ? <RadioChecked /> : <IconRadio />}</span>
             Credit & Debit cards <span className='ml-[17.31px]'><Visa /></span><span className='ml-[9.16px]'><Mastercard /></span><span className='ml-[9.16px]'><Maestro /></span>
           </label>
           <div></div>
@@ -64,11 +64,11 @@ function AccountPaymentMethods() {
       </div>}
       <div className={styles.accountFrameboxCardSection}>
         <div className="flex">
-          <div className='mr-[18px]'>
+          <div>
             <input type="checkbox" id='paypalPayment' className='hidden' name='payment_method' checked={payPalChecked} onChange={(e) => { setPayPalChecked(cardChecked); setCardChecked(!cardChecked); }} />
-            {!cardChecked ? <RadioChecked /> : <IconRadio />}
           </div>
           <label htmlFor='paypalPayment' className='flex items-center text-[15.7287px] leading-[135%] text-[#404145] mr-[18px]'>
+            <span className='mr-[18px]'>{!cardChecked ? <RadioChecked /> : <IconRadio />}</span>
             <Paypal />
           </label>
           <div></div>
