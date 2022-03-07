@@ -196,8 +196,13 @@ input {
   background-color: #fff;
 }
 
+.generator-box,
 .generator-container:not(.nb) {
-  border: 1px solid #dcd8e7;
+  @apply border border-solid border-[#dcd8e7];
+}
+
+.generator-box-header-box {
+  @apply border-b border-b-[#dcd8e7];
 }
 
 .generator-container .generator-options-header {
