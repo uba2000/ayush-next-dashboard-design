@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 
 import DashboardLayout from '../../../../../components/app/DasboardLayout'
+import GeneratorMainBody from '../../../../../components/app/article/GeneratorMainBody'
 import GeneratorOptions from '../../../../../components/app/article/GeneratorOptions'
-import OverallScore from '../../../../../components/app/article/OverallScore'
-import GeneratorMain from '../../../../../components/app/article/AutomatedGenerator/GeneratorMain'
+import GeneratorMainSection from '../../../../../components/app/article/GeneratorMainSection'
 
 export class ManualGenarate extends Component {
 
@@ -11,17 +11,19 @@ export class ManualGenarate extends Component {
     return (
       <DashboardLayout customChildren={true}>
         <div className="lg:container px-4">
-          <div className="grid article-generator-container md:grid-cols-[22.7%_auto_14.9%] grid-cols-1">
+          <div className="grid gap-5 md:grid-cols-[30.7692%_auto] grid-cols-1 article-generator-container">
             <div className="md:mb-0 mb-4">
               <GeneratorOptions
-                title="Generated Articles"
+                title="Headings"
               />
             </div>
-            <div className="generator-container md:mb-0 mb-4">
-              <GeneratorMain />
-              <GeneratorMain />
+            <div>
+              <GeneratorMainSection>
+                <GeneratorMainBody />
+                <GeneratorMainBody />
+                <GeneratorMainBody />
+              </GeneratorMainSection>
             </div>
-            <OverallScore />
           </div>
         </div>
       </DashboardLayout>

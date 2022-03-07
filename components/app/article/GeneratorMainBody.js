@@ -60,7 +60,7 @@ export class GeneratorMainBody extends Component {
           {!this.state.showEditTitle ? (<><p className="relative text-base leading-7 font-poppins font-bold capitalize flex h-[27.99px]">
             <span className='text-primary mr-1'>H1:</span>
             <span className='flex-grow flex-shrink line-clamp-1'>{this.state.title}{' '}</span>
-            <span onClick={this.editTitleHandler} className='cursor-pointer block absolute -top-2 right-[-2px]'>
+            <span onClick={this.editTitleHandler} className='cursor-pointer block absolute -top-2 right-[-24px]'>
               <Pencil />
             </span>
           </p>
