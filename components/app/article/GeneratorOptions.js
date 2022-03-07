@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+
+import { Wordpress, Docs } from '../../../ui/icons'
 import Refresh from '../../Refresh'
 import GeneratorOption from './GeneratorOption'
 
@@ -14,12 +16,12 @@ export class GeneratorOptions extends Component {
     const { title } = this.props
     return (
       <div className='flex flex-col'>
-        <div className="generator-options generator-container">
-          <div className="mb-3">
+        <div className="mb-[15px] generator-options generator-container">
+          <header className="generator-options-header">
             <p className="generator-title mb-0">
               {title}
             </p>
-          </div>
+          </header>
           <div className="">
             <GeneratorOption
               title='What is SEO and how it works?'
@@ -48,15 +50,38 @@ export class GeneratorOptions extends Component {
             <GeneratorOption
               title='What does SEO mean in digital marketing?'
             />
+          </div>
+          <div className="flex justify-between mt-4 py-[22.5px] px-[19px]">
+            <div className="">
+              <button className="flex items-center btn btn-primary bg-primary text-white font-poppins pb-[6px] pt-2 px-3">
+                <Refresh isWhite={true} className="w-[22px] h-[15px]" />
+                <span className='ml-1'>Refresh</span>
+              </button>
+            </div>
+            <div className="">
+              <button className="btn btn-dark text-xs pb-[6px] pt-2 px-3">
+                Next Batch
+              </button>
+            </div>
           </div>
         </div>
-        <div className="flex justify-between mt-4">
-          <Refresh />
-          <div className="">
-            <button className="btn btn-dark text-xs" style={{ padding: '6px 31px' }}>
-              Next
-            </button>
-          </div>
+        <div className="grid grid-cols-2 gap-[10px]">
+          <button className='justify-center items-center cursor-pointer flex bg-white border border-[#DCD8E7] border-solid btn py-2'>
+            <span className='mr-[9px]'>
+              <Wordpress />
+            </span>
+            <span className='text-[12px] leading-[120%] font-semibold font-poppins'>
+              Publish to Wordpress
+            </span>
+          </button>
+          <button className='justify-center items-center cursor-pointer flex bg-white border border-[#DCD8E7] border-solid btn py-2'>
+            <span className='mr-[9px]'>
+              <Docs />
+            </span>
+            <span className='text-[12px] leading-[120%] font-semibold font-poppins'>
+              Publish to Wordpress
+            </span>
+          </button>
         </div>
       </div>
     )

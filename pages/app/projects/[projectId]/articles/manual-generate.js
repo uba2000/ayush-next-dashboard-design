@@ -10,7 +10,7 @@ export class ManualGenarate extends Component {
     return (
       <DashboardLayout customChildren={true}>
         <div className="lg:container px-4">
-          <div className="grid md:grid-cols-[22.7%_auto_14.9%] grid-cols-1 article-generator-container">
+          <div className="grid gap-5 md:grid-cols-[30.7692%_auto] grid-cols-1 article-generator-container">
             <div className="md:mb-0 mb-4">
               <GeneratorOptions
                 title="Headings"
@@ -20,7 +20,6 @@ export class ManualGenarate extends Component {
               <GeneratorMainBody />
               <GeneratorMainBody />
             </div>
-            <OverallScore />
           </div>
         </div>
       </DashboardLayout>
