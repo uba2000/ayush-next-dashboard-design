@@ -6,7 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import AccountLayout from '../../../components/app/account/AccountLayout'
 import FormGroup from '../../../components/app/account/FormGroup'
 import styles from '../../../styles/Account.module.css'
-import DatePicker from '../../../components/app/DatePicker'
+// import DatePicker from '../../../components/app/DatePicker'
 
 const genders = ['male', 'female']
 
