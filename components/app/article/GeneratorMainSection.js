@@ -9,7 +9,7 @@ const GeneratorMainSection = ({ children }) => {
           What Is E-Commerce SEO?
         </p>
       </header>
-      <div className="bg-[#FCFCFC] py-[27.5px] px-[25px]">
+      <div className="space-y-[20px] bg-[#FCFCFC] py-[27.5px] px-[25px]">
         {children}
       </div>
     </div>

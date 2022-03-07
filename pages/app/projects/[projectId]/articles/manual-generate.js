@@ -20,6 +20,8 @@ export class ManualGenarate extends Component {
             <div>
               <GeneratorMainSection>
                 <GeneratorMainBody />
+                <GeneratorMainBody />
+                <GeneratorMainBody />
               </GeneratorMainSection>
             </div>
           </div>

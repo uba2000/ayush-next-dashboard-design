@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import dynamic from "next/dynamic"
 
-import { Pencil, Wordpress, Docs } from '../../../ui/icons'
+import { PencilWhite, Pencil, Wordpress, Docs } from '../../../ui/icons'
+import Refresh from '../../Refresh'
 
 export class GeneratorMainBody extends Component {
 
@@ -63,17 +64,17 @@ export class GeneratorMainBody extends Component {
         </div>
         <footer className='border-t border-solid border-[#dcd8e7] py-[18.5px] px-[25px]'>
           <div className="flex space-x-[10px] justify-end">
-            <button className='justify-center items-center cursor-pointer flex bg-white border border-[#DCD8E7] border-solid btn py-2 px-[13px]'>
+            <button className='justify-center items-center cursor-pointer flex bg-primary border border-[#DCD8E7] border-solid btn py-2 px-[13px]'>
               <span className='mr-[9px]'>
-                <Pencil />
+                <PencilWhite />
               </span>
-              <span className='text-[12px] leading-[120%] font-semibold font-poppins'>
+              <span className='text-white text-[12px] leading-[120%] font-semibold font-poppins'>
                 Edit
               </span>
             </button>
             <button className='justify-center items-center cursor-pointer flex bg-white border border-[#DCD8E7] border-solid btn py-2 px-[13px]'>
               <span className='mr-[9px]'>
-                <Docs />
+                <Refresh className="w-[22px] h-[15px]" />
               </span>
               <span className='text-[12px] leading-[120%] font-semibold font-poppins'>
                 Refresh
