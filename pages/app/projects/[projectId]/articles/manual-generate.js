@@ -3,6 +3,7 @@ import DashboardLayout from '../../../../../components/app/DasboardLayout'
 import GeneratorMainBody from '../../../../../components/app/article/GeneratorMainBody'
 import GeneratorOptions from '../../../../../components/app/article/GeneratorOptions'
 import OverallScore from '../../../../../components/app/article/OverallScore'
+import GeneratorMainSection from '../../../../../components/app/article/GeneratorMainSection'
 
 export class ManualGenarate extends Component {
 
@@ -16,9 +17,10 @@ export class ManualGenarate extends Component {
                 title="Headings"
               />
             </div>
-            <div className="generator-container generator-main md:mb-0 mb-4">
-              <GeneratorMainBody />
-              <GeneratorMainBody />
+            <div>
+              <GeneratorMainSection>
+
+              </GeneratorMainSection>
             </div>
           </div>
         </div>
