@@ -269,6 +269,10 @@ input {
   fill: #fff;
 }
 
+.option-container:hover .drag-svg {
+  color: #fff;
+}
+
 .option-container:hover .loader-svg #body {
   opacity: 0.5;
   fill: #fff;
