@@ -13,7 +13,7 @@ export class ManualGenarate extends Component {
           <div className="grid gap-5 md:grid-cols-[30.7692%_auto] grid-cols-1 article-generator-container">
             <div className="md:mb-0 mb-4">
               <GeneratorOptions
-                title="Headings"
+                title="Generated Headings"
               />
             </div>
             <div>

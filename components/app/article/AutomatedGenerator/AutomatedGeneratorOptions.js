@@ -64,7 +64,7 @@ export class AutomatedGeneratorOptions extends Component {
               <Docs />
             </span>
             <span className='text-[12px] leading-[120%] font-bold font-poppins'>
-              Publish to Wordpress
+              Download Article
             </span>
           </button>
         </div>

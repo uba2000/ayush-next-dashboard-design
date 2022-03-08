@@ -9,7 +9,8 @@ export class GeneratorOptions extends Component {
     super(props)
 
     this.state = {
-      load: false
+      load: false,
+      backActive: false,
     }
   }
   render() {
@@ -20,7 +21,7 @@ export class GeneratorOptions extends Component {
           <header className="generator-options-header">
             <p className="generator-title mb-0 flex justify-between">
               <span>{title}</span>
-              <span></span>
+              <span>1/5</span>
             </p>
           </header>
           <div className="">
@@ -39,29 +40,19 @@ export class GeneratorOptions extends Component {
             <GeneratorOption
               title='What does SEO mean in digital marketing?'
             />
-            <GeneratorOption
-              title='What is SEO and how it works?'
-            />
-            <GeneratorOption
-              title='What is SEO in simple terms?'
-            />
-            <GeneratorOption
-              title='What is SEO and how it works?'
-            />
-            <GeneratorOption
-              title='What does SEO mean in digital marketing?'
-            />
           </div>
           <div className="flex justify-between mt-4 py-[22.5px] px-[19px]">
             <div className="">
-              <button className="flex items-center btn btn-primary bg-primary text-white font-poppins pb-[6px] pt-2 px-3">
-                <Refresh isWhite={true} className="w-[22px] h-[15px]" />
-                <span className='ml-1'>Refresh</span>
+              <button className={`btn btn-dark text-xs py-[6px] px-[22px] ${!this.state.backActive ? 'bg-[#DCD8E7] border-[#DCD8E7] cursor-not-allowed' : 'bg-black'}`}>
+                Back
               </button>
             </div>
+            <div className="flex items-center">
+              <Refresh isPrimary={true} className="w-[26px] h-[18px]" />
+            </div>
             <div className="">
-              <button className="btn btn-dark text-xs pb-[6px] pt-2 px-3">
-                Next Batch
+              <button className="btn btn-dark text-xs py-[6px] px-[22px]">
+                Next
               </button>
             </div>
           </div>
@@ -80,7 +71,7 @@ export class GeneratorOptions extends Component {
               <Docs />
             </span>
             <span className='text-[12px] leading-[120%] font-semibold font-poppins'>
-              Publish to Wordpress
+              Download Article
             </span>
           </button>
         </div>

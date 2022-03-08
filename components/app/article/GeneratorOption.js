@@ -46,6 +46,12 @@ export class GeneratorOption extends Component {
     return (
       <div className="option-container relative bg-white hover:bg-primary cursor-pointer" onClick={this.clickOption}>
         <div className="option-select text-left">
+          {/* TODO: Make option dragable */}
+          <span className='text-[#DCD8E7] mr-[13.09px] cursor-grab'>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-4 drag-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </span>
           <p className="mb-0 flex-grow flex-shrink line-clamp-1">
             {title}
           </p>
