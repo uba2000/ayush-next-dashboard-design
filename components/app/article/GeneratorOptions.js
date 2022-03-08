@@ -15,11 +15,12 @@ export class GeneratorOptions extends Component {
   render() {
     const { title } = this.props
     return (
-      <div className='flex flex-col'>
+      <div className='flex flex-col md:sticky md:top-6'>
         <div className="mb-[15px] generator-options generator-container">
           <header className="generator-options-header">
-            <p className="generator-title mb-0">
-              {title}
+            <p className="generator-title mb-0 flex justify-between">
+              <span>{title}</span>
+              <span></span>
             </p>
           </header>
           <div className="">
