@@ -642,7 +642,8 @@ table:not(.new) tbody td.days {
 }
 
 .react-calendar {
-  width: 400px;
+  min-width: 350px !important;
+  width: 350px !important;
   max-width: 100%;
   border: 1px solid #dcd8e7 !important;
   background-color: #fff !important;
