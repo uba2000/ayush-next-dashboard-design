@@ -152,10 +152,10 @@ function pricing() {
             <table className="new vary mt-[30px]">
               <thead>
                 <tr>
-                  <th style={{ width: '60%' }}></th>
-                  <th style={{ width: '13.33%' }}></th>
-                  <th style={{ width: '13.33%' }}></th>
-                  <th style={{ width: '13.33%' }}></th>
+                  <th style={{ width: '50%' }}></th>
+                  <th style={{ width: '16.66%' }}></th>
+                  <th style={{ width: '16.66%' }}></th>
+                  <th style={{ width: '16.66%' }}></th>
                 </tr>
               </thead>
               <tbody>
@@ -223,10 +223,10 @@ function pricing() {
             <table className="new vary mt-[30px]">
               <thead>
                 <tr>
-                  <th style={{ width: '60%' }}></th>
-                  <th style={{ width: '13.33%' }}></th>
-                  <th style={{ width: '13.33%' }}></th>
-                  <th style={{ width: '13.33%' }}></th>
+                  <th style={{ width: '50%' }}></th>
+                  <th style={{ width: '16.66%' }}></th>
+                  <th style={{ width: '16.66%' }}></th>
+                  <th style={{ width: '16.66%' }}></th>
                 </tr>
               </thead>
               <tbody>
@@ -300,10 +300,10 @@ function pricing() {
             <table className="new vary">
               <thead>
                 <tr>
-                  <th style={{ width: '60%' }}></th>
-                  <th style={{ width: '13.33%' }}></th>
-                  <th style={{ width: '13.33%' }}></th>
-                  <th style={{ width: '13.33%' }}></th>
+                  <th style={{ width: '50%' }}></th>
+                  <th style={{ width: '16.66%' }}></th>
+                  <th style={{ width: '16.66%' }}></th>
+                  <th style={{ width: '16.66%' }}></th>
                 </tr>
               </thead>
               <tbody>
