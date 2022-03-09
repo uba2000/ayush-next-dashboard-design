@@ -122,6 +122,7 @@ function index() {
               {showCalendar && <Calendar
                 onChange={(e) => handleDateChange(e)}
                 value={selectedDateValue}
+                maxDate={new Date()}
                 className="absolute font-poppins"
               />}
             </div>
