@@ -1,12 +1,11 @@
 import React, { useState, Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
-// import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
+import Calendar from 'react-calendar'
+import 'react-calendar/dist/Calendar.css'
 
 import AccountLayout from '../../../components/app/account/AccountLayout'
 import FormGroup from '../../../components/app/account/FormGroup'
 import styles from '../../../styles/Account.module.css'
-// import DatePicker from '../../../components/app/DatePicker'
 
 const genders = ['male', 'female']
 
@@ -16,7 +15,8 @@ function index() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [addressH, setAddressH] = useState('');
-  const [selectedDateValue, setSelectedDateValue] = useState(new Date().toISOString().slice(0, 10))
+  const [selectedDateValue, setSelectedDateValue] = useState(new Date())
+  const [showCalendar, updateShowCalendar] = useState(false)
   const [selectedGender, setSelectedGender] = useState(genders[1])
 
   const disabledDates = () => {
@@ -26,6 +26,11 @@ function index() {
     month = today.getMonth() + 1;
     year = today.getFullYear();
     return `${year} ${month} ${day}`;
+  }
+
+  const handleDateChange = (payload) => {
+    setSelectedDateValue(payload)
+    updateShowCalendar(false)
   }
 
 
@@ -41,7 +46,7 @@ function index() {
         <FormGroup label='Password' labelFor='password'>
           <input id='password' type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' className={styles.formGroupInput} />
         </FormGroup>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <FormGroup label='Gender' labelFor='gender'>
             <Listbox as='div' id='gender' value={selectedGender} onChange={setSelectedGender}>
               {({ open }) => (
@@ -86,26 +91,26 @@ function index() {
           </FormGroup>
           <FormGroup label='Date of Birth'>
             <div className="relative">
-              {/* <DatePicker
-                selected={selectedDateValue}
-                onChange={date => setSelectedDateValue(date)}
-                dateFormat='dd MMMM yyyy'
-                maxDate={new Date()}
-                showYearDropdown={true}
-                showMonthDropdown={true}
-                scrollableYearDropdown={true}
-                className={styles.formGroupInput}
-              /> */}
-              <input type='date'
-                onChange={e => setSelectedDateValue(e.target.value)}
+              <div onClick={() => updateShowCalendar(true)} className='relative'>
+                <div className="relative">
+                  <input type='text'
+                    onChange={e => setSelectedDateValue(selectedDateValue.toISOString().slice(0, 10))}
+                    value={selectedDateValue.toISOString().slice(0, 10)}
+                    className={styles.formDate}
+                  />
+                  <div className="absolute top-0 left-0 cursor-pointer w-full h-full"></div>
+                </div>
+                <span className='absolute right-4 top-[12px] cursor-pointer'>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </span>
+              </div>
+              {showCalendar && <Calendar
+                onChange={(e) => handleDateChange(e)}
                 value={selectedDateValue}
-                max={disabledDates}
-              />
-              <span className='absolute right-4 top-[12px] cursor-pointer hidden'>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </span>
+                className="absolute font-poppins"
+              />}
             </div>
           </FormGroup>
         </div>

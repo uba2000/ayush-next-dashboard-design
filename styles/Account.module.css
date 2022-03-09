@@ -38,7 +38,8 @@
   color: #000000;
 }
 
-.formGroupInput {
+.formGroupInput,
+.formDate {
   font-weight: 600 !important;
   font-size: 16.3721px !important;
   line-height: 25px !important;
@@ -51,24 +52,38 @@
   width: 100% !important;
 }
 
-.formGroupInput::placeholder {
+.formGroupInput::placeholder,
+.formDate::placeholder {
   font-weight: normal;
 }
-.formGroupInput::-webkit-input-placeholder {
+.formGroupInput::-webkit-input-placeholder,
+.formDate::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   font-weight: normal;
 }
-.formGroupInput::-moz-placeholder {
+.formGroupInput::-moz-placeholder,
+.formDate::-moz-placeholder {
   /* Firefox 19+ */
   font-weight: normal;
 }
-.formGroupInput:-ms-input-placeholder {
+.formGroupInput:-ms-input-placeholder,
+.formDate:-ms-input-placeholder {
   /* IE 10+ */
   font-weight: normal;
 }
-.formGroupInput:-moz-placeholder {
+.formGroupInput:-moz-placeholder,
+.formDate:-moz-placeholder {
   /* Firefox 18- */
   font-weight: normal;
+}
+
+.formDate {
+  @apply cursor-pointer relative;
+}
+
+.formDate::after {
+  @apply absolute w-full h-full top-0 left-0;
+  content: "";
 }
 
 .accountFramebox {
