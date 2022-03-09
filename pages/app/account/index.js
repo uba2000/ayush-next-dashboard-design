@@ -8,6 +8,20 @@ import FormGroup from '../../../components/app/account/FormGroup'
 import styles from '../../../styles/Account.module.css'
 
 const genders = ['male', 'female']
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 function index() {
 
@@ -29,10 +43,9 @@ function index() {
   }
 
   const handleDateChange = (payload) => {
-    setSelectedDateValue(payload)
+    setSelectedDateValue(new Date(payload))
     updateShowCalendar(false)
   }
-
 
   return (
     <AccountLayout>
@@ -95,7 +108,7 @@ function index() {
                 <div className="relative">
                   <input type='text'
                     onChange={e => setSelectedDateValue(selectedDateValue.toISOString().slice(0, 10))}
-                    value={selectedDateValue.toISOString().slice(0, 10)}
+                    value={`${selectedDateValue.getDate()} ${months[selectedDateValue.getMonth()]} ${selectedDateValue.getFullYear()}`}
                     className={styles.formDate}
                   />
                   <div className="absolute top-0 left-0 cursor-pointer w-full h-full"></div>
