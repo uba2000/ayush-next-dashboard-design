@@ -91,7 +91,7 @@ function index() {
           </FormGroup>
           <FormGroup label='Date of Birth'>
             <div className="relative">
-              <div onClick={() => updateShowCalendar(true)} className='relative'>
+              <div onClick={() => updateShowCalendar(!showCalendar)} className='relative'>
                 <div className="relative">
                   <input type='text'
                     onChange={e => setSelectedDateValue(selectedDateValue.toISOString().slice(0, 10))}

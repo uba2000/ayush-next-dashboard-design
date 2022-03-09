@@ -651,6 +651,10 @@ table:not(.new) tbody td.days {
   border-radius: 0;
   line-height: 1.125em;
 }
+
+.react-calendar * {
+  @apply select-none !important;
+}
 .react-calendar__navigation button {
   @apply text-primary;
   min-width: 44px;
