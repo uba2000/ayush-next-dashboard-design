@@ -319,6 +319,14 @@ table.vary tbody td {
   user-select: none !important;
 }
 
+table.pricing-table tr th:first-child {
+  @apply w-[30%] xl:w-[50%] 2xl:w-[57%];
+}
+
+table.pricing-table tr th:not(:first-child) {
+  @apply w-[16.66%];
+}
+
 table.vary tbody td:not(:first-child) * {
   margin: 0 auto;
 }
