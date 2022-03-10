@@ -201,6 +201,11 @@ input {
   @apply border border-solid border-[#dcd8e7];
 }
 
+.generator-box .generator-main-title .main-title::before {
+  content: attr(data-heading-t);
+  @apply text-primary mr-1;
+}
+
 .generator-box-header-box {
   @apply border-b border-b-[#dcd8e7];
 }
@@ -320,11 +325,11 @@ table.vary tbody td {
 }
 
 table.pricing-table tr th:first-child {
-  @apply w-[30%] xl:w-[50%] 2xl:w-[57%];
+  @apply w-[38%] xl:w-[50%] 2xl:w-[59%];
 }
 
 table.pricing-table tr th:not(:first-child) {
-  @apply w-[16.66%];
+  @apply w-[20.66%] xl:w-[16.66%] 2xl:w-[13.66%];
 }
 
 table.vary tbody td:not(:first-child) * {
@@ -690,7 +695,7 @@ abbr[title] {
   border-radius: 0;
 }
 .react-calendar__tile--now {
-  @apply bg-transparent text-black !important;
+  @apply bg-primary text-white !important;
   border-radius: 0;
   font-weight: bold;
 }
@@ -702,7 +707,7 @@ abbr[title] {
 }
 .react-calendar__tile--hasActive:enabled:hover,
 .react-calendar__tile--hasActive:enabled:focus {
-  background-color: #f7f9fa !important;
+  @apply bg-primary text-white !important;
 }
 .react-calendar__tile--active {
   @apply bg-primary text-white !important;

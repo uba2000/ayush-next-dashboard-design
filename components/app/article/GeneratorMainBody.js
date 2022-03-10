@@ -57,9 +57,9 @@ export class GeneratorMainBody extends Component {
     return (
       <div className="generator-box bg-white">
         <header className='generator-box-header-box flex justify-between py-[13px] px-[25px]'>
-          {!this.state.showEditTitle ? (<><p className="relative text-base leading-7 font-poppins font-bold capitalize flex h-[27.99px]">
-            <span className='text-primary mr-1'>H1:</span>
-            <span className='flex-grow flex-shrink line-clamp-1'>{this.state.title}{' '}</span>
+          {!this.state.showEditTitle ? (<><p className="generator-main-title relative text-base leading-7 font-poppins font-bold capitalize flex h-[27.99px]">
+            {/* <span className='text-primary mr-1'>H1:</span> */}
+            <span className='flex-grow flex-shrink line-clamp-1 main-title' data-heading-t={this.props.headingT ? `${this.props.headingT}:` : 'H1:'}>{this.state.title}{' '}</span>
             <span onClick={this.editTitleHandler} className='cursor-pointer block absolute -top-2 right-[-24px]'>
               <Pencil />
             </span>
