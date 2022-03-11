@@ -705,6 +705,7 @@ abbr[title] {
   font-weight: bold;
   @apply bg-primary text-white !important;
 }
+.react-calendar__tile--hasActive,
 .react-calendar__tile--hasActive:enabled:hover,
 .react-calendar__tile--hasActive:enabled:focus {
   @apply bg-primary text-white !important;
