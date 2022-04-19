@@ -1,6 +1,7 @@
 import React from 'react';
 
 function GradientDesign({ isTopView }) {
+  isTopView = !!isTopView
   return (
     <>
       {/* GRADIENT ON SIDES */}

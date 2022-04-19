@@ -54,7 +54,10 @@ module.exports = {
         'gray-800': '#dcd8e7',
         'gray-900': '#E2E2EA',
         'gray-1000': '#f7f9fa',
+        'darkMode-subText': '#888888',
+        'darkMode-border': '#414141',
         'darkMode-black': '#000000',
+        'darkMode-bg': '#111111',
         'purple': colors.violet,
       },
       fontSize: {
@@ -64,7 +67,7 @@ module.exports = {
         'subtitle': ['12.0865px', {
           lineHeight: '14px'
         }],
-        'brand': ['34.4024px', {
+        'brand': ['35px', {
           lineHeight: '52px'
         }],
         'landing': ['50px', {

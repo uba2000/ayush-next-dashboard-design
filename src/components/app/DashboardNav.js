@@ -12,7 +12,7 @@ function DashboardNav() {
       <div className="container mx-auto">
         <div className="flex justify-between">
           <Link href='/app/dashboard'>
-            <a className="block whitespace-nowrap md:text-brand text-[30.4024px] font-extrabold font-poppins text-black">
+            <a className="tracking-tighter block whitespace-nowrap md:text-brand text-[30.4024px] font-medium font-poppins text-black dark:text-white">
               SEO Content .Ai
             </a>
           </Link>
