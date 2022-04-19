@@ -7,7 +7,7 @@ function DashboardLayout({ children, customChildren }) {
   return (
     <div>
       <DashboardNav />
-      <div className="page-section flex justify-center">
+      <div className="page-section relative overflow-hidden flex justify-center">
         {!customChildren ? <div className="container mx-0 flex justify-center items-center flex-col">
           {children}
         </div> : <div className='w-full'>

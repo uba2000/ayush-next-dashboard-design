@@ -7,6 +7,7 @@ import GradientDesign from '../../components/GradientDesign'
 import SearchInput from '../../components/SearchInput'
 import FilterSection from '../../components/section/Filter/FilterSection'
 import Box from '../../components/layouts/Box'
+import FeatureSection from '../../components/section/Features/FeatureSection'
 
 function Dashboard() {
   return (
@@ -49,6 +50,10 @@ function Dashboard() {
               </div>
             </div>
           </Box>
+        </div>
+
+        <div className="">
+          <FeatureSection />
         </div>
       </div>
     </DashboardLayout>
