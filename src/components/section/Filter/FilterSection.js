@@ -19,7 +19,7 @@ const FilterSection = () => {
       <Menu as='div' className='inline-block'>
         <div className='relative'>
           <div>
-            <Menu.Button className='space-x-1 bg-white dark:text-white text-black dark:bg-[#111111] py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5 border border-solid border-[#414141]'>
+            <Menu.Button className='space-x-1 bg-white dark:text-white text-black dark:bg-[#000000] py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5 border border-solid border-[#414141]'>
               <span>
                 More
               </span>
@@ -38,7 +38,7 @@ const FilterSection = () => {
             leaveFrom='transform opacity-100 scale-100'
             leaveTo='transform opacity-0 scale-95'
           >
-            <Menu.Items className='z-30 origin-top-left absolute left-0 mt-2 w-32 shadow-lg dark:bg-[#111111] dark:text-white text-black bg-white ring-1 ring-[#111111] ring-opacity-5 focus:outline-none'>
+            <Menu.Items className='z-30 origin-top-left absolute left-0 mt-2 w-32 shadow-lg dark:bg-[#000000] dark:text-white text-black bg-white ring-1 ring-[#000000] ring-opacity-5 focus:outline-none'>
               {stateFilter.slice(7).map((filter) => (
                 <Fragment key={filter.id}>
                   <Menu.Item>

@@ -7,7 +7,7 @@ const FeatureBox = ({ feature }) => {
       <div className="p-7 space-y-4">
         <div className="flex justify-between">
           <div>
-            <img src={`/svg/${feature.slug}.svg`} alt="" />
+            <img src={`/svg/features/${feature.slug}.svg`} alt="" />
           </div>
           <div>
 

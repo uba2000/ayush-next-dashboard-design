@@ -9,7 +9,7 @@ function DashboardFooter() {
   const state = useAppContext()
 
   return (
-    <footer className='relative border-t border-t-[#111111] text-base py-7 flex justify-center dark:bg-[#111111] bg-white'>
+    <footer className='relative border-t border-t-darkMode-bg text-base py-7 flex justify-center dark:bg-darkMode-bg bg-white'>
       <div className="font-poppins container" style={{ fontSize: '15px', lineHeight: '35px' }}>
         <div className="grid md:grid-cols-2 grid-cols-1">
           <div className="mb-3 md:mb-0">
