@@ -3,10 +3,14 @@ const colors = require('tailwindcss/colors')
 
 module.exports = {
   important: true,
+  darkMode: 'class',
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ],
   content: [
-    './public/**/*.html',
-    './pages/**/*.{js,jsx,ts,tsx,vue}',
-    './components/**/*.{js,jsx,ts,tsx,vue}',
+    './src/public/**/*.html',
+    './src/pages/**/*.{js,jsx,ts,tsx,vue}',
+    './src/components/**/*.{js,jsx,ts,tsx,vue}',
   ],
   theme: {
     container: {
@@ -50,6 +54,7 @@ module.exports = {
         'gray-800': '#dcd8e7',
         'gray-900': '#E2E2EA',
         'gray-1000': '#f7f9fa',
+        'darkMode-black': '#000000',
         'purple': colors.violet,
       },
       fontSize: {
@@ -74,7 +79,4 @@ module.exports = {
       }
     }
   },
-  plugins: [
-    require('@tailwindcss/line-clamp'),
-  ],
 }
