@@ -79,7 +79,7 @@ input {
 }
 
 .page-section {
-  padding-top: 100.98px;
+  padding-top: 208.98px;
   padding-bottom: 99.98px;
   min-height: calc(100vh - 108.02px - 95.99px);
 }
@@ -510,13 +510,14 @@ table:not(.new) tbody td.days {
 
 .overlay {
   background: radial-gradient(
-    90.16% 143.01% at 15.32% 21.04%,
-    rgba(225, 250, 255, 0.1) 0%,
-    rgba(198, 232, 255, 0.0223958) 77.08%,
-    rgba(240, 248, 255, 0) 100%
-  );
-  background-blend-mode: overlay, normal;
-  backdrop-filter: blur(39px);
+      109.57% 177.42% at -4.09% -5.87%,
+      rgba(225, 250, 255, 0.1) 0%,
+      rgba(0, 0, 0, 0.0223958) 48.52%,
+      rgba(240, 248, 255, 0) 100%
+    )
+    /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+  backdrop-filter: blur(20px);
+
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
 
