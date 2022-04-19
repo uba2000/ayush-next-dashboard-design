@@ -6,7 +6,7 @@ import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider enableSystem={false} defaultTheme="dark">
+    <ThemeProvider attribute="class" enableSystem={false} defaultTheme="dark">
       <AppWrapper>
         <Component {...pageProps} />
       </AppWrapper>

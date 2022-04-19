@@ -3,36 +3,17 @@ import React from 'react'
 import DashboardLayout from '../../components/app/DasboardLayout'
 import DashboardLanding from '../../components/app/DashboardLanding'
 import FrameBox from '../../components/app/FrameBox'
+import GradientDesign from '../../components/GradientDesign'
 
 function Dashboard() {
   return (
     <DashboardLayout>
       {/* Landing Section */}
       <DashboardLanding
-        landingText='Welcome In SEO Content.Ai'
-        subLandingText='I am so lorem ipum deloas In deloas with deloas Lorem ipsum dolo amet, consectetur adipiscing elit Porta pharetra scelerisque lacus id vitae aenean' />
+        landingText='Hey, what will you create today?'
+        subLandingText='I am so lorem ipum deloas In deloas with deloas Lorem ipsum dolo amet, consectetur adipiscing elit Porta pharetra scelerisque lacus id vitae aeneanI am so lorem ipum deloas In deloas with deloas Lorem ipsum dolo amet, consec' />
 
-      {/*  Generate Box*/}
-      <FrameBox>
-        <div style={{ height: '586px' }} className="flex items-center mx-auto">
-          <div className="text-center md:px-4 px-0 py-[201px]">
-            <h3 className="section-title md:text-[42px] text-[32px] mb-3">
-              Start generating content
-            </h3>
-            <p className="section-caption md:text-[18px] text-[13px] md:leading-[21px] leading-[17px] mb-3">
-              Lorem ipsum dolor sit amet consectetur adipiscing elit Eget <br /> lobortis
-              nisi sollicitudin amet Duis amet ipsum.
-            </p>
-            <div className="">
-              <Link href='/app/projects/new-project'>
-                <a className="block w-fit mx-auto btn btn-primary bg-primary text-white font-poppins">
-                  Get Started
-                </a>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </FrameBox>
+      <GradientDesign />
     </DashboardLayout>
   )
 }

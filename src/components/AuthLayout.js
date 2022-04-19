@@ -11,7 +11,7 @@ function AuthLayout({ children }) {
 
         { /* MAIN BODY */}
         <div className='flex container justify-center px-0'>
-          <GradientDesign />
+          <GradientDesign isTopView={true} />
 
 
           {children}

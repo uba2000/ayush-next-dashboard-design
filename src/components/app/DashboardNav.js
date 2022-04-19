@@ -8,7 +8,7 @@ const headerStyle = {
 
 function DashboardNav() {
   return (
-    <header id="header" style={headerStyle} className='font-poppins flex items-center bg-white dark:bg-black'>
+    <header id="header" style={headerStyle} className='font-poppins flex items-center bg-transparent relative z-10'>
       <div className="container mx-auto">
         <div className="flex justify-between">
           <Link href='/app/dashboard'>

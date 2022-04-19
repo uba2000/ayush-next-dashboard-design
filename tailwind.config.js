@@ -67,8 +67,8 @@ module.exports = {
         'brand': ['34.4024px', {
           lineHeight: '52px'
         }],
-        'landing': ['52px', {
-          lineHeight: '61px'
+        'landing': ['50px', {
+          lineHeight: '47px'
         }],
         'subLanding': ['18px', {
           lineHeight: '27px'
