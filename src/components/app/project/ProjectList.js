@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+
+import CheckBox from '../../layouts/CheckBox'
 import { Filter } from '../../../ui/icons/filter'
 import ProjectListItem from './ProjectListItem'
+import { Table } from '../../layouts/Table'
 
 function ProjectList(props) {
   const { projects, perpage } = props
@@ -32,44 +35,45 @@ function ProjectList(props) {
 
   return (
     <>
-      <div className="mt-8">
-        <table>
-          <thead>
-            <tr>
-              <th className='pl-0 cursor-pointer' style={{ width: '1%', minWidth: '50px' }}>
-                <div className="flex items-center justify-left" onClick={() => checkAllProjectsHandler(!checkAllProjects)}>
-                  {!checkAllProjects ? (
-                    <div className='h-5 w-5 rounded border border-solid border-[#767676]'></div>
-                  ) : (
-                    <div className="pop-in-animation">
-                      <svg width="20" height="20" className='tick-svg' viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fillRule="evenodd" clipRule="evenodd" d="M7.49988 0.833984C5.51075 0.833984 3.6031 1.58026 2.19658 2.90864C0.790054 4.23703 -0.00012207 6.0387 -0.00012207 7.91732V22.084C-0.00012207 23.9626 0.790054 25.7643 2.19658 27.0927C3.6031 28.421 5.51075 29.1673 7.49988 29.1673H22.4999C24.489 29.1673 26.3967 28.421 27.8032 27.0927C29.2097 25.7643 29.9999 23.9626 29.9999 22.084V7.91732C29.9999 6.0387 29.2097 4.23703 27.8032 2.90864C26.3967 1.58026 24.489 0.833984 22.4999 0.833984H7.49988ZM20.5949 13.1363C20.7296 13.0005 20.8347 12.841 20.9042 12.6668C20.9736 12.4926 21.0061 12.3073 20.9997 12.1212C20.9932 11.9352 20.9481 11.7522 20.8668 11.5827C20.7855 11.4132 20.6697 11.2604 20.5259 11.1332C20.3821 11.0059 20.2132 10.9066 20.0287 10.8411C19.8443 10.7755 19.648 10.7448 19.4511 10.7509C19.2541 10.7569 19.0604 10.7995 18.8809 10.8763C18.7014 10.9531 18.5396 11.0625 18.4049 11.1983L13.7804 15.8592L11.4959 13.9424C11.1966 13.7074 10.8123 13.5915 10.4241 13.6191C10.036 13.6468 9.67445 13.8159 9.41586 14.0906C9.15727 14.3654 9.02189 14.7243 9.03831 15.0916C9.05474 15.4589 9.22168 15.8057 9.50388 16.0589L12.8789 18.8922C13.1709 19.1372 13.5526 19.265 13.9428 19.2483C14.333 19.2316 14.701 19.0719 14.9684 18.803L20.5934 13.1363H20.5949Z" fill="#00A141" />
-                      </svg>
-                    </div>
-                  )}
+      <div className="mt-7">
+        <Table>
+          <Table.Head>
+            <Table.Row>
+              <Table.TH className='cursor-pointer w-[41.5px] pl-[21px]'>
+                <div className="flex items-center justify-center" onClick={() => checkAllProjectsHandler(!checkAllProjects)}>
+                  <CheckBox checked={checkAllProjects} />
                 </div>
-              </th>
-              <th style={{ width: '50%', minWidth: '397pxpx' }}>
+              </Table.TH>
+              <Table.TH main={true} style={{ width: '50%', minWidth: '397px' }}>
                 <span className="capitalize">
                   All Projects
                 </span>
-              </th>
-              <th style={{ width: '27%', minWidth: '169px' }}>
-                <span className="capitalize">
-                  Project Tags
+              </Table.TH>
+              <Table.TH style={{ width: '27%', minWidth: '169px' }}>
+                <span className='flex items-center space-x-1'>
+                  <span className="capitalize">
+                    Tags
+                  </span>
+                  <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 13l-5 5m0 0l-5-5m5 5V6" />
+                    </svg>
+                  </span>
                 </span>
-              </th>
-              <th style={{ width: '12%', minWidth: '144px' }}>
+              </Table.TH>
+              <Table.TH style={{ width: '12%', minWidth: '144px' }}>
                 <span className="capitalize">
                   Date
                 </span>
-              </th>
-              <th style={{ minWidth: '50px' }} className="flex justify-center cursor-pointer">
-                <Filter />
-              </th>
-            </tr>
-          </thead>
-          <tbody>
+              </Table.TH>
+              <Table.TH style={{ minWidth: '50px' }} className="h-full justify-center cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto h-6 w-6 dark:text-white text-black" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
+                </svg>
+              </Table.TH>
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
             {
               projectList.length <= 10 ? projectList.map((item, index) => {
                 return <ProjectListItem
@@ -87,8 +91,8 @@ function ProjectList(props) {
                 />
               })
             }
-          </tbody>
-        </table>
+          </Table.Body>
+        </Table>
       </div>
       <div className="mt-10">
         {/* Pagination */}

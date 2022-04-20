@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import { Logo } from '../../ui/icons/logo'
-import AccountBadge from '../layouts/AccountBadge'
+import AccountBadge from './AccountBadge'
 
 const headerStyle = {
   minHeight: '108.02px',

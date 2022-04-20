@@ -30,7 +30,7 @@ function AllProjects() {
         subLandingText='I am so lorem ipum deloas In deloas with deloas Lorem ipsum dolo amet, consectetur adipiscing elit Porta pharetra scelerisque lacus id vitae aenean'
       >
         <div className="mt-12">
-          <div className="flex justify-end mb-8">
+          <div className="flex justify-end mb-[21px]">
             <Link href='/app/projects/new-project'>
               <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
                 New Project

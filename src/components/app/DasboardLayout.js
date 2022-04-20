@@ -1,6 +1,6 @@
 import React from 'react';
-import DashboardFooter from './DashboardFooter';
-import DashboardNav from './DashboardNav';
+import DashboardFooter from '../layouts/DashboardFooter';
+import DashboardNav from '../layouts/DashboardNav';
 
 function DashboardLayout({ children, customChildren }) {
 
