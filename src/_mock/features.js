@@ -72,7 +72,7 @@ const feature = FEATURE_NAME.map((_, index) => {
     id: faker.datatype.uuid(),
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa at nibh aliquam nec sapien.',
     slug: slug,
-    name: FEATURE_NAME[index],
+    name: featureName,
     favourite: false,
     type
   };
