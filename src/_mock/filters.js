@@ -1,5 +1,7 @@
 import { faker } from '@faker-js/faker';
 
+import { convertToSlug } from '../utils/sluggify'
+
 // ----------------------------------------------------------------------
 
 const FILTER_NAME = [
@@ -24,7 +26,7 @@ const filters = FILTER_NAME.map((_, index) => {
   return {
     id: faker.datatype.uuid(),
     rank: setIndex,
-    slug: FILTER_NAME[index].toLowerCase(),
+    slug: convertToSlug(FILTER_NAME[index]),
     name: FILTER_NAME[index],
     selected: setIndex == 1,
   };

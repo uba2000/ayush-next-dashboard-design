@@ -1,9 +1,11 @@
 import { faker } from '@faker-js/faker';
 
+import { convertToSlug } from '../utils/sluggify'
+
 // ----------------------------------------------------------------------
 
 const FEATURE_NAME = [
-  'Facebook Primary Text',
+  'Facebook Primary Text~ads',
   'Facebook Headlines',
   'Google Ads Headlines',
   'Google Ads Description',
@@ -62,7 +64,9 @@ const FEATURE_NAME = [
 // ----------------------------------------------------------------------
 
 const feature = FEATURE_NAME.map((_, index) => {
-  let slug = FEATURE_NAME[index].replaceAll(' ', '-').toLowerCase()
+  let [featureName, type] = FEATURE_NAME[index].split('~')
+
+  let slug = convertToSlug(featureName)
 
   return {
     id: faker.datatype.uuid(),
@@ -70,6 +74,7 @@ const feature = FEATURE_NAME.map((_, index) => {
     slug: slug,
     name: FEATURE_NAME[index],
     favourite: false,
+    type
   };
 });
 
