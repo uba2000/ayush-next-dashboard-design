@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useThemeContext } from '../../context/theme'
 import Box from './Box'
 import CheckBox from './CheckBox'
+import { DialogLayout } from './Dialog'
 
 const AccountBadge = () => {
 
@@ -104,86 +105,43 @@ const AccountBadge = () => {
         )}
       </Menu>
 
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
-          onClose={closeModal}
-        >
-          <div className="min-h-screen px-4 text-center">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <Dialog.Overlay className="fixed inset-0 overlay" />
-            </Transition.Child>
-
-            {/* This element is to trick the browser into centering the modal contents. */}
-            <span
-              className="inline-block h-screen align-middle"
-              aria-hidden="true"
-            >
-              &#8203;
-            </span>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <div className="inline-block modal-container border-none p-0 my-8 overflow-hidden align-middle transition-all transform">
-                <Box>
-                  <div className="pt-12 divide-y-[1px] divide-darkMode-border">
-                    <div className=' px-[65px] pb-[50px] space-y-7'>
-                      <Dialog.Title
-                        as="h3"
-                        className="title text-left mb-[38px]"
-                      >
-                        <span>Appearance</span>
-                      </Dialog.Title>
-                      <div className='space-y-[28px]'>
-                        <div className="cursor-pointer w-fit space-x-6 text-left flex items-center" onClick={() => setThemeMode('light')}>
-                          <CheckBox
-                            checked={newTheme === 'light'}
-                          />
-                          <span className='capitalize font-medium text-[22px] dark:text-white text-black'>
-                            Light Mode
-                          </span>
-                        </div>
-                        <div className="cursor-pointer w-fit space-x-6 text-left flex items-center" onClick={() => setThemeMode('dark')}>
-                          <CheckBox
-                            checked={newTheme === 'dark'}
-                          />
-                          <span className='capitalize font-medium text-[22px] dark:text-white text-black'>
-                            Dark Mode
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className=" px-[65px] py-[18px] text-left">
-                      <button onClick={confirmThemeMode} className="btn btn-primary bg-primary text-white">
-                        Confirm
-                      </button>
-                      <button onClick={closeModal} className="ml-3 btn btn-reset dark:text-white">
-                        Cancel
-                      </button>
-                    </div>
-                  </div>
-                </Box>
-              </div>
-            </Transition.Child>
+      <DialogLayout isOpen={isOpen} closeModal={closeModal}>
+        <div className=' px-[65px] pb-[50px] space-y-7'>
+          <Dialog.Title
+            as="h3"
+            className="title text-left mb-[38px]"
+          >
+            <span>Appearance</span>
+          </Dialog.Title>
+          <div className='space-y-[28px]'>
+            <div className="cursor-pointer w-fit space-x-6 text-left flex items-center" onClick={() => setThemeMode('light')}>
+              <CheckBox
+                checked={newTheme === 'light'}
+              />
+              <span className='capitalize font-medium text-[22px] dark:text-white text-black'>
+                Light Mode
+              </span>
+            </div>
+            <div className="cursor-pointer w-fit space-x-6 text-left flex items-center" onClick={() => setThemeMode('dark')}>
+              <CheckBox
+                checked={newTheme === 'dark'}
+              />
+              <span className='capitalize font-medium text-[22px] dark:text-white text-black'>
+                Dark Mode
+              </span>
+            </div>
           </div>
-        </Dialog>
-      </Transition>
+        </div>
+
+        <div className=" px-[65px] py-[18px] text-left">
+          <button onClick={confirmThemeMode} className="btn btn-primary bg-primary text-white">
+            Confirm
+          </button>
+          <button onClick={closeModal} className="ml-3 btn btn-reset dark:text-white">
+            Cancel
+          </button>
+        </div>
+      </DialogLayout>
     </>
   )
 }
