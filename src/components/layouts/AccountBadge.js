@@ -11,7 +11,7 @@ const AccountBadge = () => {
   const state = useAppContext()
 
   const [isOpen, setIsOpen] = useState(false)
-  const [newTheme, setNewTheme] = useState(state.theme)
+  const [newTheme, setNewTheme] = useState(state.themeMode.theme)
 
   function closeModal() {
     setIsOpen(false)
@@ -26,7 +26,7 @@ const AccountBadge = () => {
   }
 
   const confirmThemeMode = () => {
-    state.setTheme(newTheme)
+    state.themeMode.setTheme(newTheme)
     closeModal()
   }
 
@@ -85,7 +85,7 @@ const AccountBadge = () => {
                       <span className="flex justify-between text-[13px] dark:text-darkMode-subText tracking-tight font-medium text-ash">
                         <span>Appearance</span>
                         <span className='capitalize dark:text-white text-black'>
-                          {!state.isDarkMode ? 'Dark' : 'Light'} Mode
+                          {!state.themeMode.isDarkMode ? 'Dark' : 'Light'} Mode
                         </span>
                       </span>
                     </div>

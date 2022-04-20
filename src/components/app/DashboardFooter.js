@@ -32,15 +32,15 @@ function DashboardFooter() {
             </ul>
             <div className='inline-flex items-center font-medium px-3'>
               <Switch
-                checked={!state.isDarkMode}
-                onChange={state.toogleTheme}
-                className={`${!state.isDarkMode ? 'bg-primary' : 'bg-darkMode-subText'}
+                checked={!state.themeMode.isDarkMode}
+                onChange={state.themeMode.toogleTheme}
+                className={`${!state.themeMode.isDarkMode ? 'bg-primary' : 'bg-darkMode-subText'}
             relative inline-flex items-center flex-shrink-0 h-[39.04px] w-[82px] p-[10px] border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
               >
                 <span className="sr-only">Use setting</span>
                 <span
                   aria-hidden="true"
-                  className={`${!state.isDarkMode ? 'translate-x-9' : 'translate-x-0'}
+                  className={`${!state.themeMode.isDarkMode ? 'translate-x-9' : 'translate-x-0'}
               pointer-events-none inline-block h-[23.44px] w-[23.44px] rounded-full bg-white shadow- transform ring-0 transition ease-in-out duration-200`}
                 />
               </Switch>

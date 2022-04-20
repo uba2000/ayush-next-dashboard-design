@@ -41,7 +41,7 @@ function Dashboard() {
                   </p>
                 </div>
                 <div className='flex flex-grow justify-end items-center'>
-                  <Link href='/'>
+                  <Link href='/app/projects'>
                     <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
                       Get Started
                     </a>

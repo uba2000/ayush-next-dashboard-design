@@ -5,6 +5,7 @@ export const AppContext = createContext();
 
 export function AppWrapper({ children }) {
 
+  // Dark Mode Config
   const [mounted, setMounted] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(true)
   const { theme, setTheme } = useTheme()
@@ -12,14 +13,6 @@ export function AppWrapper({ children }) {
   const toogleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark')
   }
-
-  let sharedState = {
-    theme,
-    isDarkMode,
-    setTheme,
-    toogleTheme,
-  }
-
   useEffect(() => {
     setMounted(true)
   }, [])
@@ -27,6 +20,15 @@ export function AppWrapper({ children }) {
   useEffect(() => {
     setIsDarkMode(theme !== 'dark')
   }, [theme])
+
+  let sharedState = {
+    themeMode: {
+      theme,
+      isDarkMode,
+      setTheme,
+      toogleTheme,
+    }
+  }
 
   if (!mounted) return null
 

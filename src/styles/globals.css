@@ -76,6 +76,7 @@ a {
 input {
   width: 100%;
   transition: all 0.4s;
+  @apply dark:bg-darkMode-bg bg-white !important;
 }
 
 .page-section {
