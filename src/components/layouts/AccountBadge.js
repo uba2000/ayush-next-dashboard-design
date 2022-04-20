@@ -1,9 +1,8 @@
 import React, { Fragment, useState } from 'react'
-import { Transition, Menu, Dialog } from '@headlessui/react'
+import { Transition, Menu } from '@headlessui/react'
 import Link from 'next/link'
 
 import { useThemeContext } from '../../context/theme'
-import Box from './Box'
 import CheckBox from './CheckBox'
 import { DialogLayout } from './Dialog'
 
@@ -107,12 +106,12 @@ const AccountBadge = () => {
 
       <DialogLayout isOpen={isOpen} closeModal={closeModal}>
         <div className=' px-[65px] pb-[50px] space-y-7'>
-          <Dialog.Title
+          <DialogLayout.Title
             as="h3"
             className="title text-left mb-[38px]"
           >
             <span>Appearance</span>
-          </Dialog.Title>
+          </DialogLayout.Title>
           <div className='space-y-[28px]'>
             <div className="cursor-pointer w-fit space-x-6 text-left flex items-center" onClick={() => setThemeMode('light')}>
               <CheckBox
