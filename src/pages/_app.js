@@ -1,4 +1,5 @@
 // import Head from 'next/head'
+import { ThemeWrapper } from '../context/theme'
 import { AppWrapper } from '../context/state'
 import { ThemeProvider } from 'next-themes'
 
@@ -8,7 +9,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider attribute="class" enableSystem={false} defaultTheme="dark">
       <AppWrapper>
-        <Component {...pageProps} />
+        <ThemeWrapper>
+          <Component {...pageProps} />
+        </ThemeWrapper>
       </AppWrapper>
     </ThemeProvider>
   )

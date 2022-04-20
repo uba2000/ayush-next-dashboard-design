@@ -2,13 +2,13 @@ import React, { Fragment, useState } from 'react'
 import { Transition, Menu, Dialog } from '@headlessui/react'
 import Link from 'next/link'
 
-import { useAppContext } from '../../context/state'
+import { useThemeContext } from '../../context/theme'
 import Box from './Box'
 import CheckBox from './CheckBox'
 
 const AccountBadge = () => {
 
-  const state = useAppContext()
+  const state = useThemeContext()
 
   const [isOpen, setIsOpen] = useState(false)
   const [newTheme, setNewTheme] = useState(state.themeMode.theme)

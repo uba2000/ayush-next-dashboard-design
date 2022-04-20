@@ -2,11 +2,11 @@ import Link from 'next/link'
 import React from 'react'
 import { Switch } from '@headlessui/react'
 
-import { useAppContext } from '../../context/state'
+import { useThemeContext } from '../../context/theme'
 
 function DashboardFooter() {
 
-  const state = useAppContext()
+  const state = useThemeContext()
 
   return (
     <footer className='relative border-t border-t-darkMode-bg text-base py-7 flex justify-center dark:bg-darkMode-bg bg-white'>
