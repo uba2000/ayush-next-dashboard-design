@@ -104,41 +104,43 @@ const AccountBadge = () => {
         )}
       </Menu>
 
-      <DialogLayout isOpen={isOpen} closeModal={closeModal}>
-        <div className=' px-[65px] pb-[50px] space-y-7'>
-          <DialogLayout.Title
-            as="h3"
-            className="title text-left mb-[38px]"
-          >
-            <span>Appearance</span>
-          </DialogLayout.Title>
-          <div className='space-y-[28px]'>
-            <div className="cursor-pointer w-fit space-x-6 text-left flex items-center" onClick={() => setThemeMode('light')}>
-              <CheckBox
-                checked={newTheme === 'light'}
-              />
-              <span className='capitalize font-medium text-[22px] dark:text-white text-black'>
-                Light Mode
-              </span>
-            </div>
-            <div className="cursor-pointer w-fit space-x-6 text-left flex items-center" onClick={() => setThemeMode('dark')}>
-              <CheckBox
-                checked={newTheme === 'dark'}
-              />
-              <span className='capitalize font-medium text-[22px] dark:text-white text-black'>
-                Dark Mode
-              </span>
+      <DialogLayout isOpen={isOpen} closeModal={closeModal} isSharp={true}>
+        <div className="pt-12 divide-y-[1px] divide-darkMode-border">
+          <div className=' px-[65px] pb-[50px] space-y-7'>
+            <DialogLayout.Title
+              as="h3"
+              className="title text-left mb-[38px]"
+            >
+              <span>Appearance</span>
+            </DialogLayout.Title>
+            <div className='space-y-[28px]'>
+              <div className="cursor-pointer w-fit space-x-6 text-left flex items-center" onClick={() => setThemeMode('light')}>
+                <CheckBox
+                  checked={newTheme === 'light'}
+                />
+                <span className='capitalize font-medium text-[22px] dark:text-white text-black'>
+                  Light Mode
+                </span>
+              </div>
+              <div className="cursor-pointer w-fit space-x-6 text-left flex items-center" onClick={() => setThemeMode('dark')}>
+                <CheckBox
+                  checked={newTheme === 'dark'}
+                />
+                <span className='capitalize font-medium text-[22px] dark:text-white text-black'>
+                  Dark Mode
+                </span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className=" px-[65px] py-[18px] text-left">
-          <button onClick={confirmThemeMode} className="btn btn-primary bg-primary text-white">
-            Confirm
-          </button>
-          <button onClick={closeModal} className="ml-3 btn btn-reset dark:text-white">
-            Cancel
-          </button>
+          <div className=" px-[65px] py-[18px] text-left">
+            <button onClick={confirmThemeMode} className="btn btn-primary bg-primary text-white">
+              Confirm
+            </button>
+            <button onClick={closeModal} className="ml-3 btn btn-reset dark:text-white">
+              Cancel
+            </button>
+          </div>
         </div>
       </DialogLayout>
     </>

@@ -66,7 +66,7 @@ function ProjectList(props) {
                   Date
                 </span>
               </Table.TH>
-              <Table.TH style={{ minWidth: '50px' }} className="h-full justify-center cursor-pointer">
+              <Table.TH style={{ minWidth: '50px' }} className="h-full justify-center cursor-pointer pr-[21px]">
                 <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto h-6 w-6 dark:text-white text-black" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
                 </svg>
@@ -94,15 +94,14 @@ function ProjectList(props) {
           </Table.Body>
         </Table>
       </div>
-      <div className="mt-10">
-        {/* Pagination */}
-        <div className="flex justify-between">
-          <span className="text-gray-500 font-poppins text-sm">
-            {(page - 1) * 10 + 1} - {page * 10} of {projects.length} Projects
+      <div className="dark:bg-darkMode-bg bg-white border border-t-0 dark:border-darkMode-border border-ash border-solid">
+        <div className="flex justify-between pl-11 pr-10 py-4">
+          <span className="font-poppins text-sm align-middle">
+            {(page - 1) * 10 + 1}-{page * 10} of {projects.length} projects
           </span>
           <div className="flex items-center">
             <button
-              className={`py-1 px-2 border border-solid border-gray-900 ${page == 1 && 'cursor-not-allowed'
+              className={`py-1 px-2 border border-solid dark:border-darkMode-border border-ash ${page == 1 && 'cursor-not-allowed'
                 }`}
               disabled={page == 1}
               onClick={() => setPage(page - 1)}
@@ -114,7 +113,7 @@ function ProjectList(props) {
                 height='20'
                 viewBox='0 0 24 24'
                 strokeWidth='1.5'
-                stroke='#2c3e50'
+                stroke='currentColor'
                 fill='none'
                 strokeLinecap='round'
                 strokeLinejoin='round'
@@ -127,7 +126,7 @@ function ProjectList(props) {
               {page}
             </p>
             <button
-              className={`py-1 px-2 border border-solid border-gray-900 ${page == Math.ceil(projects.length / 10) && 'cursor-not-allowed'
+              className={`py-1 px-2 border border-solid dark:border-darkMode-border border-ash ${page == Math.ceil(projects.length / 10) && 'cursor-not-allowed'
                 }`}
               disabled={page == Math.ceil(projects.length / 10)}
               onClick={() => setPage(page + 1)}
@@ -139,7 +138,7 @@ function ProjectList(props) {
                 height='20'
                 viewBox='0 0 24 24'
                 strokeWidth='1.5'
-                stroke='#2c3e50'
+                stroke='currentColor'
                 fill='none'
                 strokeLinecap='round'
                 strokeLinejoin='round'

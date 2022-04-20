@@ -27,6 +27,7 @@ function AllProjects() {
     <DashboardLayout>
       <DashboardLanding
         landingText='All Projects'
+        oneChild={true}
         subLandingText='I am so lorem ipum deloas In deloas with deloas Lorem ipsum dolo amet, consectetur adipiscing elit Porta pharetra scelerisque lacus id vitae aenean'
       >
         <div className="mt-12">
