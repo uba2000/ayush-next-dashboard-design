@@ -14,7 +14,9 @@ export function AppWrapper({ children }) {
   }
 
   let sharedState = {
+    theme,
     isDarkMode,
+    setTheme,
     toogleTheme,
   }
 

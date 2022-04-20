@@ -1,11 +1,11 @@
 import React from 'react'
 
-const box = ({ children }) => {
+const Box = ({ children, className, ...rest }) => {
   return (
-    <div className="border border-solid border-[#414141] dark:bg-[#111111] bg-white dark:text-white text-black">
+    <div {...rest} className={`border border-solid border-[#414141] dark:bg-[#111111] bg-white dark:text-white text-black ${className}`}>
       {children}
     </div>
   )
 }
 
-export default box
+export default Box
