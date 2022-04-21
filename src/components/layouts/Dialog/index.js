@@ -3,7 +3,7 @@ import { Transition, Dialog } from '@headlessui/react'
 
 import Box from '../Box'
 
-const DialogLayout = ({ children, isOpen, closeModal, isSharp }) => {
+const DialogLayout = ({ children, isOpen, closeModal, isSharp, widthRestrict }) => {
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -41,7 +41,7 @@ const DialogLayout = ({ children, isOpen, closeModal, isSharp }) => {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="inline-block modal-container bg-transparent border-none p-0 my-8 overflow-hidden align-middle transition-all transform">
+            <div className={`inline-block modal-container ${widthRestrict ? widthRestrict : 'max-w-[818px]'} bg-transparent border-none p-0 my-8 overflow-hidden align-middle transition-all transform`}>
               <Box className={`${!isSharp ? 'rounded-2xl' : 'rounded-none'}`}>
                 {children}
               </Box>

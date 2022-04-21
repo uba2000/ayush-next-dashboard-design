@@ -8,8 +8,8 @@ import { Table } from '../../layouts/Table'
 import { DialogLayout } from '../../layouts/Dialog'
 import FormGroup from '../../FormGroup'
 import Input from '../../layouts/Input'
-
-const industries = ['Finance', 'Production', 'Technology', 'Economics', 'Agriculture']
+import industries from '../../../_mock/industries'
+import { fTags } from '../../../utils/formatTags'
 
 function ProjectListItem(props) {
   const { title, tags, date, checked } = props.item
@@ -103,7 +103,7 @@ function ProjectListItem(props) {
         </div>
       </DialogLayout>
       {/* Edit Dialog */}
-      <DialogLayout isOpen={editIsOpen} closeModal={closeEditModal} isSharp={true}>
+      <DialogLayout isOpen={editIsOpen} widthRestrict={'max-w-[1299px]'} closeModal={closeEditModal} isSharp={true}>
         <div className='w-full text-left pt-[30px] divide-y-[1px] dark:divide-darkMode-border divide-ash'>
           <div className="pb-[30px] px-14">
             <FormGroup label='Project Title' imp={true} labelFor="project">
@@ -143,11 +143,11 @@ function ProjectListItem(props) {
               </Transition>
             </FormGroup>
 
-            <FormGroup label='Prize Tags' imp={true} labelFor="prize">
+            <FormGroup label='Project Tags' imp={true} labelFor="prize">
               <Input
                 id='prize'
-                value={pTags}
-                onChange={e => setPTags(e.target.value)}
+                value={pTags.join(', ')}
+                onChange={e => setPTags(fTags(e.target.value))}
                 placeholder='graphic design, digital marketing, marketing'
               />
             </FormGroup>

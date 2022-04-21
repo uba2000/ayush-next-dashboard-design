@@ -104,7 +104,7 @@ const AccountBadge = () => {
         )}
       </Menu>
 
-      <DialogLayout isOpen={isOpen} closeModal={closeModal} isSharp={true}>
+      <DialogLayout isOpen={isOpen} widthRestrict={'max-w-[886px]'} closeModal={closeModal} isSharp={true}>
         <div className="pt-12 divide-y-[1px] divide-darkMode-border">
           <div className=' px-[65px] pb-[50px] space-y-7'>
             <DialogLayout.Title
