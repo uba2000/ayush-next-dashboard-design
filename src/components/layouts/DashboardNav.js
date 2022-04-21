@@ -11,7 +11,7 @@ const headerStyle = {
 
 function DashboardNav() {
   return (
-    <header id="header" style={headerStyle} className='fixed top-0 left-0 w-full font-poppins flex items-center bg-transparent z-10'>
+    <header id="header" style={headerStyle} className='font-poppins flex items-center bg-transparent z-10'>
       <div className="container mx-auto">
         <div className="flex justify-between">
           <Link href='/app/dashboard'>
@@ -42,11 +42,6 @@ function DashboardNav() {
                 </Link>
               </li>
               <li className='inline py-2 pl-6'>
-                {/* <Link href='/app/account'>
-                  <a className='btn btn-white'>
-                    My Account
-                  </a>
-                </Link> */}
                 <AccountBadge />
               </li>
             </ul>
