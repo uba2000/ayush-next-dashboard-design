@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Box = ({ children, className, ...rest }) => {
+const Box = ({ children, className, type, ...rest }) => {
   return (
-    <div {...rest} className={`border border-solid border-[#414141] dark:bg-[#111111] bg-white dark:text-white text-black ${className}`}>
+    <div {...rest} className={`${type ? type == 'black' ? 'dark:bg-black' : '' : 'dark:bg-darkMode-bg'} bg-white dark:text-white text-black border border-solid border-ash dark:border-darkMode-border ${className}`}>
       {children}
     </div>
   )
