@@ -75,7 +75,7 @@ function AllProjects() {
 
   const continueProjectCreation = () => {
     state.project.setNewProjectData(newProject)
-    router.push('/app/projects/new-project/keywords')
+    router.push('/app/projects/keywords')
   }
 
   return (

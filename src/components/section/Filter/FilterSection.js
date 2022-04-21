@@ -3,6 +3,7 @@ import { Transition, Menu } from '@headlessui/react'
 
 import Filters from '../../../_mock/filters'
 import FilterBox from './FilterBox';
+import { ChevDown } from '../../../ui/icons/chev-down';
 
 const FilterSection = () => {
 
@@ -19,12 +20,14 @@ const FilterSection = () => {
       <Menu as='div' className='inline-block'>
         <div className='relative'>
           <div>
-            <Menu.Button className='space-x-1 bg-white dark:text-white text-black dark:bg-[#000000] py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5 border border-solid border-[#414141]'>
+            <Menu.Button className='flex items-center space-x-[5px] bg-white dark:text-white text-black dark:bg-[#000000] py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5 border border-solid border-[#414141]'>
               <span>
                 More
               </span>
               <span>
-                {/* icon here */}
+                <ChevDown
+                  className="h-2 w-2 dark:text-white text-black"
+                />
               </span>
             </Menu.Button>
           </div>

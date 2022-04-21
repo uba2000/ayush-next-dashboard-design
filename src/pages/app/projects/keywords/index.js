@@ -24,7 +24,6 @@ function KeywordsPage() {
   }
 
   const CSVButton = useRef(null)
-  const CSVButtonForm = useRef(null)
 
   const clickCSVImport = () => {
     if (errorDialog) {
@@ -40,16 +39,24 @@ function KeywordsPage() {
     }
   }
 
+  const handleKeywordAnalysis = () => {
+    router.push('/app/projects/keywords/results')
+  }
+
   return (
     <DashboardLayout>
       <DialogLayout isOpen={errorDialog} closeModal={closeErrorDialog}>
         <div className="px-[130px] py-20 relative">
           <div className="absolute top-[30px] right-7 cursor-pointer" onClick={closeErrorDialog}>
-            <span></span>
+            <span>
+              {/* TODO: add close-icon */}
+            </span>
           </div>
           <div className="space-y-6">
             <div className="mb-[26.85px]">
-              <span></span>
+              <span>
+                {/* TODO: add error representation icon */}
+              </span>
             </div>
             <div className="space-y-2">
               <DialogLayout.Title className={'capitalize text-xl font-semibold'}>
@@ -87,6 +94,11 @@ function KeywordsPage() {
                   </Box>
                 </Fragment>
               ))}
+              <div className='cursor-pointer'>
+                <span>
+                  {/* TODO: add add-keyword-icon */}
+                </span>
+              </div>
             </div>
           </Box>
           <Box className={'py-6 px-[59px]'}>
@@ -95,11 +107,11 @@ function KeywordsPage() {
                 Go Back
               </button>
               <div className='space-x-4 flex'>
-                <form className='relative' ref={CSVButtonForm}>
+                <form className='relative'>
                   <button type='button' onClick={clickCSVImport} className="btn btn-reset text-sm dark:text-white text-black">Import CSV</button>
                   <input type="file" accept='.csv' onChange={handleCSVImport} ref={CSVButton} name="keywordCSV" id="keyword-csv" className='absolute w-full h-full hidden left-0 top-0' />
                 </form>
-                <button className="btn btn-primary">Start Analysis</button>
+                <button onClick={handleKeywordAnalysis} className="btn btn-primary">Start Analysis</button>
               </div>
             </div>
           </Box>
