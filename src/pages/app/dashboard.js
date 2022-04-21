@@ -1,6 +1,7 @@
 import React from 'react'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 
+import { useAppContext } from '../../context/state'
 import DashboardLayout from '../../components/app/DasboardLayout'
 import DashboardLanding from '../../components/app/DashboardLanding'
 import GradientDesign from '../../components/GradientDesign'
@@ -10,6 +11,15 @@ import Box from '../../components/layouts/Box'
 import FeatureSection from '../../components/section/Features/FeatureSection'
 
 function Dashboard() {
+
+  const router = useRouter()
+  const state = useAppContext()
+
+  const getStartedCTA = (route) => {
+    state.layout.setShowNewProject(true)
+    router.push(route)
+  }
+
   return (
     <DashboardLayout>
       {/* Landing Section */}
@@ -41,11 +51,9 @@ function Dashboard() {
                   </p>
                 </div>
                 <div className='flex flex-grow justify-end items-center'>
-                  <Link href='/app/projects'>
-                    <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
-                      Get Started
-                    </a>
-                  </Link>
+                  <button type='button' onClick={() => getStartedCTA('/app/projects')} className="block w-fit btn btn-primary bg-primary text-white font-poppins">
+                    Get Started
+                  </button>
                 </div>
               </div>
             </div>

@@ -1,7 +1,8 @@
-import Link from 'next/link'
-import React, { useState, useReducer, Fragment } from 'react'
+import { useRouter } from 'next/router'
+import React, { useState, useReducer, Fragment, useEffect } from 'react'
 import { Transition } from '@headlessui/react'
 
+import { useAppContext } from '../../../context/state'
 import Projects from '../../../_mock/projects'
 import industries from '../../../_mock/industries'
 import { fTags } from '../../../utils/formatTags'
@@ -27,7 +28,7 @@ const reducer = (state, action) => {
       let arrTags = fTags(action.value)
       return { ...state, tags: arrTags }
     case 'setIndustry':
-      return { ...state, title: action.value }
+      return { ...state, industry: action.value }
     default:
       return state
   }
@@ -35,11 +36,24 @@ const reducer = (state, action) => {
 
 function AllProjects() {
 
+  const router = useRouter()
+
+  const state = useAppContext()
+
   const [projects, setProjects] = useState(Projects)
-  const [projectDialog, setProjectDialog] = useState(false)
-  const [newProject, dispatch] = useReducer(reducer, initialProjectDetails)
   const [showPredict, setPredictTitle] = useState(false)
+  const [projectDialog, setProjectDialog] = useState(false)
   const [showPredictIndustry, setShowPredictIndustry] = useState(false)
+
+  const [newProject, dispatch] = useReducer(reducer, initialProjectDetails)
+
+  useEffect(() => {
+    setTimeout(() => setProjectDialog(state.layout.showNewProject), 200)
+
+    return () => {
+      state.layout.setShowNewProject(false)
+    }
+  }, [])
 
   const predictTitle = (value) => {
     dispatch({ type: 'setTitle', value })
@@ -57,6 +71,11 @@ function AllProjects() {
 
   const closeProjectDialog = () => {
     setProjectDialog(false)
+  }
+
+  const continueProjectCreation = () => {
+    state.project.setNewProjectData(newProject)
+    router.push('/app/projects/new-project/keywords')
   }
 
   return (
@@ -129,7 +148,7 @@ function AllProjects() {
               <Input
                 id='industry'
                 value={newProject.industry}
-                onChange={(e) => dispatch({ type: 'setIndustry', value: e.target.value })}
+                onChange={(e) => predictIndustry(e.target.value)}
                 placeholder='Industry'
               />
               <Transition
@@ -146,7 +165,7 @@ function AllProjects() {
                   {industries.map((industry, index) => {
                     return (
                       <li className='px-[27.18px] py-[10px]' key={index}>
-                        <span className='cursor-pointer' onClick={() => { setRSelectedIndustry(industry); setShowPredictIndustry(false) }}>
+                        <span className='cursor-pointer' onClick={() => { dispatch({ type: 'setIndustry', value: industry }); setShowPredictIndustry(false) }}>
                           <span className='font-bold'>{industry}</span>
                         </span>
                       </li>
@@ -159,7 +178,7 @@ function AllProjects() {
 
           <div className='form-group px-14 flex mb-0 justify-between'>
             <div className="space-x-4 flex">
-              <button type='button' className='block w-fit btn btn-primary bg-primary text-white'>
+              <button type='button' onClick={continueProjectCreation} className='block w-fit btn btn-primary bg-primary text-white'>
                 Next
               </button>
             </div>
