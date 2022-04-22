@@ -25,4 +25,14 @@ const keywords = KEYWORDS_NAME.map((keyword) => {
   }
 })
 
-export default keywords;
+const returnKeywords = {
+  keywords,
+  newKeyword: ({ keyword }) => {
+    return {
+      id: faker.datatype.uuid(),
+      keyword
+    }
+  }
+}
+
+export default returnKeywords;

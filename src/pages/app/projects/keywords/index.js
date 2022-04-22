@@ -7,9 +7,10 @@ import FormGroup from '../../../../components/FormGroup'
 import Box from '../../../../components/layouts/Box'
 import keywords from '../../../../_mock/keywords'
 import { DialogLayout } from '../../../../components/layouts/Dialog'
-import { Plus, X, XSolid } from '../../../../ui/icons'
+import { Plus, X, XSolid, Tick } from '../../../../ui/icons'
+import Input from '../../../../components/layouts/Input'
 
-const initialKeywords = keywords
+const initialKeywords = keywords.keywords
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -17,6 +18,10 @@ const reducer = (state, action) => {
       let keyword = action.value
       let newKeywords = state.filter((n) => n.id != keyword.id)
       return newKeywords
+    case 'addKeyword':
+      let newKeyword = state.map((k) => k)
+      newKeyword.push(keywords.newKeyword({ keyword: action.value }))
+      return newKeyword
     default:
       return state
   }
@@ -28,6 +33,8 @@ function KeywordsPage() {
 
   const [projectKeywords, dispatch] = useReducer(reducer, initialKeywords)
   const [errorDialog, setErrorDialog] = useState(false)
+  const [isNewKeyword, setIsNewKeyword] = useState(false)
+  const [newKeyword, setNewKeyword] = useState('')
 
   const openErrorDialog = () => {
     setErrorDialog(true)
@@ -38,6 +45,19 @@ function KeywordsPage() {
   }
 
   const CSVButton = useRef(null)
+
+  const showNewKeywordInput = () => {
+    setNewKeyword('')
+    setIsNewKeyword(true)
+  }
+
+  const saveNewKeywordInput = () => {
+    if (newKeyword.length > 1) {
+      dispatch({ type: 'addKeyword', value: newKeyword })
+      setNewKeyword('')
+    }
+    setIsNewKeyword(false)
+  }
 
   const clickCSVImport = () => {
     if (errorDialog) {
@@ -110,8 +130,27 @@ function KeywordsPage() {
                   </Box>
                 </Fragment>
               ))}
+              {isNewKeyword && (
+                <Fragment>
+                  <Box type={'black'} className='pr-2 w-fit min-w-fit mb-[11px] mr-2 h-[38px]'>
+                    <div className="flex space-x-[6px]">
+                      <span className='font-medium text-sm'>
+                        <Input
+                          autoFocus
+                          value={newKeyword}
+                          placeholder="Enter keyword"
+                          onChange={(e) => setNewKeyword(e.target.value)}
+                          className="text-sm font-medium py-1 px-2 h-[35px] border-0" />
+                      </span>
+                      <span onClick={saveNewKeywordInput} className='cursor-pointer flex items-center'>
+                        <Tick className="w-[14px] h-[14px]" />
+                      </span>
+                    </div>
+                  </Box>
+                </Fragment>
+              )}
               <div className='cursor-pointer mb-[11px] flex items-center'>
-                <span>
+                <span onClick={showNewKeywordInput}>
                   <Plus className="w-[19px] h-[19px] text-primary" />
                 </span>
               </div>

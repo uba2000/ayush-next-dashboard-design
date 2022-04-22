@@ -1,11 +1,13 @@
 import React from 'react'
 import tw from "tailwind-styled-components"
 
-const Input = ({ type, ...rest }) => {
-  return (
-    <StyledInput {...rest} type={`${type ? type : 'text'}`} />
+export default React.forwardRef(
+  ({ type, ...rest }, ref) => (
+    <StyledInput {...rest} type={`${type ? type : 'text'}`} ref={ref} />
   )
-}
+)
+
+// Input.displayName = 'Input';
 
 const StyledInput = tw.input`
   flex-grow 
@@ -23,5 +25,3 @@ const StyledInput = tw.input`
   h-[40px] 
   bg-white
 `;
-
-export default Input
