@@ -59,6 +59,7 @@ module.exports = {
         'darkMode-black': '#000000',
         'darkMode-bg': '#111111',
         'purple': colors.violet,
+        'red': '#FF3749',
       },
       fontSize: {
         'title': ['33.7069px', {

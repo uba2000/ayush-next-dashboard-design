@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useRef } from 'react'
+import React, { useState, useReducer, Fragment, useRef } from 'react'
 import { useRouter } from 'next/router'
 
 import DashboardLayout from '../../../../components/app/DasboardLayout'
@@ -7,12 +7,26 @@ import FormGroup from '../../../../components/FormGroup'
 import Box from '../../../../components/layouts/Box'
 import keywords from '../../../../_mock/keywords'
 import { DialogLayout } from '../../../../components/layouts/Dialog'
+import { Plus, X, XSolid } from '../../../../ui/icons'
+
+const initialKeywords = keywords
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'removeKeyword':
+      let keyword = action.value
+      let newKeywords = state.filter((n) => n.id != keyword.id)
+      return newKeywords
+    default:
+      return state
+  }
+}
 
 function KeywordsPage() {
 
   const router = useRouter()
 
-  const [projectKeywords, setProjectKeywords] = useState(keywords)
+  const [projectKeywords, dispatch] = useReducer(reducer, initialKeywords)
   const [errorDialog, setErrorDialog] = useState(false)
 
   const openErrorDialog = () => {
@@ -49,13 +63,13 @@ function KeywordsPage() {
         <div className="px-[130px] py-20 relative">
           <div className="absolute top-[30px] right-7 cursor-pointer" onClick={closeErrorDialog}>
             <span>
-              {/* TODO: add close-icon */}
+              <X className="w-[21px] h-[21px]" />
             </span>
           </div>
           <div className="space-y-6">
             <div className="mb-[26.85px]">
               <span>
-                {/* TODO: add error representation icon */}
+                <XSolid className="w-[55.3px] h-[55.3px] mx-auto text-red" />
               </span>
             </div>
             <div className="space-y-2">
@@ -89,14 +103,16 @@ function KeywordsPage() {
                       <span className='font-medium text-sm'>
                         {k.keyword}
                       </span>
-                      <span className='cursor-pointer'></span>
+                      <span onClick={() => dispatch({ type: 'removeKeyword', value: { id: k.id } })} className='cursor-pointer flex items-center'>
+                        <XSolid className="w-[14px] h-[14px]" />
+                      </span>
                     </div>
                   </Box>
                 </Fragment>
               ))}
-              <div className='cursor-pointer'>
+              <div className='cursor-pointer mb-[11px] flex items-center'>
                 <span>
-                  {/* TODO: add add-keyword-icon */}
+                  <Plus className="w-[19px] h-[19px] text-primary" />
                 </span>
               </div>
             </div>

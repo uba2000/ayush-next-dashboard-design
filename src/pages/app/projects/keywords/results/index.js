@@ -3,7 +3,10 @@ import React from 'react'
 import DashboardLayout from '../../../../../components/app/DasboardLayout'
 import Box from '../../../../../components/layouts/Box'
 import { SearchIcon } from '../../../../../ui/icons/search-icon'
-import { VolumeFilter } from '../../../../../page-components/keyword-results'
+import {
+  VolumeFilter,
+  IncludeFilter,
+} from '../../../../../page-components/keyword-results'
 
 const results = () => {
   return (
@@ -36,8 +39,9 @@ const results = () => {
           </div>
         </Box>
         <div className='flex justify-between'>
-          <div className="flex flex-grow">
+          <div className="flex flex-grow space-x-2">
             <VolumeFilter />
+            <IncludeFilter />
           </div>
           <div className="flex"></div>
         </div>

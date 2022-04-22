@@ -6,8 +6,8 @@ import Input from '../../../components/layouts/Input'
 const VolumeFilter = () => {
   return (
     <Layout label={'Volume'}>
-      <div className='divide-x-2 dark:divide-darkMode-border divide-ash'>
-        <div className="p-[10px] flex" style={{ width: '177px' }}>
+      <div className='divide-x-2 dark:divide-darkMode-border divide-ash' style={{ width: '177px' }}>
+        <div className="p-[10px] flex">
           <Input placeholder="Min" className="w-[78px] h-[21px] text-xs px-2" />
           <Input placeholder="Max" className="w-[78px] h-[21px] text-xs px-2" />
         </div>
