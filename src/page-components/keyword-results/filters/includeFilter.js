@@ -7,7 +7,7 @@ import Input from '../../../components/layouts/Input'
 
 const IncludeFilter = () => {
   return (
-    <Layout label={'Volume'}>
+    <Layout label={'Inlude'}>
       <div className='divide-x-2 dark:divide-darkMode-border divide-ash' style={{ width: '177px' }}>
         <div className="p-[10px] pb-[5px] space-y-[5px]">
           <Tab.Group>
