@@ -2,7 +2,6 @@ import React, { Fragment } from 'react'
 import { Tab } from '@headlessui/react'
 
 import Layout from '../Layout'
-import Box from '../../../components/layouts/Box'
 import Input from '../../../components/layouts/Input'
 
 const IncludeFilter = () => {
@@ -31,7 +30,7 @@ const IncludeFilter = () => {
                 {({ selected }) => (
                   <div
                     className={`
-                      cursor-pointer py-[6px] border-r-0 text-center
+                      cursor-pointer py-[6px] text-center
                       ${selected ?
                         'dark:bg-primary bg-primary border-primary text-white'
                         : 'dark:bg-darkMode-bg bg-white dark:text-white text-black border border-solid border-ash dark:border-darkMode-border'

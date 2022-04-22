@@ -6,6 +6,12 @@ import { SearchIcon } from '../../../../../ui/icons/search-icon'
 import {
   VolumeFilter,
   IncludeFilter,
+  TrafficFilter,
+  WordCountFilter,
+  DifficultyFilter,
+  CPCFilter,
+  ExcludeFilter,
+  AllInTitleFilter,
 } from '../../../../../page-components/keyword-results'
 
 const results = () => {
@@ -41,7 +47,13 @@ const results = () => {
         <div className='flex justify-between'>
           <div className="flex flex-grow space-x-2">
             <VolumeFilter />
+            <TrafficFilter />
+            <WordCountFilter />
+            <DifficultyFilter />
+            <CPCFilter />
             <IncludeFilter />
+            <ExcludeFilter />
+            <AllInTitleFilter />
           </div>
           <div className="flex"></div>
         </div>

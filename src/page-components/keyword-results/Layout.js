@@ -4,7 +4,7 @@ import { Transition, Menu } from '@headlessui/react'
 import Box from '../../components/layouts/Box'
 import { ChevDown } from '../../ui/icons/chev-down'
 
-const Layout = ({ children, label }) => {
+const Layout = ({ children, label, origin }) => {
   return (
     <>
       <Menu as='div' className='inline-block'>
@@ -33,7 +33,7 @@ const Layout = ({ children, label }) => {
                 leaveFrom='transform opacity-100 scale-100'
                 leaveTo='transform opacity-0 scale-95'
               >
-                <Menu.Items static className='z-30 origin-top-left absolute left-0 mt-2 w-[177px] shadow-lg bg-white dark:bg-darkMode-bg dark:text-white text-black border border-solid border-ash dark:border-darkMode-border focus:outline-none'>
+                <Menu.Items static className={`z-30 origin-top-${origin ? origin : 'left'} absolute ${origin ? origin : 'left'}-0 mt-2 w-[177px] shadow-lg bg-white dark:bg-darkMode-bg dark:text-white text-black border border-solid border-ash dark:border-darkMode-border focus:outline-none`}>
                   {children}
                 </Menu.Items>
               </Transition>
