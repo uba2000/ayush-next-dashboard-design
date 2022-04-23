@@ -1,4 +1,4 @@
-import React, { Fragment, useReducer, useState } from 'react'
+import React, { Fragment, useEffect, useReducer, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Tab, Transition } from '@headlessui/react'
 
@@ -96,13 +96,13 @@ const results = () => {
     setOpenNewKeywordList(true)
   }
 
-  const checkAllKeywords = () => {
-    setIsAllKeywordsChecked(!isAllKeywordsChecked)
-    setCanGenerateContent(!isAllKeywordsChecked)
+  const checkAllKeywords = (value = !isAllKeywordsChecked) => {
+    setIsAllKeywordsChecked(value)
+    setCanGenerateContent(value)
     let a = keywords;
     let b = [];
     for (let i = 0; i < keywords.length; i++) {
-      a[i].checked = !isAllKeywordsChecked;
+      a[i].checked = value;
       b.push(a[i]);
     }
     setKeywords(b)
@@ -114,6 +114,10 @@ const results = () => {
     setKeywords(a)
     checkToGenerateContent()
   }
+
+  useEffect(() => {
+    checkAllKeywords(false)
+  }, [])
 
   return (
     <DashboardLayout>
