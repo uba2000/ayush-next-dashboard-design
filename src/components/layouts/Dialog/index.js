@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import { Transition, Dialog } from '@headlessui/react'
+import tw from 'tailwind-styled-components'
 
 import Box from '../Box'
 
@@ -53,6 +54,12 @@ const DialogLayout = ({ children, isOpen, closeModal, isSharp, widthRestrict }) 
   )
 }
 
-DialogLayout.Title = Dialog.Title
+DialogLayout.Title = ({ children }) => {
+  return (
+    <Dialog.Title>
+      <span className='font-semibold text-2xl'>{children}</span>
+    </Dialog.Title>
+  )
+}
 
 export { DialogLayout }

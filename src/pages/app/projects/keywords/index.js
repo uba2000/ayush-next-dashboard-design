@@ -11,6 +11,7 @@ import { Plus, X, XSolid, Tick } from '../../../../ui/icons'
 import Input from '../../../../components/layouts/Input'
 
 const initialKeywords = keywords.keywords
+console.log(keywords.keywords);
 
 const reducer = (state, action) => {
   switch (action.type) {

@@ -1,4 +1,4 @@
 
-const industries = ['Finance', 'Production', 'Technology', 'Economics', 'Agriculture']
+const industries = ['Finance', 'Production', 'Technology', 'Economics', 'Agriculture', 'Marketing']
 
 export default industries;

@@ -1,9 +1,9 @@
 import React from 'react'
 import tw from "tailwind-styled-components"
 
-const TableData = ({ children, ...rest }) => {
+const TableData = ({ children, className, main, ...rest }) => {
   return (
-    <StyledTableData {...rest}>{children}</StyledTableData>
+    <StyledTableData {...rest} className={`${className} ${main ? 'text-left' : 'w-fit'}`}>{children}</StyledTableData>
   )
 }
 
@@ -16,6 +16,8 @@ const StyledTableData = tw.td`
   capitalize
   h-[50px]
   font-medium
+  first-of-type:pl-[21px]
+  last-of-type:pr-[21px]
 `;
 
 export { TableData }

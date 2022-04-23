@@ -347,10 +347,16 @@ input {
   border: 1.10544px solid #00a141;
 }
 
+.btn-outline,
+.btn-outline:hover {
+  @apply border dark:border-white border-black py-[11px] px-[34px] text-center;
+}
+
 .btn-reset,
 .btn-reset:hover {
   border-radius: 0;
   color: #000000;
+  padding: 11px 34px;
   background-color: transparent;
   border: none;
 }
