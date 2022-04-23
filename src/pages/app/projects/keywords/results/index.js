@@ -96,13 +96,13 @@ const results = () => {
     setOpenNewKeywordList(true)
   }
 
-  const checkAllKeywords = (value = !isAllKeywordsChecked) => {
-    setIsAllKeywordsChecked(value)
-    setCanGenerateContent(value)
+  const checkAllKeywords = () => {
+    setIsAllKeywordsChecked(!isAllKeywordsChecked)
+    setCanGenerateContent(!isAllKeywordsChecked)
     let a = keywords;
     let b = [];
     for (let i = 0; i < keywords.length; i++) {
-      a[i].checked = value;
+      a[i].checked = !isAllKeywordsChecked;
       b.push(a[i]);
     }
     setKeywords(b)
@@ -116,7 +116,15 @@ const results = () => {
   }
 
   useEffect(() => {
-    checkAllKeywords(false)
+    setIsAllKeywordsChecked(false)
+    setCanGenerateContent(false)
+    let a = keywords;
+    let b = [];
+    for (let i = 0; i < keywords.length; i++) {
+      a[i].checked = false;
+      b.push(a[i]);
+    }
+    setKeywords(b)
   }, [])
 
   return (
