@@ -3,15 +3,20 @@ import React, { useState } from 'react'
 import { Table } from '../../components/layouts/Table'
 import CheckBox from '../../components/layouts/CheckBox'
 
-const KeywordItem = ({ k, }) => {
+const KeywordItem = ({ k, index, handleCheck }) => {
 
   const [isChecked, setIsChecked] = useState(k.checked)
 
+  const checkKeyword = () => {
+    setIsChecked(!isChecked)
+    handleCheck({ index, value: !isChecked })
+  }
+
   return (
-    <Table.Row onClick={() => setIsChecked(!isChecked)}>
+    <Table.Row onClick={checkKeyword}>
       <Table.Data className='w-[41.5px] pl-[21px]'>
         <div className="flex items-center justify-center">
-          <CheckBox checked={isChecked} />
+          <CheckBox checked={k.checked} />
         </div>
       </Table.Data>
       <Table.Data className='main' main={true}>

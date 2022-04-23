@@ -1,4 +1,5 @@
 import React, { Fragment, useReducer, useState } from 'react'
+import { useRouter } from 'next/router'
 import { Tab, Transition } from '@headlessui/react'
 
 import {
@@ -48,6 +49,8 @@ const reducer = (state, action) => {
 
 const results = () => {
 
+  const router = useRouter()
+
   const [openNewKeywordList, setOpenNewKeywordList] = useState(false)
 
   const [showPredict, setPredictTitle] = useState(false)
@@ -55,11 +58,14 @@ const results = () => {
   const [showPredictIndustry, setShowPredictIndustry] = useState(false)
 
   const [canGenerateContent, setCanGenerateContent] = useState(false)
+  const [isAllKeywordsChecked, setIsAllKeywordsChecked] = useState(false)
   const [generateContentDialog, setGenerateContentDialog] = useState(false)
 
   const [noArticles, setNoArticles] = useState(237)
   const [noQuestionPerArticles, setNoQuestionPerArticles] = useState(15)
   const [includeInternalLinking, setIncludeInternalLinking] = useState(false)
+
+  const [articleTags, setArticleTags] = useState([])
 
   const [newKeywordList, dispatch] = useReducer(reducer, initialKeywordListDetails)
 
@@ -68,8 +74,17 @@ const results = () => {
     setPredictTitle(newKeywordList.title.length > 2)
   }
 
-  const generateContent = () => {
+  const openGenerateContentDialog = () => {
     setGenerateContentDialog(true)
+  }
+
+  const checkToGenerateContent = () => {
+    let isToGenerate = keywords.find((k) => k.checked)
+    setCanGenerateContent(!!isToGenerate)
+  }
+
+  const generateContent = () => {
+    router.push('/app/projects/keywords/generate')
   }
 
   const predictIndustry = (value) => {
@@ -81,8 +96,28 @@ const results = () => {
     setOpenNewKeywordList(true)
   }
 
+  const checkAllKeywords = () => {
+    setIsAllKeywordsChecked(!isAllKeywordsChecked)
+    setCanGenerateContent(!isAllKeywordsChecked)
+    let a = keywords;
+    let b = [];
+    for (let i = 0; i < keywords.length; i++) {
+      a[i].checked = !isAllKeywordsChecked;
+      b.push(a[i]);
+    }
+    setKeywords(b)
+  }
+
+  const handleKeywordCheck = ({ index, value }) => {
+    let a = keywords
+    a[index].checked = value
+    setKeywords(a)
+    checkToGenerateContent()
+  }
+
   return (
     <DashboardLayout>
+      {/* New Keyword List */}
       <DialogLayout isSharp={true} widthRestrict={'max-w-[1300px]'} isOpen={openNewKeywordList} closeModal={() => setOpenNewKeywordList(false)}>
         <div className="border-b dark:border-b-darkMode-border border-b-ash py-6 px-14">
           <div className="flex justify-between">
@@ -195,6 +230,7 @@ const results = () => {
           </div>
         </div>
       </DialogLayout>
+      {/* Generate Content */}
       <DialogLayout isSharp={true} widthRestrict={'max-w-[776px]'} isOpen={generateContentDialog} closeModal={() => setGenerateContentDialog(false)}>
         <div className="text-left py-[30px] px-[50px] space-y-8">
           <div className="space-y-5">
@@ -267,7 +303,12 @@ const results = () => {
                 </span>
               </div>
               <div className="">
-                <Input placeholder="Graphic Design, Marketing" className="max-w-[547px]" />
+                <Input
+                  value={articleTags.join(', ')}
+                  onChange={(e) => setArticleTags(e.target.value.split(', '))}
+                  placeholder="Graphic Design, Marketing"
+                  className="max-w-[547px]"
+                />
               </div>
               <div className="">
                 <span className="text-ash dark:text-darkMode-subText text-sm">
@@ -278,10 +319,10 @@ const results = () => {
           </div>
           <div className="flex space-x-[35px]">
             <div className="space-x-[11px] flex">
-              <button className="btn btn-primary">
+              <button className="btn btn-primary" onClick={generateContent}>
                 Generate
               </button>
-              <button className="btn btn-outline">Cancel</button>
+              <button className="btn btn-outline" onClick={() => setGenerateContentDialog(false)}>Cancel</button>
             </div>
             <div className="flex items-center">
               <span className='font-normal text-sm dark:text-darkMode-subText text-ash'>99,993 / 100k monthly credits left</span>
@@ -385,14 +426,14 @@ const results = () => {
                     />
                     <ExportMenu />
                     <div>
-                      <div onClick={generateContent} className={`cursor-pointer border border-solid ${canGenerateContent ? 'dark:bg-primary bg-primary text-white border-primary' : 'dark:bg-darkMode-bg bg-white dark:text-white text-black border-ash dark:border-darkMode-border'}`}>
+                      <button disabled={!canGenerateContent} onClick={openGenerateContentDialog} className={`cursor-pointer border border-solid ${canGenerateContent ? 'dark:bg-primary bg-primary text-white border-primary' : 'dark:bg-darkMode-bg bg-white dark:text-white text-black border-ash dark:border-darkMode-border'}`}>
                         <div className="flex py-2 px-5 items-center">
                           <span>
                             <PencilAlt className="w-[17px] h-[17px]" />
                           </span>
                           <span style={{ marginLeft: '7px' }} className='capitalize font-medium text-sm'>Generate Content</span>
                         </div>
-                      </div>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -400,13 +441,13 @@ const results = () => {
                   <div>
                     <Table>
                       <Table.Head>
-                        <Table.Row className="text-center">
+                        <Table.Row className="text-center cursor-default">
                           <Table.TH className='cursor-pointer w-[41.5px]'>
-                            <div className="flex items-center justify-center">
-                              <CheckBox checked={true} />
+                            <div className="flex items-center justify-center" onClick={checkAllKeywords}>
+                              <CheckBox checked={isAllKeywordsChecked} />
                             </div>
                           </Table.TH>
-                          <Table.TH main={true}>
+                          <Table.TH className={'w-3/6 text-left'}>
                             <span className="capitalize">
                               Keywords
                             </span>
@@ -444,9 +485,9 @@ const results = () => {
                         </Table.Row>
                       </Table.Head>
                       <Table.Body className="dark:bg-darkMode-bg bg-white text-center">
-                        {keywords.map((k) => (
+                        {keywords.map((k, index) => (
                           <Fragment key={k.id}>
-                            <KeywordItem k={k} />
+                            <KeywordItem k={k} index={index} handleCheck={handleKeywordCheck} />
                           </Fragment>
                         ))}
                       </Table.Body>
