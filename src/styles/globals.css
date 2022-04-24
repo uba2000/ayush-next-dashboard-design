@@ -359,6 +359,11 @@ input {
   padding: 11px 34px;
   background-color: transparent;
   border: none;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 19px;
+  text-align: center;
+  letter-spacing: 0.0813187px;
 }
 
 .btn-danger,
@@ -437,6 +442,13 @@ input {
   backdrop-filter: blur(20px);
 
   transform: matrix(1, 0, 0, 1, 0, 0);
+}
+
+.line-clamp-10 {
+  overflow: hidden !important;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 10 !important;
 }
 
 .custom-checkbox-container {

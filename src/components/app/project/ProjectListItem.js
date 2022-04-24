@@ -82,17 +82,19 @@ function ProjectListItem(props) {
       {/* Delete Dialog */}
       <DialogLayout isOpen={isOpen} closeModal={closeModal} >
         <div className="py-24 px-44">
-          <DialogLayout.Title
-            as="h3"
-            className="title"
-          >
-            Are you sure?
-          </DialogLayout.Title>
-          <div className="subtitle text-ash dark:text-darkMode-subText">
-            <span>Deleting is final and cannot be reversed. are you sure you still want to proceed?</span>
+          <div className="space-y-[13px]">
+            <DialogLayout.Title
+              as="h3"
+              className="title"
+            >
+              Are you sure?
+            </DialogLayout.Title>
+            <DialogLayout.SubTitle>
+              Deleting is final and cannot be reversed. are you sure you still want to proceed?
+            </DialogLayout.SubTitle>
           </div>
 
-          <div className="mt-4">
+          <div className="mt-[19px]">
             <button className="btn btn-primary bg-[#FF1212] border-[#FF1212] text-white">
               Confirm
             </button>
@@ -254,7 +256,7 @@ function ProjectListItem(props) {
             leaveFrom='transform opacity-100 scale-100'
             leaveTo='transform opacity-0 scale-95'
           >
-            <Menu.Items className='z-30 origin-top-right absolute right-0 mt-2 w-32 shadow-lg dark:bg-[#000000] dark:text-white text-black bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none'>
+            <Menu.Items className='z-30 origin-top-right absolute right-0 mt-2 w-52 shadow-lg dark:bg-[#000000] dark:text-white text-black bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none'>
               <div className=''>
                 <Menu.Item>
                   {({ active }) => (
@@ -268,7 +270,7 @@ function ProjectListItem(props) {
                     <button
                       type="button"
                       onClick={openModal}
-                      className={`text-left whitespace-nowrap ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'} bg-white hover:bg-buttonGreen hover:text-white block px-4 py-2 text-sm`}
+                      className={` w-full text-left whitespace-nowrap ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'} bg-white hover:bg-buttonGreen hover:text-white block px-4 py-2 text-sm`}
                     >
                       Delete Project
                     </button>

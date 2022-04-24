@@ -1,12 +1,62 @@
-import React from 'react'
+import React, { Fragment, useState } from 'react'
+import { useRouter } from 'next/router'
 
 import { Table } from '../../../../../components/layouts/Table'
 import DashboardLayout from '../../../../../components/app/DasboardLayout'
-import { Tick, Processing, Waiting, ChevDown } from '../../../../../ui/icons'
+import contents from '../../../../../_mock/generateContent'
+import GenerateListItem from '../../../../../page-components/keyword-generate/generateListItem'
+import { DialogLayout } from '../../../../../components/layouts/Dialog'
+import { X, RoundTickActive } from '../../../../../ui/icons'
 
 const index = () => {
+
+  const router = useRouter()
+
+  const checkAllContentIsComplete = () => {
+    // return contents.every(c => c.status == 'completed')
+    return true
+  }
+
+  const [contentGenerationComplete, setContentGenerationComplete] = useState(checkAllContentIsComplete)
+
+  const closeGenerationCompleteDialog = () => {
+    setContentGenerationComplete(false)
+  }
+
+  const viewAllProjects = () => {
+    router.push('/app/projects/123/articles')
+  }
+
   return (
     <DashboardLayout>
+      <DialogLayout isOpen={contentGenerationComplete} closeModal={closeGenerationCompleteDialog}>
+        <div className="px-[130px] py-20 relative">
+          <div className="absolute top-[30px] right-7 cursor-pointer" onClick={closeGenerationCompleteDialog}>
+            <span>
+              <X className="w-[21px] h-[21px]" />
+            </span>
+          </div>
+          <div className="space-y-6">
+            <div className="mb-[26.85px]">
+              <span>
+                <RoundTickActive className="w-12 h-12 mx-auto text-primary" />
+              </span>
+            </div>
+            <div className="space-y-2">
+              <DialogLayout.Title className={'capitalize text-xl font-semibold'}>
+                Content generated Successfully!
+              </DialogLayout.Title>
+              <p className="dark:text-darkMode-subText text-ash">
+                Et leo, enim in non sed quis sed. Auctor natoque auctor risus amet quis mauris. Interdum et nisi, pellentesque id lectus.
+              </p>
+            </div>
+            <div className="space-x-4">
+              <button className="btn btn-primary">Start Another Project</button>
+              <button onClick={viewAllProjects} className="btn btn-reset dark:text-darkMode-subText text-ash">View All Articles</button>
+            </div>
+          </div>
+        </div>
+      </DialogLayout>
       <div className="w-full">
         <div>
           <Table>
@@ -30,27 +80,11 @@ const index = () => {
               </Table.Row>
             </Table.Head>
             <Table.Body>
-              <Table.Row className="cursor-default">
-                <Table.Data>
-                  <span>1234567</span>
-                </Table.Data>
-                <Table.Data>
-                  <span>What is the most important factor in an SEO campaign?</span>
-                </Table.Data>
-                <Table.Data>
-                  <span>1000</span>
-                </Table.Data>
-                <Table.Data>
-                  <div>
-                    <TableStatus status={'completed'} />
-                  </div>
-                </Table.Data>
-                <Table.Data>
-                  <div className='cursor-pointer'>
-                    <ChevDown className="w-5 h-5 dark:text-darkMode-border text-black" />
-                  </div>
-                </Table.Data>
-              </Table.Row>
+              {contents.map((content) => (
+                <Fragment key={content.id}>
+                  <GenerateListItem content={content} />
+                </Fragment>
+              ))}
             </Table.Body>
           </Table>
         </div>
@@ -113,32 +147,5 @@ const index = () => {
   )
 }
 
-const TableStatus = ({ status }) => {
-
-  const dim = {
-    className: 'w-4 h-4'
-  }
-
-  return (
-    <>
-      <div className="flex space-x-2 items-center">
-        {status == 'completed' ? (
-          <span>
-            <Tick {...dim} />
-          </span>
-        ) : status == 'processing' ? (
-          <span>
-            <Processing {...dim} />
-          </span>
-        ) : status == 'waiting' && (
-          <span>
-            <Waiting {...dim} />
-          </span>
-        )}
-        <span className='capitalize'>{status}</span>
-      </div>
-    </>
-  )
-}
 
 export default index

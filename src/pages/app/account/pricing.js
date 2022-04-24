@@ -163,56 +163,56 @@ function pricing() {
                   <tr>
                     <td className="pr-[35.5px]">AI-Writing</td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">AI-Rewriting</td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">AI-Simplifying</td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">AI-Expanding</td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Headline Relevance</td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Sentiment Analysis</td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Emotional Suggestions</td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Topic Suggestions</td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Sources SUggestion</td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                 </tbody>
               </table>
@@ -233,63 +233,63 @@ function pricing() {
                 <tbody>
                   <tr>
                     <td className="pr-[35.5px]">Minimalist Interface</td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Spelling & Grammar</td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Word Character Count</td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Shortcuts</td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Dark Theme</td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Import URL</td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">WordPress Integration</td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Prioritize Task</td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Competitive Adverb Analysis</td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Dyslexia &amp; Colorblind modes</td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                 </tbody>
               </table>
@@ -310,45 +310,45 @@ function pricing() {
                 <tbody>
                   <tr>
                     <td className="pr-[35.5px]">Meta Optimization</td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Competitive Semantic AI</td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Keywords Score</td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Opportunities Detection</td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Use of Subheadings</td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Use od Subheadings</td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                   <tr>
                     <td className="pr-[35.5px]">Unique Hyperlinks</td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
                     <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive /></td>
+                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
                   </tr>
                 </tbody>
               </table>

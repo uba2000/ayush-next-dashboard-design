@@ -62,4 +62,12 @@ DialogLayout.Title = ({ children }) => {
   )
 }
 
+DialogLayout.SubTitle = ({ children }) => {
+  return (
+    <div className="subtitle text-ash dark:text-darkMode-subText">
+      <span>{children}</span>
+    </div>
+  )
+}
+
 export { DialogLayout }

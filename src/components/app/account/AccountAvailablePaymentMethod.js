@@ -80,7 +80,7 @@ function AccountAvailablePaymentMethod() {
               <span>Passed</span>
               <span>&nbsp;</span>
               <span>
-                <RoundTickActive />
+                <RoundTickActive className="text-primary" />
               </span>
             </p>
           </div>

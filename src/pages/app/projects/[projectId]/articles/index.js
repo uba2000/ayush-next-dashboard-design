@@ -1,27 +1,17 @@
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState, useReducer } from 'react'
 
+import Articles from '../../../../../_mock/articles'
 import ArticleLayout from '../../../../../components/app/article/ArticleLayout'
 import ArticlesList from '../../../../../components/app/article/ArticlesList'
 import DashboardLayout from '../../../../../components/app/DasboardLayout'
 import SearchInput from '../../../../../components/SearchInput'
 
-function index() {
-  const populateArticle = () => {
-    const article = {
-      title: 'How to start agency',
-      tags: ['Graphic design', 'digital marketing'],
-      date: '2 days ago',
-      checked: false
-    }
-    let articles = []
-    for (let i = 0; i < 40; i++) {
-      articles.push(article)
-    }
-    return articles
-  }
 
-  const [articles, setArticles] = useState(populateArticle())
+
+function index() {
+
+  const [articles, setArticles] = useState(Articles)
 
   return (
     <DashboardLayout>
@@ -29,7 +19,7 @@ function index() {
         <ArticleLayout>
           <div className='mt-8'>
             <div className="flex justify-end mb-8">
-              <Link href='/app/projects/new-project/features'>
+              <Link href='/app/projects/keywords/'>
                 <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
                   Write New Article
                 </a>
