@@ -3,9 +3,9 @@ import { Menu, Transition, Dialog } from '@headlessui/react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-import CheckBox from '../../layouts/CheckBox'
-import { Table } from '../../layouts/Table'
-import { DialogLayout } from '../../layouts/Dialog'
+import CheckBox from '../../../components/layouts/CheckBox'
+import { Table } from '../../../components/layouts/Table'
+import { DialogLayout } from '../../../components/layouts/Dialog'
 
 function ArticleListItem(props) {
   let { title, tags, date, checked } = props.item

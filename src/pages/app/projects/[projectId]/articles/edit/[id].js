@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import dynamic from "next/dynamic"
 
-import ArticleLayout from '../../../../../../components/app/article/ArticleLayout'
+import ArticleLayout from '../../../../../../page-components/project-categories/ArticleLayout'
 import DashboardLayout from '../../../../../../components/app/DasboardLayout'
 import styles from '../../../../../../styles/Article.module.css'
 import accountStyles from '../../../../../../styles/Account.module.css'

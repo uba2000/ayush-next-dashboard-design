@@ -4,13 +4,17 @@ export const AppContext = createContext();
 
 export function AppWrapper({ children }) {
 
-  const [isShowNewProject, setIsShowNewProject] = useState(false)
   const [newProjectData, setNewProjectData] = useState(null)
+  const [isShowNewProject, setIsShowNewProject] = useState(false)
+  const [isShowEditArticle, setIsShowEditArticle] = useState(false)
 
   let sharedState = {
     layout: {
       showNewProject: isShowNewProject,
       setShowNewProject: setIsShowNewProject,
+
+      showEditArticle: isShowEditArticle,
+      setShowEditArticle: setIsShowEditArticle,
     },
     project: {
       newProjectData,

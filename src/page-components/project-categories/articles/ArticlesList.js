@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 
-import CheckBox from '../../layouts/CheckBox'
+import CheckBox from '../../../components/layouts/CheckBox'
 import { Settings } from '../../../ui/icons'
 import ArticleListItem from './ArticlesListItem'
-import { Table } from '../../layouts/Table'
+import { Table } from '../../../components/layouts/Table'
 
 function ArticlesList(props) {
   const { articles, perpage } = props
