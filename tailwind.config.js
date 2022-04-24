@@ -11,6 +11,7 @@ module.exports = {
     './src/public/**/*.html',
     './src/pages/**/*.{js,jsx,ts,tsx,vue}',
     './src/components/**/*.{js,jsx,ts,tsx,vue}',
+    './src/page-components/**/*.{js,jsx,ts,tsx,vue}',
   ],
   theme: {
     container: {
