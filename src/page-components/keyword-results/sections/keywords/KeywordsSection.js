@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useReducer, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Tab, Transition } from '@headlessui/react'
+import { Transition } from '@headlessui/react'
 
 import {
   VolumeFilter,
@@ -13,20 +13,17 @@ import {
   AllInTitleFilter,
   AddToMenu,
   ExportMenu
-} from '../../../../../page-components/keyword-results'
-import DashboardLayout from '../../../../../components/app/DasboardLayout'
-import Box from '../../../../../components/layouts/Box'
-import { SearchIcon } from '../../../../../ui/icons/search-icon'
-import { DialogLayout } from '../../../../../components/layouts/Dialog'
-import FormGroup from '../../../../../components/FormGroup'
-import Input from '../../../../../components/layouts/Input'
-import industries from '../../../../../_mock/industries'
-import { PencilAlt } from '../../../../../ui/icons/pencil-alt'
-import { Table } from '../../../../../components/layouts/Table'
-import CheckBox from '../../../../../components/layouts/CheckBox'
-import returnKeywords from '../../../../../_mock/keywords'
-import KeywordItem from '../../../../../page-components/keyword-results/keywordItem'
-import { useProjectsContext } from '../../../../../context/projects'
+} from '../..'
+import Box from '../../../../components/layouts/Box'
+import { SearchIcon, PencilAlt } from '../../../../ui/icons'
+import { DialogLayout } from '../../../../components/layouts/Dialog'
+import FormGroup from '../../../../components/FormGroup'
+import Input from '../../../../components/layouts/Input'
+import industries from '../../../../_mock/industries'
+import { Table } from '../../../../components/layouts/Table'
+import CheckBox from '../../../../components/layouts/CheckBox'
+import returnKeywords from '../../../../_mock/keywords'
+import KeywordItem from '../../keywordItem'
 
 const initialKeywordListDetails = {
   title: '',
@@ -48,18 +45,14 @@ const reducer = (state, action) => {
   }
 }
 
-const results = () => {
+const KeywordResultsSection = () => {
 
   const router = useRouter()
-
-  const projectState = useProjectsContext()
-
-  const { keywords, setKeywords } = projectState
 
   const [openNewKeywordList, setOpenNewKeywordList] = useState(false)
 
   const [showPredict, setPredictTitle] = useState(false)
-  // const [keywords, setKeywords] = useState(projectState.keywords)
+  const [keywords, setKeywords] = useState(returnKeywords.keywords)
   const [showPredictIndustry, setShowPredictIndustry] = useState(false)
 
   const [canGenerateContent, setCanGenerateContent] = useState(false)
@@ -133,7 +126,7 @@ const results = () => {
   }, [])
 
   return (
-    <DashboardLayout>
+    <>
       {/* New Keyword List */}
       <DialogLayout isSharp={true} widthRestrict={'max-w-[1300px]'} isOpen={openNewKeywordList} closeModal={() => setOpenNewKeywordList(false)}>
         <div className="border-b dark:border-b-darkMode-border border-b-ash py-6 px-14">
@@ -347,240 +340,147 @@ const results = () => {
           </div>
         </div>
       </DialogLayout>
-      <div className="space-y-[26px] w-full">
-        <Tab.Group>
-          <Tab.List className='grid grid-cols-4 w-full'>
-            <Tab as={Fragment}>
-              {({ selected }) => (
-                <div
-                  className={`
-                      cursor-pointer py-5 border-r-0 text-center
-                      ${selected ?
-                      'dark:bg-primary bg-primary border-primary text-white'
-                      : 'dark:bg-darkMode-bg bg-white dark:text-white text-black border border-solid border-ash dark:border-darkMode-border'
-                    }
-                    `}
-                >
-                  <span className='font-semibold leading-[135%] capitalize'>Keywords</span>
-                </div>
-              )}
-            </Tab>
-            <Tab as={Fragment}>
-              {({ selected }) => (
-                <div
-                  className={`
-                      cursor-pointer py-5 border-r-0 text-center
-                      ${selected ?
-                      'dark:bg-primary bg-primary border-primary text-white'
-                      : 'dark:bg-darkMode-bg bg-white dark:text-white text-black border border-solid border-ash dark:border-darkMode-border'
-                    }
-                    `}
-                >
-                  <span className='font-semibold leading-[135%] capitalize'>Top Related Terms</span>
-                </div>
-              )}
-            </Tab>
-            <Tab as={Fragment}>
-              {({ selected }) => (
-                <div
-                  className={`
-                      cursor-pointer py-5 border-r-0 text-center
-                      ${selected ?
-                      'dark:bg-primary bg-primary border-primary text-white'
-                      : 'dark:bg-darkMode-bg bg-white dark:text-white text-black border border-solid border-ash dark:border-darkMode-border'
-                    }
-                    `}
-                >
-                  <span className='font-semibold leading-[135%] capitalize'>Rising Related Terms</span>
-                </div>
-              )}
-            </Tab>
-            <Tab as={Fragment}>
-              {({ selected }) => (
-                <div
-                  className={`
-                      cursor-pointer py-5 text-center
-                      ${selected ?
-                      'dark:bg-primary bg-primary border-primary text-white'
-                      : 'dark:bg-darkMode-bg bg-white dark:text-white text-black border border-solid border-ash dark:border-darkMode-border'
-                    }
-                    `}
-                >
-                  <span className='font-semibold leading-[135%] capitalize'>Search suggestions</span>
-                </div>
-              )}
-            </Tab>
-          </Tab.List>
-          <Tab.Panels>
-            <Tab.Panel>
-              <div className="space-y-[26px]">
-                <Box className={'py-5 px-[31px]'}>
-                  <div className="flex justify-between">
-                    <div>
-                      <span className='text-sm font-medium'>Keyword 1, keyword 2, Keyword 3, keyword 4, keyword 5, keyword 6</span>
-                    </div>
-                    <div>
-                      <SearchIcon
-                        className="h-5 w-5 dark:text-white text-black"
-                      />
-                    </div>
-                  </div>
-                </Box>
-                <div className='flex justify-between'>
-                  <div className="flex flex-grow space-x-2">
-                    <VolumeFilter />
-                    <TrafficFilter />
-                    <WordCountFilter />
-                    <DifficultyFilter />
-                    <CPCFilter />
-                    <IncludeFilter />
-                    <ExcludeFilter />
-                    <AllInTitleFilter />
-                  </div>
-                  <div className="flex space-x-2">
-                    <AddToMenu
-                      setOpenNewKeywordList={openKeywordDialog}
-                    />
-                    <ExportMenu />
-                    <div>
-                      <button disabled={!canGenerateContent} onClick={openGenerateContentDialog} className={`cursor-pointer border border-solid ${canGenerateContent ? 'dark:bg-primary bg-primary text-white border-primary' : 'dark:bg-darkMode-bg bg-white dark:text-white text-black border-ash dark:border-darkMode-border'}`}>
-                        <div className="flex py-2 px-5 items-center">
-                          <span>
-                            <PencilAlt className="w-[17px] h-[17px]" />
-                          </span>
-                          <span style={{ marginLeft: '7px' }} className='capitalize font-medium text-sm'>Generate Content</span>
-                        </div>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div>
-                    <Table>
-                      <Table.Head>
-                        <Table.Row className="text-center cursor-default">
-                          <Table.TH className='cursor-pointer w-[41.5px]'>
-                            <div className="flex items-center justify-center" onClick={checkAllKeywords}>
-                              <CheckBox checked={isAllKeywordsChecked} />
-                            </div>
-                          </Table.TH>
-                          <Table.TH className={'w-3/6 text-left'}>
-                            <span className="capitalize">
-                              Keywords
-                            </span>
-                          </Table.TH>
-                          <Table.TH>
-                            <span className="capitalize">
-                              Volume
-                            </span>
-                          </Table.TH>
-                          <Table.TH>
-                            <span className="capitalize">
-                              Traffic
-                            </span>
-                          </Table.TH>
-                          <Table.TH>
-                            <span className="capitalize">
-                              CPC
-                            </span>
-                          </Table.TH>
-                          <Table.TH>
-                            <span className="capitalize">
-                              Difficulty
-                            </span>
-                          </Table.TH>
-                          <Table.TH>
-                            <span className="capitalize">
-                              Trending
-                            </span>
-                          </Table.TH>
-                          <Table.TH>
-                            <span className="capitalize">
-                              AIT
-                            </span>
-                          </Table.TH>
-                        </Table.Row>
-                      </Table.Head>
-                      <Table.Body className="dark:bg-darkMode-bg bg-white text-center">
-                        {keywords.map((k, index) => (
-                          <Fragment key={k.id}>
-                            <KeywordItem k={k} index={index} handleCheck={handleKeywordCheck} />
-                          </Fragment>
-                        ))}
-                      </Table.Body>
-                    </Table>
-                  </div>
-                  <div className="dark:bg-darkMode-bg border-t-0 bg-white border dark:border-darkMode-border border-ash border-solid">
-                    <div className="flex justify-between pl-11 pr-10 py-4">
-                      <span className="font-poppins text-sm align-middle">
-                        1-20 of 1000 projects
-                      </span>
-                      <div className="flex items-center">
-                        <button
-                          className={`py-1 px-2 border border-solid dark:border-darkMode-border border-ash`}
-                        // disabled={page == 1}
-                        // onClick={() => setPage(page - 1)}
-                        >
-                          <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            className='icon icon-tabler icon-tabler-chevron-left'
-                            width='20'
-                            height='20'
-                            viewBox='0 0 24 24'
-                            strokeWidth='1.5'
-                            stroke='currentColor'
-                            fill='none'
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                          >
-                            <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                            <polyline points='15 6 9 12 15 18' />
-                          </svg>
-                        </button>
-                        <p className="text-sm mx-4 font-poppins">
-                          {/* {page} */}1
-                        </p>
-                        <button
-                          className={`py-1 px-2 border border-solid dark:border-darkMode-border border-ash`}
-                        // disabled={page == Math.ceil(projects.length / 10)}
-                        // onClick={() => setPage(page + 1)}
-                        >
-                          <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            className='icon icon-tabler icon-tabler-chevron-right'
-                            width='20'
-                            height='20'
-                            viewBox='0 0 24 24'
-                            strokeWidth='1.5'
-                            stroke='currentColor'
-                            fill='none'
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                          >
-                            <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                            <polyline points='9 6 15 12 9 18' />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+      <div className='flex justify-between'>
+        <div className="flex flex-grow space-x-2">
+          <VolumeFilter />
+          <TrafficFilter />
+          <WordCountFilter />
+          <DifficultyFilter />
+          <CPCFilter />
+          <IncludeFilter />
+          <ExcludeFilter />
+          <AllInTitleFilter />
+        </div>
+        <div className="flex space-x-2">
+          <AddToMenu
+            setOpenNewKeywordList={openKeywordDialog}
+          />
+          <ExportMenu />
+          <div>
+            <button disabled={!canGenerateContent} onClick={openGenerateContentDialog} className={`cursor-pointer border border-solid ${canGenerateContent ? 'dark:bg-primary bg-primary text-white border-primary' : 'dark:bg-darkMode-bg bg-white dark:text-white text-black border-ash dark:border-darkMode-border'}`}>
+              <div className="flex py-2 px-5 items-center">
+                <span>
+                  <PencilAlt className="w-[17px] h-[17px]" />
+                </span>
+                <span style={{ marginLeft: '7px' }} className='capitalize font-medium text-sm'>Generate Content</span>
               </div>
-            </Tab.Panel>
-            <Tab.Panel>
-              <div></div>
-            </Tab.Panel>
-            <Tab.Panel>
-              <div></div>
-            </Tab.Panel>
-            <Tab.Panel>
-              <div></div>
-            </Tab.Panel>
-          </Tab.Panels>
-        </Tab.Group>
+            </button>
+          </div>
+        </div>
       </div>
-    </DashboardLayout>
+      <div>
+        <div>
+          <Table>
+            <Table.Head>
+              <Table.Row className="text-center cursor-default">
+                <Table.TH className='cursor-pointer w-[41.5px]'>
+                  <div className="flex items-center justify-center" onClick={checkAllKeywords}>
+                    <CheckBox checked={isAllKeywordsChecked} />
+                  </div>
+                </Table.TH>
+                <Table.TH className={'w-3/6 text-left'}>
+                  <span className="capitalize">
+                    Keywords
+                  </span>
+                </Table.TH>
+                <Table.TH>
+                  <span className="capitalize">
+                    Volume
+                  </span>
+                </Table.TH>
+                <Table.TH>
+                  <span className="capitalize">
+                    Traffic
+                  </span>
+                </Table.TH>
+                <Table.TH>
+                  <span className="capitalize">
+                    CPC
+                  </span>
+                </Table.TH>
+                <Table.TH>
+                  <span className="capitalize">
+                    Difficulty
+                  </span>
+                </Table.TH>
+                <Table.TH>
+                  <span className="capitalize">
+                    Trending
+                  </span>
+                </Table.TH>
+                <Table.TH>
+                  <span className="capitalize">
+                    AIT
+                  </span>
+                </Table.TH>
+              </Table.Row>
+            </Table.Head>
+            <Table.Body className="dark:bg-darkMode-bg bg-white text-center">
+              {keywords.map((k, index) => (
+                <Fragment key={k.id}>
+                  <KeywordItem k={k} index={index} handleCheck={handleKeywordCheck} />
+                </Fragment>
+              ))}
+            </Table.Body>
+          </Table>
+        </div>
+        <div className="dark:bg-darkMode-bg border-t-0 bg-white border dark:border-darkMode-border border-ash border-solid">
+          <div className="flex justify-between pl-11 pr-10 py-4">
+            <span className="font-poppins text-sm align-middle">
+              1-20 of 1000 projects
+            </span>
+            <div className="flex items-center">
+              <button
+                className={`py-1 px-2 border border-solid dark:border-darkMode-border border-ash`}
+              // disabled={page == 1}
+              // onClick={() => setPage(page - 1)}
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  className='icon icon-tabler icon-tabler-chevron-left'
+                  width='20'
+                  height='20'
+                  viewBox='0 0 24 24'
+                  strokeWidth='1.5'
+                  stroke='currentColor'
+                  fill='none'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                >
+                  <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+                  <polyline points='15 6 9 12 15 18' />
+                </svg>
+              </button>
+              <p className="text-sm mx-4 font-poppins">
+                {/* {page} */}1
+              </p>
+              <button
+                className={`py-1 px-2 border border-solid dark:border-darkMode-border border-ash`}
+              // disabled={page == Math.ceil(projects.length / 10)}
+              // onClick={() => setPage(page + 1)}
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  className='icon icon-tabler icon-tabler-chevron-right'
+                  width='20'
+                  height='20'
+                  viewBox='0 0 24 24'
+                  strokeWidth='1.5'
+                  stroke='currentColor'
+                  fill='none'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                >
+                  <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+                  <polyline points='9 6 15 12 9 18' />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
 
-export default results
+export { KeywordResultsSection }

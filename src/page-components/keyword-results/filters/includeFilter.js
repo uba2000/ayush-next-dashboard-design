@@ -7,7 +7,7 @@ import Input from '../../../components/layouts/Input'
 const IncludeFilter = () => {
   return (
     <Layout label={'Inlude'}>
-      <div className='divide-x-2 dark:divide-darkMode-border divide-ash' style={{ width: '177px' }}>
+      <div className='divide-y-2 dark:divide-darkMode-border divide-ash' style={{ width: '177px' }}>
         <div className="p-[10px] pb-[5px] space-y-[5px]">
           <Tab.Group>
             <Tab.List className='grid grid-cols-2'>
@@ -45,12 +45,12 @@ const IncludeFilter = () => {
             <Tab.Panels style={{ marginTop: '5px' }}>
               <Tab.Panel>
                 <div>
-                  <Input placeholder="Type A keywords" className="w-[78px] h-[21px] text-xs px-2" />
+                  <Input placeholder="Type A keywords" className="w-full h-[21px] text-xs px-2" />
                 </div>
               </Tab.Panel>
               <Tab.Panel>
                 <div>
-                  <Input placeholder="Type A keywords" className="w-[78px] h-[21px] text-xs px-2" />
+                  <Input placeholder="Type A keywords" className="w-full h-[21px] text-xs px-2" />
                 </div>
               </Tab.Panel>
             </Tab.Panels>
