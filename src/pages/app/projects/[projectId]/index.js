@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React, { useState, useReducer, Fragment } from 'react'
 import { Tab } from '@headlessui/react'
+import { useRouter } from 'next/router'
 
 import { useProjectsContext } from '../../../../context/projects'
 import ArticleLayout from '../../../../page-components/project-categories/ArticleLayout'
@@ -21,6 +22,9 @@ const tabs = [
 function index() {
 
   const state = useProjectsContext()
+
+  const router = useRouter()
+  const { query } = router
 
   const {
     articles,
@@ -83,7 +87,7 @@ function index() {
                     </div>
                   )}
                   {tabIndex == 2 && (
-                    <Link href='/app/projects/keywords/'>
+                    <Link href={`/app/projects/${query.projectId}/feature-list`}>
                       <a className="block w-fit btn h-[45px] btn-primary bg-primary text-white font-poppins">
                         View All Features
                       </a>
