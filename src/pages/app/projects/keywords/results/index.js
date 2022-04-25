@@ -1,6 +1,5 @@
-import React, { Fragment, useEffect, useReducer, useState } from 'react'
-import { useRouter } from 'next/router'
-import { Tab, Transition } from '@headlessui/react'
+import React, { Fragment, useEffect, useState } from 'react'
+import { Tab } from '@headlessui/react'
 
 import {
   VolumeFilter,
@@ -16,68 +15,22 @@ import {
 } from '../../../../../page-components/keyword-results'
 import DashboardLayout from '../../../../../components/app/DasboardLayout'
 import Box from '../../../../../components/layouts/Box'
-import { SearchIcon } from '../../../../../ui/icons/search-icon'
-import { DialogLayout } from '../../../../../components/layouts/Dialog'
-import FormGroup from '../../../../../components/FormGroup'
-import Input from '../../../../../components/layouts/Input'
-import industries from '../../../../../_mock/industries'
-import { PencilAlt } from '../../../../../ui/icons/pencil-alt'
+import { SearchIcon, PencilAlt } from '../../../../../ui/icons'
 import { Table } from '../../../../../components/layouts/Table'
 import CheckBox from '../../../../../components/layouts/CheckBox'
-import returnKeywords from '../../../../../_mock/keywords'
 import KeywordItem from '../../../../../page-components/keyword-results/keywordItem'
 import { useProjectsContext } from '../../../../../context/projects'
-
-const initialKeywordListDetails = {
-  title: '',
-  tags: [],
-  industry: '',
-}
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'setTitle':
-      return { ...state, title: action.value }
-    case 'setTags':
-      let arrTags = fTags(action.value)
-      return { ...state, tags: arrTags }
-    case 'setIndustry':
-      return { ...state, industry: action.value }
-    default:
-      return state
-  }
-}
+import GenerateContentDialog from '../../../../../page-components/keyword-generate/GenerateContentDialog'
 
 const results = () => {
-
-  const router = useRouter()
 
   const projectState = useProjectsContext()
 
   const { keywords, setKeywords } = projectState
 
-  const [openNewKeywordList, setOpenNewKeywordList] = useState(false)
-
-  const [showPredict, setPredictTitle] = useState(false)
-  // const [keywords, setKeywords] = useState(projectState.keywords)
-  const [showPredictIndustry, setShowPredictIndustry] = useState(false)
-
   const [canGenerateContent, setCanGenerateContent] = useState(false)
   const [isAllKeywordsChecked, setIsAllKeywordsChecked] = useState(false)
   const [generateContentDialog, setGenerateContentDialog] = useState(false)
-
-  const [noArticles, setNoArticles] = useState(237)
-  const [noQuestionPerArticles, setNoQuestionPerArticles] = useState(15)
-  const [includeInternalLinking, setIncludeInternalLinking] = useState(false)
-
-  const [articleTags, setArticleTags] = useState([])
-
-  const [newKeywordList, dispatch] = useReducer(reducer, initialKeywordListDetails)
-
-  const predictTitle = (value) => {
-    dispatch({ type: 'setTitle', value })
-    setPredictTitle(newKeywordList.title.length > 2)
-  }
 
   const openGenerateContentDialog = () => {
     setGenerateContentDialog(true)
@@ -86,19 +39,6 @@ const results = () => {
   const checkToGenerateContent = () => {
     let isToGenerate = keywords.find((k) => k.checked)
     setCanGenerateContent(!!isToGenerate)
-  }
-
-  const generateContent = () => {
-    router.push('/app/projects/keywords/generate')
-  }
-
-  const predictIndustry = (value) => {
-    dispatch({ type: 'setIndustry', value })
-    setShowPredictIndustry(newKeywordList.industry.length > 2)
-  }
-
-  const openKeywordDialog = () => {
-    setOpenNewKeywordList(true)
   }
 
   const checkAllKeywords = () => {
@@ -134,219 +74,8 @@ const results = () => {
 
   return (
     <DashboardLayout>
-      {/* New Keyword List */}
-      <DialogLayout isSharp={true} widthRestrict={'max-w-[1300px]'} isOpen={openNewKeywordList} closeModal={() => setOpenNewKeywordList(false)}>
-        <div className="border-b dark:border-b-darkMode-border border-b-ash py-6 px-14">
-          <div className="flex justify-between">
-            <div className='flex items-center'>
-              <span className='font-bold'>Provide Keywords list Details</span>
-            </div>
-            <div>
-              <button className="btn btn-reset text-black dark:text-white">
-                Cancel
-              </button>
-              <button className="btn btn-primary">
-                Create List
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className='w-full text-left pt-[30px] pb-10'>
-          <div className="px-14">
-            <FormGroup label='Keywords List Title' imp={true} labelFor="project">
-              <Input
-                id='project'
-                value={newKeywordList.title}
-                onChange={(e) => predictTitle(e.target.value)}
-                placeholder='Graphic Design keywords'
-              />
-              <Transition
-                as={Fragment}
-                show={showPredict}
-                enter='transition ease-out duration-100 overflow-hidden'
-                enterFrom='transform min-h-0'
-                enterTo='transform max-h-[105px] h-auto'
-                leave='transition ease-in'
-                leaveFrom='transform duration-75 max-h-[105px] h-auto'
-                leaveTo='transform min-h-0'
-              >
-                <ul className='predict-title max-h-[176px] overflow-y-scroll'>
-                  <li className='px-[27.18px] py-[10px]'>
-                    <span className='cursor-pointer'
-                      onClick={() => {
-                        dispatch({ type: 'setTitle', value: `${newKeywordList.title} Class Notes` });
-                        setPredictTitle(false)
-                      }}
-                    >
-                      {newKeywordList.title} <span className='font-bold'>Class Notes</span>
-                    </span>
-                  </li>
-                  <li className='px-[27.18px] py-[10px]'>
-                    <span className='cursor-pointer'
-                      onClick={() => {
-                        dispatch({ type: 'setTitle', value: `${newKeywordList.title} Agency` });
-                        setPredictTitle(false)
-                      }}
-                    >
-                      {newKeywordList.title} <span className='font-bold'>Agency</span>
-                    </span>
-                  </li>
-                  <li className='px-[27.18px] py-[10px]'>
-                    <span className='cursor-pointer'
-                      onClick={() => {
-                        dispatch({ type: 'setTitle', value: `${newKeywordList.title} Book Article` });
-                        setPredictTitle(false)
-                      }}
-                    >
-                      {newKeywordList.title} <span className='font-bold'>Book Article</span>
-                    </span>
-                  </li>
-                </ul>
-              </Transition>
-            </FormGroup>
-
-            <FormGroup label='Keywords List Tags' imp={true} labelFor="prize">
-              <Input
-                id='prize'
-                value={newKeywordList.tags.join(', ')}
-                onChange={e => dispatch({ type: 'setTags', value: e.target.value })}
-                placeholder='graphic design, digital marketing, marketing'
-              />
-            </FormGroup>
-
-            <FormGroup label='Industry (optional)' className="mb-0" labelFor='indutry'>
-              <Input
-                id='industry'
-                value={newKeywordList.industry}
-                onChange={(e) => predictIndustry(e.target.value)}
-                placeholder='Industry'
-              />
-              <Transition
-                as={Fragment}
-                show={showPredictIndustry}
-                enter='transition ease-out duration-100 overflow-hidden'
-                enterFrom='transform min-h-0'
-                enterTo='transform max-h-[105px] h-auto'
-                leave='transition ease-in'
-                leaveFrom='transform duration-75 max-h-[105px] h-auto'
-                leaveTo='transform min-h-0'
-              >
-                <ul className='predict-title max-h-[176px] overflow-y-scroll'>
-                  {industries.map((industry, index) => {
-                    return (
-                      <li className='px-[27.18px] py-[10px]' key={index}>
-                        <span className='cursor-pointer' onClick={() => { dispatch({ type: 'setIndustry', value: industry }); setShowPredictIndustry(false) }}>
-                          <span className='font-bold'>{industry}</span>
-                        </span>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </Transition>
-            </FormGroup>
-          </div>
-        </div>
-      </DialogLayout>
       {/* Generate Content */}
-      <DialogLayout isSharp={true} widthRestrict={'max-w-[776px]'} isOpen={generateContentDialog} closeModal={() => setGenerateContentDialog(false)}>
-        <div className="text-left py-[30px] px-[50px] space-y-8">
-          <div className="space-y-5">
-            <DialogLayout.Title>
-              Generate Content
-            </DialogLayout.Title>
-            <div className="">
-              <div className="flex space-x-[13px]">
-                <div className="">
-                  <Box type={'black'}>
-                    <Input
-                      value={noArticles}
-                      onChange={(e) => setNoArticles(e.target.value)}
-                      className="py-1 px-2 text-[18px] font-medium w-[62px] text-center"
-                    />
-                  </Box>
-                </div>
-                <div className="">
-                  <div className="flex flex-col space-y-1">
-                    <span className='text-[18px] font-medium'>How many articles?</span>
-                    <span className='dark:text-darkMode-subText text-sm tracking-[0.1px] text-ash'>
-                      *Estimated  Total Word Count: 1,250,000
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="">
-              <div className="flex space-x-[13px]">
-                <div className="">
-                  <Box type={'black'}>
-                    <Input
-                      value={noQuestionPerArticles}
-                      onChange={(e) => setNoQuestionPerArticles(e.target.value)}
-                      className="py-1 px-2 text-[18px] font-medium w-[62px] text-center"
-                    />
-                  </Box>
-                </div>
-                <div className="">
-                  <div className="flex flex-col space-y-1">
-                    <span className='text-[18px] font-medium'>How many questions per article?</span>
-                    <span className='dark:text-darkMode-subText text-sm tracking-[0.1px] text-ash'>
-                      *Estimated  Total Word Count: 1,250,000
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="">
-              <div className="grid grid-cols-[62px_auto] gap-x-[13px] cursor-pointer" onClick={() => setIncludeInternalLinking(!includeInternalLinking)}>
-                <div>
-                  <div className="flex justify-center">
-                    <CheckBox checked={includeInternalLinking} />
-                  </div>
-                </div>
-                <div className="">
-                  <div className="flex flex-col space-y-1">
-                    <span className='text-[18px] font-medium'>Include internal linking</span>
-                    <span className='dark:text-darkMode-subText text-sm tracking-[0.1px] text-ash'>
-                      Note: Internal linking can help increase ranking and crawl budget
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="space-y-[10px]">
-              <div className="">
-                <span className='font-medium text-[18px] tracking-[-0.01em]'>
-                  Article Tags
-                </span>
-              </div>
-              <div className="">
-                <Input
-                  value={articleTags.join(', ')}
-                  onChange={(e) => setArticleTags(e.target.value.split(', '))}
-                  placeholder="Graphic Design, Marketing"
-                  className="max-w-[547px]"
-                />
-              </div>
-              <div className="">
-                <span className="text-ash dark:text-darkMode-subText text-sm">
-                  Note: Adding tags your article helps you arrange your file
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="flex space-x-[35px]">
-            <div className="space-x-[11px] flex">
-              <button className="btn btn-primary" onClick={generateContent}>
-                Generate
-              </button>
-              <button className="btn btn-outline" onClick={() => setGenerateContentDialog(false)}>Cancel</button>
-            </div>
-            <div className="flex items-center">
-              <span className='font-normal text-sm dark:text-darkMode-subText text-ash'>99,993 / 100k monthly credits left</span>
-            </div>
-          </div>
-        </div>
-      </DialogLayout>
+      <GenerateContentDialog generateContentDialog={generateContentDialog} setGenerateContentDialog={() => setGenerateContentDialog(false)} />
       <div className="space-y-[26px] w-full">
         <Tab.Group>
           <Tab.List className='grid grid-cols-4 w-full'>
@@ -439,7 +168,7 @@ const results = () => {
                   </div>
                   <div className="flex space-x-2">
                     <AddToMenu
-                      setOpenNewKeywordList={openKeywordDialog}
+                    // setOpenNewKeywordList={openKeywordDialog}
                     />
                     <ExportMenu />
                     <div>

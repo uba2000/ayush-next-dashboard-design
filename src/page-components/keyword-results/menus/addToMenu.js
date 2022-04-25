@@ -1,19 +1,180 @@
-import React from 'react'
+import React, { useState, useReducer, Fragment } from 'react'
+import { Transition } from '@headlessui/react'
 
 import Layout from './Layout'
 import { SearchIcon } from '../../../ui/icons/search-icon'
 import CheckBox from '../../../components/layouts/CheckBox'
+import { DialogLayout } from '../../../components/layouts/Dialog'
+import Input from '../../../components/layouts/Input'
+import FormGroup from '../../../components/FormGroup'
+import industries from '../../../_mock/industries'
 
-const AddToMenu = ({ setOpenNewKeywordList }) => {
+const initialKeywordListDetails = {
+  title: '',
+  tags: [],
+  industry: '',
+}
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'setTitle':
+      return { ...state, title: action.value }
+    case 'setTags':
+      let arrTags = fTags(action.value)
+      return { ...state, tags: arrTags }
+    case 'setIndustry':
+      return { ...state, industry: action.value }
+    default:
+      return state
+  }
+}
+
+const AddToMenu = ({ }) => {
+
+  const [openNewKeywordList, setOpenNewKeywordList] = useState(false)
+
+  const [showPredict, setPredictTitle] = useState(false)
+  // const [keywords, setKeywords] = useState(projectState.keywords)
+  const [showPredictIndustry, setShowPredictIndustry] = useState(false)
+
+  const [newKeywordList, dispatch] = useReducer(reducer, initialKeywordListDetails)
+
+  const predictIndustry = (value) => {
+    dispatch({ type: 'setIndustry', value })
+    setShowPredictIndustry(newKeywordList.industry.length > 2)
+  }
+
+  const openKeywordDialog = () => {
+    setOpenNewKeywordList(true)
+  }
+
+  const predictTitle = (value) => {
+    dispatch({ type: 'setTitle', value })
+    setPredictTitle(newKeywordList.title.length > 2)
+  }
+
   return (
     <>
+      {/* New Keyword List */}
+      <DialogLayout isSharp={true} widthRestrict={'max-w-[1300px]'} isOpen={openNewKeywordList} closeModal={() => setOpenNewKeywordList(false)}>
+        <div className="border-b dark:border-b-darkMode-border border-b-ash py-6 px-14">
+          <div className="flex justify-between">
+            <div className='flex items-center'>
+              <span className='font-bold'>Provide Keywords list Details</span>
+            </div>
+            <div>
+              <button className="btn btn-reset text-black dark:text-white">
+                Cancel
+              </button>
+              <button className="btn btn-primary">
+                Create List
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className='w-full text-left pt-[30px] pb-10'>
+          <div className="px-14">
+            <FormGroup label='Keywords List Title' imp={true} labelFor="project">
+              <Input
+                id='project'
+                value={newKeywordList.title}
+                onChange={(e) => predictTitle(e.target.value)}
+                placeholder='Graphic Design keywords'
+              />
+              <Transition
+                as={Fragment}
+                show={showPredict}
+                enter='transition ease-out duration-100 overflow-hidden'
+                enterFrom='transform min-h-0'
+                enterTo='transform max-h-[105px] h-auto'
+                leave='transition ease-in'
+                leaveFrom='transform duration-75 max-h-[105px] h-auto'
+                leaveTo='transform min-h-0'
+              >
+                <ul className='predict-title max-h-[176px] overflow-y-scroll'>
+                  <li className='px-[27.18px] py-[10px]'>
+                    <span className='cursor-pointer'
+                      onClick={() => {
+                        dispatch({ type: 'setTitle', value: `${newKeywordList.title} Class Notes` });
+                        setPredictTitle(false)
+                      }}
+                    >
+                      {newKeywordList.title} <span className='font-bold'>Class Notes</span>
+                    </span>
+                  </li>
+                  <li className='px-[27.18px] py-[10px]'>
+                    <span className='cursor-pointer'
+                      onClick={() => {
+                        dispatch({ type: 'setTitle', value: `${newKeywordList.title} Agency` });
+                        setPredictTitle(false)
+                      }}
+                    >
+                      {newKeywordList.title} <span className='font-bold'>Agency</span>
+                    </span>
+                  </li>
+                  <li className='px-[27.18px] py-[10px]'>
+                    <span className='cursor-pointer'
+                      onClick={() => {
+                        dispatch({ type: 'setTitle', value: `${newKeywordList.title} Book Article` });
+                        setPredictTitle(false)
+                      }}
+                    >
+                      {newKeywordList.title} <span className='font-bold'>Book Article</span>
+                    </span>
+                  </li>
+                </ul>
+              </Transition>
+            </FormGroup>
+
+            <FormGroup label='Keywords List Tags' imp={true} labelFor="prize">
+              <Input
+                id='prize'
+                value={newKeywordList.tags.join(', ')}
+                onChange={e => dispatch({ type: 'setTags', value: e.target.value })}
+                placeholder='graphic design, digital marketing, marketing'
+              />
+            </FormGroup>
+
+            <FormGroup label='Industry (optional)' className="mb-0" labelFor='indutry'>
+              <Input
+                id='industry'
+                value={newKeywordList.industry}
+                onChange={(e) => predictIndustry(e.target.value)}
+                placeholder='Industry'
+              />
+              <Transition
+                as={Fragment}
+                show={showPredictIndustry}
+                enter='transition ease-out duration-100 overflow-hidden'
+                enterFrom='transform min-h-0'
+                enterTo='transform max-h-[105px] h-auto'
+                leave='transition ease-in'
+                leaveFrom='transform duration-75 max-h-[105px] h-auto'
+                leaveTo='transform min-h-0'
+              >
+                <ul className='predict-title max-h-[176px] overflow-y-scroll'>
+                  {industries.map((industry, index) => {
+                    return (
+                      <li className='px-[27.18px] py-[10px]' key={index}>
+                        <span className='cursor-pointer' onClick={() => { dispatch({ type: 'setIndustry', value: industry }); setShowPredictIndustry(false) }}>
+                          <span className='font-bold'>{industry}</span>
+                        </span>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </Transition>
+            </FormGroup>
+          </div>
+        </div>
+      </DialogLayout>
       <Layout
         label={'Add to'}
         origin={'right'}
         type='menu'
         icon={<Icon />}
       >
-        <div className='divide-x-2 dark:divide-darkMode-border divide-ash' style={{ width: '197px' }}>
+        <div className='divide-y-2 dark:divide-darkMode-border divide-ash' style={{ width: '197px' }}>
           <div>
             <div className="flex items-center border-b border-solid dark:border-darkMode-border border-ash border-l-0 border-t-0 border-r-0 dark:bg-darkMode-bg h-[43px] bg-white max-w-[293px]">
               <input type="text" style={{ paddingLeft: '12px' }} className="flex-grow flex-shrink border-0 py-3 text-xs rounded-none dark:bg-darkMode-bg h-[40px] bg-white" placeholder='Search...' />
@@ -46,7 +207,7 @@ const AddToMenu = ({ setOpenNewKeywordList }) => {
           </div>
           <Layout.Item>
             <div>
-              <button onClick={setOpenNewKeywordList} className="btn btn-reset py-[6px] px-0 text-center w-full text-sm dark:text-white text-black">
+              <button onClick={openKeywordDialog} className="btn btn-reset py-[6px] px-0 text-center w-full text-sm dark:text-white text-black">
                 Create new Keyword list
               </button>
             </div>

@@ -7,7 +7,7 @@ import ArticleLayout from '../../../../page-components/project-categories/Articl
 import ArticlesList from '../../../../page-components/project-categories/articles/ArticlesList'
 import DashboardLayout from '../../../../components/app/DasboardLayout'
 import SearchInput from '../../../../components/SearchInput'
-import NewKeywordListDialog from '../../../../page-components/project-categories/keywords/newKeywordListDialog'
+import NewKeywordListButton from '../../../../page-components/keyword-generate/NewKeywordListButton'
 
 const tabs = [
   'Articles',
@@ -19,15 +19,6 @@ function index() {
 
   const [articles, setArticles] = useState(Articles)
   const [tabIndex, setTabIndex] = useState(0)
-  const [newKeyworListDialog, setNewKeyworListDialog] = useState(false)
-
-  const closeKeyworListDialog = () => {
-    setNewKeyworListDialog(false)
-  }
-
-  const openKeyworListDialog = () => {
-    setNewKeyworListDialog(true)
-  }
 
   const updateTabIndex = (index) => {
     setTabIndex(index)
@@ -35,7 +26,7 @@ function index() {
 
   return (
     <DashboardLayout>
-      <NewKeywordListDialog isOpen={newKeyworListDialog} closeModal={closeKeyworListDialog} />
+
       <div className="-mt-11 w-full">
         <ArticleLayout crumbs={[{ link: '', txt: tabs[tabIndex] }]}>
           <div className='mt-8'>
@@ -47,9 +38,7 @@ function index() {
                   </a>
                 </Link>
               ) : tabIndex == 1 && (
-                <button onClick={openKeyworListDialog} className="block w-fit btn btn-primary bg-primary text-white font-poppins">
-                  New Keyword List
-                </button>
+                <NewKeywordListButton />
               )}
             </div>
             <Tab.Group selectedIndex={tabIndex} onChange={(index) => updateTabIndex(index)}>

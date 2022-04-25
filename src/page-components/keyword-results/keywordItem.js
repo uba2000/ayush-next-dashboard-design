@@ -13,48 +13,50 @@ const KeywordItem = ({ k, index, handleCheck }) => {
   }
 
   return (
-    <Table.Row onClick={checkKeyword}>
-      <Table.Data className='w-[41.5px] pl-[21px]'>
-        <div className="flex items-center justify-center">
-          <CheckBox checked={k.checked} />
-        </div>
-      </Table.Data>
-      <Table.Data className='main' main={true}>
-        <span>
-          {k.keyword}
-        </span>
-      </Table.Data>
-      <Table.Data>
-        <span>
-          {k.volume}
-        </span>
-      </Table.Data>
-      <Table.Data>
-        <span>
-          {k.traffic}
-        </span>
-      </Table.Data>
-      <Table.Data>
-        <span>
-          {`$${k.cpc}`}
-        </span>
-      </Table.Data>
-      <Table.Data>
-        <span>
-          {k.difficulty}
-        </span>
-      </Table.Data>
-      <Table.Data>
-        <span>
-          -{k.trending}%
-        </span>
-      </Table.Data>
-      <Table.Data>
-        <span>
-          {k.ait}
-        </span>
-      </Table.Data>
-    </Table.Row>
+    <>
+      <Table.Row onClick={checkKeyword}>
+        <Table.Data className='w-[41.5px] pl-[21px]'>
+          <div className="flex items-center justify-center">
+            <CheckBox checked={k.checked} />
+          </div>
+        </Table.Data>
+        <Table.Data className='main' main={true}>
+          <span>
+            {k.keyword}
+          </span>
+        </Table.Data>
+        <Table.Data>
+          <span>
+            {k.volume}
+          </span>
+        </Table.Data>
+        <Table.Data>
+          <span>
+            {k.traffic}
+          </span>
+        </Table.Data>
+        <Table.Data>
+          <span>
+            {`$${k.cpc}`}
+          </span>
+        </Table.Data>
+        <Table.Data>
+          <span>
+            {k.difficulty}
+          </span>
+        </Table.Data>
+        <Table.Data>
+          <span>
+            -{k.trending}%
+          </span>
+        </Table.Data>
+        <Table.Data>
+          <span>
+            {k.ait}
+          </span>
+        </Table.Data>
+      </Table.Row>
+    </>
   )
 }
 
