@@ -2,11 +2,13 @@ import Link from 'next/link'
 import React, { useState, useReducer, Fragment } from 'react'
 import { Tab } from '@headlessui/react'
 
-import Articles from '../../../../_mock/articles'
+import { useProjectsContext } from '../../../../context/projects'
 import ArticleLayout from '../../../../page-components/project-categories/ArticleLayout'
 import ArticlesList from '../../../../page-components/project-categories/articles/ArticlesList'
 import DashboardLayout from '../../../../components/app/DasboardLayout'
 import SearchInput from '../../../../components/SearchInput'
+import FilterSection from '../../../../components/section/Filter/FilterSection'
+import KeywordList from '../../../../page-components/project-categories/keywords/KeywordList'
 import NewKeywordListButton from '../../../../page-components/keyword-generate/NewKeywordListButton'
 
 const tabs = [
@@ -17,7 +19,13 @@ const tabs = [
 
 function index() {
 
-  const [articles, setArticles] = useState(Articles)
+  const state = useProjectsContext()
+
+  const {
+    articles,
+    keywordList,
+  } = state;
+
   const [tabIndex, setTabIndex] = useState(0)
 
   const updateTabIndex = (index) => {
@@ -42,34 +50,55 @@ function index() {
               )}
             </div>
             <Tab.Group selectedIndex={tabIndex} onChange={(index) => updateTabIndex(index)}>
-              <Tab.List className="grid md:grid-cols-2 grid-cols-1 gap-4">
-                <div className="flex space-x-[10px]">
-                  <Tab as={Fragment}>
-                    {({ selected }) => (
-                      <div>
-                        <TabLayout selected={selected} children={'Articles'} />
-                      </div>
-                    )}
-                  </Tab>
-                  <Tab as={Fragment}>
-                    {({ selected }) => (
-                      <div>
-                        <TabLayout selected={selected} children={'Keywords'} />
-                      </div>
-                    )}
-                  </Tab>
-                  <Tab as={Fragment}>
-                    {({ selected }) => (
-                      <div>
-                        <TabLayout selected={selected} children={'Features'} />
-                      </div>
-                    )}
-                  </Tab>
-                </div>
-                <div className="flex items-center justify-end">
-                  <SearchInput />
-                </div>
-              </Tab.List>
+              <div className="space-y-5">
+                <Tab.List className="flex justify-between items-center">
+                  <div className="flex space-x-[10px]">
+                    <Tab as={Fragment}>
+                      {({ selected }) => (
+                        <div>
+                          <TabLayout selected={selected} children={'Articles'} />
+                        </div>
+                      )}
+                    </Tab>
+                    <Tab as={Fragment}>
+                      {({ selected }) => (
+                        <div>
+                          <TabLayout selected={selected} children={'Keywords'} />
+                        </div>
+                      )}
+                    </Tab>
+                    <Tab as={Fragment}>
+                      {({ selected }) => (
+                        <div>
+                          <TabLayout selected={selected} children={'Features'} />
+                        </div>
+                      )}
+                    </Tab>
+                  </div>
+                  {tabIndex !== 2 && (
+                    <div className="flex items-center justify-end">
+                      <SearchInput />
+                    </div>
+                  )}
+                  {tabIndex == 2 && (
+                    <Link href='/app/projects/keywords/'>
+                      <a className="block w-fit btn h-[45px] btn-primary bg-primary text-white font-poppins">
+                        View All Features
+                      </a>
+                    </Link>
+                  )}
+                </Tab.List>
+                {tabIndex == 2 && (
+                  <div className="flex w-full">
+                    <div className="flex-grow">
+                      <FilterSection />
+                    </div>
+                    <div className="">
+                      <SearchInput />
+                    </div>
+                  </div>
+                )}
+              </div>
               <Tab.Panels>
                 <Tab.Panel>
                   <div>
@@ -78,7 +107,7 @@ function index() {
                 </Tab.Panel>
                 <Tab.Panel>
                   <div>
-                    <ArticlesList articles={articles} />
+                    <KeywordList keywords={keywordList} />
                   </div>
                 </Tab.Panel>
               </Tab.Panels>

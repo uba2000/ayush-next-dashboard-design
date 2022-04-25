@@ -7,10 +7,10 @@ import CheckBox from '../../../components/layouts/CheckBox'
 import { Table } from '../../../components/layouts/Table'
 import { DialogLayout } from '../../../components/layouts/Dialog'
 
-function ArticleListItem(props) {
-  let { title, tags, date, checked } = props.item
+function KeywordListItem(props) {
+  let { id, title, tags, date, checked } = props.item
 
-  const [articleChecked, setArticleChecked] = useState(checked)
+  const [keywordChecked, setKeywordChecked] = useState(checked)
 
   const router = useRouter()
 
@@ -30,10 +30,14 @@ function ArticleListItem(props) {
     }
   }
 
+  const viewList = () => {
+    router.push(`/app/projects/123/keyword-list/${id}`)
+  }
+
   const check = (va) => {
-    setArticleChecked(va);
+    setKeywordChecked(va);
     checked = va;
-    props.handleTick(props.articleIndex, va)
+    props.handleTick(props.keywordIndex, va)
   }
 
   // useEffect( () => { check(!articleChecked) })
@@ -121,15 +125,15 @@ function ArticleListItem(props) {
               <div className=''>
                 <Menu.Item>
                   {({ active }) => (
-                    <button type='button' className={`w-full text-left whitespace-nowrap ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'} block px-4 py-2 text-sm`}>
-                      View Article
+                    <button onClick={viewList} type='button' className={`w-full text-left whitespace-nowrap ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'} block px-4 py-2 text-sm`}>
+                      View List
                     </button>
                   )}
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
                     <button type='button' className={`w-full text-left whitespace-nowrap ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'} block px-4 py-2 text-sm`}>
-                      Edit Article
+                      Edit List
                     </button>
                   )}
                 </Menu.Item>
@@ -140,7 +144,7 @@ function ArticleListItem(props) {
                       onClick={openModal}
                       className={`text-left w-full whitespace-nowrap ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'} bg-white hover:bg-buttonGreen hover:text-white block px-4 py-2 text-sm`}
                     >
-                      Delete Article
+                      Delete List
                     </button>
                   )}
                 </Menu.Item>
@@ -153,4 +157,4 @@ function ArticleListItem(props) {
   )
 }
 
-export default ArticleListItem
+export default KeywordListItem

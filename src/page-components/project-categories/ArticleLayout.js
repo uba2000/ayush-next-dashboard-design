@@ -7,7 +7,7 @@ function ArticleLayout({ children, crumbs, hasOtherContent, otherContent }) {
   let hCrumbs = crumbs ? crumbs : []
   return (
     <div className="w-full">
-      <div className="flex justify-between">
+      <div className="flex justify-between fixed top-[168.1px]">
         <ul className={styles.breadcrumbs}>
           <li>
             <Link href="/app/dashboard">

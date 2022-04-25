@@ -2,35 +2,35 @@ import React, { useState } from 'react'
 
 import CheckBox from '../../../components/layouts/CheckBox'
 import { Settings } from '../../../ui/icons'
-import ArticleListItem from './KeywordListItem'
+import KeywordListItem from './KeywordListItem'
 import { Table } from '../../../components/layouts/Table'
 
-function ArticlesList(props) {
-  const { articles, perpage } = props
+function KeywordList(props) {
+  const { keywords, perpage } = props
 
-  const [articleList, setArticleList] = useState(articles)
+  const [keywordsList, setKeywordsList] = useState(keywords)
   const [page, setPage] = useState(1)
-  const [checkAllArticles, setCheckAllArticles] = useState(false)
+  const [checkAllKeywords, setCheckAllKeywords] = useState(false)
 
-  const tickAllArticles = (va) => {
-    let a = articleList;
+  const tickAllKeywords = (va) => {
+    let a = keywordsList;
     let b = [];
-    for (let i = 0; i < articles.length; i++) {
+    for (let i = 0; i < keywordsList.length; i++) {
       a[i].checked = va;
       b.push(a[i]);
     }
-    setArticleList(b)
+    setKeywordsList(b)
   }
 
-  const tickAnArticle = (index, va) => {
-    let a = articleList
+  const tickAKeyword = (index, va) => {
+    let a = keywordsList
     a[index].checked = va
     setArticleList(a)
   }
 
-  function checkAllArticlesHandler(va) {
-    setCheckAllArticles(va);
-    tickAllArticles(va);
+  function checkAllKeywordsHandler(va) {
+    setCheckAllKeywords(va);
+    tickAllKeywords(va);
   }
 
   return (
@@ -40,13 +40,13 @@ function ArticlesList(props) {
           <Table.Head>
             <Table.Row>
               <Table.TH className='pl-0 cursor-pointer w-[41.5px]'>
-                <div className="flex items-center justify-center" onClick={() => checkAllArticlesHandler(!checkAllArticles)}>
-                  <CheckBox checked={checkAllArticles} />
+                <div className="flex items-center justify-center" onClick={() => checkAllKeywordsHandler(!checkAllKeywords)}>
+                  <CheckBox checked={checkAllKeywords} />
                 </div>
               </Table.TH>
               <Table.TH main={true} style={{ width: '50%', minWidth: '397px' }}>
                 <span className="capitalize">
-                  Articles
+                  Keyword List
                 </span>
               </Table.TH>
               <Table.TH style={{ width: '27%', minWidth: '169px' }}>
@@ -73,19 +73,19 @@ function ArticlesList(props) {
           </Table.Head>
           <tbody>
             {
-              articleList.length <= 10 ? articleList.map((item, index) => {
-                return <ArticleListItem
+              keywordsList.length <= 10 ? keywordsList.map((item, index) => {
+                return <KeywordListItem
                   item={item}
                   key={index}
-                  articleIndex={index}
-                  handleTick={tickAnArticle}
+                  keywordIndex={index}
+                  handleTick={tickAKeyword}
                 />
-              }) : articleList.slice((page - 1) * 10, page * 10).map((item, index) => {
-                return <ArticleListItem
+              }) : keywordsList.slice((page - 1) * 10, page * 10).map((item, index) => {
+                return <KeywordListItem
                   item={item}
                   key={index}
-                  articleIndex={index}
-                  handleTick={tickAnArticle}
+                  keywordIndex={index}
+                  handleTick={tickAKeyword}
                 />
               })
             }
@@ -95,7 +95,7 @@ function ArticlesList(props) {
       <div className="dark:bg-darkMode-bg bg-white border border-t-0 dark:border-darkMode-border border-ash border-solid">
         <div className="flex justify-between pl-11 pr-10 py-4">
           <span className="font-poppins text-sm align-middle">
-            {(page - 1) * 10 + 1}-{page * 10} of {articles.length} articles
+            {(page - 1) * 10 + 1}-{page * 10} of {keywordsList.length} articles
           </span>
           <div className="flex items-center">
             <button
@@ -124,9 +124,9 @@ function ArticlesList(props) {
               {page}
             </p>
             <button
-              className={`py-1 px-2 border border-solid dark:border-darkMode-border border-ash ${page == Math.ceil(articles.length / 10) && 'cursor-not-allowed'
+              className={`py-1 px-2 border border-solid dark:border-darkMode-border border-ash ${page == Math.ceil(keywordsList.length / 10) && 'cursor-not-allowed'
                 }`}
-              disabled={page == Math.ceil(articles.length / 10)}
+              disabled={page == Math.ceil(keywordsList.length / 10)}
               onClick={() => setPage(page + 1)}
             >
               <svg
@@ -152,4 +152,4 @@ function ArticlesList(props) {
   )
 }
 
-export default ArticlesList
+export default KeywordList
