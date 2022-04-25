@@ -38,7 +38,7 @@ function ProjectList(props) {
       <div className="mt-7">
         <Table>
           <Table.Head>
-            <Table.Row>
+            <Table.Row className="cursor-default">
               <Table.TH className='cursor-pointer w-[41.5px] pl-[21px]'>
                 <div className="flex items-center justify-center" onClick={() => checkAllProjectsHandler(!checkAllProjects)}>
                   <CheckBox checked={checkAllProjects} />

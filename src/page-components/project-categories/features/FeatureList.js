@@ -15,7 +15,7 @@ function FeaturesList(props) {
       <div className="mt-8">
         <Table>
           <Table.Head>
-            <Table.Row>
+            <Table.Row className="cursor-default">
               <Table.TH className='pl-0 cursor-pointer w-[41.5px]'>
 
               </Table.TH>

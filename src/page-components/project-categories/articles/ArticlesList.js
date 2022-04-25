@@ -38,7 +38,7 @@ function ArticlesList(props) {
       <div className="mt-8">
         <Table>
           <Table.Head>
-            <Table.Row>
+            <Table.Row className="cursor-default">
               <Table.TH className='pl-0 cursor-pointer w-[41.5px]'>
                 <div className="flex items-center justify-center" onClick={() => checkAllArticlesHandler(!checkAllArticles)}>
                   <CheckBox checked={checkAllArticles} />

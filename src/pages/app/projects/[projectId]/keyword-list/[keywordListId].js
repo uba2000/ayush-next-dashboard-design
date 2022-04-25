@@ -27,6 +27,8 @@ const KeywordListView = () => {
 
   const router = useRouter()
 
+  const { query } = router
+
   const projectState = useProjectsContext()
 
   const { keywords, setKeywords } = projectState
@@ -80,7 +82,7 @@ const KeywordListView = () => {
       {/* Generate Content */}
       <GenerateContentDialog generateContentDialog={generateContentDialog} setGenerateContentDialog={() => setGenerateContentDialog(false)} />
       <div className="-mt-11 w-full">
-        <ArticleLayout crumbs={[{ link: '/app/projects/123', txt: 'Keywords' }, { link: '', txt: '<Keyword List Name>' }]}>
+        <ArticleLayout crumbs={[{ link: `/app/projects/${query.projectId}`, txt: 'Keywords' }, { link: '', txt: '<Keyword List Name>' }]}>
           <div className='mt-8'>
             <div className="flex justify-end mb-8 -mt-[69px]">
               <NewKeywordListButton />
