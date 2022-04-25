@@ -63,7 +63,7 @@ const FEATURE_NAME = [
 
 // ----------------------------------------------------------------------
 
-const feature = FEATURE_NAME.map((_, index) => {
+const features = FEATURE_NAME.map((_, index) => {
   let [featureName, type] = FEATURE_NAME[index].split('~')
 
   let slug = convertToSlug(featureName)
@@ -78,4 +78,4 @@ const feature = FEATURE_NAME.map((_, index) => {
   };
 });
 
-export default feature;
+export default features;

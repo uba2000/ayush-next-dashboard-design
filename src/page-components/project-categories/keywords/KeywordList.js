@@ -25,7 +25,7 @@ function KeywordList(props) {
   const tickAKeyword = (index, va) => {
     let a = keywordsList
     a[index].checked = va
-    setArticleList(a)
+    setKeywordsList(a)
   }
 
   function checkAllKeywordsHandler(va) {

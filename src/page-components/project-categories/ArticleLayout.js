@@ -44,7 +44,7 @@ function ArticleLayout({ children, crumbs, hasOtherContent, otherContent }) {
           { otherContent }
         )}
       </div>
-      <div>
+      <div className='mt-[63px]'>
         {children}
       </div>
     </div>

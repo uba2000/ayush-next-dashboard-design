@@ -39,7 +39,7 @@ function ProjectListItem(props) {
 
   const doubleClickHandler = (e) => {
     if (e.detail == 2) {
-      router.push('/app/projects/123/articles')
+      router.push('/app/projects/123')
     }
   }
 

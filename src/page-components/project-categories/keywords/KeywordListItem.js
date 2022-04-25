@@ -14,6 +14,8 @@ function KeywordListItem(props) {
 
   const router = useRouter()
 
+  const { query } = router
+
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
@@ -26,12 +28,12 @@ function KeywordListItem(props) {
 
   const doubleClickHandler = (e) => {
     if (e.detail == 2) {
-      router.push('/app/projects/123/articles/edit/123')
+      router.push(`/app/projects/${query.projectId}/articles/edit/${id}`)
     }
   }
 
   const viewList = () => {
-    router.push(`/app/projects/123/keyword-list/${id}`)
+    router.push(`/app/projects/${query.projectId}/keyword-list/${id}`)
   }
 
   const check = (va) => {

@@ -10,6 +10,7 @@ import SearchInput from '../../../../components/SearchInput'
 import FilterSection from '../../../../components/section/Filter/FilterSection'
 import KeywordList from '../../../../page-components/project-categories/keywords/KeywordList'
 import NewKeywordListButton from '../../../../page-components/keyword-generate/NewKeywordListButton'
+import FeaturesList from '../../../../page-components/project-categories/features/FeatureList'
 
 const tabs = [
   'Articles',
@@ -24,6 +25,7 @@ function index() {
   const {
     articles,
     keywordList,
+    projectFeatureList,
   } = state;
 
   const [tabIndex, setTabIndex] = useState(0)
@@ -108,6 +110,11 @@ function index() {
                 <Tab.Panel>
                   <div>
                     <KeywordList keywords={keywordList} />
+                  </div>
+                </Tab.Panel>
+                <Tab.Panel>
+                  <div>
+                    <FeaturesList features={projectFeatureList} />
                   </div>
                 </Tab.Panel>
               </Tab.Panels>
