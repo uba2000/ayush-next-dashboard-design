@@ -9,7 +9,7 @@ import Box from '../../../components/layouts/Box'
 import FeatureSection from '../../../components/section/Features/FeatureSection'
 import DashboardLanding from '../../../components/app/DashboardLanding'
 
-const AllFeaturesView = () => {
+const AllFeaturesView = ({ isGetStarted }) => {
 
   const router = useRouter()
   const state = useAppContext()
@@ -39,7 +39,7 @@ const AllFeaturesView = () => {
           </div>
         </div>
 
-        <div className="pt-[30px] pb-[35px] w-full">
+        {isGetStarted && <div className="pt-[30px] w-full">
           <Box>
             <div className="py-[39px] pl-[60px] pr-[90px] space-y-[10px]">
               <div className="flex space-x-4">
@@ -57,9 +57,9 @@ const AllFeaturesView = () => {
               </div>
             </div>
           </Box>
-        </div>
+        </div>}
 
-        <div className="">
+        <div className="pt-[35px]">
           <FeatureSection />
         </div>
       </div>

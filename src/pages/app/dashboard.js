@@ -7,7 +7,7 @@ function Dashboard() {
 
   return (
     <DashboardLayout>
-      <AllFeaturesView />
+      <AllFeaturesView isGetStarted={true} />
     </DashboardLayout>
   )
 }
