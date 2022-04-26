@@ -12,11 +12,9 @@ const FeatureListView = () => {
 
   return (
     <DashboardLayout>
-      <div className="-mt-11 w-full">
-        <ArticleLayout crumbs={[{ link: `/app/projects/${query.projectId}`, txt: 'Features' }, { link: '', txt: '<Feature List Name>' }]}>
+      <ArticleLayout crumbs={[{ link: `/app/projects/${query.projectId}`, txt: 'Features' }, { link: '', txt: '<Feature List Name>' }]}>
 
-        </ArticleLayout>
-      </div>
+      </ArticleLayout>
     </DashboardLayout>
   )
 }

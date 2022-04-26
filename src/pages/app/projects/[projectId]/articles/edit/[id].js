@@ -58,26 +58,78 @@ export class EditArticle extends Component {
     const { stats } = this.state
     return (
       <DashboardLayout>
-        <div className="-mt-11 w-full">
-          <ArticleLayout crumbs={[{ txt: 'How to start the agency' }]}>
-            <div className="mt-16">
-              <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-4 mb-4">
-                <div className="flex flex-col">
-                  {!this.state.titleChange ? (
+        <ArticleLayout crumbs={[{ txt: 'How to start the agency' }]}>
+          <div className="mt-16">
+            <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-4 mb-4">
+              <div className="flex flex-col">
+                {!this.state.titleChange ? (
+                  <>
+                    <div className="flex mb-2">
+                      <div className="mr-2">
+                        <h3 className={styles.articleEditHeaderTitle}>
+                          {this.state.title}
+                        </h3>
+                      </div>
+                      <div className="cursor-pointer" onClick={() => { this.setState({ titleChange: true }) }}>
+                        {/* pencil */}
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          className='icon icon-tabler icon-tabler-pencil ml-2'
+                          width='24'
+                          height='24'
+                          viewBox='0 0 24 24'
+                          strokeWidth='1'
+                          stroke='white'
+                          fill='#00A141'
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                        >
+                          <path
+                            stroke='none'
+                            d='M0 0h24v24H0z'
+                            fill='none'
+                          ></path>
+                          <path d='M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4'></path>
+                          <line x1='13.5' y1='6.5' x2='17.5' y2='10.5'></line>
+                        </svg>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-2 mb-2">
+                      <div className="">
+                        <input type="text" value={this.state.title} onChange={(e) => this.setState({ title: e.target.value })} className={accountStyles.formGroupInput} style={{ minWidth: '273.6px', height: '53px' }} />
+                      </div>
+                      <div className='flex'>
+                        <button className="btn btn-primary" onClick={() => { this.setState({ titleChange: false }) }}>
+                          Save
+                        </button>
+                        <button className="btn btn-reset" onClick={() => {
+                          this.setState({ title: this.state.reserveTitle, })
+                        }}>
+                          Reset
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                )}
+                {
+                  !this.state.tagsChange ? (
                     <>
-                      <div className="flex mb-2">
+                      <div className="flex">
                         <div className="mr-2">
-                          <h3 className={styles.articleEditHeaderTitle}>
-                            {this.state.title}
-                          </h3>
+                          <h5 className={styles.articleEditHeaderTags}>
+                            {this.state.tags}
+                          </h5>
                         </div>
-                        <div className="cursor-pointer" onClick={() => { this.setState({ titleChange: true }) }}>
+                        <div className="cursor-pointer" onClick={() => { this.setState({ tagsChange: true }) }}>
                           {/* pencil */}
                           <svg
                             xmlns='http://www.w3.org/2000/svg'
                             className='icon icon-tabler icon-tabler-pencil ml-2'
-                            width='24'
-                            height='24'
+                            width='16'
+                            height='16'
                             viewBox='0 0 24 24'
                             strokeWidth='1'
                             stroke='white'
@@ -100,163 +152,109 @@ export class EditArticle extends Component {
                     <>
                       <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-2 mb-2">
                         <div className="">
-                          <input type="text" value={this.state.title} onChange={(e) => this.setState({ title: e.target.value })} className={accountStyles.formGroupInput} style={{ minWidth: '273.6px', height: '53px' }} />
+                          <input type="text" value={this.state.tags} onChange={(e) => this.setState({ tags: e.target.value })} className={accountStyles.formGroupInput} style={{ minWidth: '273.6px', height: '53px' }} />
                         </div>
                         <div className='flex'>
-                          <button className="btn btn-primary" onClick={() => { this.setState({ titleChange: false }) }}>
+                          <button className="btn btn-primary" onClick={() => { this.setState({ tagsChange: false }) }}>
                             Save
                           </button>
                           <button className="btn btn-reset" onClick={() => {
-                            this.setState({ title: this.state.reserveTitle, })
+                            this.setState({ tags: this.state.reserveTags, })
                           }}>
                             Reset
                           </button>
                         </div>
                       </div>
                     </>
-                  )}
-                  {
-                    !this.state.tagsChange ? (
-                      <>
-                        <div className="flex">
-                          <div className="mr-2">
-                            <h5 className={styles.articleEditHeaderTags}>
-                              {this.state.tags}
-                            </h5>
-                          </div>
-                          <div className="cursor-pointer" onClick={() => { this.setState({ tagsChange: true }) }}>
-                            {/* pencil */}
-                            <svg
-                              xmlns='http://www.w3.org/2000/svg'
-                              className='icon icon-tabler icon-tabler-pencil ml-2'
-                              width='16'
-                              height='16'
-                              viewBox='0 0 24 24'
-                              strokeWidth='1'
-                              stroke='white'
-                              fill='#00A141'
-                              strokeLinecap='round'
-                              strokeLinejoin='round'
-                            >
-                              <path
-                                stroke='none'
-                                d='M0 0h24v24H0z'
-                                fill='none'
-                              ></path>
-                              <path d='M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4'></path>
-                              <line x1='13.5' y1='6.5' x2='17.5' y2='10.5'></line>
-                            </svg>
-                          </div>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-2 mb-2">
-                          <div className="">
-                            <input type="text" value={this.state.tags} onChange={(e) => this.setState({ tags: e.target.value })} className={accountStyles.formGroupInput} style={{ minWidth: '273.6px', height: '53px' }} />
-                          </div>
-                          <div className='flex'>
-                            <button className="btn btn-primary" onClick={() => { this.setState({ tagsChange: false }) }}>
-                              Save
-                            </button>
-                            <button className="btn btn-reset" onClick={() => {
-                              this.setState({ tags: this.state.reserveTags, })
-                            }}>
-                              Reset
-                            </button>
-                          </div>
-                        </div>
-                      </>
-                    )
-                  }
-                </div>
-                <div className="flex justify-end">
-                  <div className="flex flex-col mr-7 justify-center">
-                    <p className={styles.articleHeaderOverscore}>
-                      Word Count
-                    </p>
-                    <p className={styles.articleHeaderOverscoreStats}>
-                      {stats.wordCount} Words
-                    </p>
-                  </div>
-                  <div className="flex flex-col mr-7 justify-center">
-                    <p className={styles.articleHeaderOverscore}>
-                      Plagiarism Score
-                    </p>
-                    <p className={styles.articleHeaderOverscoreStats}>
-                      {stats.plagiarism}% Plagiarized
-                    </p>
-                  </div>
-                  <div className="flex flex-col mr-7 justify-center">
-                    <p className={styles.articleHeaderOverscore}>
-                      Keywords Density
-                    </p>
-                    <p className={styles.articleHeaderOverscoreStats}>
-                      {stats.density}% Density
-                    </p>
-                  </div>
-                  <div className="flex flex-col justify-center">
-                    <p className={styles.articleHeaderOverscore}>
-                      Grammatical Score
-                    </p>
-                    <p className={styles.articleHeaderOverscoreStats}>
-                      {stats.fluency}% Fluent
-                    </p>
-                  </div>
-                </div>
+                  )
+                }
               </div>
-              <div className="generator-container relative md:pt-[25px] pt-[70px] pb-[25px] md:px-[70px] px-4">
-                <div className="content">
-                  {!this.state.showEditor ? (<>{this.articleContent}</>) : (
-                    <ArticleEditor />
-                  )}
+              <div className="flex justify-end">
+                <div className="flex flex-col mr-7 justify-center">
+                  <p className={styles.articleHeaderOverscore}>
+                    Word Count
+                  </p>
+                  <p className={styles.articleHeaderOverscoreStats}>
+                    {stats.wordCount} Words
+                  </p>
                 </div>
-                {!this.state.showEditor && <div className="absolute top-6 right-6 cursor-pointer" onClick={this.showEditorHandler}>
-                  {/* pencil */}
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    className='icon icon-tabler icon-tabler-pencil'
-                    width='24'
-                    height='24'
-                    viewBox='0 0 24 24'
-                    strokeWidth='1'
-                    stroke='white'
-                    fill='#00A141'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  >
-                    <path
-                      stroke='none'
-                      d='M0 0h24v24H0z'
-                      fill='none'
-                    ></path>
-                    <path d='M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4'></path>
-                    <line x1='13.5' y1='6.5' x2='17.5' y2='10.5'></line>
-                  </svg>
-                </div>}
-                {this.state.showEditor && <div className='flex'>
-                  <button className="mx-auto btn btn-primary mt-[140px] text-black border-[#dcd8e780] bg-[#dcd8e780] font-bold">
-                    Generate Content
-                  </button>
-                </div>}
-              </div>
-              <div className="md:flex grid grid-cols-1 gap-5 mt-5 md:justify-end">
-                {!this.state.showEditor ? (<><button className="btn btn-reset font-poppins mr-[6.54px]">
-                  Download
-                </button>
-                  <button className="btn btn-primary text-white text-base">
-                    Publish to Wordpress
-                  </button></>) : (
-                  <>
-                    <button onClick={this.saveArticle} className="btn btn-primary ml-auto text-white text-base w-full max-w-[226px]">
-                      Save article
-                    </button>
-                  </>
-                )}
+                <div className="flex flex-col mr-7 justify-center">
+                  <p className={styles.articleHeaderOverscore}>
+                    Plagiarism Score
+                  </p>
+                  <p className={styles.articleHeaderOverscoreStats}>
+                    {stats.plagiarism}% Plagiarized
+                  </p>
+                </div>
+                <div className="flex flex-col mr-7 justify-center">
+                  <p className={styles.articleHeaderOverscore}>
+                    Keywords Density
+                  </p>
+                  <p className={styles.articleHeaderOverscoreStats}>
+                    {stats.density}% Density
+                  </p>
+                </div>
+                <div className="flex flex-col justify-center">
+                  <p className={styles.articleHeaderOverscore}>
+                    Grammatical Score
+                  </p>
+                  <p className={styles.articleHeaderOverscoreStats}>
+                    {stats.fluency}% Fluent
+                  </p>
+                </div>
               </div>
             </div>
-          </ArticleLayout>
-        </div>
+            <div className="generator-container relative md:pt-[25px] pt-[70px] pb-[25px] md:px-[70px] px-4">
+              <div className="content">
+                {!this.state.showEditor ? (<>{this.articleContent}</>) : (
+                  <ArticleEditor />
+                )}
+              </div>
+              {!this.state.showEditor && <div className="absolute top-6 right-6 cursor-pointer" onClick={this.showEditorHandler}>
+                {/* pencil */}
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  className='icon icon-tabler icon-tabler-pencil'
+                  width='24'
+                  height='24'
+                  viewBox='0 0 24 24'
+                  strokeWidth='1'
+                  stroke='white'
+                  fill='#00A141'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                >
+                  <path
+                    stroke='none'
+                    d='M0 0h24v24H0z'
+                    fill='none'
+                  ></path>
+                  <path d='M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4'></path>
+                  <line x1='13.5' y1='6.5' x2='17.5' y2='10.5'></line>
+                </svg>
+              </div>}
+              {this.state.showEditor && <div className='flex'>
+                <button className="mx-auto btn btn-primary mt-[140px] text-black border-[#dcd8e780] bg-[#dcd8e780] font-bold">
+                  Generate Content
+                </button>
+              </div>}
+            </div>
+            <div className="md:flex grid grid-cols-1 gap-5 mt-5 md:justify-end">
+              {!this.state.showEditor ? (<><button className="btn btn-reset font-poppins mr-[6.54px]">
+                Download
+              </button>
+                <button className="btn btn-primary text-white text-base">
+                  Publish to Wordpress
+                </button></>) : (
+                <>
+                  <button onClick={this.saveArticle} className="btn btn-primary ml-auto text-white text-base w-full max-w-[226px]">
+                    Save article
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        </ArticleLayout>
       </DashboardLayout>
     )
   }

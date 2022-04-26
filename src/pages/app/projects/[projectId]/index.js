@@ -40,92 +40,89 @@ function index() {
 
   return (
     <DashboardLayout>
-
-      <div className="-mt-11 w-full">
-        <ArticleLayout crumbs={[{ link: '', txt: tabs[tabIndex] }]}>
-          <div className='mt-8'>
-            <div className="flex justify-end mb-8">
-              {tabIndex == 0 ? (
-                <Link href='/app/projects/keywords/'>
-                  <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
-                    Write New Article
-                  </a>
-                </Link>
-              ) : tabIndex == 1 && (
-                <NewKeywordListButton />
-              )}
-            </div>
-            <Tab.Group selectedIndex={tabIndex} onChange={(index) => updateTabIndex(index)}>
-              <div className="space-y-5">
-                <Tab.List className="flex justify-between items-center">
-                  <div className="flex space-x-[10px]">
-                    <Tab as={Fragment}>
-                      {({ selected }) => (
-                        <div>
-                          <TabLayout selected={selected} children={'Articles'} />
-                        </div>
-                      )}
-                    </Tab>
-                    <Tab as={Fragment}>
-                      {({ selected }) => (
-                        <div>
-                          <TabLayout selected={selected} children={'Keywords'} />
-                        </div>
-                      )}
-                    </Tab>
-                    <Tab as={Fragment}>
-                      {({ selected }) => (
-                        <div>
-                          <TabLayout selected={selected} children={'Features'} />
-                        </div>
-                      )}
-                    </Tab>
-                  </div>
-                  {tabIndex !== 2 && (
-                    <div className="flex items-center justify-end">
-                      <SearchInput />
-                    </div>
-                  )}
-                  {tabIndex == 2 && (
-                    <Link href={`/app/projects/${query.projectId}/feature-list`}>
-                      <a className="block w-fit btn h-[45px] btn-primary bg-primary text-white font-poppins">
-                        View All Features
-                      </a>
-                    </Link>
-                  )}
-                </Tab.List>
-                {tabIndex == 2 && (
-                  <div className="flex w-full">
-                    <div className="flex-grow">
-                      <FilterSection />
-                    </div>
-                    <div className="">
-                      <SearchInput />
-                    </div>
+      <ArticleLayout crumbs={[{ link: '', txt: tabs[tabIndex] }]}>
+        <div className='mt-8'>
+          <div className="flex justify-end mb-8">
+            {tabIndex == 0 ? (
+              <Link href='/app/projects/keywords/'>
+                <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
+                  Write New Article
+                </a>
+              </Link>
+            ) : tabIndex == 1 && (
+              <NewKeywordListButton />
+            )}
+          </div>
+          <Tab.Group selectedIndex={tabIndex} onChange={(index) => updateTabIndex(index)}>
+            <div className="space-y-5">
+              <Tab.List className="flex justify-between items-center">
+                <div className="flex space-x-[10px]">
+                  <Tab as={Fragment}>
+                    {({ selected }) => (
+                      <div>
+                        <TabLayout selected={selected} children={'Articles'} />
+                      </div>
+                    )}
+                  </Tab>
+                  <Tab as={Fragment}>
+                    {({ selected }) => (
+                      <div>
+                        <TabLayout selected={selected} children={'Keywords'} />
+                      </div>
+                    )}
+                  </Tab>
+                  <Tab as={Fragment}>
+                    {({ selected }) => (
+                      <div>
+                        <TabLayout selected={selected} children={'Features'} />
+                      </div>
+                    )}
+                  </Tab>
+                </div>
+                {tabIndex !== 2 && (
+                  <div className="flex items-center justify-end">
+                    <SearchInput />
                   </div>
                 )}
-              </div>
-              <Tab.Panels>
-                <Tab.Panel>
-                  <div>
-                    <ArticlesList articles={articles} />
+                {tabIndex == 2 && (
+                  <Link href={`/app/projects/${query.projectId}/feature-list`}>
+                    <a className="block w-fit btn h-[45px] btn-primary bg-primary text-white font-poppins">
+                      View All Features
+                    </a>
+                  </Link>
+                )}
+              </Tab.List>
+              {tabIndex == 2 && (
+                <div className="flex w-full">
+                  <div className="flex-grow">
+                    <FilterSection />
                   </div>
-                </Tab.Panel>
-                <Tab.Panel>
-                  <div>
-                    <KeywordList keywords={keywordList} />
+                  <div className="">
+                    <SearchInput />
                   </div>
-                </Tab.Panel>
-                <Tab.Panel>
-                  <div>
-                    <FeaturesList features={projectFeatureList} />
-                  </div>
-                </Tab.Panel>
-              </Tab.Panels>
-            </Tab.Group>
-          </div>
-        </ArticleLayout>
-      </div>
+                </div>
+              )}
+            </div>
+            <Tab.Panels>
+              <Tab.Panel>
+                <div>
+                  <ArticlesList articles={articles} />
+                </div>
+              </Tab.Panel>
+              <Tab.Panel>
+                <div>
+                  <KeywordList keywords={keywordList} />
+                </div>
+              </Tab.Panel>
+              <Tab.Panel>
+                <div>
+                  <FeaturesList features={projectFeatureList} />
+                </div>
+              </Tab.Panel>
+            </Tab.Panels>
+          </Tab.Group>
+        </div>
+      </ArticleLayout>
     </DashboardLayout>
   )
 }

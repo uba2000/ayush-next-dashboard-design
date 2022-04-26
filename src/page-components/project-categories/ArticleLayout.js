@@ -6,8 +6,8 @@ import styles from '../../styles/Article.module.css'
 function ArticleLayout({ children, crumbs, hasOtherContent, otherContent }) {
   let hCrumbs = crumbs ? crumbs : []
   return (
-    <div className="w-full">
-      <div className="flex justify-between fixed top-[168.1px]">
+    <div className="w-full flex flex-col h-full">
+      <div className="flex justify-between">
         <ul className={styles.breadcrumbs}>
           <li>
             <Link href="/app/dashboard">
@@ -44,8 +44,10 @@ function ArticleLayout({ children, crumbs, hasOtherContent, otherContent }) {
           { otherContent }
         )}
       </div>
-      <div className='mt-[63px]'>
-        {children}
+      <div className='mt-[63px] flex-grow flex items-center'>
+        <div className="-mt-11 w-full flex flex-col flex-grow">
+          {children}
+        </div>
       </div>
     </div>
   )
