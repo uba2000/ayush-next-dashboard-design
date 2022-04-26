@@ -6,7 +6,7 @@ import styles from '../../styles/Article.module.css'
 function ArticleLayout({ children, crumbs, hasOtherContent, otherContent }) {
   let hCrumbs = crumbs ? crumbs : []
   return (
-    <div className="w-full flex flex-col h-full">
+    <div className="w-full flex flex-col flex-grow h-full">
       <div className="flex justify-between">
         <ul className={styles.breadcrumbs}>
           <li>
