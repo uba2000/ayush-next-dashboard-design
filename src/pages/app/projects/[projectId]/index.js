@@ -85,7 +85,7 @@ function index() {
                   </div>
                 )}
                 {tabIndex == 2 && (
-                  <Link href={`/app/projects/${query.projectId}/feature-list`}>
+                  <Link href={`/app/projects/features`}>
                     <a className="block w-fit btn h-[45px] btn-primary bg-primary text-white font-poppins">
                       View All Features
                     </a>

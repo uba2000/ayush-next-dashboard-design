@@ -1,10 +1,13 @@
 import React, { Fragment, useState } from 'react'
 
 import FeatureBox from './FeatureBox'
-import Features from '../../../_mock/features'
+import { useProjectsContext } from '../../../context/projects'
 
 const FeatureSection = () => {
-  const [stateFeature, setStateFeature] = useState(Features)
+  const state = useProjectsContext()
+
+  const [stateFeature, setStateFeature] = useState(state.projectFeatures)
+
   return (
     <div className="grid grid-cols-4 gap-5">
       {stateFeature.map((feature) => {
