@@ -4,13 +4,14 @@ import ActiveLink from '../../ActiveLink'
 import DashboardLayout from '../DasboardLayout'
 import styles from '../../../styles/Account.module.css'
 import Link from "next/link"
+import Box from '../../layouts/Box'
 
 function AccountLayout({ children }) {
   return (
     <DashboardLayout>
       <div className="container md:px-4 px-0">
-        <div className='grid md:grid-cols-[213px_auto] grid-cols-1 border-[#f7f9fa] border border-solid'>
-          <div className='md:block hidden'>
+        <div className='grid md:grid-cols-[213px_auto] grid-cols-1'>
+          <Box className='md:block hidden' type={'black'}>
             <div className={styles.accountAside}>
               <ul>
                 <li>
@@ -35,12 +36,12 @@ function AccountLayout({ children }) {
                 </li>
               </ul>
             </div>
-          </div>
-          <div className={styles.accountMain}>
+          </Box>
+          <Box className={styles.accountMain}>
             <div className="container py-14 my-1">
               {children}
             </div>
-          </div>
+          </Box>
         </div>
       </div>
     </DashboardLayout>

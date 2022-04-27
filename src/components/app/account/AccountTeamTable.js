@@ -1,30 +1,33 @@
 import React from 'react'
+
+import { Table } from '../../layouts/Table'
 import AccountTeamItems from './AccountTeamItems'
 import styles from '../../../styles/Account.module.css'
+import Box from '../../layouts/Box'
 
 function AccountTeamTable() {
   return (
-    <table className='new'>
-      <thead className={styles.accountTableHead}>
-        <tr>
-          <th style={{ width: '30%' }}>User Name</th>
-          <th style={{ width: '50%' }}>Email</th>
-          <th style={{ width: '20%', minWidth: '245.22px' }}>Access Level</th>
-        </tr>
-      </thead>
-      <tbody className={styles.accountTableBody}>
-        <tr>
-          <td>Theresa Webb</td>
-          <td>Theresa.webb@example.com</td>
-          <td>
-            <div className="text-center max-w-[146px] bg-gray-1000 border border-solid border-gray-800 py-2 px-9 mr-7">
+    <Table className='border-b'>
+      <Table.Head className="dark:bg-black bg-white">
+        <Table.Row>
+          <Table.TH style={{ width: '30%' }}>User Name</Table.TH>
+          <Table.TH main={true} style={{ width: '50%' }}>Email</Table.TH>
+          <Table.TH style={{ width: '20%', minWidth: '245.22px' }}>Access Level</Table.TH>
+        </Table.Row>
+      </Table.Head>
+      <Table.Body className="dark:bg-black bg-white">
+        <Table.Row>
+          <Table.Data>Theresa Webb</Table.Data>
+          <Table.Data>Theresa.webb@example.com</Table.Data>
+          <Table.Data>
+            <Box className="text-center max-w-[146px] py-2 px-9 mr-7">
               Owner
-            </div>
-          </td>
-        </tr>
+            </Box>
+          </Table.Data>
+        </Table.Row>
         <AccountTeamItems />
-      </tbody>
-    </table>
+      </Table.Body>
+    </Table>
   )
 }
 

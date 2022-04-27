@@ -2,13 +2,16 @@ import React, { useState, Fragment } from 'react'
 import { Listbox, Transition, Dialog, Menu } from '@headlessui/react'
 import Link from 'next/link'
 
+import { Table } from '../../layouts/Table'
+import Box from '../../layouts/Box'
+
 const roles = ['owner', 'admin', 'editor']
 
 function AccountTeamItems() {
   const [selectedRole, setSelectedRole] = useState(roles[1])
   const [open, setOpen] = useState(false)
   return (
-    <tr>
+    <Table.Row>
       <Transition.Root as={Fragment} show={open}>
         <Dialog className='z-50 fixed' onClose={setOpen} as='div'>
           <div className="flex justify-center items-center min-h-screen">
@@ -64,18 +67,18 @@ function AccountTeamItems() {
           </div>
         </Dialog>
       </Transition.Root>
-      <td>Michael Mitc</td>
-      <td>commichael.mitc@example.com</td>
-      <td className='relative'>
+      <Table.Data>Michael Mitc</Table.Data>
+      <Table.Data>commichael.mitc@example.com</Table.Data>
+      <Table.Data className='relative'>
         <div className="mr-7">
-          <Listbox as='div' value={selectedRole} onChange={setSelectedRole}>
+          <Listbox as={'div'} value={selectedRole} onChange={setSelectedRole}>
             {({ open }) => (
               <>
                 <div className="relative max-w-[146px]">
                   <span className="inline-block w-full">
-                    <Listbox.Button className='text-center max-w-[146px] bg-white border w-full border-solid border-gray-800 py-2 pl-8 pr-9' style={{ minWidth: '112px' }}>
+                    <Listbox.Button as={Box} className='text-center max-w-[146px] w-full py-2 px-6 min-w-[112px]'>
                       <span className='text-center block truncate capitalize'>{selectedRole}</span>
-                      <span className='absolute right-3 top-[11.5px]'>
+                      <span className='absolute right-3 top-[17.5px]'>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                         </svg>
@@ -92,11 +95,11 @@ function AccountTeamItems() {
                     leaveFrom='opacity-100'
                     leaveTo='opacity-0'
                   >
-                    <Listbox.Options static className='absolute w-full border bg-white border-gray-800'>
+                    <Listbox.Options as={Box} static className='absolute w-full border bg-white border-gray-800'>
                       {roles.map((role) => (
                         <Listbox.Option key={role} value={role} onClick={() => setOpen(true)}>
                           {({ selected, active }) => (
-                            <div className={`capitalize cursor-pointer select-none relative py-2 px-9 transition ease-in duration-600 text-center  ${active ? 'text-black bg-gray-1000' : 'text-black'}`}>
+                            <div className={`capitalize cursor-pointer select-none relative py-2 px-9 transition ease-in duration-600 text-center  ${active ? 'text-white bg-primary' : 'dark:text-white text-black'}`}>
                               <span className={`${selected ? 'font-normal' : 'font-normal'}`}>{role}</span>
                             </div>
                           )}
@@ -128,12 +131,12 @@ function AccountTeamItems() {
               leaveFrom='transform opacity-100 scale-100'
               leaveTo='transform opacity-0 scale-95'
             >
-              <Menu.Items className='z-30 origin-top-right absolute right-0 mt-2 w-32  shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none'>
-                <div className='py-1'>
-                  <Menu.Item>
+              <Menu.Items as={Box} className='z-30 origin-top-right absolute right-0 mt-2 w-32  shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none'>
+                <div className=''>
+                  <Menu.Item as={Box} className="border-0">
                     <Link href='/app/account/team'>
                       <a
-                        className='whitespace-nowrap bg-white hover:bg-gray-1000 hover:text-black block px-4 py-2 text-sm'
+                        className='whitespace-nowrap hover:bg-primary hover:text-white block px-4 py-2 text-sm'
                       >
                         Edit Access
                       </a>
@@ -144,8 +147,8 @@ function AccountTeamItems() {
             </Transition>
           </div>
         </Menu>
-      </td>
-    </tr>
+      </Table.Data>
+    </Table.Row>
   )
 }
 

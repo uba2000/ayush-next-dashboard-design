@@ -9,7 +9,7 @@
 }
 
 @font-face {
-  font-family: "Helvetica";
+  font-family: 'Helvetica';
   src: url(/fonts/Helvetica/HelveticaRegular.ttf);
 }
 
@@ -17,7 +17,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Poppins", Segoe UI, Oxygen,
+  font-family: -apple-system, BlinkMacSystemFont, 'Poppins', Segoe UI, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
@@ -28,6 +28,10 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+li {
+  list-style: none;
 }
 
 .datepicker-control-section {
@@ -91,11 +95,11 @@ input {
   line-height: 100%;
   letter-spacing: -0.045em;
   text-transform: capitalize;
-  font-family: "Poppins";
+  font-family: 'Poppins';
 }
 
 .section-caption {
-  font-family: "Poppins";
+  font-family: 'Poppins';
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -116,12 +120,12 @@ input {
 }
 
 .form-group.imp label::after {
-  content: "*";
+  content: '*';
   color: #ff0000;
 }
 
 .form-group label {
-  font-family: "Poppins";
+  font-family: 'Poppins';
   font-style: normal;
   font-weight: 600;
   font-size: 18px;
@@ -129,7 +133,7 @@ input {
 }
 
 .form-group input:not(.btn) {
-  font-family: "Poppins";
+  font-family: 'Poppins';
   background-color: #ffffff;
   border: 1px solid #dcd8e7;
   border-radius: 3px;
@@ -186,7 +190,7 @@ input {
   border-radius: 3px;
   padding: 12px 30px;
   height: 43px;
-  font-family: "Poppins";
+  font-family: 'Poppins';
 }
 
 .section-seperator {
@@ -303,7 +307,7 @@ input {
 }
 
 .option-select p {
-  font-family: "Poppins";
+  font-family: 'Poppins';
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
@@ -323,7 +327,7 @@ input {
   box-shadow: none;
   white-space: nowrap;
 
-  font-family: "Poppins";
+  font-family: 'Poppins';
   font-style: normal;
   font-weight: 600;
   font-size: 16.7456px;
@@ -355,7 +359,6 @@ input {
 .btn-reset,
 .btn-reset:hover {
   border-radius: 0;
-  color: #000000;
   padding: 11px 34px;
   background-color: transparent;
   border: none;
@@ -388,7 +391,7 @@ input {
 .btn-primary:hover {
   border-radius: 0;
   padding: 11px 34px;
-  font-family: "Poppins";
+  font-family: 'Poppins';
   color: white;
 
   font-weight: bold;
@@ -403,7 +406,7 @@ input {
 .btn-deactive:hover {
   border-radius: 0;
   padding: 11px 34px;
-  font-family: "Helvetica";
+  font-family: 'Helvetica';
   color: #000000;
 
   font-weight: bold;
@@ -419,7 +422,7 @@ input {
 .btn-dark:hover {
   border-radius: 0;
   padding: 11px 34px;
-  font-family: "Poppins";
+  font-family: 'Poppins';
 
   font-weight: bold;
   font-size: 13px;
@@ -482,7 +485,7 @@ input {
 }
 
 .custom-checkbox-container .checkmark::after {
-  content: "";
+  content: '';
   position: absolute;
   display: none;
 }

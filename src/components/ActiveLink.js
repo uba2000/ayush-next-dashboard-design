@@ -1,13 +1,10 @@
 import React from 'react'
 import { useRouter } from 'next/router'
+import tw from 'tailwind-styled-components'
 
 function ActiveLink({ href, children }) {
 
   const router = useRouter()
-
-  const style = {
-    backgroundColor: router.asPath == href ? '#f7f9fa' : 'transparent'
-  }
 
   const handleClick = (e) => {
     e.preventDefault()
@@ -15,7 +12,7 @@ function ActiveLink({ href, children }) {
   }
 
   return (
-    <a href={href} onClick={handleClick} style={style}>
+    <a href={href} onClick={handleClick} className={`${router.asPath == href ? 'dark:bg-darkMode-bg bg-gray-1000' : 'dark:bg-black bg-white'}`}>
       {children}
     </a>
   )

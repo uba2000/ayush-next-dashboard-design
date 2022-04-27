@@ -6,6 +6,8 @@ import 'react-calendar/dist/Calendar.css'
 import AccountLayout from '../../../components/app/account/AccountLayout'
 import FormGroup from '../../../components/app/account/FormGroup'
 import styles from '../../../styles/Account.module.css'
+import Input from '../../../components/layouts/Input'
+import Box from '../../../components/layouts/Box'
 
 const genders = ['male', 'female']
 const months = [
@@ -51,13 +53,13 @@ function index() {
     <AccountLayout>
       <div className="">
         <FormGroup label='Full Name' labelFor='fullName'>
-          <input id='fullName' type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder='Full Name' className={styles.formGroupInput} />
+          <Input id='fullName' type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder='Full Name' className={styles.formGroupInput} />
         </FormGroup>
         <FormGroup label='Email' labelFor='email'>
-          <input id='email' type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' className={styles.formGroupInput} />
+          <Input id='email' type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' className={styles.formGroupInput} />
         </FormGroup>
         <FormGroup label='Password' labelFor='password'>
-          <input id='password' type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' className={styles.formGroupInput} />
+          <Input id='password' type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' className={styles.formGroupInput} />
         </FormGroup>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <FormGroup label='Gender' labelFor='gender'>
@@ -66,7 +68,7 @@ function index() {
                 <>
                   <div className="relative">
                     <span className="inline-block w-full">
-                      <Listbox.Button className={styles.formGroupInput} style={{ paddingTop: '8.5px', paddingBottom: '8.5px' }}>
+                      <Listbox.Button className='w-full flex-shrink  border  border-solid dark:focus:text-white focus:text-black dark:border-darkMode-border  border-ash  pl-6  py-3  rounded-none  h-[45px] bg-white dark:bg-black ' style={{ paddingTop: '8.5px', paddingBottom: '8.5px' }}>
                         <span className='block truncate capitalize text-left'>{selectedGender}</span>
                         <span className='absolute right-4 top-[12px]'>
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -85,11 +87,11 @@ function index() {
                       leaveFrom='opacity-100'
                       leaveTo='opacity-0'
                     >
-                      <Listbox.Options static className='absolute w-full border bg-white border-gray-800'>
+                      <Listbox.Options static className='absolute w-full dark:bg-black bg-white dark:text-white text-black border border-t-0 border-solid border-ash dark:border-darkMode-border'>
                         {genders.map((gender) => (
                           <Listbox.Option key={gender} value={gender}>
                             {({ selected, active }) => (
-                              <div className={`capitalize cursor-pointer select-none relative py-2 pl-10 pr-4 transition ease-in duration-200  ${active ? 'text-white bg-primary' : 'text-black'}`}>
+                              <div className={`capitalize cursor-pointer select-none relative py-2 pl-10 pr-4 transition ease-in duration-200  ${active ? 'text-white bg-primary' : 'dark:text-white text-black'}`}>
                                 <span className={`${selected ? 'font-bold' : 'font-normal'}`}>{gender}</span>
                               </div>
                             )}
@@ -106,7 +108,7 @@ function index() {
             <div className="relative">
               <div onClick={() => updateShowCalendar(!showCalendar)} className='relative'>
                 <div className="relative">
-                  <input type='text'
+                  <Input type='text'
                     onChange={e => setSelectedDateValue(selectedDateValue.toISOString().slice(0, 10))}
                     value={`${selectedDateValue.getDate()} ${months[selectedDateValue.getMonth()]} ${selectedDateValue.getFullYear()}`}
                     className={styles.formDate}
@@ -129,13 +131,13 @@ function index() {
           </FormGroup>
         </div>
         <FormGroup label='Address' labelFor='address'>
-          <input id='address' type="text" value={addressH} onChange={(e) => setAddressH(e.target.value)} placeholder="Address" className={styles.formGroupInput} />
+          <Input id='address' type="text" value={addressH} onChange={(e) => setAddressH(e.target.value)} placeholder="Address" className={styles.formGroupInput} />
         </FormGroup>
-        <div className="mt-7">
-          <button className="btn btn-primary mr-7">
+        <div className="mt-7 space-x-7">
+          <button className="btn btn-primary text-base">
             Submit
           </button>
-          <button className="btn btn-reset">
+          <button className="btn btn-reset text-base">
             Discard
           </button>
         </div>

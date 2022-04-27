@@ -1,9 +1,10 @@
 import React, { Fragment, useState } from 'react'
-import { Transition, Dialog } from '@headlessui/react'
+import { Transition, Dialog, Tab } from '@headlessui/react'
 
 import styles from '../../../styles/Account.module.css'
 import AccountLayout from '../../../components/app/account/AccountLayout'
 import AccountTeamTable from '../../../components/app/account/AccountTeamTable'
+import Box from '../../../components/layouts/Box'
 
 
 function Team() {
@@ -30,6 +31,12 @@ function Team() {
 
   function openModal() {
     setIsOpen(true)
+  }
+
+  const [tabIndex, setTabIndex] = useState(0)
+
+  const updateTabIndex = (index) => {
+    setTabIndex(index)
   }
 
   return (
@@ -95,7 +102,7 @@ function Team() {
           </div>
         </Dialog>
       </Transition>
-      <div className={styles.accountFramebox}>
+      <Box type={'black'} className={styles.accountFramebox}>
         <h3 className={styles.accountFrameboxTitle}>
           Invite Team
         </h3>
@@ -103,20 +110,36 @@ function Team() {
           Invite others to join your workspace. There will be an additional charge of $30 month for each number that exceeds the user seats available on your plan
         </p>
         <button className='btn btn-primary' onClick={openModal}>Invite Team</button>
-      </div>
+      </Box>
       <div className="">
-        <div className='accountFrameboxNav'>
-          <div onClick={() => toggleNav('c')} className={`accountFrameboxNavItem ${confirmNav && 'accountFrameboxNavItemActive'}`}>
-            Confirmed
-          </div>
-          <div onClick={() => toggleNav('p')} className={`accountFrameboxNavItem ${pendingNav && 'accountFrameboxNavItemActive'}`}>
-            Pending
-          </div>
-        </div>
-        {confirmNav && (<div className='border border-solid border-gray-800 bg-white w-full h-auto min-h-[62.45px]'><AccountTeamTable /></div>)}
-        {pendingNav && (<div className='flex items-center justify-center border border-solid border-gray-800 bg-white w-full min-h-[295px]' style={{ minHeight: '62.45px' }}><div className='text-center py-9'>
-          <span className="capitalize font-bold text-3xl">There is no <br />pending account</span>
-        </div></div>)}
+        <Tab.Group selectedIndex={tabIndex} onChange={(index) => updateTabIndex(index)}>
+          <Tab.List>
+            <div className='accountFrameboxNav'>
+              <Tab as={Fragment}>
+                <Box type={`${tabIndex == 0 ? 'black' : ''}`} onClick={() => toggleNav('c')} className={`accountFrameboxNavItem border-b-0 ${tabIndex == 0 && 'accountFrameboxNavItemActive'}`}>
+                  Confirmed
+                </Box>
+              </Tab>
+              <Tab as={Fragment}>
+                <Box type={`${tabIndex == 1 ? 'black' : ''}`} onClick={() => toggleNav('p')} className={`accountFrameboxNavItem border-b-0 border-l-0 ${tabIndex == 1 && 'accountFrameboxNavItemActive'}`}>
+                  Pending
+                </Box>
+              </Tab>
+            </div>
+          </Tab.List>
+          <Tab.Panels>
+            <Tab.Panel>
+              <div className='w-full h-auto min-h-[62.45px]'>
+                <AccountTeamTable />
+              </div>
+            </Tab.Panel>
+            <Tab.Panel>
+              <Box className='flex items-center justify-center w-full min-h-[295px]'><div className='text-center py-9'>
+                <span className="capitalize font-bold text-3xl">There is no <br />pending account</span>
+              </div></Box>
+            </Tab.Panel>
+          </Tab.Panels>
+        </Tab.Group>
       </div>
     </AccountLayout>
   )

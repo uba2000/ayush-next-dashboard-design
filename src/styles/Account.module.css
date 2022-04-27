@@ -6,11 +6,11 @@
 
 .accountAside {
   max-width: 213px;
-  border-right: 1px solid #f7f9fa;
 }
 
 .accountAside ul li a {
-  border-bottom: 1px solid #f7f9fa;
+  border-bottom: 1px solid;
+  @apply dark:border-darkMode-border border-ash;
   padding: 28px 51px;
   font-style: normal;
   font-weight: 500;
@@ -18,13 +18,19 @@
   line-height: 27px;
   display: flex;
   white-space: nowrap;
-
-  color: #000000;
 }
 
 .accountAside ul li a.active,
 .accountMain {
-  background-color: #f7f9fa;
+  /* background-color: #f7f9fa; */
+}
+
+.accountAside ul li a.active {
+  @apply dark:border-r border-r-0;
+}
+
+.accountMain {
+  @apply border-l-0 bg-gray-1000 !important;
 }
 
 .formGroupLabel {
@@ -32,10 +38,6 @@
   font-weight: normal !important;
   font-size: 16.3721px !important;
   line-height: 25px !important;
-
-  /* black */
-
-  color: #000000;
 }
 
 .formGroupInput,
@@ -43,13 +45,20 @@
   font-weight: 600 !important;
   font-size: 16.3721px !important;
   line-height: 25px !important;
-  font-family: "Poppins" !important;
-  background: #ffffff !important;
-  border: 1px solid #dcd8e7 !important;
-  border-radius: 3px !important;
-  padding: 11.5px 27.18px !important;
-  height: 45px;
   width: 100% !important;
+  @apply flex-grow 
+  flex-shrink 
+  border 
+  border-solid
+  dark:focus:text-white
+  focus:text-black
+  dark:border-darkMode-border 
+  border-ash 
+  pl-6 
+  py-3 
+  rounded-none 
+  h-[45px]
+  bg-white dark:bg-black !important;
 }
 
 .formGroupInput::placeholder,
@@ -83,12 +92,10 @@
 
 .formDate::after {
   @apply absolute w-full h-full top-0 left-0;
-  content: "";
+  content: '';
 }
 
 .accountFramebox {
-  background-color: #ffffff;
-  border: 0.90956px solid #dcd8e7;
   padding: 21px 30px;
   width: 100%;
   margin-bottom: 33px;
@@ -107,7 +114,6 @@
   font-weight: bold;
   font-size: 24px;
   line-height: 36px;
-  color: #000000;
   /* white-space: nowrap; */
 }
 
@@ -117,7 +123,6 @@
   line-height: 25px;
   display: flex;
   align-items: center;
-  color: #000000;
   display: block;
   /* white-space: nowrap; */
 }
@@ -126,7 +131,6 @@
   font-weight: bold;
   font-size: 24px;
   line-height: 36px;
-  color: #000000;
   margin-bottom: 9px;
 }
 
@@ -135,7 +139,6 @@
   font-weight: normal;
   font-size: 18px;
   line-height: 27px;
-  color: #000000;
 }
 
 .accountTableHead {
@@ -162,14 +165,12 @@
   font-weight: bold;
   font-size: 32.7492px;
   line-height: 48px;
-  color: #000000;
 }
 
 .pricingSubTitle {
   font-weight: normal;
   font-size: 19.4801px;
   line-height: 29px;
-  color: #000000;
 }
 
 .accountPaymentAvailableContainer {

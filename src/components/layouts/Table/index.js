@@ -2,10 +2,10 @@ import React from "react";
 import tw from "tailwind-styled-components";
 import { TableBody, TableHead, TableRow, TableData, TableHeadData } from "./components";
 
-function Table({ children }) {
+function Table({ children, ...rest }) {
 
   return (
-    <StyledTable>{children}</StyledTable>
+    <StyledTable {...rest}>{children}</StyledTable>
   );
 }
 
@@ -14,8 +14,7 @@ const StyledTable = tw.table`
   dark:border-darkMode-border 
   border-ash 
   border-solid 
-  border 
-  border-b-0
+  border-t border-l border-r
   w-full
   leading-[120%]
   text-left
