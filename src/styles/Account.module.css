@@ -9,8 +9,7 @@
 }
 
 .accountAside ul li a {
-  border-bottom: 1px solid;
-  @apply dark:border-darkMode-border border-ash;
+  @apply dark:border-darkMode-border border-b border-ash border-solid;
   padding: 28px 51px;
   font-style: normal;
   font-weight: 500;

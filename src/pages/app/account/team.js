@@ -5,6 +5,8 @@ import styles from '../../../styles/Account.module.css'
 import AccountLayout from '../../../components/app/account/AccountLayout'
 import AccountTeamTable from '../../../components/app/account/AccountTeamTable'
 import Box from '../../../components/layouts/Box'
+import { DialogLayout } from '../../../components/layouts/Dialog'
+import Input from '../../../components/layouts/Input'
 
 
 function Team() {
@@ -41,67 +43,32 @@ function Team() {
 
   return (
     <AccountLayout>
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
-          onClose={closeModal}
-        >
-          <div className="min-h-screen px-4 text-center">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
+      <DialogLayout isOpen={isOpen} closeModal={closeModal}>
+        <div className="py-[100px] px-[150px]">
+          <div className="space-y-5">
+            <DialogLayout.Title
+              as="h3"
+              className="title"
             >
-              <Dialog.Overlay className="fixed inset-0 overlay" />
-            </Transition.Child>
-
-            {/* This element is to trick the browser into centering the modal contents. */}
-            <span
-              className="inline-block h-screen align-middle"
-              aria-hidden="true"
-            >
-              &#8203;
-            </span>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <div className="inline-block modal-container rounded-2xl my-8 overflow-hidden text-center align-middle transition-all transform bg-white">
-                <Dialog.Title
-                  as="h3"
-                  className="title"
-                >
-                  Are you sure, you want to add this person in your account?
-                </Dialog.Title>
-                <div className="subtitle">
-                  <div className="form-group mb-6">
-                    <input type="text" value={inviteEmail} onChange={(e) => setInviteEmail(e.target.value)} placeholder='example@gmail.com' className={styles.formGroupInput} />
-                  </div>
-                </div>
-
-                <div className="mt-4">
-                  <button className="btn btn-primary bg-primary text-white py-[13px] h-[46px] px-[56.38px]">
-                    Confirm
-                  </button>
-                  <button onClick={closeModal} className="ml-3 btn btn-reset py-[13px] h-[46px] px-[56.38px]">
-                    Cancel
-                  </button>
-                </div>
+              Are you sure, you want to add this person in your account?
+            </DialogLayout.Title>
+            <div className="subtitle">
+              <div className="form-group mb-6">
+                <Input type="text" value={inviteEmail} onChange={(e) => setInviteEmail(e.target.value)} placeholder='example@gmail.com' className={`${styles.formGroupInput} text-center`} />
               </div>
-            </Transition.Child>
+            </div>
           </div>
-        </Dialog>
-      </Transition>
+
+          <div className="mt-8">
+            <button className="btn btn-primary bg-primary text-white py-[13px] h-[46px] px-[56.38px]">
+              Confirm
+            </button>
+            <button onClick={closeModal} className="ml-3 btn btn-reset py-[13px] h-[46px] px-[56.38px]">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </DialogLayout>
       <Box type={'black'} className={styles.accountFramebox}>
         <h3 className={styles.accountFrameboxTitle}>
           Invite Team
