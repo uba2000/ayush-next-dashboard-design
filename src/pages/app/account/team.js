@@ -11,19 +11,7 @@ import Input from '../../../components/layouts/Input'
 
 function Team() {
 
-  const [confirmNav, setConfirmNav] = useState(true)
-  const [pendingNav, setPendingNav] = useState(false)
   const [inviteEmail, setInviteEmail] = useState('')
-
-  function toggleNav(nav) {
-    setConfirmNav(false)
-    setPendingNav(false)
-    if (nav == 'c') {
-      setConfirmNav(true)
-    } else if (nav == 'p') {
-      setPendingNav(true)
-    }
-  }
 
   let [isOpen, setIsOpen] = useState(false)
 
@@ -83,12 +71,12 @@ function Team() {
           <Tab.List>
             <div className='accountFrameboxNav'>
               <Tab as={Fragment}>
-                <Box type={`${tabIndex == 0 ? 'black' : ''}`} onClick={() => toggleNav('c')} className={`accountFrameboxNavItem border-b-0 ${tabIndex == 0 && 'accountFrameboxNavItemActive'}`}>
+                <Box type={`${tabIndex == 0 ? 'black' : ''}`} className={`accountFrameboxNavItem border-b-0 ${tabIndex == 0 && 'accountFrameboxNavItemActive'}`}>
                   Confirmed
                 </Box>
               </Tab>
               <Tab as={Fragment}>
-                <Box type={`${tabIndex == 1 ? 'black' : ''}`} onClick={() => toggleNav('p')} className={`accountFrameboxNavItem border-b-0 border-l-0 ${tabIndex == 1 && 'accountFrameboxNavItemActive'}`}>
+                <Box type={`${tabIndex == 1 ? 'black' : ''}`} className={`accountFrameboxNavItem border-b-0 border-l-0 ${tabIndex == 1 && 'accountFrameboxNavItemActive'}`}>
                   Pending
                 </Box>
               </Tab>

@@ -1,67 +1,49 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import Link from 'next/link'
+import { Tab } from '@headlessui/react'
 
-import styles from '../../../styles/Account.module.css'
 import AccountLayout from '../../../components/app/account/AccountLayout'
 import AccountBillingSubscription from '../../../components/app/account/AccountBillingSubscription'
-import AccountBillingInvoices from '../../../components/app/account/AccountBillingInvoices'
-import AccountPaymentMethods from '../../../components/app/account/AccountPaymentMethods'
-import AccountAvailablePaymentMethod from '../../../components/app/account/AccountAvailablePaymentMethod'
+import Box from '../../../components/layouts/Box'
 
 function billing() {
 
-  const [subscriptionsNav, setSubscriptionsNav] = useState(true)
-  const [invoiceNav, setInvoiceNav] = useState(false)
-  const [methodsNav, setMethodsNav] = useState(false)
-  const [availablePaymentMethod, setAvailablePaymentMethod] = useState(false)
+  const [tabIndex, setTabIndex] = useState(0)
 
-  function toggleNav(nav) {
-    setSubscriptionsNav(false)
-    setInvoiceNav(false)
-    setMethodsNav(false)
-    if (nav == 's') {
-      setSubscriptionsNav(true)
-    } else if (nav == 'i') {
-      setInvoiceNav(true)
-    } else if (nav == 'm') {
-      setMethodsNav(true)
-    }
+  const updateTabIndex = (index) => {
+    setTabIndex(index)
   }
+
   return (
     <AccountLayout>
-      <div className="mb-8">
-        <div className='accountFrameboxNav overflow-x-auto'>
-          <div onClick={() => toggleNav('s')} className={`accountFrameboxNavItem ${subscriptionsNav && 'accountFrameboxNavItemActive'}`}>
-            Subscriptions
+      <Tab.Group selectedIndex={tabIndex} onChange={(index) => updateTabIndex(index)}>
+        <Tab.List>
+          <div className="accountFrameboxNav">
+            <Tab as={Fragment}>
+              <Box type={`${tabIndex == 0 ? 'black' : ''}`} className={`accountFrameboxNavItem border-b-0 ${tabIndex == 0 && 'accountFrameboxNavItemActive'}`}>
+                Subscriptions
+              </Box>
+            </Tab>
+            <Tab as={Fragment}>
+              <Box type={`${tabIndex == 1 ? 'black' : ''}`} className={`accountFrameboxNavItem border-b-0 border-l-0 ${tabIndex == 1 && 'accountFrameboxNavItemActive'}`}>
+                Invoices
+              </Box>
+            </Tab>
+            <Tab as={Fragment}>
+              <Box type={`${tabIndex == 2 ? 'black' : ''}`} className={`accountFrameboxNavItem border-b-0 border-l-0 ${tabIndex == 2 && 'accountFrameboxNavItemActive'}`}>
+                Payment Methods
+              </Box>
+            </Tab>
           </div>
-          <div onClick={() => toggleNav('i')} className={`accountFrameboxNavItem ${invoiceNav && 'accountFrameboxNavItemActive'}`}>
-            Invoices
-          </div>
-          <div onClick={() => toggleNav('m')} className={`accountFrameboxNavItem ${methodsNav && 'accountFrameboxNavItemActive'}`}>
-            Payment Methods
-          </div>
-        </div>
-        <div className='border border-solid border-gray-800 bg-white w-full' style={{ minHeight: '62.45px' }}>
-          {subscriptionsNav && <AccountBillingSubscription />}
-          {invoiceNav && <AccountBillingInvoices />}
-          {methodsNav && (
-            !availablePaymentMethod ? <AccountPaymentMethods /> : <AccountAvailablePaymentMethod />
-          )}
-        </div>
-      </div>
-      {subscriptionsNav && <div className={styles.accountFramebox}>
-        <h3 className={styles.accountFrameboxTitle}>
-          See your current plan
-        </h3>
-        <p className={styles.accountFrameboxContent}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pretium pulvinar luctus.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </p>
-        <Link href='/app/account/pricing'>
-          <a>
-            <button className='btn btn-primary'>Plans &amp; pricing</button>
-          </a>
-        </Link>
-      </div>}
+        </Tab.List>
+        <Tab.Panels>
+          <Tab.Panel>
+            <div>
+              <AccountBillingSubscription />
+            </div>
+          </Tab.Panel>
+        </Tab.Panels>
+      </Tab.Group>
     </AccountLayout>
   )
 }

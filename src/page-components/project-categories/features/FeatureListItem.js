@@ -12,12 +12,12 @@ function FeatureListItem(props) {
 
   const doubleClickHandler = (e) => {
     if (e.detail == 2) {
-      router.push(`/app/projects/${query.projectId}}/articles/edit/123`)
+      router.push(`/app/projects/${query.projectId}/articles/edit/123`)
     }
   }
 
   const viewList = () => {
-    router.push(`/app/projects/${query.projectId}}/feature-list/${id}`)
+    router.push(`/app/projects/${query.projectId}/feature-list/${id}`)
   }
 
   // useEffect( () => { check(!articleChecked) })
