@@ -81,7 +81,7 @@ function KeywordsPage() {
   return (
     <DashboardLayout>
       <DialogLayout isOpen={errorDialog} closeModal={closeErrorDialog}>
-        <div className="md:px-[130px] px-5 py-20 relative">
+        <div className="md:px-[130px] px-4 py-20 relative">
           <div className="absolute top-[30px] right-7 cursor-pointer" onClick={closeErrorDialog}>
             <span>
               <X className="w-[21px] h-[21px]" />
@@ -115,7 +115,7 @@ function KeywordsPage() {
         subLandingText='I am so lorem ipum deloas In working with you Lorem ipsum dolo amet, consectetur adipiscing elit Porta pharetra scelerisque lacus id vitae aenean'
       >
         <div className='space-y-4'>
-          <Box className={`min-h-[532px] mt-[55px] py-6 px-7 rounded-sm`}>
+          <Box className={`min-h-[532px] mt-[55px] py-6 md:px-7 px-4 rounded-sm`}>
             <div className="flex flex-wrap">
               {projectKeywords.map((k) => (
                 <Fragment key={k.id}>
