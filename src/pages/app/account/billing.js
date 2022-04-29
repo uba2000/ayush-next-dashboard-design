@@ -5,6 +5,7 @@ import { Tab } from '@headlessui/react'
 import AccountLayout from '../../../components/app/account/AccountLayout'
 import AccountBillingSubscription from '../../../components/app/account/AccountBillingSubscription'
 import Box from '../../../components/layouts/Box'
+import AccountBillingInvoices from '../../../components/app/account/AccountBillingInvoices'
 
 function billing() {
 
@@ -40,6 +41,11 @@ function billing() {
           <Tab.Panel>
             <div>
               <AccountBillingSubscription />
+            </div>
+          </Tab.Panel>
+          <Tab.Panel>
+            <div>
+              <AccountBillingInvoices />
             </div>
           </Tab.Panel>
         </Tab.Panels>
