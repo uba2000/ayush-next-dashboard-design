@@ -30,7 +30,7 @@ const AllFeaturesView = ({ isGetStarted }) => {
       <GradientDesign />
 
       <div className="relative w-full">
-        <div className="flex w-full">
+        <div className="flex md:flex-row flex-col w-full md:space-x-10 space-x-0 space-y-5 md:space-y-0">
           <div className="flex-grow">
             <FilterSection />
           </div>
@@ -41,15 +41,15 @@ const AllFeaturesView = ({ isGetStarted }) => {
 
         {isGetStarted && <div className="pt-[30px] w-full">
           <Box>
-            <div className="py-[39px] pl-[60px] pr-[90px] space-y-[10px]">
-              <div className="flex space-x-4">
+            <div className="py-[39px] md:pl-[60px] pl-[40px] md:pr-[90px] pr-[40px] space-y-[10px]">
+              <div className="flex md:flex-row flex-col md:space-x-4 space-x-0 md:space-y-0 space-y-4">
                 <div className="flex-grow max-w-[847px]">
                   <h3 className='font-bold text-2xl capitalize'>Start bulk blog writing content</h3>
                   <p className='text-lg leading-7 dark:text-darkMode-subText text-ash'>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa at nibh aliquam nec sapien.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet,
                   </p>
                 </div>
-                <div className='flex flex-grow justify-end items-center'>
+                <div className='flex flex-grow md:justify-end justify-start items-center'>
                   <button type='button' onClick={() => getStartedCTA('/app/projects')} className="block w-fit btn btn-primary bg-primary text-white font-poppins">
                     Get Started
                   </button>

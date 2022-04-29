@@ -9,7 +9,7 @@ const FeatureSection = () => {
   const [stateFeature, setStateFeature] = useState(state.projectFeatures)
 
   return (
-    <div className="grid grid-cols-4 gap-5">
+    <div className="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-5">
       {stateFeature.map((feature) => {
         return (
           <Fragment key={feature.id}>
