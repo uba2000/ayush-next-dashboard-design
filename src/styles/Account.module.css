@@ -101,7 +101,6 @@
 }
 
 .accountFrameboxCardSection {
-  background: #ffffff;
   padding: 18.5px 30px;
 }
 
@@ -193,6 +192,5 @@
 .removerPayment {
   width: 10px;
   height: 1.67px;
-  background-color: #000000;
   display: block;
 }

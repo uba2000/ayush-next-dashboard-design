@@ -6,10 +6,14 @@ import AccountLayout from '../../../components/app/account/AccountLayout'
 import AccountBillingSubscription from '../../../components/app/account/AccountBillingSubscription'
 import Box from '../../../components/layouts/Box'
 import AccountBillingInvoices from '../../../components/app/account/AccountBillingInvoices'
+import AccountAvailablePaymentMethod from '../../../components/app/account/AccountAvailablePaymentMethod'
+import AccountPaymentMethods from '../../../components/app/account/AccountPaymentMethods'
 
 function billing() {
 
   const [tabIndex, setTabIndex] = useState(0)
+
+  const [isNewPaymentMethod, setIsNewPaymentMethod] = useState(false)
 
   const updateTabIndex = (index) => {
     setTabIndex(index)
@@ -46,6 +50,15 @@ function billing() {
           <Tab.Panel>
             <div>
               <AccountBillingInvoices />
+            </div>
+          </Tab.Panel>
+          <Tab.Panel>
+            <div>
+              {!isNewPaymentMethod ? (
+                <AccountAvailablePaymentMethod newMethod={() => setIsNewPaymentMethod(true)} />
+              ) : (
+                <AccountPaymentMethods />
+              )}
             </div>
           </Tab.Panel>
         </Tab.Panels>
