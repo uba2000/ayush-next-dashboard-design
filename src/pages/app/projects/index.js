@@ -81,8 +81,8 @@ function AllProjects() {
   return (
     <DashboardLayout>
       <DialogLayout isOpen={projectDialog} widthRestrict={'max-w-[1299px]'} isSharp={true} closeModal={closeProjectDialog}>
-        <div className='w-full text-left py-[30px]'>
-          <div className="pb-5 px-14">
+        <div className='w-full text-left py-[30px] md:px-14 px-5'>
+          <div className="pb-5">
             <FormGroup label='Project Title' imp={true} labelFor="project">
               <Input
                 id='project'
@@ -176,7 +176,7 @@ function AllProjects() {
             </FormGroup>
           </div>
 
-          <div className='form-group px-14 flex mb-0 justify-between'>
+          <div className='form-group flex mb-0 justify-between'>
             <div className="space-x-4 flex">
               <button type='button' onClick={continueProjectCreation} className='block w-fit btn btn-primary bg-primary text-white'>
                 Next
@@ -204,9 +204,6 @@ function AllProjects() {
               </p>
             </div>
             <div className="flex items-center justify-end">
-              <p className="mr-4 text-wild capitalize font-semibold font-poppins">
-                Search
-              </p>
               <SearchInput />
             </div>
           </div>
