@@ -36,7 +36,7 @@ const AccountBadge = () => {
         {({ open }) => (
           <div className='relative'>
             <div>
-              <Menu.Button as='div' className={`cursor-pointer inline-flex py-4 px-5 space-x-[11px] transition ease-out duration-100 ${open ? 'bg-primary text-white' : 'dark:bg-black bg-white dark:text-white text-black rounded-lg'} `}>
+              <Menu.Button as='div' className={`cursor-pointer inline-flex py-4 px-5 space-x-[11px] transition ease-out duration-100 bg-primary text-white`}>
                 <span className='font-medium text-[15px] tracking-tight'>
                   Carl R. Berry
                 </span>
