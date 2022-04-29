@@ -116,7 +116,7 @@ function pricing() {
                   </Table.Head>
                   <Table.Body>
                     <Table.Row>
-                      <Table.Data className={`pr-[35.5px] ${!enabled ? 'w-[895.81px]' : 'w-[820.81px]'}`}>AI-Writing</Table.Data>
+                      <Table.Data main={true} className={`pr-[35.5px] ${!enabled ? 'w-[895.81px]' : 'w-[760.81px]'}`}>AI-Writing</Table.Data>
                       <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
                       <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
                       <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
@@ -187,7 +187,7 @@ function pricing() {
                   </Table.Head>
                   <Table.Body>
                     <Table.Row>
-                      <Table.Data className={`pr-[35.5px] ${!enabled ? 'w-[895.81px]' : 'w-[820.81px]'}`}>Minimalist Interface</Table.Data>
+                      <Table.Data main={true} className={`pr-[35.5px] ${!enabled ? 'w-[895.81px]' : 'w-[760.81px]'}`}>Minimalist Interface</Table.Data>
                       <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
                       <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
                       <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
@@ -264,7 +264,7 @@ function pricing() {
                   </Table.Head>
                   <Table.Body>
                     <Table.Row>
-                      <Table.Data className={`pr-[35.5px] ${!enabled ? 'w-[895.81px]' : 'w-[820.81px]'}`}>Meta Optimization</Table.Data>
+                      <Table.Data main={true} className={`pr-[35.5px] ${!enabled ? 'w-[895.81px]' : 'w-[760.81px]'}`}>Meta Optimization</Table.Data>
                       <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
                       <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
                       <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
