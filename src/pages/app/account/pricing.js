@@ -6,13 +6,17 @@ import { RoundTickInactive } from '../../../ui/icons/round-tick-inactive'
 import styles from '../../../styles/Account.module.css'
 import DashboardLayout from '../../../components/app/DasboardLayout'
 import DashboardLanding from '../../../components/app/DashboardLanding'
+import { Table } from '../../../components/layouts/Table'
+import { fNumber } from '../../../utils/formatNumber'
 
 function pricing() {
   const [enabled, setEnabled] = useState(false)
+  // 820.81px
   return (
     <DashboardLayout customChildren={true}>
       <div className="container">
         <DashboardLanding
+          subLandingShort={true}
           landingText='Plans &amp; pricing'
           subLandingText='I am so lorem ipum deloas In deloas with deloas Lorem ipsum dolo amet, consectetur adipiscing elit Porta pharetra scelerisque lacus id vitae aenean' />
 
@@ -45,104 +49,20 @@ function pricing() {
                   <p className="text-[19.53px]">{enabled ? 'Yearly' : 'Monthly'}</p>
                 </div>
                 {enabled && <div className="">
-                  <button className="btn btn-primary rounded-[9.523px]">-20%  Discount</button>
+                  <button className="btn btn-primary rounded-none">-20%  Discount</button>
                 </div>}
               </div>
             </div>
             {!enabled ? (
-              <div className='grid md:grid-cols-[172px_172px_200px] grid-cols-2 mt-5 gap-[30px] ml-auto'>
-                <div className="">
-                  <p className="text-4 leading-[22px] font-bold mb-[10px]">Starter Plan</p>
-                  <div className="flex mb-5">
-                    <div className='text-[22px] leading-[33px]'>$</div>
-                    <div>
-                      <div className="font-helvetica">
-                        <span className='text-[56px] leading-[57px]'>24</span>
-                        <span className='text-[22px] leading-[33px]'>.99/mo</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <button className='btn btn-deactive w-full text-base leading-5 bg-[#F4F4F4]'>Subscribe</button>
-                  </div>
-                </div>
-                <div className="">
-                  <p className="text-4 leading-[22px] font-bold mb-[10px]">Standard Plan</p>
-                  <div className="flex mb-5">
-                    <div className='text-[22px] leading-[33px]'>$</div>
-                    <div>
-                      <div className="font-helvetica">
-                        <span className='text-[56px] leading-[57px]'>74</span>
-                        <span className='text-[22px] leading-[33px]'>.99/mo</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <button className='btn btn-primary w-full rounded-[3px] text-base leading-5 font-bold'>Current Plan</button>
-                  </div>
-                </div>
-                <div className="">
-                  <p className="text-4 leading-[22px] font-bold mb-[10px]">Premium Plan</p>
-                  <div className="flex mb-5">
-                    <div className='text-[22px] leading-[33px]'>$</div>
-                    <div>
-                      <div className="font-helvetica">
-                        <span className='text-[56px] leading-[57px]'>149</span>
-                        <span className='text-[22px] leading-[33px]'>.99/mo</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <button className='btn btn-deactive w-full text-base leading-5  bg-[#F4F4F4]'>Subscribe</button>
-                  </div>
-                </div>
+              <div className='grid md:grid-cols-3 grid-cols-2 mt-5 gap-[30px] ml-auto'>
+                <PlanLayout title={'Starter Plan'} amount={fNumber(24)} />
+                <PlanLayout title={'Standard Plan'} amount={fNumber(74)} />
+                <PlanLayout title={'Premium Plan'} amount={fNumber(149)} />
               </div>
-            ) : (<div className='grid md:grid-cols-[172px_172px_200px] grid-cols-2 mt-5 gap-[30px] ml-auto'>
-              <div className="">
-                <p className="text-4 leading-[22px] font-bold mb-[10px]">Starter Plan</p>
-                <div className="flex mb-5">
-                  <div className='text-[22px] leading-[33px]'>$</div>
-                  <div>
-                    <div className="font-helvetica">
-                      <span className='text-[56px] leading-[57px]'>299</span>
-                      <span className='text-[22px] leading-[33px]'>.88/yr</span>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <button className='btn btn-deactive w-full text-base leading-5 bg-[#F4F4F4]'>Subscribe</button>
-                </div>
-              </div>
-              <div className="">
-                <p className="text-4 leading-[22px] font-bold mb-[10px]">Standard Plan</p>
-                <div className="flex mb-5">
-                  <div className='text-[22px] leading-[33px]'>$</div>
-                  <div>
-                    <div className="font-helvetica">
-                      <span className='text-[56px] leading-[57px]'>899</span>
-                      <span className='text-[22px] leading-[33px]'>.88/yr</span>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <button className='btn btn-primary w-full rounded-[3px] text-base leading-5 font-bold'>Current Plan</button>
-                </div>
-              </div>
-              <div className="">
-                <p className="text-4 leading-[22px] font-bold mb-[10px]">Premium Plan</p>
-                <div className="flex mb-5">
-                  <div className='text-[22px] leading-[33px]'>$</div>
-                  <div>
-                    <div className="font-helvetica">
-                      <span className='text-[56px] leading-[57px]'>1,799</span>
-                      <span className='text-[22px] leading-[33px]'>.99/yr</span>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <button className='btn btn-deactive w-full text-base leading-5 bg-[#F4F4F4]'>Subscribe</button>
-                </div>
-              </div>
+            ) : (<div className='grid md:grid-cols-3 grid-cols-2 mt-5 gap-[30px] ml-auto'>
+              <PlanLayout title={'Starter Plan'} amount={fNumber(299)} />
+              <PlanLayout title={'Standard Plan'} amount={fNumber(899)} />
+              <PlanLayout title={'Premium Plan'} amount={fNumber(1799)} />
             </div>)}
           </div>
           <div className="">
@@ -150,213 +70,233 @@ function pricing() {
               <h4 className="text-primary text-[18px] leading-base font-bold">
                 AI-Writing Assistant Features
               </h4>
-              <table className="new vary mt-[30px] pricing-table">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="pr-[35.5px]">AI-Writing</td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">AI-Rewriting</td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">AI-Simplifying</td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">AI-Expanding</td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Headline Relevance</td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Sentiment Analysis</td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Emotional Suggestions</td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Topic Suggestions</td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Sources SUggestion</td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                </tbody>
-              </table>
+              <Table className="new vary mt-[30px] pricing-table">
+                <Table.Head className="hidden">
+                  <Table.Row>
+                    <Table.TH main={true} className="min-w-[916.81px]"></Table.TH>
+                    <Table.TH></Table.TH>
+                    <Table.TH></Table.TH>
+                    <Table.TH></Table.TH>
+                  </Table.Row>
+                </Table.Head>
+                <Table.Body>
+                  <Table.Row>
+                    <Table.Data className={`pr-[35.5px] ${!enabled ? 'w-[895.81px]' : 'w-[820.81px]'}`}>AI-Writing</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">AI-Rewriting</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">AI-Simplifying</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">AI-Expanding</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Headline Relevance</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Sentiment Analysis</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Emotional Suggestions</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Topic Suggestions</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Sources SUggestion</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                </Table.Body>
+              </Table>
             </div>
             <div className="mb-[48px]">
               <h4 className="text-primary text-[18px] leading-base font-bold">
                 Proofreading Features
               </h4>
-              <table className="new vary mt-[30px] pricing-table">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="pr-[35.5px]">Minimalist Interface</td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Spelling & Grammar</td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Word Character Count</td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Shortcuts</td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Dark Theme</td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Import URL</td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">WordPress Integration</td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Prioritize Task</td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Competitive Adverb Analysis</td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Dyslexia &amp; Colorblind modes</td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                </tbody>
-              </table>
+              <Table className="new vary mt-[30px] pricing-table">
+                <Table.Head className="hidden">
+                  <Table.Row>
+                    <Table.TH main={true} className="min-w-[916.81px]"></Table.TH>
+                    <Table.TH></Table.TH>
+                    <Table.TH></Table.TH>
+                    <Table.TH></Table.TH>
+                  </Table.Row>
+                </Table.Head>
+                <Table.Body>
+                  <Table.Row>
+                    <Table.Data className={`pr-[35.5px] ${!enabled ? 'w-[895.81px]' : 'w-[820.81px]'}`}>Minimalist Interface</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Spelling & Grammar</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Word Character Count</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Shortcuts</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Dark Theme</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Import URL</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">WordPress Integration</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Prioritize Task</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Competitive Adverb Analysis</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Dyslexia &amp; Colorblind modes</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                </Table.Body>
+              </Table>
             </div>
             <div className="">
               <h4 className="text-primary text-[18px] leading-base font-bold">
                 SEO Features
               </h4>
-              <table className="new vary pricing-table">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="pr-[35.5px]">Meta Optimization</td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Competitive Semantic AI</td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Keywords Score</td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Opportunities Detection</td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Use of Subheadings</td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Use od Subheadings</td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                  <tr>
-                    <td className="pr-[35.5px]">Unique Hyperlinks</td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickInactive /></td>
-                    <td className="pr-[35.5px]"><RoundTickActive className="text-primary" /></td>
-                  </tr>
-                </tbody>
-              </table>
+              <Table className="new vary pricing-table">
+                <Table.Head className="hidden">
+                  <Table.Row>
+                    <Table.TH main={true} className="min-w-[916.81px]"></Table.TH>
+                    <Table.TH className={'p-0'}></Table.TH>
+                    <Table.TH className={'p-0'}></Table.TH>
+                    <Table.TH className={'p-0'}></Table.TH>
+                  </Table.Row>
+                </Table.Head>
+                <Table.Body>
+                  <Table.Row>
+                    <Table.Data className={`pr-[35.5px] ${!enabled ? 'w-[895.81px]' : 'w-[820.81px]'}`}>Meta Optimization</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Competitive Semantic AI</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Keywords Score</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Opportunities Detection</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Use of Subheadings</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Use od Subheadings</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Data className="pr-[35.5px]">Unique Hyperlinks</Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickInactive className="mx-auto" /></Table.Data>
+                    <Table.Data className="pr-[35.5px]"><RoundTickActive className="text-primary mx-auto" /></Table.Data>
+                  </Table.Row>
+                </Table.Body>
+              </Table>
             </div>
           </div>
         </div>
       </div>
     </DashboardLayout>
+  )
+}
+
+const PlanLayout = ({ title, amount }) => {
+  return (
+    <div className="">
+      <p className="text-4 leading-[22px] font-bold mb-[10px]">{title}</p>
+      <div className="flex mb-5">
+        <div className='text-[22px] leading-[33px]'>$</div>
+        <div>
+          <div className="font-poppins">
+            <span className='text-[56px] leading-[57px]'>{amount}</span>
+            <span className='text-[22px] leading-[33px]'>.99/mo</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button className='w-full btn btn-primary font-normal'>Switch Plan</button>
+      </div>
+    </div>
   )
 }
 

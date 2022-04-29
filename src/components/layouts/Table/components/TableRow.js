@@ -8,7 +8,6 @@ const TableRow = ({ children, ...rest }) => {
 }
 
 const StyledTableRow = tw.tr`
-  cursor-pointer 
   border-b 
   border-solid
   border-b-ash 
