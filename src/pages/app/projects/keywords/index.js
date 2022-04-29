@@ -81,7 +81,7 @@ function KeywordsPage() {
   return (
     <DashboardLayout>
       <DialogLayout isOpen={errorDialog} closeModal={closeErrorDialog}>
-        <div className="px-[130px] py-20 relative">
+        <div className="md:px-[130px] px-5 py-20 relative">
           <div className="absolute top-[30px] right-7 cursor-pointer" onClick={closeErrorDialog}>
             <span>
               <X className="w-[21px] h-[21px]" />
@@ -119,9 +119,9 @@ function KeywordsPage() {
             <div className="flex flex-wrap">
               {projectKeywords.map((k) => (
                 <Fragment key={k.id}>
-                  <Box type={'black'} className='p-2 w-fit min-w-fit mb-[11px] mr-2'>
+                  <Box type={'black'} className='p-2 text-left w-fit min-w-fit mb-[11px] mr-2'>
                     <div className="flex space-x-[6px]">
-                      <span className='font-medium text-sm'>
+                      <span className='font-medium text-sm line-clamp-2'>
                         {k.keyword}
                       </span>
                       <span onClick={() => dispatch({ type: 'removeKeyword', value: { id: k.id } })} className='cursor-pointer flex items-center'>
@@ -157,12 +157,12 @@ function KeywordsPage() {
               </div>
             </div>
           </Box>
-          <Box className={'py-6 px-[59px]'}>
-            <div className="flex justify-between">
-              <button className="btn btn-primary bg-black border border-solid border-ash dark:border-darkMode-border">
+          <Box className={'py-6 md:px-[59px] px-4'}>
+            <div className="flex md:justify-between md:flex-row md:space-y-0 space-y-4 flex-col">
+              <button className="btn max-w- btn-primary bg-black border border-solid border-ash dark:border-darkMode-border">
                 Go Back
               </button>
-              <div className='space-x-4 flex'>
+              <div className='md:space-x-4 justify-between flex'>
                 <form className='relative'>
                   <button type='button' onClick={clickCSVImport} className="btn btn-reset text-sm dark:text-white text-black">Import CSV</button>
                   <input type="file" accept='.csv' onChange={handleCSVImport} ref={CSVButton} name="keywordCSV" id="keyword-csv" className='absolute w-full h-full hidden left-0 top-0' />
