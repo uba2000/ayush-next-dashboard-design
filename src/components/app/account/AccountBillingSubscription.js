@@ -8,6 +8,8 @@ import Box from '../../layouts/Box'
 import { DialogLayout } from '../../layouts/Dialog'
 import CancelSubscriptionDialog from '../../../page-components/account/billing/cancelSubscriptionDialog'
 import MoreProjectsDialog from '../../../page-components/account/billing/moreProjectsDialog'
+import MoreCrawlCreditsDialog from '../../../page-components/account/billing/moreCrawlCreditsDialog'
+import MoreRankTrackerDialog from '../../../page-components/account/billing/moreRankTrackerDialog'
 
 const SubscriptionListStyle = styledComponents.li`
   color: #7A7A7A;
@@ -29,6 +31,8 @@ function AccountBillingSubscription() {
   // Cancel Subscription Dialog
   let [isOpen, setIsOpen] = useState(false)
   let [moreProjectIsOpen, setMoreProjectIsOpen] = useState(false)
+  let [moreRankTrackerIsOpen, setMoreRankTrackerIsOpen] = useState(false)
+  let [moreCrawlCreditsIsOpen, setMoreCrawlCreditsIsOpen] = useState(false)
 
   function closeModal() {
     setIsOpen(false)
@@ -41,6 +45,8 @@ function AccountBillingSubscription() {
     <>
       <CancelSubscriptionDialog isOpen={isOpen} closeModal={closeModal} />
       <MoreProjectsDialog isOpen={moreProjectIsOpen} closeModal={() => setMoreProjectIsOpen(false)} />
+      <MoreRankTrackerDialog isOpen={moreRankTrackerIsOpen} closeModal={() => setMoreRankTrackerIsOpen(false)} />
+      <MoreCrawlCreditsDialog isOpen={moreCrawlCreditsIsOpen} closeModal={() => setMoreCrawlCreditsIsOpen(false)} />
       <Box type="black" className="border-b-0">
         <div className="py-5 px-[30px]">
           <span className="font-semibold text-sm">
@@ -66,18 +72,10 @@ function AccountBillingSubscription() {
                 <span className='' onClick={() => setMoreProjectIsOpen(true)}>Add more projects</span>
               </SubscriptionListStyle>
               <SubscriptionListStyle>
-                <Link href={'/'}>
-                  <a>
-                    <span className=''>Add more site audit crawl Credits</span>
-                  </a>
-                </Link>
+                <span className='' onClick={() => setMoreCrawlCreditsIsOpen(true)}>Add more site audit crawl Credits</span>
               </SubscriptionListStyle>
               <SubscriptionListStyle>
-                <Link href={'/'}>
-                  <a>
-                    <span className=''>Add Rank Tracker Pro</span>
-                  </a>
-                </Link>
+                <span className='' onClick={() => setMoreRankTrackerIsOpen(true)}>Add Rank Tracker Pro</span>
               </SubscriptionListStyle>
             </ul>
           </div>

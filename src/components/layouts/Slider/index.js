@@ -1,43 +1,55 @@
-import React from 'react'
-import ReactSlider from 'react-slider'
+import React, { useEffect, useRef, useState } from 'react'
 import tw from 'tailwind-styled-components'
 
-const StyledSlider = tw(ReactSlider)`
+const StyledInput = tw.input`
+  bg-[#C4C4C4] 
+  cursor-pointer 
+  dark:bg-[#C4C4C4] 
+  h-2 
+  rounded-none 
+  transition-none
   w-full
-  h-2
+  outline-none
+  z-50
+  bg-gradient-to-r from-primary to-primary
+  bg-no-repeat
+  border-none
 `
 
-const StyledThumb = tw.div`
-  h-6
-  w-6
-  bg-white
-  ring-1
-  ring-black
-  rounded-full
-  cursor-grab
-  -top-[9px]
-`
+const Slider = ({ setSliderValue, defaultValue = 1, min = 0, max = 100, steps = 1 }) => {
 
-const StyledTrack = tw.div`
-  ${props => (props.index === 1 ? 'bg-[#C4C4C4]' : 'bg-primary')}
-  top-0
-  bottom-0
-  rounded-none
-`
+  const inputSlider = useRef(null)
 
-const Thumb = (props) => <StyledThumb {...props} />
+  const [inputSliderValue, setInputSliderValue] = useState(defaultValue)
 
-const Track = (props, state) => <StyledTrack {...props} index={state.index} />;
+  const onInputFunction = (onChange) => {
+    let value = inputSlider.current.value
+    setInputSliderValue(value)
+    inputSlider.current.style.backgroundSize = (value - min) * 100 / (max - min) + '% 100%'
+    return onChange(parseInt(value))
+  }
 
-const Slider = ({ setSliderValue, defaultValue }) => {
+  useEffect(() => {
+    inputSlider.current.style.backgroundSize = (defaultValue - min) * 100 / (max - min) + '% 100%'
+  }, [])
+
   return (
-    <StyledSlider
-      renderThumb={Thumb}
-      renderTrack={Track}
-      onAfterChange={setSliderValue}
-      defaultValue={[defaultValue]}
-    />
+    <>
+      <div class="range">
+        <div class="field">
+          <StyledInput
+            type="range"
+            onInput={() => onInputFunction(setSliderValue)}
+            min={min}
+            max={max}
+            value={inputSliderValue}
+            steps={steps}
+            ref={inputSlider}
+          />
+        </div>
+      </div>
+    </>
   )
 }
 
-export { Slider }
+export default Slider

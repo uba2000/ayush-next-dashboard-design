@@ -675,3 +675,18 @@ abbr[title] {
   @apply bg-primary !important;
   color: white;
 }
+
+.range input {
+  -webkit-appearance: none;
+}
+.range input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  @apply h-6 w-6 bg-white ring-1 ring-black rounded-full cursor-grab;
+}
+.range input::-moz-range-thumb {
+  -webkit-appearance: none;
+  @apply h-6 w-6 bg-white ring-1 ring-black rounded-full cursor-grab;
+}
+.range input::-moz-range-progress {
+  background: #664aff;
+}
