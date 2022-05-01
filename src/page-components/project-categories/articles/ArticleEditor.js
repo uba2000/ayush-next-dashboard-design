@@ -9,12 +9,19 @@ const Editor = dynamic(
 )
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
+import articleContent from '../../../_mock/article-content';
+
 export default class ArticleEditor extends Component {
   constructor(props) {
     super(props);
 
+    const DBEditorState = convertFromRaw(JSON.parse(this.props.content))
+
     this.state = {
-      editorState: EditorState.createEmpty()
+      editorState: EditorState.createWithContent(
+        DBEditorState
+      )
+      // editorState: EditorState.createEmpty()
     };
   }
 
@@ -25,7 +32,7 @@ export default class ArticleEditor extends Component {
     console.log(convertToRaw(editorState.getCurrentContent()
     ));
     this.props.handleContent(
-      convertToRaw(editorState.getCurrentContent()
+      JSON.stringify(convertToRaw(editorState.getCurrentContent())
       ));
   };
 
@@ -38,6 +45,21 @@ export default class ArticleEditor extends Component {
     // });
   }
 
+  toolbarObject = {
+    options: ['inline', 'blockType', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'emoji', 'image', 'remove', 'history'],
+    inline: {
+      options: ['bold', 'italic', 'underline', 'strikethrough'],
+      // bold: { icon: bold, className: undefined },
+      // italic: { icon: italic, className: undefined },
+      // underline: { icon: underline, className: undefined },
+      // strikethrough: { icon: strikethrough, className: undefined },
+    },
+    blockType: {
+      inDropdown: true,
+      options: ['Normal', 'H1', 'H2', 'H3'],
+    },
+  }
+
   render() {
     const { editorState } = this.state;
     return (
@@ -48,21 +70,7 @@ export default class ArticleEditor extends Component {
         editorClassName="editor-class"
         onEditorStateChange={this.onEditorStateChange}
         // toolbarOnFocus
-        toolbar={{
-          options: ['inline', 'blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'emoji', 'image', 'history'],
-          inline: { inDropdown: true },
-          list: { inDropdown: true },
-          textAlign: { inDropdown: true },
-          link: { inDropdown: true },
-          history: { inDropdown: true },
-          image: {
-            urlEnabled: true,
-            uploadEnabled: true,
-            uploadCallback: this.uploadImageCallBack,
-            previewImage: true,
-            alt: { present: false, mandatory: false }
-          },
-        }}
+        toolbar={this.toolbarObject}
       />
     )
   }

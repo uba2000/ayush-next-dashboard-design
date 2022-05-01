@@ -9,6 +9,7 @@ import styles from '../../../../../../styles/Article.module.css'
 import accountStyles from '../../../../../../styles/Account.module.css'
 import { AppContext } from '../../../../../../context/state'
 import Box from '../../../../../../components/layouts/Box'
+import articleContent from '../../../../../../_mock/article-content';
 import ArticleEditor from '../../../../../../page-components/project-categories/articles/ArticleEditor';
 
 class EditArticle extends Component {
@@ -79,7 +80,8 @@ class EditArticle extends Component {
       showEditor = true
     }
 
-    const body = draftToHtml(stateArticleContent)
+    console.log(articleContent);
+    const body = draftToHtml(JSON.parse(articleContent))
 
     return (
       <DashboardLayout>
@@ -203,7 +205,7 @@ class EditArticle extends Component {
             <Box type="black" className={`generator-container relative ${!showEditor ? 'md:pt-[25px] pt-[70px] md:px-[70px] px-4' : ''}  pb-[25px]`}>
               <div className="content">
                 {!showEditor ? (<div dangerouslySetInnerHTML={{ __html: body }}></div>) : (
-                  <ArticleEditor handleContent={this.handleEditorContent} />
+                  <ArticleEditor content={articleContent} handleContent={this.handleEditorContent} />
                 )}
               </div>
               {!showEditor && <div className="absolute top-6 right-6 cursor-pointer" onClick={this.showEditorHandler}>
@@ -241,45 +243,17 @@ class EditArticle extends Component {
       </DashboardLayout>
     )
   }
-
-  articleContent = `
-    This means offering your services at a monthly or yearly rate. This way, your client doesn’t have to pay you for hours worked or the number of projects you work on. All they have to do is pay a flat sum to avail your services.
-
-        The easiest way to determine a flat-rate for your services is to analyze client needs and the amount of work you’ll have to put in to get the job done.
-        However, this business plan might not work when clients decide to scale up. While you’ll be doing more work, you’ll still be paid the same! To avoid this, always revise contracts before you renew them. You can easily find an agency contract template online to get started.
-        Here, you only get paid after your clients make money off of a sale.
-
-        For example, if your SEO agency optimizes a client’s webpage, you can get a portion of the revenue they generate from that page.
-
-        However, this model comes with a few issues:
-        It’s not applicable to all services. For example, there’s no way to get a commission for designing a website banner for a client.
-        It’s hard to bill your clients without closely keeping track of their sales. For example, if you are a marketing agency, you need to know exactly how much revenue your strategies generated to get an accurate commission.
-        C. Hourly Rates
-        This business model is perfect for new businesses.
-        Here, you bill clients for the time you spent working on their projects at a fixed hourly rate.
-        While manually keeping track of the hours you spend on work can be taxing, you can use time trackers to help you out. As they automatically track the hours worked by your staff on each project, billing clients on an hourly basis becomes simple!This means offering your services at a monthly or yearly rate. This way, your client doesn’t have to pay you for hours worked or the number of projects you work on. All they have to do is pay a flat sum to avail your services.
-
-        The easiest way to determine a flat-rate for your services is to analyze client needs and the amount of work you’ll have to put in to get the job done.
-        However, this business plan might not work when clients decide to scale up. While you’ll be doing more work, you’ll still be paid the same! To avoid this, always revise contracts before you renew them. You can easily find an agency contract template online to get started.
-        Here, you only get paid after your clients make money off of a sale.
-
-        For example, if your SEO agency optimizes a client’s webpage, you can get a portion of the revenue they generate from that page.
-
-        However, this model comes with a few issues:
-        It’s not applicable to all services. For example, there’s no way to get a commission for designing a website banner for a client.
-        It’s hard to bill your clients without closely keeping track of their sales. For example, if you are a marketing agency, you need to know exactly how much revenue your strategies generated to get an accurate commission.
-        C. Hourly Rates
-        This business model is perfect for new businesses.
-        Here, you bill clients for the time you spent working on their projects at a fixed hourly rate.
-        While manually keeping track of the hours you spend on work can be taxing, you can use time trackers to help you out. As they automatically track the hours worked by your staff on each project, billing clients on an hourly basis becomes simple!However,
-
-        his model comes with a few issues:
-        It’s not applicable to all services. For example, there’s no way to get a commission for designing a website banner for a client.
-        It’s hard to bill your clients without closely keeping track of their sales. For example, if you are a marketing agency, you need to know exactly how much revenue your strategies generated to get an accurate commission.
-        C. Hourly Rates
-        This business model is perfect for new businesses.
-        Here, you bill clients for the time you spent working on theirt heir
-  `
 }
+
+// export async function getServerSideProps(context) {
+
+//   console.log(context);
+
+//   return {
+//     props: {
+
+//     }
+//   }
+// }
 
 export default withRouter(EditArticle)

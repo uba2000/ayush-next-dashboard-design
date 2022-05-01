@@ -203,56 +203,6 @@ input {
 .article-generator-container {
 }
 
-.generator-container {
-  background-color: #fff;
-}
-
-.generator-box,
-.generator-container:not(.nb) {
-  @apply border border-solid border-[#dcd8e7];
-}
-
-.generator-box .generator-main-title .main-title::before {
-  content: attr(data-heading-t);
-  @apply text-primary mr-1;
-}
-
-.generator-box-header-box {
-  @apply border-b border-b-[#dcd8e7];
-}
-
-.generator-container .generator-options-header {
-  padding: 18px;
-}
-
-.generator-container .content {
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 27px;
-  text-align: justify;
-  /* color: #4d4d4d; */
-}
-
-.generator-container .headerTitleStyle {
-  @apply font-bold text-[13.701px] leading-[120%] text-black opacity-80 mb-[19.16px];
-  letter-spacing: 0.005em;
-}
-
-.generator-container .headerTitleStyle2 {
-  @apply font-bold text-[15.4145px] leading-[120%] capitalize text-black;
-  letter-spacing: 0.005em;
-}
-
-.generator-container .headerDetailsStyles {
-  @apply font-bold text-xs leading-[120%] text-right text-black opacity-80 mb-[19.16px] whitespace-nowrap;
-  letter-spacing: 0.005em;
-}
-
-.generator-container .headerDetailsValueStyles {
-  @apply font-medium text-xs leading-[120%] text-right text-black whitespace-nowrap;
-  letter-spacing: 0.005em;
-}
-
 .article-generator-container .generator-title {
   font-weight: bold;
   font-size: 16px;
@@ -700,6 +650,64 @@ abbr[title] {
   background: #664aff;
 }
 
+.generator-container {
+  background-color: #fff;
+}
+
+.generator-box,
+.generator-container:not(.nb) {
+  @apply border border-solid border-[#dcd8e7];
+}
+
+.generator-box .generator-main-title .main-title::before {
+  content: attr(data-heading-t);
+  @apply text-primary mr-1;
+}
+
+.generator-box-header-box {
+  @apply border-b border-b-[#dcd8e7];
+}
+
+.generator-container .generator-options-header {
+  padding: 18px;
+}
+
+.generator-container .content {
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 27px;
+  text-align: justify;
+  /* color: #4d4d4d; */
+}
+
+.generator-container .content h1 {
+  @apply font-semibold text-[32px] leading-[120%] tracking-[0.005em] !important;
+}
+
+.generator-container .content p {
+  @apply font-normal text-lg;
+}
+
+.generator-container .headerTitleStyle {
+  @apply font-bold text-[13.701px] leading-[120%] text-black opacity-80 mb-[19.16px];
+  letter-spacing: 0.005em;
+}
+
+.generator-container .headerTitleStyle2 {
+  @apply font-bold text-[15.4145px] leading-[120%] capitalize text-black;
+  letter-spacing: 0.005em;
+}
+
+.generator-container .headerDetailsStyles {
+  @apply font-bold text-xs leading-[120%] text-right text-black opacity-80 mb-[19.16px] whitespace-nowrap;
+  letter-spacing: 0.005em;
+}
+
+.generator-container .headerDetailsValueStyles {
+  @apply font-medium text-xs leading-[120%] text-right text-black whitespace-nowrap;
+  letter-spacing: 0.005em;
+}
+
 .rdw-editor-toolbar {
   @apply dark:bg-darkMode-bg 
   bg-white 
@@ -710,6 +718,11 @@ abbr[title] {
   py-5
   px-[45px]
   border-ash !important;
+}
+
+.editor-class,
+.rdw-editor-main {
+  @apply pt-5 px-[46px];
 }
 
 .rdw-editor-toolbar * {
