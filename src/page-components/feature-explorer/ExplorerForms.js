@@ -7,7 +7,7 @@ import { fTags } from '../../utils/formatTags'
 import FormLayout from './forms/FormLayout'
 import DropdownLayout from '../../components/layouts/Dropdown'
 import { ExplorerTwoInputLayout, LabelLayout } from './ExplorerLayout'
-import { ParagraphWriter, FacebookPrimaryText, FacebookHeadlines, GoogleAdsHeadlines } from './forms'
+import { ParagraphWriter, FacebookPrimaryText, FacebookHeadlines, GoogleAdsHeadlines, GoogleAdsDescription } from './forms'
 import { useExplorerContext } from '../../context/explorer'
 
 
@@ -45,6 +45,14 @@ const ExplorerForms = ({ slug }) => {
     case 'google-ads-headlines':
       return (
         <GoogleAdsHeadlines
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'google-ads-description':
+      return (
+        <GoogleAdsDescription
           explorerState={explorerState}
           dispatch={dispatch}
           generate={generate}
