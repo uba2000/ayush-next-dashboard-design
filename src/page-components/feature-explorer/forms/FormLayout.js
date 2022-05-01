@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 
-const FormLayout = ({ children, subText, data, generate }) => {
+const FormLayout = ({ isDefault = false, children, subText, data, generate }) => {
 
   const { query } = useRouter()
 
@@ -18,9 +18,11 @@ const FormLayout = ({ children, subText, data, generate }) => {
       </div>
       <div>
         {children}
-        <button onClick={generateContent} className="btn btn-primary w-full font-medium text-base">
-          Generate
-        </button>
+        {!isDefault && (
+          <button onClick={generateContent} className="btn btn-primary w-full font-medium text-base">
+            Generate
+          </button>
+        )}
       </div>
     </>
   )

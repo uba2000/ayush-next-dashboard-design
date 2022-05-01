@@ -7,7 +7,7 @@ import { fTags } from '../../utils/formatTags'
 import FormLayout from './forms/FormLayout'
 import DropdownLayout from '../../components/layouts/Dropdown'
 import { ExplorerTwoInputLayout, LabelLayout } from './ExplorerLayout'
-import { ParagraphWriter, FacebookPrimaryText } from './forms'
+import { ParagraphWriter, FacebookPrimaryText, FacebookHeadlines } from './forms'
 import { useExplorerContext } from '../../context/explorer'
 
 
@@ -20,17 +20,36 @@ const ExplorerForms = ({ slug }) => {
   switch (slug) {
     case 'paragraph-writer':
       return (
-        <ParagraphWriter explorerState={explorerState} dispatch={dispatch} generate={generate} />
+        <ParagraphWriter
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
       )
     case 'facebook-primary-text':
       return (
-        <FacebookPrimaryText explorerState={explorerState} dispatch={dispatch} generate={generate} />
+        <FacebookPrimaryText
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'facebook-headlines':
+      return (
+        <FacebookHeadlines
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
       )
 
     default:
       return (
         <>
-          <FormLayout subText={'I am so lorem ipum deloas In deloas with deloaorem ipsum doloamet'}>
+          <FormLayout
+            isDefault={true}
+            subText={'I am so lorem ipum deloas In deloas with deloaorem ipsum doloamet'}
+          >
             <ExplorerTwoInputLayout>
               <FormGroup label={<LabelLayout>Search Engine:</LabelLayout>} labelFor={'searchEngine'}>
                 <DropdownLayout
