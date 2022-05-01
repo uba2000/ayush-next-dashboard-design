@@ -11,6 +11,7 @@ const ParagraphWriter = ({ explorerState, dispatch, generate }) => {
   return (
     <FormLayout
       subText={'Write original and human-like paragraphs based on your blog subheading (h2, h3, h4,...).'}
+      generate={generate}
       data={{
         language: explorerState.language,
         creativity: explorerState.creativity,

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 
-const FormLayout = ({ children, subText, data }) => {
+const FormLayout = ({ children, subText, data, generate }) => {
 
   const { query } = useRouter()
 

@@ -11,6 +11,15 @@ const FacebookPrimaryText = ({ explorerState, dispatch, generate }) => {
   return (
     <FormLayout
       subText={'Write Facebook ads that engage your audience and deliver a high conversion rate.'}
+      generate={generate}
+      data={{
+        language: explorerState.language,
+        creativity: explorerState.creativity,
+        voiceTone: explorerState.voiceTone,
+        audience: explorerState.audience,
+        productName: explorerState.productName,
+        productDescription: explorerState.productDescription
+      }}
     >
       <FormGroup label={<LabelLayout>Language:</LabelLayout>} labelFor={'languages'}>
         <DropdownLayout
