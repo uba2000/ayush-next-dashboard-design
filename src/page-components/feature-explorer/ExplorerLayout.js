@@ -47,6 +47,41 @@ const ExplorerLayout = () => {
               </>
             ) : (
               <>
+                <div className="py-[14px] px-[35px] font-semibold space-x-5">
+                  <span>All (0)</span>
+                  <span>Favorites (3)</span>
+                </div>
+                <Box type="black" className="border-r-0 border-l-0 border-b-0 py-6 px-[18px] space-y-5 flex-grow">
+                  <Box className="p-4 rounded-lg">
+                    <div className="flex space-x-4">
+                      <div className="">
+                        <div className="h-6 w-6 rounded-full border dark:border-darkMode-border border-ash flex justify-center items-center">
+                          <span className='text-xs leading-[18px]'>01</span>
+                        </div>
+                      </div>
+                      <div className="flex-grow">
+                        <span className='text-lg text-justify'>
+                          Content marketing is about creating valuable
+                          content for your audience to consume.
+                          Sometimes, it can be difficult knowing how to start
+                          or what types of content to publish.
+                          To help make content marketing easier, use these steps:
+                          - Determine your target market
+                          - Create a plan
+                          - Post regularly and consistently
+                          - Stay consistent with the brand's voice
+                        </span>
+                      </div>
+                      <div className="">
+                        <div className="cursor-pointer">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 dark:text-[#292929]" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </Box>
+                </Box>
               </>
             )}
           </div>

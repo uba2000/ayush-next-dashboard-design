@@ -10,6 +10,7 @@ const devices = ['desktop', 'tablet', 'mobile phone']
 const oss = ['windows', 'macos', 'linux']
 const depths = ['01']
 const creativities = ['regular', 'intermediate']
+const voiceTones = ['regular', 'intermediate']
 
 const initialState = {
   searchEngine: searchEngines[0],
@@ -17,6 +18,9 @@ const initialState = {
   searchEngineParameters: '',
   blogArticleTitle: '',
   articleSubHeading: '',
+  audience: '',
+  productName: '',
+  productDescription: '',
   keywords: [],
   location: locations[0],
   language: languages[0],
@@ -24,34 +28,43 @@ const initialState = {
   os: oss[0],
   depth: depths[0],
   creativity: creativities[0],
+  voiceTone: voiceTones[0]
 }
 
 const reducer = (state, action) => {
   switch (action.type) {
     case 'setSearchEngine':
-      return { searchEngine: action.value, ...state }
+      return { ...state, searchEngine: action.value }
     case 'setSearchEngineType':
-      return { searchEngineType: action.value, ...state }
+      return { ...state, searchEngineType: action.value }
     case 'setLocation':
-      return { location: action.value, ...state }
+      return { ...state, location: action.value }
     case 'setLanguage':
-      return { language: action.value, ...state }
+      return { ...state, language: action.value }
     case 'setDevices':
-      return { device: action.value, ...state }
+      return { ...state, device: action.value }
     case 'setOs':
-      return { os: action.value, ...state }
+      return { ...state, os: action.value }
     case 'setDepth':
-      return { depth: action.value, ...state }
+      return { ...state, depth: action.value }
     case 'setSearchEngineParameters':
-      return { searchEngineParameters: action.value, ...state }
+      return { ...state, searchEngineParameters: action.value }
     case 'setBlogArticleTitle':
-      return { blogArticleTitle: action.value, ...state }
+      return { ...state, blogArticleTitle: action.value }
     case 'setArticleSubHeading':
-      return { articleSubHeading: action.value, ...state }
+      return { ...state, articleSubHeading: action.value }
     case 'setKeywords':
-      return { keywords: action.value, ...state }
+      return { ...state, keywords: action.value }
     case 'setCreativity':
-      return { creativity: action.value, ...state }
+      return { ...state, creativity: action.value }
+    case 'setVoiceTone':
+      return { ...state, voiceTone: action.value }
+    case 'setAudience':
+      return { ...state, audience: action.value }
+    case 'setProductName':
+      return { ...state, productName: action.value }
+    case 'setProductDescription':
+      return { ...state, productDescription: action.value }
     default:
       return state
   }
@@ -60,6 +73,10 @@ const reducer = (state, action) => {
 export function ExplorerWrapper({ children }) {
 
   const [explorerState, dispatch] = useReducer(reducer, initialState)
+
+  const generate = ({ slug, data }) => {
+
+  }
 
   let sharedState = {
     explorerState: {
@@ -72,8 +89,10 @@ export function ExplorerWrapper({ children }) {
       oss,
       depths,
       creativities,
+      voiceTones,
     },
     dispatch,
+    generate,
   }
 
   return (

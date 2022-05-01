@@ -35,7 +35,7 @@ function DashboardNav() {
                 </Link>
               </li>
               <li className='inline py-2 px-6'>
-                <Link href='/app/projects/new-project'>
+                <Link href='/app/projects/features'>
                   <a className='font-medium text-base'>
                     Features
                   </a>

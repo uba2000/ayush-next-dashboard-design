@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 
 import Input from '../../components/layouts/Input'
 import FormGroup from '../../components/FormGroup'
@@ -6,20 +7,24 @@ import { fTags } from '../../utils/formatTags'
 import FormLayout from './forms/FormLayout'
 import DropdownLayout from '../../components/layouts/Dropdown'
 import { ExplorerTwoInputLayout, LabelLayout } from './ExplorerLayout'
-import { ParagraphWriter } from './forms'
+import { ParagraphWriter, FacebookPrimaryText } from './forms'
 import { useExplorerContext } from '../../context/explorer'
 
 
 const ExplorerForms = ({ slug }) => {
 
   const {
-    explorerState, dispatch
+    explorerState, dispatch, generate
   } = useExplorerContext()
 
   switch (slug) {
     case 'paragraph-writer':
       return (
-        <ParagraphWriter explorerState={explorerState} dispatch={dispatch} />
+        <ParagraphWriter explorerState={explorerState} dispatch={dispatch} generate={generate} />
+      )
+    case 'facebook-primary-text':
+      return (
+        <FacebookPrimaryText explorerState={explorerState} dispatch={dispatch} generate={generate} />
       )
 
     default:

@@ -1,6 +1,14 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 
-const FormLayout = ({ children, subText }) => {
+const FormLayout = ({ children, subText, data }) => {
+
+  const { query } = useRouter()
+
+  const generateContent = () => {
+    generate({ slug: query.slug, data })
+  }
+
   return (
     <>
       <div>
@@ -10,6 +18,9 @@ const FormLayout = ({ children, subText }) => {
       </div>
       <div>
         {children}
+        <button onClick={generateContent} className="btn btn-primary w-full font-medium text-base">
+          Generate
+        </button>
       </div>
     </>
   )

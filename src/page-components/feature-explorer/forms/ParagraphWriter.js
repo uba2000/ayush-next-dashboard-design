@@ -6,9 +6,18 @@ import DropdownLayout from '../../../components/layouts/Dropdown'
 import Input from '../../../components/layouts/Input'
 import { ExplorerTwoInputLayout, LabelLayout } from '../ExplorerLayout'
 
-const ParagraphWriter = ({ explorerState, dispatch }) => {
+const ParagraphWriter = ({ explorerState, dispatch, generate }) => {
+
   return (
-    <FormLayout subText={'Write original and human-like paragraphs based on your blog subheading (h2, h3, h4,...).'}>
+    <FormLayout
+      subText={'Write original and human-like paragraphs based on your blog subheading (h2, h3, h4,...).'}
+      data={{
+        language: explorerState.language,
+        creativity: explorerState.creativity,
+        blogArticleTitle: explorerState.blogArticleTitle,
+        articleSubHeading: explorerState.articleSubHeading
+      }}
+    >
       <ExplorerTwoInputLayout>
         <FormGroup label={<LabelLayout>Languages:</LabelLayout>} labelFor={'languages'}>
           <DropdownLayout
@@ -45,9 +54,6 @@ const ParagraphWriter = ({ explorerState, dispatch }) => {
           className='rounded h-[139px] w-full flex-shrink  border  border-solid dark:focus:text-white focus:text-black dark:border-darkMode-border border-ash pl-3 pr-4 py-[10px] bg-white dark:bg-black '
         ></textarea>
       </FormGroup>
-      <button className="btn btn-primary w-full font-medium text-base">
-        Generate
-      </button>
     </FormLayout>
   )
 }
