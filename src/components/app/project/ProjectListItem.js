@@ -40,6 +40,8 @@ function ProjectListItem(props) {
   const doubleClickHandler = (e) => {
     if (e.detail == 2) {
       router.push('/app/projects/123')
+    } else {
+      check(!checked)
     }
   }
 
@@ -78,7 +80,7 @@ function ProjectListItem(props) {
   }
 
   return (
-    <Table.Row onClick={doubleClickHandler}>
+    <Table.Row onClick={doubleClickHandler} className="cursor-pointer">
       {/* Delete Dialog */}
       <DialogLayout isOpen={isOpen} closeModal={closeModal} >
         <div className="py-24 px-44">
@@ -204,7 +206,7 @@ function ProjectListItem(props) {
         </div>
       </DialogLayout>
       <Table.Data className='w-[41.5px] pl-[21px]'>
-        <div className="flex items-center justify-left cursor-pointer" onClick={() => check(!checked)}>
+        <div className="flex items-center justify-left cursor-pointer">
           <CheckBox checked={checked} />
         </div>
       </Table.Data>

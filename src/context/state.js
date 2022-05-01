@@ -4,6 +4,7 @@ export const AppContext = createContext();
 
 export function AppWrapper({ children }) {
 
+  const [toEditArticle, setToEditArticle] = useState(false)
   const [newProjectData, setNewProjectData] = useState(null)
   const [isShowNewProject, setIsShowNewProject] = useState(false)
   const [isShowEditArticle, setIsShowEditArticle] = useState(false)
@@ -15,6 +16,9 @@ export function AppWrapper({ children }) {
 
       showEditArticle: isShowEditArticle,
       setShowEditArticle: setIsShowEditArticle,
+
+      toEditArticle,
+      setToEditArticle: (value) => setToEditArticle(value),
     },
     project: {
       newProjectData,

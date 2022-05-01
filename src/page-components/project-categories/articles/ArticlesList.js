@@ -71,25 +71,25 @@ function ArticlesList(props) {
               </Table.TH>
             </Table.Row>
           </Table.Head>
-          <tbody>
+          <Table.Body>
             {
               articleList.length <= 10 ? articleList.map((item, index) => {
                 return <ArticleListItem
                   item={item}
-                  key={index}
+                  key={item.id}
                   articleIndex={index}
                   handleTick={tickAnArticle}
                 />
               }) : articleList.slice((page - 1) * 10, page * 10).map((item, index) => {
                 return <ArticleListItem
                   item={item}
-                  key={index}
+                  key={item.id}
                   articleIndex={index}
                   handleTick={tickAnArticle}
                 />
               })
             }
-          </tbody>
+          </Table.Body>
         </Table>
       </div>
       <div className="dark:bg-darkMode-bg bg-white border border-t-0 dark:border-darkMode-border border-ash border-solid">

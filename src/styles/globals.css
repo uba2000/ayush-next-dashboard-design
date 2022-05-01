@@ -326,6 +326,7 @@ input {
   border: 2px solid rgba(0, 161, 65, 1);
   box-shadow: none;
   white-space: nowrap;
+  user-select: none !important;
 
   font-family: 'Poppins';
   font-style: normal;

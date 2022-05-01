@@ -5,8 +5,11 @@ import ArticleLayout from '../../../../../../page-components/project-categories/
 import DashboardLayout from '../../../../../../components/app/DasboardLayout'
 import styles from '../../../../../../styles/Article.module.css'
 import accountStyles from '../../../../../../styles/Account.module.css'
+import { AppContext } from '../../../../../../context/state'
 
 export class EditArticle extends Component {
+
+  static contextType = AppContext
 
   constructor(props) {
     super(props)
@@ -55,14 +58,17 @@ export class EditArticle extends Component {
       },
       { ssr: false }
     )
+
     const { stats } = this.state
+    const { layout } = this.context
+
     return (
       <DashboardLayout>
         <ArticleLayout crumbs={[{ txt: 'How to start the agency' }]}>
           <div className="mt-16">
             <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-4 mb-4">
               <div className="flex flex-col">
-                {!this.state.titleChange ? (
+                {!layout.toEditArticle ? (
                   <>
                     <div className="flex mb-2">
                       <div className="mr-2">
@@ -70,7 +76,7 @@ export class EditArticle extends Component {
                           {this.state.title}
                         </h3>
                       </div>
-                      <div className="cursor-pointer" onClick={() => { this.setState({ titleChange: true }) }}>
+                      <div className="cursor-pointer" onClick={() => { layout.setToEditArticle(true) }}>
                         {/* pencil */}
                         <svg
                           xmlns='http://www.w3.org/2000/svg'
@@ -102,7 +108,7 @@ export class EditArticle extends Component {
                         <input type="text" value={this.state.title} onChange={(e) => this.setState({ title: e.target.value })} className={accountStyles.formGroupInput} style={{ minWidth: '273.6px', height: '53px' }} />
                       </div>
                       <div className='flex'>
-                        <button className="btn btn-primary" onClick={() => { this.setState({ titleChange: false }) }}>
+                        <button className="btn btn-primary" onClick={() => { layout.setToEditArticle(true) }}>
                           Save
                         </button>
                         <button className="btn btn-reset" onClick={() => {
@@ -115,7 +121,7 @@ export class EditArticle extends Component {
                   </>
                 )}
                 {
-                  !this.state.tagsChange ? (
+                  !layout.toEditArticle ? (
                     <>
                       <div className="flex">
                         <div className="mr-2">

@@ -6,15 +6,19 @@ import Link from 'next/link'
 import CheckBox from '../../../components/layouts/CheckBox'
 import { Table } from '../../../components/layouts/Table'
 import { DialogLayout } from '../../../components/layouts/Dialog'
+import { useAppContext } from '../../../context/state'
 
 function ArticleListItem(props) {
-  let { title, tags, date, checked } = props.item
-
-  const [articleChecked, setArticleChecked] = useState(checked)
+  let { id, title, tags, date, checked } = props.item
 
   const router = useRouter()
+  const { query } = router
 
-  let [isOpen, setIsOpen] = useState(false)
+  const state = useAppContext()
+
+  const [isOpen, setIsOpen] = useState(false)
+  const [articleChecked, setArticleChecked] = useState(checked)
+  const [articleEditLink] = useState(`/app/projects/${query.projectId}/articles/edit/${id}`)
 
   function closeModal() {
     setIsOpen(false)
@@ -26,7 +30,7 @@ function ArticleListItem(props) {
 
   const doubleClickHandler = (e) => {
     if (e.detail == 2) {
-      router.push('/app/projects/123/articles/edit/123')
+      router.push(articleEditLink)
     }
   }
 
@@ -34,6 +38,20 @@ function ArticleListItem(props) {
     setArticleChecked(va);
     checked = va;
     props.handleTick(props.articleIndex, va)
+  }
+
+  const goToArticle = (type) => {
+    switch (type) {
+      case 'edit':
+        state.layout.setToEditArticle(true)
+        break
+      case 'view':
+        state.layout.setToEditArticle(false)
+        break
+      default:
+        state.layout.setToEditArticle(false)
+    }
+    router.push(articleEditLink)
   }
 
   // useEffect( () => { check(!articleChecked) })
@@ -121,14 +139,14 @@ function ArticleListItem(props) {
               <div className=''>
                 <Menu.Item>
                   {({ active }) => (
-                    <button type='button' className={`w-full text-left whitespace-nowrap ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'} block px-4 py-2 text-sm`}>
+                    <button onClick={() => goToArticle('view')} type='button' className={`w-full text-left whitespace-nowrap ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'} block px-4 py-2 text-sm`}>
                       View Article
                     </button>
                   )}
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <button type='button' className={`w-full text-left whitespace-nowrap ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'} block px-4 py-2 text-sm`}>
+                    <button onClick={() => goToArticle('edit')} type='button' className={`w-full text-left whitespace-nowrap ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'} block px-4 py-2 text-sm`}>
                       Edit Article
                     </button>
                   )}
