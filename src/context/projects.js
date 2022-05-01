@@ -31,6 +31,8 @@ const reducer = (state, action) => {
       return { projectFeatureList: action.value, ...state }
     case 'setProjectArticles':
       return { projectArticles: action.value, ...state }
+    default:
+      return state
   }
 }
 

@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
+
 import DashboardLayout from '../../../../../components/app/DasboardLayout'
+import ExplorerLayout from '../../../../../page-components/feature-explorer/ExplorerLayout'
+import { ExplorerWrapper, useExplorerContext } from '../../../../../context/explorer'
+
 
 const index = () => {
   return (
-    <DashboardLayout>
+    <ExplorerWrapper>
+      <DashboardLayout>
+        <ExplorerLayout>
 
-    </DashboardLayout>
+        </ExplorerLayout>
+      </DashboardLayout>
+    </ExplorerWrapper>
   )
 }
 
