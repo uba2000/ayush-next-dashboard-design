@@ -29,8 +29,8 @@ export default class ArticleEditor extends Component {
     this.setState({
       editorState,
     });
-    console.log(convertToRaw(editorState.getCurrentContent()
-    ));
+    // console.log(convertToRaw(editorState.getCurrentContent()
+    // ));
     this.props.handleContent(
       JSON.stringify(convertToRaw(editorState.getCurrentContent())
       ));
@@ -49,13 +49,13 @@ export default class ArticleEditor extends Component {
     options: ['inline', 'blockType', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'emoji', 'image', 'remove', 'history'],
     inline: {
       options: ['bold', 'italic', 'underline', 'strikethrough'],
-      // bold: { icon: bold, className: undefined },
+      // bold: { visible: true, icon: 'xxx.png', },
       // italic: { icon: italic, className: undefined },
       // underline: { icon: underline, className: undefined },
       // strikethrough: { icon: strikethrough, className: undefined },
     },
     blockType: {
-      inDropdown: true,
+      inDropdown: false,
       options: ['Normal', 'H1', 'H2', 'H3'],
     },
   }

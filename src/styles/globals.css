@@ -681,11 +681,11 @@ abbr[title] {
 }
 
 .generator-container .content h1 {
-  @apply font-semibold text-[32px] leading-[120%] tracking-[0.005em] !important;
+  @apply my-8 font-semibold text-[32px] leading-[120%] tracking-[0.005em] !important;
 }
 
 .generator-container .content p {
-  @apply font-normal text-lg;
+  @apply font-normal text-lg my-[18px];
 }
 
 .generator-container .headerTitleStyle {
@@ -717,7 +717,12 @@ abbr[title] {
   dark:border-darkMode-border 
   py-5
   px-[45px]
+  h-[69px]
   border-ash !important;
+}
+
+.rdw-option-active {
+  @apply shadow dark:shadow-white shadow-black !important;
 }
 
 .editor-class,

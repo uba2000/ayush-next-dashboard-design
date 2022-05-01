@@ -11,6 +11,7 @@ import { AppContext } from '../../../../../../context/state'
 import Box from '../../../../../../components/layouts/Box'
 import articleContent from '../../../../../../_mock/article-content';
 import ArticleEditor from '../../../../../../page-components/project-categories/articles/ArticleEditor';
+import Input from '../../../../../../components/layouts/Input';
 
 class EditArticle extends Component {
 
@@ -26,7 +27,7 @@ class EditArticle extends Component {
       reserveTitle: 'How to start the agency',
       tags: ['money', 'trading'].join(', '),
       reserveTags: ['money', 'trading'].join(', '),
-      stateArticleContent: {},
+      stateArticleContent: articleContent,
       showEditor: false,
       stats: {
         wordCount: 1000,
@@ -80,8 +81,7 @@ class EditArticle extends Component {
       showEditor = true
     }
 
-    console.log(articleContent);
-    const body = draftToHtml(JSON.parse(articleContent))
+    const body = draftToHtml(JSON.parse(stateArticleContent))
 
     return (
       <DashboardLayout>
@@ -89,7 +89,7 @@ class EditArticle extends Component {
           <div className="mt-16">
             <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-4 mb-6">
               <div className="flex flex-col">
-                {!titleChange ? (
+                {!titleChange || !layout.toEditArticle ? (
                   <>
                     <div className="flex mb-2">
                       <div className="mr-2">
@@ -126,10 +126,10 @@ class EditArticle extends Component {
                   <>
                     <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-2 mb-2">
                       <div className="">
-                        <input type="text" value={this.state.title} onChange={(e) => this.setState({ title: e.target.value })} className={accountStyles.formGroupInput} style={{ minWidth: '273.6px', height: '53px' }} />
+                        <Input type="text" value={this.state.title} onChange={(e) => this.setState({ title: e.target.value })} className={accountStyles.formGroupInput} style={{ minWidth: '273.6px', height: '53px' }} />
                       </div>
                       <div className='flex'>
-                        <button className="btn btn-primary" onClick={() => { layout.setToEditArticle(true) }}>
+                        <button className="btn btn-primary" onClick={() => { this.setState({ titleChange: false }); layout.setToEditArticle(false) }}>
                           Save
                         </button>
                         <button className="btn btn-reset" onClick={() => {
@@ -142,7 +142,7 @@ class EditArticle extends Component {
                   </>
                 )}
                 {
-                  !tagsChange ? (
+                  !tagsChange || !layout.toEditArticle ? (
                     <>
                       <div className="flex">
                         <div className="mr-2">
@@ -179,10 +179,10 @@ class EditArticle extends Component {
                     <>
                       <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-2 mb-2">
                         <div className="">
-                          <input type="text" value={this.state.tags} onChange={(e) => this.setState({ tags: e.target.value })} className={accountStyles.formGroupInput} style={{ minWidth: '273.6px', height: '53px' }} />
+                          <Input type="text" value={this.state.tags} onChange={(e) => this.setState({ tags: e.target.value })} className={accountStyles.formGroupInput} style={{ minWidth: '273.6px', height: '53px' }} />
                         </div>
                         <div className='flex'>
-                          <button className="btn btn-primary" onClick={() => { this.setState({ tagsChange: false }) }}>
+                          <button className="btn btn-primary" onClick={() => { this.setState({ tagsChange: false }); layout.setToEditArticle(false) }}>
                             Save
                           </button>
                           <button className="btn btn-reset" onClick={() => {
@@ -208,7 +208,7 @@ class EditArticle extends Component {
                   <ArticleEditor content={articleContent} handleContent={this.handleEditorContent} />
                 )}
               </div>
-              {!showEditor && <div className="absolute top-6 right-6 cursor-pointer" onClick={this.showEditorHandler}>
+              {!showEditor ? (<div className="absolute top-6 right-6 cursor-pointer" onClick={this.showEditorHandler}>
                 {/* pencil */}
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -230,7 +230,16 @@ class EditArticle extends Component {
                   <path d='M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4'></path>
                   <line x1='13.5' y1='6.5' x2='17.5' y2='10.5'></line>
                 </svg>
-              </div>}
+              </div>) : (
+                <div className="absolute right-7 top-3 flex items-center space-x-2">
+                  <button className='btn btn-outline text-[13px] py-[11px] px-5 leading-5'>
+                    Cancel
+                  </button>
+                  <button className="btn btn-primary" onClick={() => { this.setState({ showEditor: false }); layout.setToEditArticle(false) }}>
+                    Save article
+                  </button>
+                </div>
+              )}
             </Box>
             <div className="md:flex grid grid-cols-1 gap-5 mt-6 md:justify-end">
               {!showEditor && (<>
