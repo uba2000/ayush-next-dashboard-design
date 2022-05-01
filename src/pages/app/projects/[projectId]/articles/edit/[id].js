@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import dynamic from "next/dynamic"
 import { withRouter } from 'next/router'
+import draftToHtml from 'draftjs-to-html';
 
 import ArticleLayout from '../../../../../../page-components/project-categories/ArticleLayout'
 import DashboardLayout from '../../../../../../components/app/DasboardLayout'
@@ -8,6 +9,7 @@ import styles from '../../../../../../styles/Article.module.css'
 import accountStyles from '../../../../../../styles/Account.module.css'
 import { AppContext } from '../../../../../../context/state'
 import Box from '../../../../../../components/layouts/Box'
+import ArticleEditor from '../../../../../../page-components/project-categories/articles/ArticleEditor';
 
 class EditArticle extends Component {
 
@@ -23,7 +25,7 @@ class EditArticle extends Component {
       reserveTitle: 'How to start the agency',
       tags: ['money', 'trading'].join(', '),
       reserveTags: ['money', 'trading'].join(', '),
-      stateArticleContent: this.articleContent,
+      stateArticleContent: {},
       showEditor: false,
       stats: {
         wordCount: 1000,
@@ -53,15 +55,21 @@ class EditArticle extends Component {
     this.showEditorHandler();
   }
 
-  render() {
-    const ArticleEditor = dynamic(
-      () => {
-        return import('../../../../../../page-components/project-categories/articles/ArticleEditor')
-      },
-      { ssr: false }
-    )
+  handleEditorContent = (content) => {
+    this.setState({
+      stateArticleContent: content,
+    });
+  }
 
-    let { titleChange, tagsChange, showEditor } = this.state
+  render() {
+    // const ArticleEditor = dynamic(
+    //   () => {
+    //     return import('../../../../../../page-components/project-categories/articles/ArticleEditor')
+    //   },
+    //   { ssr: false }
+    // )
+
+    let { titleChange, tagsChange, showEditor, stateArticleContent } = this.state
     const { layout } = this.context
     const { router } = this.props
 
@@ -70,6 +78,8 @@ class EditArticle extends Component {
       tagsChange = true
       showEditor = true
     }
+
+    const body = draftToHtml(stateArticleContent)
 
     return (
       <DashboardLayout>
@@ -192,8 +202,8 @@ class EditArticle extends Component {
             </div>
             <Box type="black" className={`generator-container relative ${!showEditor ? 'md:pt-[25px] pt-[70px] md:px-[70px] px-4' : ''}  pb-[25px]`}>
               <div className="content">
-                {!showEditor ? (<>{this.articleContent}</>) : (
-                  <ArticleEditor />
+                {!showEditor ? (<div dangerouslySetInnerHTML={{ __html: body }}></div>) : (
+                  <ArticleEditor handleContent={this.handleEditorContent} />
                 )}
               </div>
               {!showEditor && <div className="absolute top-6 right-6 cursor-pointer" onClick={this.showEditorHandler}>
