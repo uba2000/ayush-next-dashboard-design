@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import dynamic from "next/dynamic"
+import { withRouter } from 'next/router'
 
 import ArticleLayout from '../../../../../../page-components/project-categories/ArticleLayout'
 import DashboardLayout from '../../../../../../components/app/DasboardLayout'
 import styles from '../../../../../../styles/Article.module.css'
 import accountStyles from '../../../../../../styles/Account.module.css'
 import { AppContext } from '../../../../../../context/state'
+import Box from '../../../../../../components/layouts/Box'
 
-export class EditArticle extends Component {
+class EditArticle extends Component {
 
   static contextType = AppContext
 
@@ -17,10 +19,10 @@ export class EditArticle extends Component {
     this.state = {
       titleChange: false,
       tagsChange: false,
-      title: 'How to start the agency',
+      title: 'How do you make money from scalping?',
       reserveTitle: 'How to start the agency',
-      tags: ['Graphic design', 'digital marketing'].join(', '),
-      reserveTags: ['Graphic design', 'digital marketing'].join(', '),
+      tags: ['money', 'trading'].join(', '),
+      reserveTags: ['money', 'trading'].join(', '),
       stateArticleContent: this.articleContent,
       showEditor: false,
       stats: {
@@ -54,21 +56,28 @@ export class EditArticle extends Component {
   render() {
     const ArticleEditor = dynamic(
       () => {
-        return import('../../../../../../components/app/article/ArticleEditor')
+        return import('../../../../../../page-components/project-categories/articles/ArticleEditor')
       },
       { ssr: false }
     )
 
-    const { stats } = this.state
+    let { titleChange, tagsChange, showEditor } = this.state
     const { layout } = this.context
+    const { router } = this.props
+
+    if (layout.toEditArticle) {
+      titleChange = true
+      tagsChange = true
+      showEditor = true
+    }
 
     return (
       <DashboardLayout>
-        <ArticleLayout crumbs={[{ txt: 'How to start the agency' }]}>
+        <ArticleLayout crumbs={[{ txt: 'Article', link: `/app/projects/${router.query.projectId}` }, { txt: this.state.title }]}>
           <div className="mt-16">
-            <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-4 mb-4">
+            <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-4 mb-6">
               <div className="flex flex-col">
-                {!layout.toEditArticle ? (
+                {!titleChange ? (
                   <>
                     <div className="flex mb-2">
                       <div className="mr-2">
@@ -76,7 +85,7 @@ export class EditArticle extends Component {
                           {this.state.title}
                         </h3>
                       </div>
-                      <div className="cursor-pointer" onClick={() => { layout.setToEditArticle(true) }}>
+                      <div className="cursor-pointer" onClick={() => { this.setState({ titleChange: true }) }}>
                         {/* pencil */}
                         <svg
                           xmlns='http://www.w3.org/2000/svg'
@@ -121,7 +130,7 @@ export class EditArticle extends Component {
                   </>
                 )}
                 {
-                  !layout.toEditArticle ? (
+                  !tagsChange ? (
                     <>
                       <div className="flex">
                         <div className="mr-2">
@@ -175,48 +184,19 @@ export class EditArticle extends Component {
                   )
                 }
               </div>
-              <div className="flex justify-end">
-                <div className="flex flex-col mr-7 justify-center">
-                  <p className={styles.articleHeaderOverscore}>
-                    Word Count
-                  </p>
-                  <p className={styles.articleHeaderOverscoreStats}>
-                    {stats.wordCount} Words
-                  </p>
-                </div>
-                <div className="flex flex-col mr-7 justify-center">
-                  <p className={styles.articleHeaderOverscore}>
-                    Plagiarism Score
-                  </p>
-                  <p className={styles.articleHeaderOverscoreStats}>
-                    {stats.plagiarism}% Plagiarized
-                  </p>
-                </div>
-                <div className="flex flex-col mr-7 justify-center">
-                  <p className={styles.articleHeaderOverscore}>
-                    Keywords Density
-                  </p>
-                  <p className={styles.articleHeaderOverscoreStats}>
-                    {stats.density}% Density
-                  </p>
-                </div>
-                <div className="flex flex-col justify-center">
-                  <p className={styles.articleHeaderOverscore}>
-                    Grammatical Score
-                  </p>
-                  <p className={styles.articleHeaderOverscoreStats}>
-                    {stats.fluency}% Fluent
-                  </p>
-                </div>
+              <div className="flex justify-end items-end">
+                <span className='text-xs text-right font-medium'>
+                  1682 Words
+                </span>
               </div>
             </div>
-            <div className="generator-container relative md:pt-[25px] pt-[70px] pb-[25px] md:px-[70px] px-4">
+            <Box type="black" className={`generator-container relative ${!showEditor ? 'md:pt-[25px] pt-[70px] md:px-[70px] px-4' : ''}  pb-[25px]`}>
               <div className="content">
-                {!this.state.showEditor ? (<>{this.articleContent}</>) : (
+                {!showEditor ? (<>{this.articleContent}</>) : (
                   <ArticleEditor />
                 )}
               </div>
-              {!this.state.showEditor && <div className="absolute top-6 right-6 cursor-pointer" onClick={this.showEditorHandler}>
+              {!showEditor && <div className="absolute top-6 right-6 cursor-pointer" onClick={this.showEditorHandler}>
                 {/* pencil */}
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -239,25 +219,12 @@ export class EditArticle extends Component {
                   <line x1='13.5' y1='6.5' x2='17.5' y2='10.5'></line>
                 </svg>
               </div>}
-              {this.state.showEditor && <div className='flex'>
-                <button className="mx-auto btn btn-primary mt-[140px] text-black border-[#dcd8e780] bg-[#dcd8e780] font-bold">
-                  Generate Content
-                </button>
-              </div>}
-            </div>
-            <div className="md:flex grid grid-cols-1 gap-5 mt-5 md:justify-end">
-              {!this.state.showEditor ? (<><button className="btn btn-reset font-poppins mr-[6.54px]">
-                Download
-              </button>
+            </Box>
+            <div className="md:flex grid grid-cols-1 gap-5 mt-6 md:justify-end">
+              {!showEditor && (<>
                 <button className="btn btn-primary text-white text-base">
                   Publish to Wordpress
-                </button></>) : (
-                <>
-                  <button onClick={this.saveArticle} className="btn btn-primary ml-auto text-white text-base w-full max-w-[226px]">
-                    Save article
-                  </button>
-                </>
-              )}
+                </button></>)}
             </div>
           </div>
         </ArticleLayout>
@@ -305,4 +272,4 @@ export class EditArticle extends Component {
   `
 }
 
-export default EditArticle
+export default withRouter(EditArticle)

@@ -230,7 +230,7 @@ input {
   font-size: 18px;
   line-height: 27px;
   text-align: justify;
-  color: #4d4d4d;
+  /* color: #4d4d4d; */
 }
 
 .generator-container .headerTitleStyle {
@@ -698,4 +698,22 @@ abbr[title] {
 }
 .range input::-moz-range-progress {
   background: #664aff;
+}
+
+.rdw-editor-toolbar {
+  @apply dark:bg-darkMode-bg 
+  bg-white 
+  border-l-0 
+  border-r-0 
+  border-t-0 
+  dark:border-darkMode-border 
+  py-5
+  px-[45px]
+  border-ash !important;
+}
+
+.rdw-editor-toolbar * {
+  @apply mb-0
+  bg-transparent
+  border-0 !important;
 }

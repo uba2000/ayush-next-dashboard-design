@@ -35,8 +35,6 @@
 
   letter-spacing: 0.005em;
   text-transform: capitalize;
-
-  color: #000000;
 }
 
 .articleEditHeaderTags {
@@ -47,8 +45,6 @@
   text-align: center;
   letter-spacing: 0.005em;
   text-transform: capitalize;
-
-  color: #000000;
 }
 
 .articleHeaderOverscore {
