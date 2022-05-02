@@ -27,7 +27,11 @@ function SearchInput({ searchBy = ['name'], searchThrough = [], setItemsAfterSea
   }
 
   const clickSearchHandler = () => {
-    setItemsAfterSearch(searchFor(items))
+    if (q == '') {
+      setItemsAfterSearch(items)
+    } else {
+      setItemsAfterSearch(searchFor(items))
+    }
   }
 
   return (
