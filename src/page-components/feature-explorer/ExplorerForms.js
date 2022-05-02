@@ -26,7 +26,10 @@ import {
   GrammarRewriter,
   EssayIntros,
   EssayOutlines,
-  EcommerceProductDescriptions
+  EcommerceProductDescriptions,
+  EcommerceCategoryDescriptions,
+  EcommerceProductNames,
+  ProductDescriptions
 } from './forms'
 import { useExplorerContext } from '../../context/explorer'
 
@@ -185,6 +188,30 @@ const ExplorerForms = ({ slug }) => {
     case 'ecommerce-product-descriptions':
       return (
         <EcommerceProductDescriptions
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'ecommerce-category-descriptions':
+      return (
+        <EcommerceCategoryDescriptions
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'ecommerce-product-names':
+      return (
+        <EcommerceProductNames
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'product-descriptions':
+      return (
+        <ProductDescriptions
           explorerState={explorerState}
           dispatch={dispatch}
           generate={generate}

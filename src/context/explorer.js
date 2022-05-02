@@ -9,7 +9,7 @@ const languages = ['english']
 const devices = ['desktop', 'tablet', 'mobile phone']
 const oss = ['windows', 'macos', 'linux']
 const depths = ['01']
-const creativities = ['regular', 'intermediate']
+const creativities = ['regular', 'professional']
 const voiceTones = ['regular', 'intermediate']
 
 const initialState = {
@@ -20,9 +20,12 @@ const initialState = {
   articleSubHeading: '',
   audience: '',
   productName: '',
+  businessName: '',
   productDescription: '',
+  businessDescription: '',
   textAreaContent: '',
   keywordInput: '',
+  categoryName: '',
   keywords: [],
   location: locations[0],
   language: languages[0],
@@ -67,10 +70,16 @@ const reducer = (state, action) => {
       return { ...state, productName: action.value }
     case 'setProductDescription':
       return { ...state, productDescription: action.value }
+    case 'setBusinessName':
+      return { ...state, businessName: action.value }
+    case 'setBusinessDescription':
+      return { ...state, businessDescription: action.value }
     case 'setTextAreaContent':
       return { ...state, textAreaContent: action.value }
     case 'setKeywordInput':
       return { ...state, keywordInput: action.value }
+    case 'setCategoryName':
+      return { ...state, categoryName: action.value }
     default:
       return state
   }
