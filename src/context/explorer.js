@@ -21,6 +21,8 @@ const initialState = {
   audience: '',
   productName: '',
   productDescription: '',
+  textAreaContent: '',
+  keywordInput: '',
   keywords: [],
   location: locations[0],
   language: languages[0],
@@ -65,6 +67,10 @@ const reducer = (state, action) => {
       return { ...state, productName: action.value }
     case 'setProductDescription':
       return { ...state, productDescription: action.value }
+    case 'setTextAreaContent':
+      return { ...state, textAreaContent: action.value }
+    case 'setKeywordInput':
+      return { ...state, keywordInput: action.value }
     default:
       return state
   }
@@ -75,7 +81,7 @@ export function ExplorerWrapper({ children }) {
   const [explorerState, dispatch] = useReducer(reducer, initialState)
 
   const generate = ({ slug, data }) => {
-
+    console.log(`${slug}:`, data);
   }
 
   let sharedState = {

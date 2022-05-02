@@ -7,7 +7,27 @@ import { fTags } from '../../utils/formatTags'
 import FormLayout from './forms/FormLayout'
 import DropdownLayout from '../../components/layouts/Dropdown'
 import { ExplorerTwoInputLayout, LabelLayout } from './ExplorerLayout'
-import { ParagraphWriter, FacebookPrimaryText, FacebookHeadlines, GoogleAdsHeadlines, GoogleAdsDescription } from './forms'
+import {
+  ParagraphWriter,
+  FacebookPrimaryText,
+  FacebookHeadlines,
+  GoogleAdsHeadlines,
+  GoogleAdsDescription,
+  BlogTitles,
+  BlogIdeas,
+  BlogIntros,
+  BlogOutlines,
+  VideoTitles,
+  VideoDescription,
+  QuoraAnswers,
+  ParagraphRewriter,
+  RewriteKeyword,
+  TextSummarizer,
+  GrammarRewriter,
+  EssayIntros,
+  EssayOutlines,
+  EcommerceProductDescriptions
+} from './forms'
 import { useExplorerContext } from '../../context/explorer'
 
 
@@ -21,6 +41,14 @@ const ExplorerForms = ({ slug }) => {
     case 'paragraph-writer':
       return (
         <ParagraphWriter
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'paragraph-rewriter':
+      return (
+        <ParagraphRewriter
           explorerState={explorerState}
           dispatch={dispatch}
           generate={generate}
@@ -53,6 +81,110 @@ const ExplorerForms = ({ slug }) => {
     case 'google-ads-description':
       return (
         <GoogleAdsDescription
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'blog-titles':
+      return (
+        <BlogTitles
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'blog-ideas':
+      return (
+        <BlogIdeas
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'blog-intros':
+      return (
+        <BlogIntros
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'blog-outlines':
+      return (
+        <BlogOutlines
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'video-titles':
+      return (
+        <VideoTitles
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'video-descriptions':
+      return (
+        <VideoDescription
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'quora-answers':
+      return (
+        <QuoraAnswers
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'rewrite-with-keyword':
+      return (
+        <RewriteKeyword
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'text-summarizer-tl-dr-':
+      return (
+        <TextSummarizer
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'grammar-rewriter':
+      return (
+        <GrammarRewriter
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'essay-intros':
+      return (
+        <EssayIntros
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'essay-outlines':
+      return (
+        <EssayOutlines
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'ecommerce-product-descriptions':
+      return (
+        <EcommerceProductDescriptions
           explorerState={explorerState}
           dispatch={dispatch}
           generate={generate}
