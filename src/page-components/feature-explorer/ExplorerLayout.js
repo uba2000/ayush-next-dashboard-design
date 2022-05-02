@@ -30,7 +30,7 @@ const ExplorerLayout = () => {
                 <div className="py-[14px] px-[35px]">
                   <span className='font-semibold'>Feature Results</span>
                 </div>
-                <Box className="flex-grow flex justify-center items-center border-b-0 border-l-0 border-r-0" type="black">
+                <Box className="flex-grow min-h-[792px] flex justify-center items-center border-b-0 border-l-0 border-r-0" type="black">
                   <div className="container">
                     <div className="">
                       <h2 className="font-bold text-[30px] leading-[61px] text-center tracking-tight capitalize">
@@ -51,7 +51,7 @@ const ExplorerLayout = () => {
                   <span>All (0)</span>
                   <span>Favorites (3)</span>
                 </div>
-                <Box type="black" className="border-r-0 border-l-0 border-b-0 py-6 px-[18px] space-y-5 flex-grow">
+                <Box type="black" className="border-r-0 border-l-0 border-b-0 py-6 px-[18px] space-y-5 flex-grow min-h-[792px]">
                   <Box className="p-4 rounded-lg">
                     <div className="flex space-x-4">
                       <div className="">

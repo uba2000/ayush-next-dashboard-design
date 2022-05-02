@@ -721,6 +721,10 @@ abbr[title] {
   border-ash !important;
 }
 
+.rdw-option-wrapper {
+  @apply text-darkMode-subText shadow-none !important;
+}
+
 .rdw-option-active {
   @apply shadow dark:shadow-white shadow-black !important;
 }
