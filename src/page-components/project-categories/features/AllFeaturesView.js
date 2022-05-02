@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 
 import { useAppContext } from '../../../context/state'
+import { useProjectsContext } from '../../../context/projects'
 import GradientDesign from '../../../components/GradientDesign'
 import SearchInput from '../../../components/SearchInput'
 import FilterSection from '../../../components/section/Filter/FilterSection'
@@ -14,9 +15,18 @@ const AllFeaturesView = ({ isGetStarted }) => {
   const router = useRouter()
   const state = useAppContext()
 
+  const projectsState = useProjectsContext()
+
+  const [stateFeature, setStateFeature] = useState(projectsState.projectFeatures)
+  const [reserveFeatures] = useState(projectsState.projectFeatures)
+
   const getStartedCTA = (route) => {
     state.layout.setShowNewProject(true)
     router.push(route)
+  }
+
+  const searchedFeatures = (filteredFeatures) => {
+    setStateFeature(filteredFeatures)
   }
 
   return (
@@ -35,7 +45,10 @@ const AllFeaturesView = ({ isGetStarted }) => {
             <FilterSection />
           </div>
           <div className="">
-            <SearchInput />
+            <SearchInput
+              searchThrough={reserveFeatures}
+              setItemsAfterSearch={searchedFeatures}
+            />
           </div>
         </div>
 
@@ -60,7 +73,7 @@ const AllFeaturesView = ({ isGetStarted }) => {
         </div>}
 
         <div className="pt-[35px]">
-          <FeatureSection />
+          <FeatureSection features={stateFeature} />
         </div>
       </div>
     </>
