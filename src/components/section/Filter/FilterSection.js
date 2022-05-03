@@ -1,21 +1,46 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import { Transition, Menu } from '@headlessui/react'
 
 import Filters from '../../../_mock/filters'
 import FilterBox from './FilterBox';
 import { ChevDown } from '../../../ui/icons/chev-down';
 
-const FilterSection = () => {
+const FilterSection = ({ filterBy = ['type'], filterThrough = [], setItemsAfterFilter }) => {
 
   const [stateFilter, setStateFilter] = useState(Filters)
+
+  // Filter query
+  const [f, setF] = useState('all')
+
+  const [topFilters, setTopFilters] = useState([])
+  const [moreFilters, setMoreFilters] = useState([])
+
+  const selectFilter = (slug, index) => {
+    let a = stateFilter
+    let b = [];
+    for (let i = 0; i < stateFilter.length; i++) {
+      a[i].selected = false;
+      b.push(a[i]);
+    }
+    setStateFilter(b)
+    a[index].selected = true
+    setStateFilter(a)
+  }
+
+  useEffect(() => {
+    setTopFilters(stateFilter.slice(0, 7))
+    setMoreFilters(stateFilter)
+  }, [f])
 
   return (
     <>
       <div className='md:flex hidden space-x-1'>
-        {stateFilter.slice(0, 7).map((filter) => {
+        {topFilters.map((filter, index) => {
           return <FilterBox
             filter={filter}
             key={filter.id}
+            index={index}
+            select={(value, index) => { setF(value); selectFilter(value, index) }}
           />
         })}
         <Menu as='div' className='inline-block'>
@@ -43,7 +68,7 @@ const FilterSection = () => {
               leaveTo='transform opacity-0 scale-95'
             >
               <Menu.Items className='z-30 origin-top-left absolute left-0 mt-2 w-fit shadow-lg dark:bg-[#000000] dark:text-white text-black bg-white ring-1 ring-[#000000] ring-opacity-5 focus:outline-none'>
-                {stateFilter.slice(7).map((filter) => (
+                {moreFilters.slice(7).map((filter) => (
                   <Fragment key={filter.id}>
                     <Menu.Item>
                       {({ active }) => (

@@ -29,7 +29,13 @@ import {
   EcommerceProductDescriptions,
   EcommerceCategoryDescriptions,
   EcommerceProductNames,
-  ProductDescriptions
+  ProductDescriptions,
+  ValueProposition,
+  FeatureBenefit,
+  StartupNameGenerator,
+  VideoScriptIntro,
+  VideoScriptOutlines,
+  VideoScriptSection
 } from './forms'
 import { useExplorerContext } from '../../context/explorer'
 
@@ -212,6 +218,54 @@ const ExplorerForms = ({ slug }) => {
     case 'product-descriptions':
       return (
         <ProductDescriptions
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'value-proposition':
+      return (
+        <ValueProposition
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'feature-to-benefit':
+      return (
+        <FeatureBenefit
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'startup-name-generator':
+      return (
+        <StartupNameGenerator
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'video-script-intros':
+      return (
+        <VideoScriptIntro
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'video-script-outlines':
+      return (
+        <VideoScriptOutlines
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'video-script-section':
+      return (
+        <VideoScriptSection
           explorerState={explorerState}
           dispatch={dispatch}
           generate={generate}

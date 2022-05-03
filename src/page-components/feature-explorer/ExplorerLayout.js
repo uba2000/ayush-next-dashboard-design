@@ -1,21 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import Box from '../../components/layouts/Box'
 import ExplorerForms from './ExplorerForms'
+import { useExplorerContext } from '../../context/explorer'
 
 const ExplorerLayout = () => {
 
   const { query } = useRouter()
+  const explorerState = useExplorerContext()
+
+  const [featureDetails, setFeatureDetails] = useState(null)
 
   const [isGenerated, setIsGenerated] = useState(false)
+
+  useEffect(() => {
+    setFeatureDetails(explorerState.getFeatureBySlug(query.slug))
+  }, [])
 
   return (
     <div className="grid grid-cols-[436px_auto] gap-[33px] w-full">
       <Box>
         <div className="text-left divide-y-[1px] dark:divide-darkMode-border divide-ash">
           <div className="py-[14px] px-5">
-            <span className='font-semibold capitalize'>SERP Explorer</span>
+            <span className='font-semibold capitalize'>{`${featureDetails ? featureDetails.name : 'SERP Explorer'}`}</span>
           </div>
           <div className="p-5 space-y-6">
             <ExplorerForms slug={query.slug} />
@@ -34,7 +42,7 @@ const ExplorerLayout = () => {
                   <div className="container">
                     <div className="">
                       <h2 className="font-bold text-[30px] leading-[61px] text-center tracking-tight capitalize">
-                        SERP Explorer
+                        {`${featureDetails ? featureDetails.name : 'SERP Explorer'}`}
                       </h2>
                       <p className='text-center max-w-[612px] mx-auto'>
                         <span className='font-medium'>

@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useReducer } from 'react'
 
+import features from '../_mock/features';
+
 export const ExplorerContext = createContext();
 
 const searchEngines = ['google', 'bing']
@@ -26,6 +28,8 @@ const initialState = {
   textAreaContent: '',
   keywordInput: '',
   categoryName: '',
+  sectionTitle: '',
+  seedWords: '',
   keywords: [],
   location: locations[0],
   language: languages[0],
@@ -80,6 +84,10 @@ const reducer = (state, action) => {
       return { ...state, keywordInput: action.value }
     case 'setCategoryName':
       return { ...state, categoryName: action.value }
+    case 'setSeedWords':
+      return { ...state, seedWords: action.value }
+    case 'setSectionTitle':
+      return { ...state, sectionTitle: action.value }
     default:
       return state
   }
@@ -91,6 +99,10 @@ export function ExplorerWrapper({ children }) {
 
   const generate = ({ slug, data }) => {
     console.log(`${slug}:`, data);
+  }
+
+  const getFeatureBySlug = (slug) => {
+    return features.filter((feature) => feature.slug == slug)[0]
   }
 
   let sharedState = {
@@ -108,6 +120,7 @@ export function ExplorerWrapper({ children }) {
     },
     dispatch,
     generate,
+    getFeatureBySlug,
   }
 
   return (

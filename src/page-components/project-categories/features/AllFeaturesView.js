@@ -42,7 +42,10 @@ const AllFeaturesView = ({ isGetStarted }) => {
       <div className="relative w-full">
         <div className="flex md:flex-row flex-col w-full md:space-x-10 space-x-0 space-y-5 md:space-y-0">
           <div className="flex-grow">
-            <FilterSection />
+            <FilterSection
+              filterThrough={reserveFeatures}
+              setItemsAfterFilter={searchedFeatures}
+            />
           </div>
           <div className="">
             <SearchInput
