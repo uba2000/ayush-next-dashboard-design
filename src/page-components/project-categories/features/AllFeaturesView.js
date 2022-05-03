@@ -14,6 +14,17 @@ import { SearchIcon } from '../../../ui/icons/search-icon'
 import filters from '../../../_mock/filters'
 import { ChevDown } from '../../../ui/icons/chev-down'
 
+// export async function getServerSideProps(context) {
+
+//   console.log(context);
+
+//   return {
+//     props: {
+
+//     }
+//   }
+// }
+
 const AllFeaturesView = ({ isGetStarted }) => {
 
   const router = useRouter()
