@@ -6,7 +6,7 @@ import DropdownLayout from '../../../components/layouts/Dropdown'
 import Input from '../../../components/layouts/Input'
 import { ExplorerTwoInputLayout, LabelLayout } from '../ExplorerLayout'
 
-export const FaqAnswers = () => {
+export const FaqAnswers = ({ explorerState, dispatch, generate }) => {
   return (
     <FormLayout
       subText={'Generate creative questions (FAQs) about your business or website.'}
