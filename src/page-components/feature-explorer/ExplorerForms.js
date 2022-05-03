@@ -35,7 +35,19 @@ import {
   StartupNameGenerator,
   VideoScriptIntro,
   VideoScriptOutlines,
-  VideoScriptSection
+  VideoScriptSection,
+  FollowUpEmail,
+  WelcomeEmail,
+  CancellationEmail,
+  ConfirmationEmail,
+  EmailSubjectLines,
+  WebsiteHeadlines,
+  WebsiteSubheaders,
+  MetaTitlesUrl,
+  MetaDescription,
+  MetaDescriptionsUrl,
+  Faqs,
+  FaqAnswers
 } from './forms'
 import { useExplorerContext } from '../../context/explorer'
 
@@ -266,6 +278,102 @@ const ExplorerForms = ({ slug }) => {
     case 'video-script-section':
       return (
         <VideoScriptSection
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'follow-up-email':
+      return (
+        <FollowUpEmail
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'welcome-email':
+      return (
+        <WelcomeEmail
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'cancellation-email':
+      return (
+        <CancellationEmail
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'confirmation-email':
+      return (
+        <ConfirmationEmail
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'email-subject-lines':
+      return (
+        <EmailSubjectLines
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'website-headlines':
+      return (
+        <WebsiteHeadlines
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'website-subheaders':
+      return (
+        <WebsiteSubheaders
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'meta-titles-url-':
+      return (
+        <MetaTitlesUrl
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'meta-descriptions':
+      return (
+        <MetaDescription
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'meta-descriptions-url-':
+      return (
+        <MetaDescriptionsUrl
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'faqs':
+      return (
+        <Faqs
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'faq-answers':
+      return (
+        <FaqAnswers
           explorerState={explorerState}
           dispatch={dispatch}
           generate={generate}

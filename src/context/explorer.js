@@ -13,11 +13,13 @@ const oss = ['windows', 'macos', 'linux']
 const depths = ['01']
 const creativities = ['regular', 'professional']
 const voiceTones = ['regular', 'intermediate']
+const typesOfPages = ['landing page', 'sign up page']
 
 const initialState = {
   searchEngine: searchEngines[0],
   searchEngineType: searchEnginesTypes[0],
   searchEngineParameters: '',
+  typesOfPage: typesOfPages[0],
   blogArticleTitle: '',
   articleSubHeading: '',
   audience: '',
@@ -30,6 +32,9 @@ const initialState = {
   categoryName: '',
   sectionTitle: '',
   seedWords: '',
+  specialInput1: '',
+  websiteName: '',
+  websiteUrl: '',
   keywords: [],
   location: locations[0],
   language: languages[0],
@@ -42,6 +47,12 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case 'setWebsiteName':
+      return { ...state, websiteName: action.value }
+    case 'setTypesOfPage':
+      return { ...state, typesOfPage: action.value }
+    case 'setWebsiteUrl':
+      return { ...state, websiteUrl: action.value }
     case 'setSearchEngine':
       return { ...state, searchEngine: action.value }
     case 'setSearchEngineType':
@@ -88,6 +99,8 @@ const reducer = (state, action) => {
       return { ...state, seedWords: action.value }
     case 'setSectionTitle':
       return { ...state, sectionTitle: action.value }
+    case 'setSpecialInput1':
+      return { ...state, specialInput1: action.value }
     default:
       return state
   }
@@ -117,6 +130,7 @@ export function ExplorerWrapper({ children }) {
       depths,
       creativities,
       voiceTones,
+      typesOfPages,
     },
     dispatch,
     generate,

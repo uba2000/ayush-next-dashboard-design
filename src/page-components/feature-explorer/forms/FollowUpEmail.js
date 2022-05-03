@@ -6,29 +6,31 @@ import DropdownLayout from '../../../components/layouts/Dropdown'
 import Input from '../../../components/layouts/Input'
 import { ExplorerTwoInputLayout, LabelLayout } from '../ExplorerLayout'
 
-const GoogleAdsDescription = ({ explorerState, dispatch, generate }) => {
+const FollowUpEmail = ({ explorerState, dispatch, generate }) => {
   return (
     <FormLayout
-      subText={'Write a Google Ads description that makes your ad stand out and generates leads.'}
+      subText={'Write an email to engage with your leads in response to an action: free trial, meeting, call,...'}
       generate={generate}
       data={{
         language: explorerState.language,
         creativity: explorerState.creativity,
-        voiceTone: explorerState.voiceTone,
         audience: explorerState.audience,
+        voiceTone: explorerState.voiceTone,
         productName: explorerState.productName,
-        productDescription: explorerState.productDescription
+        textAreaContent: explorerState.textAreaContent,
+        followUpAfter: explorerState.specialInput1
       }}
     >
-      <FormGroup label={<LabelLayout>Language:</LabelLayout>} labelFor={'languages'}>
-        <DropdownLayout
-          options={explorerState.languages}
-          value={explorerState.language}
-          onChange={(value) => dispatch({ value, type: 'setLanguage' })}
-          id={'languages'}
-        />
-      </FormGroup>
+
       <ExplorerTwoInputLayout>
+        <FormGroup label={<LabelLayout>Language:</LabelLayout>} labelFor={'languages'}>
+          <DropdownLayout
+            options={explorerState.languages}
+            value={explorerState.language}
+            onChange={(value) => dispatch({ value, type: 'setLanguage' })}
+            id={'languages'}
+          />
+        </FormGroup>
         <FormGroup label={<LabelLayout>Creativity:</LabelLayout>} labelFor={'creativity'}>
           <DropdownLayout
             options={explorerState.creativities}
@@ -37,6 +39,8 @@ const GoogleAdsDescription = ({ explorerState, dispatch, generate }) => {
             id={'creativity'}
           />
         </FormGroup>
+      </ExplorerTwoInputLayout>
+      <ExplorerTwoInputLayout>
         <FormGroup label={<LabelLayout>Tone of voice:</LabelLayout>} labelFor={'voiceTone'}>
           <DropdownLayout
             options={explorerState.voiceTones}
@@ -45,14 +49,23 @@ const GoogleAdsDescription = ({ explorerState, dispatch, generate }) => {
             id={'voiceTone'}
           />
         </FormGroup>
-      </ExplorerTwoInputLayout>
-      <ExplorerTwoInputLayout>
         <FormGroup label={<LabelLayout>Audience</LabelLayout>} labelFor={'audience'}>
           <Input
             value={explorerState.audience}
             onChange={(e) => dispatch({ value: e.target.value, type: 'setAudience' })}
             id={'audience'}
             placeholder="Freelancers, kids"
+            className="rounded"
+          />
+        </FormGroup>
+      </ExplorerTwoInputLayout>
+      <ExplorerTwoInputLayout>
+        <FormGroup label={<LabelLayout>Following up after:</LabelLayout>} labelFor={'productName'}>
+          <Input
+            value={explorerState.specialInput1}
+            onChange={(e) => dispatch({ value: e.target.value, type: 'setSpecialInput1' })}
+            id={'productName'}
+            placeholder="free t rial, seminar,"
             className="rounded"
           />
         </FormGroup>
@@ -66,11 +79,11 @@ const GoogleAdsDescription = ({ explorerState, dispatch, generate }) => {
           />
         </FormGroup>
       </ExplorerTwoInputLayout>
-      <FormGroup label={<LabelLayout>Product Description:</LabelLayout>} labelFor={'subHeading'} className="mb-4">
+      <FormGroup label={<LabelLayout>What is your video about:</LabelLayout>} labelFor={'subHeading'} className="mb-4">
         <textarea
-          value={explorerState.productDescription}
-          onChange={(e) => dispatch({ value: e.target.value, type: 'setProductDescription' })}
-          id={'keywords'}
+          value={explorerState.textAreaContent}
+          onChange={(e) => dispatch({ value: e.target.value, type: 'setTextAreaContent' })}
+          id={'subHeading'}
           placeholder='Briefly describe what your website or bussiness is about'
           className='rounded h-[139px] w-full flex-shrink  border  border-solid dark:focus:text-white focus:text-black dark:border-darkMode-border border-ash pl-3 pr-4 py-[10px] bg-white dark:bg-black '
         ></textarea>
@@ -79,4 +92,4 @@ const GoogleAdsDescription = ({ explorerState, dispatch, generate }) => {
   )
 }
 
-export { GoogleAdsDescription }
+export { FollowUpEmail }

@@ -10,12 +10,12 @@ const ExplorerLayout = () => {
   const { query } = useRouter()
   const explorerState = useExplorerContext()
 
-  const [featureDetails, setFeatureDetails] = useState(null)
+  const [featureDetails, setFeatureDetails] = useState(explorerState.getFeatureBySlug(query.slug))
 
   const [isGenerated, setIsGenerated] = useState(false)
 
   useEffect(() => {
-    setFeatureDetails(explorerState.getFeatureBySlug(query.slug))
+
   }, [])
 
   return (
