@@ -47,7 +47,13 @@ import {
   MetaDescription,
   MetaDescriptionsUrl,
   Faqs,
-  FaqAnswers
+  FaqAnswers,
+  PainAgitateSolution,
+  AidaFormula,
+  QuestFormula,
+  TestimonialsReviews,
+  CallToAction,
+  AboutUs
 } from './forms'
 import { useExplorerContext } from '../../context/explorer'
 
@@ -374,6 +380,54 @@ const ExplorerForms = ({ slug }) => {
     case 'faq-answers':
       return (
         <FaqAnswers
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'pain-agitate-solution':
+      return (
+        <PainAgitateSolution
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'aida-formula':
+      return (
+        <AidaFormula
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'quest-formula':
+      return (
+        <QuestFormula
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'testimonials-reviews':
+      return (
+        <TestimonialsReviews
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'call-to-action':
+      return (
+        <CallToAction
+          explorerState={explorerState}
+          dispatch={dispatch}
+          generate={generate}
+        />
+      )
+    case 'about-us':
+      return (
+        <AboutUs
           explorerState={explorerState}
           dispatch={dispatch}
           generate={generate}
