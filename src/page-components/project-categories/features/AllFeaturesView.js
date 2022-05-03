@@ -65,11 +65,11 @@ const AllFeaturesView = ({ isGetStarted }) => {
   }
 
   const clickSearchHandler = () => {
-    if (q == '') {
-      searchedFeatures(items)
-    } else {
-      searchedFeatures(searchFor(items))
-    }
+    // if (q == '') {
+    //   searchedFeatures(items)
+    // } else {
+    //   searchedFeatures(searchFor(items))
+    // }
   }
 
   const searchedFeatures = (filteredFeatures) => {
@@ -78,12 +78,12 @@ const AllFeaturesView = ({ isGetStarted }) => {
 
   const searchByFilter = (filterParam) => {
     setFilterParam(filterParam)
-    console.log(filterParam);
-    if (filterParam == 'all') {
-      searchedFeatures(items)
-    } else {
-      searchedFeatures(searchFor(items))
-    }
+    // console.log(filterParam);
+    // if (filterParam == 'all') {
+    //   searchedFeatures(items)
+    // } else {
+    //   searchedFeatures(searchFor(items))
+    // }
   }
 
 
@@ -285,7 +285,7 @@ const AllFeaturesView = ({ isGetStarted }) => {
         </div>}
 
         <div className="pt-[35px]">
-          <FeatureSection features={stateFeature} />
+          <FeatureSection features={searchFor(stateFeature)} />
         </div>
       </div>
     </>
