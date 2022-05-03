@@ -53,7 +53,8 @@ import {
   QuestFormula,
   TestimonialsReviews,
   CallToAction,
-  AboutUs
+  AboutUs,
+  BackLinks
 } from './forms'
 import { useExplorerContext } from '../../context/explorer'
 
@@ -433,6 +434,14 @@ const ExplorerForms = ({ slug }) => {
           generate={generate}
         />
       )
+    // case 'backlinks':
+    //   return (
+    //     <BackLinks
+    //       explorerState={explorerState}
+    //       dispatch={dispatch}
+    //       generate={generate}
+    //     />
+    //   )
 
     default:
       return (
