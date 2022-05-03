@@ -97,16 +97,15 @@ const AllFeaturesView = ({ isGetStarted }) => {
   const [moreFilters, setMoreFilters] = useState([])
 
   const selectFilter = (slug, index) => {
+    searchByFilter(f)
     let a = stateFilter
     let b = [];
     for (let i = 0; i < stateFilter.length; i++) {
       a[i].selected = false;
       b.push(a[i]);
     }
+    b[index].selected = true
     setStateFilter(b)
-    a[index].selected = true
-    setStateFilter(a)
-    searchByFilter(f)
   }
 
   const onFilter = (value, index) => {
