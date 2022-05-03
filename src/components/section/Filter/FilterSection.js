@@ -5,7 +5,7 @@ import Filters from '../../../_mock/filters'
 import FilterBox from './FilterBox';
 import { ChevDown } from '../../../ui/icons/chev-down';
 
-const FilterSection = ({ filterBy = ['type'], filterThrough = [], setItemsAfterFilter }) => {
+const FilterSection = ({ filterBy = ['type'], filterThrough = [], searchByFilter }) => {
 
   const [stateFilter, setStateFilter] = useState(Filters)
 
@@ -25,6 +25,18 @@ const FilterSection = ({ filterBy = ['type'], filterThrough = [], setItemsAfterF
     setStateFilter(b)
     a[index].selected = true
     setStateFilter(a)
+    searchByFilter(f)
+  }
+
+  const onFilter = (value, index) => {
+    setF(value)
+    selectFilter(value, index)
+  }
+
+  const updateSelectedState = (filter, index) => {
+    // setSelected = true
+    // filter.selected = true
+    onFilter(filter.slug, index)
   }
 
   useEffect(() => {
@@ -36,13 +48,18 @@ const FilterSection = ({ filterBy = ['type'], filterThrough = [], setItemsAfterF
     <>
       <div className='md:flex hidden space-x-1'>
         {topFilters.map((filter, index) => {
-          return <FilterBox
-            filter={filter}
-            key={filter.id}
-            index={index}
-            select={(value, index) => { setF(value); selectFilter(value, index) }}
-          />
+          return (
+            <div
+              onClick={() => updateSelectedState(filter, index)}
+              className={`${filter.selected ? 'bg-primary text-white' : 'border border-solid border-[#414141] dark:bg-[#000000] bg-white dark:text-white text-black'} cursor-pointer py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5`}
+            >
+              <span className='whitespace-nowrap'>
+                {filter.name}
+              </span>
+            </div>
+          )
         })}
+
         <Menu as='div' className='inline-block'>
           <div className='relative'>
             <div>
