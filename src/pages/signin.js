@@ -1,14 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import axios from 'axios'
+// import { signIn, getProviders } fropm 'next-auth/react'
+
 import AuthLayout from '../components/AuthLayout';
 
 function Signin() {
 
-  const [name, setName] = useState('');
+  const [providers, setproviders] = useState(null);
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
 
+  // useEffect(() => {
+  //   const setTheProviders = async () => {
+  //     const setupProviders = await getProviders();
+  //     setproviders(setupProviders);
+  //   };
+  //   setTheProviders();
+  // }, []);
+
+  // console.log();
+
+  const signIn = async (e) => {
+    e.preventDefault();
+
+    const credentials = { username, password }
+
+    try {
+      const user = await axios.post('/api/auth/login', credentials)
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
+
+
+  }
   return (
     <AuthLayout>
       <div className="z-20 w-full max-w-sm">
@@ -28,14 +56,14 @@ function Signin() {
         </div>
 
         {/* FORM */}
-        <form action="" className='w-full'>
+        <form action="" className='w-full' onSubmit={signIn}>
           <div className="">
             <input
               className="font-poppins px-5 py-3 text-white text-base border border-white rounded-md focus:outline-none bg-black focus:border-green-600"
               type="text"
-              placeholder="First Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className="mt-3 relative">
@@ -90,7 +118,7 @@ function Signin() {
             </div>
           </div>
           <div className="mt-3">
-            <button className="w-full bg-gradient-to-r from-green via-green-500 to-yellow text-black font-inter py-3 px-4 font-bold text-base rounded-md">
+            <button type='submit' className="w-full bg-gradient-to-r from-green via-green-500 to-yellow text-black font-inter py-3 px-4 font-bold text-base rounded-md">
               Sign In
             </button>
           </div>

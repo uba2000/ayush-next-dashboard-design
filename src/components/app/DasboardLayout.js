@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react'
+// import { getSession } from 'next-auth/client'
+
 import DashboardFooter from '../layouts/DashboardFooter';
 import DashboardNav from '../layouts/DashboardNav';
 
 function DashboardLayout({ children, customChildren }) {
+
+  // useEffect(() => {
+  //   const securePage = async () => {
+  //     const session = await getSession()
+  //     if (!session) {
+  //       // ...
+  //     } else {
+  //       // ...
+  //     }
+  //   }
+  //   securePage()
+  // }, [])
 
   return (
     <div>
