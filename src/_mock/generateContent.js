@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { sample } from 'lodash';
+import { sample, orderBy } from 'lodash';
 
 
 // ----------------------------------------------------------------------
@@ -29,4 +29,4 @@ const contents = KEYWORDS_NAME.map((keyword) => {
   }
 })
 
-export default contents;
+export default orderBy(contents, ['status'], ['asc']);
