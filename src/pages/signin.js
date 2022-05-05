@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import axios from 'axios'
 // import { signIn, getProviders } fropm 'next-auth/react'
@@ -7,30 +8,31 @@ import AuthLayout from '../components/AuthLayout';
 
 function Signin() {
 
-  const [providers, setproviders] = useState(null);
+  const router = useRouter()
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
 
-  // useEffect(() => {
-  //   const setTheProviders = async () => {
-  //     const setupProviders = await getProviders();
-  //     setproviders(setupProviders);
-  //   };
-  //   setTheProviders();
-  // }, []);
-
-  // console.log();
+  const [loading, setLoading] = useState(false)
 
   const signIn = async (e) => {
     e.preventDefault();
+
+    setLoading(true)
 
     const credentials = { username, password }
 
     try {
       const user = await axios.post('/api/auth/login', credentials)
-      console.log(user);
+      // console.log(user);
+      // let u = await axios.get('/api/user')
+      // console.log(u);
+      if (user.data.success) {
+        setLoading(false)
+
+        router.push('/app/dashboard')
+      }
     } catch (error) {
       console.log(error);
     }
@@ -118,8 +120,8 @@ function Signin() {
             </div>
           </div>
           <div className="mt-3">
-            <button type='submit' className="w-full bg-gradient-to-r from-green via-green-500 to-yellow text-black font-inter py-3 px-4 font-bold text-base rounded-md">
-              Sign In
+            <button type='submit' disabled={loading} className="w-full bg-gradient-to-r from-green via-green-500 to-yellow text-black font-inter py-3 px-4 font-bold text-base rounded-md">
+              {loading ? 'Loading...' : 'Sign In'}
             </button>
           </div>
           <div className="mt-3 text-center">

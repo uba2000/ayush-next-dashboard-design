@@ -28,8 +28,8 @@ export default async function (req, res) {
 
     res.setHeader("Set-Cookie", serialised)
 
-    res.status(200).json({ message: "Successful" })
+    res.status(200).json({ message: "Successful", success: true })
   } catch (error) {
-    throw error
+    res.json({ message: "An error occured!", success: false })
   }
 }

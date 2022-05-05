@@ -53,12 +53,14 @@ function KeywordsPage() {
   }
 
   const saveNewKeywordInput = () => {
-    if (newKeyword.length > 1) {
+    if (checkKeywordValid()) {
       dispatch({ type: 'addKeyword', value: newKeyword })
       setNewKeyword('')
     }
     setIsNewKeyword(false)
   }
+
+  const checkKeywordValid = () => newKeyword.length > 1
 
   const clickCSVImport = () => {
     if (errorDialog) {
@@ -144,7 +146,11 @@ function KeywordsPage() {
                           className="text-sm font-medium py-1 px-2 h-[35px] border-0" />
                       </span>
                       <span onClick={saveNewKeywordInput} className='cursor-pointer flex items-center'>
-                        <Tick className="w-[14px] h-[14px]" />
+                        {checkKeywordValid() ? (
+                          <Tick className="w-[14px] h-[14px]" />
+                        ) : (
+                          <XSolid className="w-[14px] h-[14px]" />
+                        )}
                       </span>
                     </div>
                   </Box>
