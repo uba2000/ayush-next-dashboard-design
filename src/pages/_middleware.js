@@ -10,7 +10,6 @@ export default (req) => {
   const jwt = cookies[process.env.COOKIE_NAME]
 
   const url = req.nextUrl.clone()
-  console.log(url);
 
   if (url.pathname.includes('/signin')) {
     if (jwt) {

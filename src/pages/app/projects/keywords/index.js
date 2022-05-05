@@ -1,41 +1,24 @@
 import React, { useState, useReducer, Fragment, useRef } from 'react'
 import { useRouter } from 'next/router'
+import axios from 'axios'
 
 import DashboardLayout from '../../../../components/app/DasboardLayout'
 import DashboardLanding from '../../../../components/app/DashboardLanding'
-import FormGroup from '../../../../components/FormGroup'
 import Box from '../../../../components/layouts/Box'
-import keywords from '../../../../_mock/keywords'
 import { DialogLayout } from '../../../../components/layouts/Dialog'
 import { Plus, X, XSolid, Tick } from '../../../../ui/icons'
 import Input from '../../../../components/layouts/Input'
-
-const initialKeywords = keywords.keywords
-console.log(keywords.keywords);
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'removeKeyword':
-      let keyword = action.value
-      let newKeywords = state.filter((n) => n.id != keyword.id)
-      return newKeywords
-    case 'addKeyword':
-      let newKeyword = state.map((k) => k)
-      newKeyword.push(keywords.newKeyword({ keyword: action.value }))
-      return newKeyword
-    default:
-      return state
-  }
-}
+import { fQue } from '../../../../utils/formatQuestions'
 
 function KeywordsPage() {
 
   const router = useRouter()
 
-  const [projectKeywords, dispatch] = useReducer(reducer, initialKeywords)
   const [errorDialog, setErrorDialog] = useState(false)
   const [isNewKeyword, setIsNewKeyword] = useState(false)
   const [newKeyword, setNewKeyword] = useState('')
+  const [questions, setQuestions] = useState([])
+  const [loadingQuestions, setLoadingQuestions] = useState(false)
 
   const openErrorDialog = () => {
     setErrorDialog(true)
@@ -52,12 +35,24 @@ function KeywordsPage() {
     setIsNewKeyword(true)
   }
 
-  const saveNewKeywordInput = () => {
+  const saveNewKeywordInput = async () => {
     if (checkKeywordValid()) {
-      dispatch({ type: 'addKeyword', value: newKeyword })
-      setNewKeyword('')
+      setLoadingQuestions(true)
+
+      const { data } = await axios.post('/api/questions', { keyword: newKeyword })
+
+      if (data.success) {
+        setQuestions(fQue(data.quesions))
+        setNewKeyword('')
+        setLoadingQuestions(false)
+      }
     }
     setIsNewKeyword(false)
+  }
+
+  const removeQuestion = (id) => {
+    let newQuestions = questions.filter((n) => n.id != id)
+    setQuestions(newQuestions)
   }
 
   const checkKeywordValid = () => newKeyword.length > 1
@@ -119,20 +114,27 @@ function KeywordsPage() {
         <div className='space-y-4'>
           <Box className={`min-h-[532px] mt-[55px] py-6 md:px-7 px-4 rounded-sm`}>
             <div className="flex flex-wrap">
-              {projectKeywords.map((k) => (
-                <Fragment key={k.id}>
-                  <Box type={'black'} className='p-2 text-left w-fit min-w-fit mb-[11px] mr-2'>
-                    <div className="flex space-x-[6px]">
-                      <span className='font-medium text-sm line-clamp-2'>
-                        {k.keyword}
-                      </span>
-                      <span onClick={() => dispatch({ type: 'removeKeyword', value: { id: k.id } })} className='cursor-pointer flex items-center'>
-                        <XSolid className="w-[14px] h-[14px]" />
-                      </span>
-                    </div>
-                  </Box>
-                </Fragment>
-              ))}
+              {loadingQuestions ? (
+                <>
+                  <span className='flex items-center pr-4 mb-[11px]'>Loading...</span>
+                </>) : (
+                <>
+                  {questions.map((k) => (
+                    <Fragment key={k.id}>
+                      <Box type={'black'} className='p-2 text-left w-fit min-w-fit mb-[11px] mr-2'>
+                        <div className="flex space-x-[6px]">
+                          <span className='font-medium text-sm line-clamp-2'>
+                            {k.question}
+                          </span>
+                          <span onClick={() => removeQuestion(k.id)} className='cursor-pointer flex items-center'>
+                            <XSolid className="w-[14px] h-[14px]" />
+                          </span>
+                        </div>
+                      </Box>
+                    </Fragment>
+                  ))}
+                </>
+              )}
               {isNewKeyword && (
                 <Fragment>
                   <Box type={'black'} className='pr-2 w-fit min-w-fit mb-[11px] mr-2 h-[38px]'>
