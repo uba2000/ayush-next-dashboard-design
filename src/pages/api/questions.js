@@ -2,34 +2,29 @@ import axios from "axios"
 import { verify } from "jsonwebtoken"
 
 export default async function (req, res) {
-  const { keyword } = req.body
+  const { keyword, accessToken } = req.body
 
   // put in a seperate utils file - START
-  const { cookies } = req
+  console.log(accessToken);
+  if (accessToken) {
+    try {
 
-  const jwt = cookies[process.env.COOKIE_NAME]
+      const options = {
+        headers: { 'Authorization': `Bearer ${accessToken}` }
+      };
 
-  const secret = process.env.SECRET
+      const encodedKeyword = encodeURIComponent(keyword)
 
-  const decoded = verify(jwt, secret)
+      const url = `https://scai-rhasi6a2qa-uc.a.run.app/questions?keyword=${encodedKeyword}`
+      // console.log(url);
 
-  try {
+      const { data } = await axios.get(url, options)
 
-    const options = {
-      headers: { 'Authorization': `Bearer ${decoded.access_token}` }
-    };
+      res.status(200).json({ quesions: data.questions, message: "Successful", success: true })
 
-    const encodedKeyword = encodeURIComponent(keyword)
-
-    const url = `https://scai-rhasi6a2qa-uc.a.run.app/questions?keyword=${encodedKeyword}`
-    // console.log(url);
-
-    const { data } = await axios.get(url, options)
-
-    res.status(200).json({ quesions: data.questions, message: "Successful", success: true })
-
-  } catch (error) {
-    console.log(error);
-    res.json({ message: "An error occured!", success: false })
+    } catch (error) {
+      res.json({ message: "An error occured!", success: false })
+    }
   }
+  res.json({ message: "Invalid token", success: false })
 }

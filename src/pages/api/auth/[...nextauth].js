@@ -40,7 +40,7 @@ export default NextAuth({
   },
   callbacks: {
     async jwt({ token, user, account }) {
-      console.log('credentials:', token, user, account);
+
       if (account && user) {
         return {
           ...token,
@@ -53,7 +53,7 @@ export default NextAuth({
     },
 
     async session({ session, token }) {
-      console.log(session, token)
+
       session.user.accessToken = token.accessToken;
       // session.user.refreshToken = token.refreshToken;
       session.user.accessTokenExpires = token.accessTokenExpires;

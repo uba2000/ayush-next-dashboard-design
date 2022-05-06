@@ -1,6 +1,7 @@
 import React, { useState, useReducer, Fragment, useRef } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import { useSession } from 'next-auth/react';
 
 import DashboardLayout from '../../../../components/app/DasboardLayout'
 import DashboardLanding from '../../../../components/app/DashboardLanding'
@@ -11,6 +12,10 @@ import Input from '../../../../components/layouts/Input'
 import { fQue } from '../../../../utils/formatQuestions'
 
 function KeywordsPage() {
+
+  const { data: user } = useSession();
+
+  console.log(user);
 
   const router = useRouter()
 
@@ -39,13 +44,16 @@ function KeywordsPage() {
     if (checkKeywordValid()) {
       setLoadingQuestions(true)
 
-      const { data } = await axios.post('/api/questions', { keyword: newKeyword })
+      const { data } = await axios.post('/api/questions', {
+        keyword: newKeyword,
+        accessToken: user.user.accessToken
+      })
 
       if (data.success) {
         setQuestions(fQue(data.quesions))
         setNewKeyword('')
-        setLoadingQuestions(false)
       }
+      setLoadingQuestions(false)
     }
     setIsNewKeyword(false)
   }
