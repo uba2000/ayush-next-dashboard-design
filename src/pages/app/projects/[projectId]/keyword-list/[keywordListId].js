@@ -231,5 +231,5 @@ const KeywordListView = () => {
     </DashboardLayout>
   )
 }
-
+KeywordListView.auth = true
 export default KeywordListView

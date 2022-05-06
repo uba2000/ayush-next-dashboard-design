@@ -8,7 +8,7 @@ import GenerateListItem from '../../../../../page-components/keyword-generate/ge
 import { DialogLayout } from '../../../../../components/layouts/Dialog'
 import { X, RoundTickActive } from '../../../../../ui/icons'
 
-const index = () => {
+const Index = () => {
 
   const router = useRouter()
 
@@ -147,5 +147,6 @@ const index = () => {
   )
 }
 
+Index.auth = true
 
-export default index
+export default Index

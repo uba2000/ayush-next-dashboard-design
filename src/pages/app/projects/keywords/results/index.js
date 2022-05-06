@@ -30,7 +30,7 @@ const results = () => {
 
   const projectState = useProjectsContext()
 
-  const { keywords, setKeywords } = projectState
+  const { keywords, setKeywords, keywordQuestions, setKeywordQuestions } = projectState
 
   const [canGenerateContent, setCanGenerateContent] = useState(false)
   const [isAllKeywordsChecked, setIsAllKeywordsChecked] = useState(false)
@@ -47,7 +47,7 @@ const results = () => {
   }
 
   const checkToGenerateContent = () => {
-    let isToGenerate = keywords.find((k) => k.checked)
+    let isToGenerate = keywordQuestions.find((k) => k.checked)
     setCanGenerateContent(!!isToGenerate)
   }
 
@@ -58,9 +58,9 @@ const results = () => {
   const checkAllKeywords = () => {
     setIsAllKeywordsChecked(!isAllKeywordsChecked)
     setCanGenerateContent(!isAllKeywordsChecked)
-    let a = keywords;
+    let a = keywordQuestions;
     let b = [];
-    for (let i = 0; i < keywords.length; i++) {
+    for (let i = 0; i < keywordQuestions.length; i++) {
       a[i].checked = !isAllKeywordsChecked;
       b.push(a[i]);
     }
@@ -68,22 +68,26 @@ const results = () => {
   }
 
   const handleKeywordCheck = ({ index, value }) => {
-    let a = keywords
+    let a = keywordQuestions
     a[index].checked = value
     setKeywords(a)
     checkToGenerateContent()
   }
 
   useEffect(() => {
-    setIsAllKeywordsChecked(false)
-    setCanGenerateContent(false)
-    let a = keywords;
-    let b = [];
-    for (let i = 0; i < keywords.length; i++) {
-      a[i].checked = false;
-      b.push(a[i]);
+    if (keywordQuestions.length == 0) {
+      router.push('/app/projects/keywords')
+    } else {
+      setIsAllKeywordsChecked(false)
+      setCanGenerateContent(false)
+      let a = keywordQuestions;
+      let b = [];
+      for (let i = 0; i < keywordQuestions.length; i++) {
+        a[i].checked = false;
+        b.push(a[i]);
+      }
+      setKeywords(b)
     }
-    setKeywords(b)
   }, [])
 
   return (
@@ -343,7 +347,7 @@ const results = () => {
                         </Table.Row>
                       </Table.Head>
                       <Table.Body className="dark:bg-darkMode-bg bg-white text-center">
-                        {keywords.map((k, index) => (
+                        {keywordQuestions.map((k, index) => (
                           <Fragment key={k.id}>
                             <KeywordItem k={k} index={index} handleCheck={handleKeywordCheck} />
                           </Fragment>
@@ -423,5 +427,7 @@ const results = () => {
     </DashboardLayout>
   )
 }
+
+results.auth = true
 
 export default results

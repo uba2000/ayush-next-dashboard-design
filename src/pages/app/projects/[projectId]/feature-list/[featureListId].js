@@ -50,5 +50,5 @@ const FeatureListView = () => {
     </DashboardLayout>
   )
 }
-
+FeatureListView.auth = true
 export default FeatureListView

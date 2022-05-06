@@ -145,4 +145,6 @@ function index() {
     </AccountLayout>
   )
 }
+
+index.auth = true
 export default index

@@ -100,4 +100,5 @@ function Team() {
   )
 }
 
+Team.auth = true
 export default Team

@@ -174,4 +174,5 @@ const LimitSectionHeader = ({ title }) => {
   )
 }
 
+limits.auth = true
 export default limits

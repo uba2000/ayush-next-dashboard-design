@@ -3,7 +3,7 @@ import React from 'react'
 import AllFeaturesView from '../../../../page-components/project-categories/features/AllFeaturesView'
 import DashboardLayout from '../../../../components/app/DasboardLayout'
 
-const index = () => {
+const Index = () => {
   return (
     <DashboardLayout>
       <AllFeaturesView />
@@ -11,4 +11,5 @@ const index = () => {
   )
 }
 
-export default index
+Index.auth = true
+export default Index

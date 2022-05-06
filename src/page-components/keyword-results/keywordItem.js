@@ -22,7 +22,7 @@ const KeywordItem = ({ k, index, handleCheck }) => {
         </Table.Data>
         <Table.Data className='main' main={true}>
           <span>
-            {k.keyword}
+            {k.question}
           </span>
         </Table.Data>
         <Table.Data>

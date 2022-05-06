@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import dynamic from "next/dynamic"
 import { withRouter } from 'next/router'
 import draftToHtml from 'draftjs-to-html';
 
@@ -265,4 +264,5 @@ class EditArticle extends Component {
 //   }
 // }
 
+EditArticle.auth = true
 export default withRouter(EditArticle)

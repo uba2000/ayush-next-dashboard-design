@@ -67,4 +67,5 @@ function billing() {
   )
 }
 
+billing.auth = true
 export default billing

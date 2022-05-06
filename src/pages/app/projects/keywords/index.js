@@ -1,4 +1,4 @@
-import React, { useState, useReducer, Fragment, useRef } from 'react'
+import React, { useState, Fragment, useRef } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useSession } from 'next-auth/react';
@@ -10,13 +10,15 @@ import { DialogLayout } from '../../../../components/layouts/Dialog'
 import { Plus, X, XSolid, Tick } from '../../../../ui/icons'
 import Input from '../../../../components/layouts/Input'
 import { fQue } from '../../../../utils/formatQuestions'
-import { forEach } from 'lodash';
+import { useProjectsContext } from '../../../../context/projects'
+import { aQuestions } from '../../../../utils/analyseQuestions';
 
 function KeywordsPage() {
 
   const { data: user } = useSession();
 
   const router = useRouter()
+  const projectsState = useProjectsContext()
 
   const [errorDialog, setErrorDialog] = useState(false)
   const [isNewKeyword, setIsNewKeyword] = useState(false)
@@ -50,7 +52,11 @@ function KeywordsPage() {
 
       if (data.success) {
         if (questions.length == 0) {
-          setQuestions(fQue(data.quesions))
+          const questions = fQue(data.quesions)
+          projectsState.setKeywordQuestions(
+            aQuestions(questions)
+          )
+          setQuestions(questions)
         }
         setNewKeyword('')
       }
@@ -193,5 +199,7 @@ function KeywordsPage() {
     </DashboardLayout>
   )
 }
+
+KeywordsPage.auth = true
 
 export default KeywordsPage

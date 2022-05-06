@@ -16,7 +16,9 @@ const initialState = {
   projectFeatures: features,
   projectFeatureList: featureList,
   // Articles State
-  projectArticles: articles
+  projectArticles: articles,
+
+  keywordQuestions: []
 }
 
 const reducer = (state, action) => {
@@ -31,6 +33,8 @@ const reducer = (state, action) => {
       return { projectFeatureList: action.value, ...state }
     case 'setProjectArticles':
       return { projectArticles: action.value, ...state }
+    case 'setKeywordQuestions':
+      return { ...state, keywordQuestions: action.value }
     default:
       return state
   }
@@ -71,6 +75,9 @@ export function ProjectsWrapper({ children }) {
 
     articles: projectState.projectArticles,
     setArticles: (value) => setState({ type: 'setProjectArticles', value }),
+
+    keywordQuestions: projectState.keywordQuestions,
+    setKeywordQuestions: (value) => setState({ type: 'setKeywordQuestions', value }),
   }
 
   return (

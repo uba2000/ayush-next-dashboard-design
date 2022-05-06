@@ -19,7 +19,7 @@ const tabs = [
   'Features',
 ]
 
-function index() {
+function Index() {
 
   const state = useProjectsContext()
 
@@ -143,4 +143,5 @@ const TabLayout = ({ selected, children }) => {
   )
 }
 
-export default index
+Index.auth = true
+export default Index

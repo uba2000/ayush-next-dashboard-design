@@ -93,5 +93,6 @@ const PreviewArticleHeadLayout = ({ title, subTitle }) => {
     </div>
   )
 }
+PreviewArticle.auth = true
 
 export default PreviewArticle

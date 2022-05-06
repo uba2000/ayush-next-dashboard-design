@@ -5,7 +5,7 @@ import ExplorerLayout from '../../../../../page-components/feature-explorer/Expl
 import { ExplorerWrapper, useExplorerContext } from '../../../../../context/explorer'
 
 
-const index = () => {
+const Index = () => {
   return (
     <ExplorerWrapper>
       <DashboardLayout>
@@ -81,5 +81,5 @@ export async function getStaticProps() {
     }
   }
 }
-
-export default index
+Index.auth = true
+export default Index
