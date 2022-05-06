@@ -3,6 +3,7 @@
 import React, { useEffect } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { SessionProvider, useSession, signIn } from 'next-auth/react'
 
 import { ProjectsWrapper } from '../context/projects'
 import { ThemeWrapper } from '../context/theme'
@@ -11,42 +12,46 @@ import { ThemeProvider } from 'next-themes'
 
 import '../styles/globals.css'
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter()
-
-  useEffect(() => {
-    router.events.on("routeChangeComplete", async () => {
-      const { data } = await axios.get('/api/user')
-      if (!data.user) {
-        if (router.pathname.includes('/app')) {
-          router.push('/signin')
-        }
-      }
-    })
-  }, [router.events])
-
-  useEffect(async () => {
-    const { data } = await axios.get('/api/user')
-    if (!data.user) {
-      if (router.pathname.includes('/app')) {
-        router.push('/signin')
-      }
-    }
-  }, [])
 
   return (
     // <Provider>
-    <ThemeProvider attribute="class" enableSystem={false} defaultTheme="dark">
-      <AppWrapper>
-        <ThemeWrapper>
-          <ProjectsWrapper>
-            <Component {...pageProps} />
-          </ProjectsWrapper>
-        </ThemeWrapper>
-      </AppWrapper>
-    </ThemeProvider>
+    <SessionProvider session={session}>
+      <ThemeProvider attribute="class" enableSystem={false} defaultTheme="dark">
+        <AppWrapper>
+          <ThemeWrapper>
+            <ProjectsWrapper>
+              {Component.auth ? (
+                <Auth>
+                  <Component {...pageProps} />
+                </Auth>
+              ) : (
+                <Component {...pageProps} />
+              )}
+            </ProjectsWrapper>
+          </ThemeWrapper>
+        </AppWrapper>
+      </ThemeProvider>
+    </SessionProvider>
     // </Provider>
   )
+}
+
+const Auth = ({ children }) => {
+  const { data: session, status } = useSession()
+  const isUser = !!session?.user
+
+  useEffect(() => {
+    if (status === "loading") return
+    if (!isUser) signIn()
+  }, [isUser, status])
+
+  if (isUser) {
+    return children
+  }
+
+  return <></>
 }
 
 export default MyApp

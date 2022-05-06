@@ -214,4 +214,6 @@ function AllProjects() {
   )
 }
 
+AllProjects.auth = true
+
 export default AllProjects

@@ -2,42 +2,40 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import axios from 'axios'
-// import { signIn, getProviders } fropm 'next-auth/react'
+import { signIn, getCsrfToken } from 'next-auth/react';
 
 import AuthLayout from '../components/AuthLayout';
 
-function Signin() {
+function Signin({ csrfToken }) {
 
   const router = useRouter()
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
+  const [error, setError] = useState(null);
 
   const [loading, setLoading] = useState(false)
 
-  const signIn = async (e) => {
+  const onSubmitSignIn = async (e) => {
     e.preventDefault();
 
     setLoading(true)
 
-    const credentials = { username, password }
-
-    try {
-      const user = await axios.post('/api/auth/login', credentials)
-      // console.log(user);
-      // let u = await axios.get('/api/user')
-      // console.log(u);
-      if (user.data.success) {
-        setLoading(false)
-
-        router.push('/app/dashboard')
-      }
-    } catch (error) {
-      console.log(error);
+    const res = await signIn('credentials', {
+      redirect: false,
+      username: username,
+      password: password,
+      callbackUrl: router.query.callbackUrl,
+    });
+    if (res?.error) {
+      setError(res.error);
+    } else {
+      setError(null);
     }
+    setLoading(false)
 
-
+    if (res.url) router.push('/app/dashboard');
   }
   return (
     <AuthLayout>
@@ -58,12 +56,18 @@ function Signin() {
         </div>
 
         {/* FORM */}
-        <form action="" className='w-full' onSubmit={signIn}>
+        <form action="" className='w-full' onSubmit={onSubmitSignIn}>
+          <input
+            name="csrfToken"
+            type="hidden"
+            defaultValue={csrfToken}
+          />
           <div className="">
             <input
               className="font-poppins px-5 py-3 text-white text-base border border-white rounded-md focus:outline-none bg-black focus:border-green-600"
               type="text"
               placeholder="Username"
+              name='username'
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -73,6 +77,7 @@ function Signin() {
               className="font-poppins px-5 py-3 text-white text-base border border-white rounded-md focus:outline-none bg-black focus:border-green-600"
               type={!passwordVisible ? 'password' : 'text'}
               placeholder="Password"
+              name='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -139,6 +144,14 @@ function Signin() {
       </div>
     </AuthLayout>
   );
+}
+
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      csrfToken: await getCsrfToken(context),
+    },
+  };
 }
 
 export default Signin;

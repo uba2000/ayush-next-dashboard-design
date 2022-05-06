@@ -5,7 +5,7 @@ import DashboardFooter from '../layouts/DashboardFooter';
 import DashboardNav from '../layouts/DashboardNav';
 
 function DashboardLayout({ children, customChildren }) {
-  console.log(children.props);
+
   return (
     <div>
       <DashboardNav />

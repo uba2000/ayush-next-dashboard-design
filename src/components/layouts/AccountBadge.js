@@ -3,6 +3,7 @@ import { Transition, Menu } from '@headlessui/react'
 import Link from 'next/link'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 import { useThemeContext } from '../../context/theme'
 import CheckBox from './CheckBox'
@@ -32,13 +33,6 @@ const AccountBadge = () => {
   const confirmThemeMode = () => {
     state.themeMode.setTheme(newTheme)
     closeModal()
-  }
-
-  const signOut = async () => {
-    const { data } = await axios.get('/api/auth/logout')
-    if (data.success) {
-      router.push('/signin')
-    }
   }
 
   return (
