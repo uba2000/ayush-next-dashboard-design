@@ -10,12 +10,11 @@ import { DialogLayout } from '../../../../components/layouts/Dialog'
 import { Plus, X, XSolid, Tick } from '../../../../ui/icons'
 import Input from '../../../../components/layouts/Input'
 import { fQue } from '../../../../utils/formatQuestions'
+import { forEach } from 'lodash';
 
 function KeywordsPage() {
 
   const { data: user } = useSession();
-
-  console.log(user);
 
   const router = useRouter()
 
@@ -50,7 +49,9 @@ function KeywordsPage() {
       })
 
       if (data.success) {
-        setQuestions(fQue(data.quesions))
+        if (questions.length == 0) {
+          setQuestions(fQue(data.quesions))
+        }
         setNewKeyword('')
       }
       setLoadingQuestions(false)
