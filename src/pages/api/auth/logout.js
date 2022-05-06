@@ -16,7 +16,7 @@ export default async function (req, res) {
 
     res.setHeader("Set-Cookie", serialised)
 
-    res.status(200).json({ message: "Successful" })
+    res.status(200).json({ message: "Successful", success: true })
   } else {
     // not logged in...
   }

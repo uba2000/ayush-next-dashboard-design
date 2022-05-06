@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from 'react'
 import { Transition, Menu } from '@headlessui/react'
 import Link from 'next/link'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 
 import { useThemeContext } from '../../context/theme'
 import CheckBox from './CheckBox'
@@ -9,6 +11,8 @@ import { DialogLayout } from './Dialog'
 const AccountBadge = () => {
 
   const state = useThemeContext()
+
+  const router = useRouter()
 
   const [isOpen, setIsOpen] = useState(false)
   const [newTheme, setNewTheme] = useState(state.themeMode.theme)
@@ -28,6 +32,13 @@ const AccountBadge = () => {
   const confirmThemeMode = () => {
     state.themeMode.setTheme(newTheme)
     closeModal()
+  }
+
+  const signOut = async () => {
+    const { data } = await axios.get('/api/auth/logout')
+    if (data.success) {
+      router.push('/signin')
+    }
   }
 
   return (
@@ -91,7 +102,7 @@ const AccountBadge = () => {
                     </div>
                   </Menu.Item>
                   <Menu.Item>
-                    <div className="flex flex-col px-6 pt-5 pb-4 space-y-1 cursor-pointer">
+                    <div onClick={signOut} className="flex flex-col px-6 pt-5 pb-4 space-y-1 cursor-pointer">
                       <span className="text-[13px] dark:text-darkMode-subText tracking-tight font-medium text-ash">
                         Sign Out
                       </span>

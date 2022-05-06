@@ -5,19 +5,7 @@ import DashboardFooter from '../layouts/DashboardFooter';
 import DashboardNav from '../layouts/DashboardNav';
 
 function DashboardLayout({ children, customChildren }) {
-
-  // useEffect(() => {
-  //   const securePage = async () => {
-  //     const session = await getSession()
-  //     if (!session) {
-  //       // ...
-  //     } else {
-  //       // ...
-  //     }
-  //   }
-  //   securePage()
-  // }, [])
-
+  console.log(children.props);
   return (
     <div>
       <DashboardNav />
