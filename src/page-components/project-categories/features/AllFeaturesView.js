@@ -178,7 +178,7 @@ const AllFeaturesView = ({ isGetStarted }) => {
                                 onClick={() => selectFromMore(index, filter)}
                                 className={`py-[10px] px-5 capitalize font-semibold ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'}`}
                               >
-                                <span>
+                                <span className='whitespace-nowrap'>
                                   {filter.name}
                                 </span>
                               </div>

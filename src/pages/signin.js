@@ -22,20 +22,26 @@ function Signin({ csrfToken }) {
 
     setLoading(true)
 
-    const res = await signIn('credentials', {
-      redirect: false,
-      username: username,
-      password: password,
-      callbackUrl: router.query.callbackUrl,
-    });
-    if (res?.error) {
-      setError(res.error);
-    } else {
-      setError(null);
-    }
-    setLoading(false)
+    try {
+      const res = await signIn('credentials', {
+        redirect: false,
+        username: username,
+        password: password,
+        callbackUrl: router.query.callbackUrl,
+      });
+      if (res?.error) {
+        // TODO: Handle sigin error...
+        setError(res.error);
+      } else {
+        setError(null);
+      }
+      setLoading(false)
 
-    if (res.url) router.push('/app/dashboard');
+      if (res.url) router.push(router.query.callbackUrl);
+    } catch (error) {
+      console.log(error);
+    }
+
   }
   return (
     <AuthLayout>
