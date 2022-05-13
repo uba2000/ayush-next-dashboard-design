@@ -108,26 +108,28 @@ const AllFeaturesView = ({ isGetStarted }) => {
   const [moreFilters, setMoreFilters] = useState([])
 
   const selectFilter = (slug, index) => {
-    searchByFilter(f)
+    // searchByFilter(f)
     let a = stateFilter
     let b = [];
     for (let i = 0; i < stateFilter.length; i++) {
-      a[i].selected = false;
+      if (a[i].slug == filterParam) {
+        a[i].selected = true;
+      } else {
+        a[i].selected = false;
+      }
       b.push(a[i]);
     }
-    b[index].selected = true
     setStateFilter(b)
-  }
-
-  const onFilter = (value, index) => {
-    setF(value)
-    selectFilter(value, index)
+    setTopFilters(b.slice(0, 7))
+    setMoreFilters(b)
   }
 
   const updateSelectedState = (filter, index) => {
     // setSelected = true
     // filter.selected = true
-    onFilter(filter.slug, index)
+    setF(filter.slug)
+    setFilterParam(filter.slug)
+    selectFilter(filter.slug, index)
   }
 
   useEffect(() => {
@@ -157,7 +159,7 @@ const AllFeaturesView = ({ isGetStarted }) => {
                 return (
                   <div
                     onClick={() => updateSelectedState(filter, index)}
-                    className={`${filter.selected ? 'bg-primary text-white' : 'border border-solid border-[#414141] dark:bg-[#000000] bg-white dark:text-white text-black'} cursor-pointer py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5`}
+                    className={`${filter.slug == filterParam ? 'bg-primary text-white' : 'border border-solid border-[#414141] dark:bg-[#000000] bg-white dark:text-white text-black'} cursor-pointer py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5`}
                   >
                     <span className='whitespace-nowrap'>
                       {filter.name}
