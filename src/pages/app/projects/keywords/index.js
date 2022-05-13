@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useRef } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import { useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react'
 
 import DashboardLayout from '../../../../components/app/DasboardLayout'
 import DashboardLanding from '../../../../components/app/DashboardLanding'
@@ -45,22 +45,26 @@ function KeywordsPage() {
     if (checkKeywordValid()) {
       setLoadingQuestions(true)
 
-      const { data } = await axios.post('/api/questions', {
-        keyword: newKeyword,
-        accessToken: user.user.accessToken
-      })
+      try {
+        const { data } = await axios.post('/api/questions', {
+          keyword: newKeyword,
+          accessToken: user.user.accessToken
+        })
 
-      if (data.success) {
-        if (questions.length == 0) {
-          const questions = fQue(data.quesions)
-          projectsState.setKeywordQuestions(
-            aQuestions(questions)
-          )
-          setQuestions(questions)
+        if (data.success) {
+          if (questions.length == 0) {
+            const questions = fQue(data.quesions)
+            projectsState.setKeywordQuestions(
+              aQuestions(questions)
+            )
+            setQuestions(questions)
+          }
+          setNewKeyword('')
         }
-        setNewKeyword('')
+        setLoadingQuestions(false)
+      } catch (error) {
+        console.log(error);
       }
-      setLoadingQuestions(false)
     }
     setIsNewKeyword(false)
   }
