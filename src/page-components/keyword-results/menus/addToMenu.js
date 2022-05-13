@@ -36,6 +36,8 @@ const AddToMenu = ({ }) => {
   const [showPredict, setPredictTitle] = useState(false)
   // const [keywords, setKeywords] = useState(projectState.keywords)
   const [showPredictIndustry, setShowPredictIndustry] = useState(false)
+  const [keywordList1, setKeywordList1] = useState(false)
+  const [keywordList2, setKeywordList2] = useState(false)
 
   const [newKeywordList, dispatch] = useReducer(reducer, initialKeywordListDetails)
 
@@ -187,19 +189,25 @@ const AddToMenu = ({ }) => {
           </div>
           <div className='border-b border-solid dark:border-darkMode-border border-ash'>
             <ul>
-              <li className='p-2 flex items-center cursor-pointer space-x-2'>
-                <span>
-                  <CheckBox checked={false} />
+              <li
+                onClick={() => setKeywordList1(!keywordList1)}
+                className='p-2 flex items-center cursor-pointer space-x-2'
+              >
+                <span className='h-6'>
+                  <CheckBox checked={keywordList1} />
                 </span>
-                <span className='text-sm'>
+                <span className='text-sm select-none'>
                   Keyword List
                 </span>
               </li>
-              <li className='p-2 flex items-center cursor-pointer space-x-2'>
-                <span>
-                  <CheckBox checked={false} />
+              <li
+                onClick={() => setKeywordList2(!keywordList2)}
+                className='p-2 flex items-center cursor-pointer space-x-2'
+              >
+                <span className='h-6'>
+                  <CheckBox checked={keywordList2} />
                 </span>
-                <span className='text-sm'>
+                <span className='text-sm select-none'>
                   Keyword List
                 </span>
               </li>
