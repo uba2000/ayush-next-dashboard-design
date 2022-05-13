@@ -63,21 +63,18 @@ class EditArticle extends Component {
   }
 
   render() {
-    // const ArticleEditor = dynamic(
-    //   () => {
-    //     return import('../../../../../../page-components/project-categories/articles/ArticleEditor')
-    //   },
-    //   { ssr: false }
-    // )
 
     let { titleChange, tagsChange, showEditor, stateArticleContent } = this.state
     const { layout } = this.context
     const { router } = this.props
 
-    if (layout.toEditArticle) {
-      titleChange = true
-      tagsChange = true
-      showEditor = true
+    if (layout.toEditArticle && (!titleChange || !tagsChange || !showEditor)) {
+      this.setState({
+        titleChange: true,
+        tagsChange: true,
+        showEditor: true,
+      });
+      // layout.setToEditArticle(false)
     }
 
     const body = draftToHtml(JSON.parse(stateArticleContent))
@@ -88,7 +85,7 @@ class EditArticle extends Component {
           <div className="mt-16">
             <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-4 mb-6">
               <div className="flex flex-col">
-                {!titleChange || !layout.toEditArticle ? (
+                {!titleChange ? (
                   <>
                     <div className="flex mb-2">
                       <div className="mr-2">
@@ -141,7 +138,7 @@ class EditArticle extends Component {
                   </>
                 )}
                 {
-                  !tagsChange || !layout.toEditArticle ? (
+                  !tagsChange ? (
                     <>
                       <div className="flex">
                         <div className="mr-2">

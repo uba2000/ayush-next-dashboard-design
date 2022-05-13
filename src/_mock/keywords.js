@@ -21,7 +21,7 @@ const KEYWORDS_NAME = [
 const keywords = KEYWORDS_NAME.map((keyword) => {
   return {
     id: faker.datatype.uuid(),
-    keyword,
+    question: keyword,
     cpc: faker.datatype.number({ min: 4, max: 99, precision: 0.01 }),
     volume: faker.datatype.number({ min: 100, max: 2000, precision: 1 }),
     traffic: faker.datatype.number({ min: 1000, max: 200000, precision: 1 }),

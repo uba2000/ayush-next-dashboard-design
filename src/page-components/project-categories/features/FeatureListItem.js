@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import { Menu, Transition, Dialog } from '@headlessui/react'
 import { useRouter } from 'next/router'
 import { Table } from '../../../components/layouts/Table'
+import { Dots } from '../../../ui/icons'
 
 function FeatureListItem(props) {
   let { id, feature, user, date } = props.item
@@ -12,7 +13,7 @@ function FeatureListItem(props) {
 
   const doubleClickHandler = (e) => {
     if (e.detail == 2) {
-      router.push(`/app/projects/${query.projectId}/articles/edit/123`)
+      viewList()
     }
   }
 
@@ -48,23 +49,9 @@ function FeatureListItem(props) {
         <div className='relative'>
           <div>
             <Menu.Button className='inline-flex mx-auto justify-center'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                className='icon icon-tabler icon-tabler-dots'
-                width='20'
-                height='20'
-                viewBox='0 0 24 24'
-                strokeWidth='1.5'
-                stroke='#2c3e50'
-                fill='none'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              >
-                <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                <circle cx='5' cy='12' r='1' />
-                <circle cx='12' cy='12' r='1' />
-                <circle cx='19' cy='12' r='1' />
-              </svg>
+              <span>
+                <Dots />
+              </span>
             </Menu.Button>
           </div>
 

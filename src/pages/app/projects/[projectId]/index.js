@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React, { useState, useReducer, Fragment } from 'react'
+import React, { useState, useReducer, Fragment, useEffect } from 'react'
 import { Tab } from '@headlessui/react'
 import { useRouter } from 'next/router'
 
@@ -14,9 +14,9 @@ import NewKeywordListButton from '../../../../page-components/keyword-generate/N
 import FeaturesList from '../../../../page-components/project-categories/features/FeatureList'
 
 const tabs = [
-  'Articles',
-  'Keywords',
-  'Features',
+  { tab: 'Articles', q: 'a' },
+  { tab: 'Keywords', q: 'k' },
+  { tab: 'Features', q: 'f' },
 ]
 
 function Index() {
@@ -36,11 +36,35 @@ function Index() {
 
   const updateTabIndex = (index) => {
     setTabIndex(index)
+    router.push({
+      pathname: `/app/projects/${query.projectId}`,
+      query: { tab: tabs[index].q }
+    })
   }
+
+  const checkWhichTab = () => {
+    if (query.tab) {
+      let queryTabIndex = tabs.findIndex((t) => t.q == query.tab)
+      if (queryTabIndex != -1) {
+        setTabIndex(queryTabIndex)
+      } else {
+        setTabIndex(0)
+      }
+    } else {
+      router.push({
+        pathname: `/app/projects/${query.projectId}`,
+        query: { tab: tabs[0].q }
+      })
+    }
+  }
+
+  useEffect(() => {
+    checkWhichTab()
+  }, [])
 
   return (
     <DashboardLayout>
-      <ArticleLayout crumbs={[{ link: '', txt: tabs[tabIndex] }]}>
+      <ArticleLayout crumbs={[{ link: '', txt: tabs[tabIndex].tab }]}>
         <div className='mt-8'>
           <div className="flex justify-end mb-8">
             {tabIndex == 0 ? (

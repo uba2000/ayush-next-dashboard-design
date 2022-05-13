@@ -7,6 +7,7 @@ import CheckBox from '../../../components/layouts/CheckBox'
 import { Table } from '../../../components/layouts/Table'
 import { DialogLayout } from '../../../components/layouts/Dialog'
 import { useAppContext } from '../../../context/state'
+import { Dots } from '../../../ui/icons'
 
 function ArticleListItem(props) {
   let { id, title, tags, date, checked } = props.item
@@ -30,7 +31,7 @@ function ArticleListItem(props) {
 
   const doubleClickHandler = (e) => {
     if (e.detail == 2) {
-      router.push(articleEditLink)
+      goToArticle('view')
     }
   }
 
@@ -106,23 +107,9 @@ function ArticleListItem(props) {
         <div className='relative'>
           <div>
             <Menu.Button className='inline-flex mx-auto justify-center'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                className='icon icon-tabler icon-tabler-dots'
-                width='20'
-                height='20'
-                viewBox='0 0 24 24'
-                strokeWidth='1.5'
-                stroke='#2c3e50'
-                fill='none'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              >
-                <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                <circle cx='5' cy='12' r='1' />
-                <circle cx='12' cy='12' r='1' />
-                <circle cx='19' cy='12' r='1' />
-              </svg>
+              <span>
+                <Dots />
+              </span>
             </Menu.Button>
           </div>
 
