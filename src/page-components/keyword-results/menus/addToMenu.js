@@ -178,7 +178,7 @@ const AddToMenu = ({ }) => {
       >
         <div className='divide-y-2 dark:divide-darkMode-border divide-ash' style={{ width: '197px' }}>
           <div>
-            <div className="flex items-center border-b border-solid dark:border-darkMode-border border-ash border-l-0 border-t-0 border-r-0 dark:bg-darkMode-bg h-[43px] bg-white max-w-[293px]">
+            <div className="flex items-center border-b-0 border-solid dark:border-darkMode-border border-ash border-l-0 border-t-0 border-r-0 dark:bg-darkMode-bg h-[43px] bg-white max-w-[293px]">
               <input type="text" style={{ paddingLeft: '12px' }} className="flex-grow flex-shrink border-0 py-3 text-xs rounded-none dark:bg-darkMode-bg h-[40px] bg-white" placeholder='Search...' />
               <div className="py-3 pr-4 px-[15.5px] dark:bg-darkMode-bg h-[40px] bg-white cursor-pointer">
                 <SearchIcon
@@ -187,7 +187,7 @@ const AddToMenu = ({ }) => {
               </div>
             </div>
           </div>
-          <div className='border-b border-solid dark:border-darkMode-border border-ash'>
+          <div className='border-b border-t-0 border-solid dark:border-darkMode-border border-ash'>
             <ul>
               <li
                 onClick={() => setKeywordList1(!keywordList1)}
