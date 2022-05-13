@@ -75,40 +75,16 @@ const AllFeaturesView = ({ isGetStarted }) => {
     });
   }
 
-  const clickSearchHandler = () => {
-    // if (q == '') {
-    //   searchedFeatures(items)
-    // } else {
-    //   searchedFeatures(searchFor(items))
-    // }
-  }
-
-  const searchedFeatures = (filteredFeatures) => {
-    setStateFeature(filteredFeatures)
-  }
-
-  const searchByFilter = (filterParam) => {
-    setFilterParam(filterParam)
-    // console.log(filterParam);
-    // if (filterParam == 'all') {
-    //   searchedFeatures(items)
-    // } else {
-    //   searchedFeatures(searchFor(items))
-    // }
-  }
-
-
   // Beginning of Filter
   const [stateFilter, setStateFilter] = useState(filters)
 
   // Filter query
   const [f, setF] = useState('all')
 
-  const [topFilters, setTopFilters] = useState([])
-  const [moreFilters, setMoreFilters] = useState([])
+  const [topFilters, setTopFilters] = useState(stateFilter.slice(0, 7))
+  const [moreFilters, setMoreFilters] = useState(stateFilter.slice(7))
 
-  const selectFilter = (slug, index) => {
-    // searchByFilter(f)
+  const selectFilter = () => {
     let a = stateFilter
     let b = [];
     for (let i = 0; i < stateFilter.length; i++) {
@@ -121,21 +97,20 @@ const AllFeaturesView = ({ isGetStarted }) => {
     }
     setStateFilter(b)
     setTopFilters(b.slice(0, 7))
-    setMoreFilters(b)
+    setMoreFilters(b.slice(7))
   }
 
   const updateSelectedState = (filter, index) => {
-    // setSelected = true
-    // filter.selected = true
     setF(filter.slug)
     setFilterParam(filter.slug)
-    selectFilter(filter.slug, index)
+    selectFilter()
   }
 
-  useEffect(() => {
-    setTopFilters(stateFilter.slice(0, 7))
-    setMoreFilters(stateFilter)
-  }, [f])
+  const selectFromMore = (indexOfMore, filter) => {
+    stateFilter.splice(indexOfMore + 7, 1)
+    stateFilter.splice(6, 0, moreFilters[indexOfMore])
+    updateSelectedState(filter, indexOfMore)
+  }
 
   return (
     <>
@@ -157,14 +132,16 @@ const AllFeaturesView = ({ isGetStarted }) => {
             <div className='md:flex hidden space-x-1'>
               {topFilters.map((filter, index) => {
                 return (
-                  <div
-                    onClick={() => updateSelectedState(filter, index)}
-                    className={`${filter.slug == filterParam ? 'bg-primary text-white' : 'border border-solid border-[#414141] dark:bg-[#000000] bg-white dark:text-white text-black'} cursor-pointer py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5`}
-                  >
-                    <span className='whitespace-nowrap'>
-                      {filter.name}
-                    </span>
-                  </div>
+                  <Fragment key={filter.id}>
+                    <div
+                      onClick={() => updateSelectedState(filter, index)}
+                      className={`${filter.slug == filterParam ? 'bg-primary text-white' : 'border border-solid border-[#414141] dark:bg-[#000000] bg-white dark:text-white text-black'} cursor-pointer py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5`}
+                    >
+                      <span className='whitespace-nowrap'>
+                        {filter.name}
+                      </span>
+                    </div>
+                  </Fragment>
                 )
               })}
 
@@ -193,11 +170,14 @@ const AllFeaturesView = ({ isGetStarted }) => {
                     leaveTo='transform opacity-0 scale-95'
                   >
                     <Menu.Items className='z-30 origin-top-left absolute left-0 mt-2 w-fit shadow-lg dark:bg-[#000000] dark:text-white text-black bg-white ring-1 ring-[#000000] ring-opacity-5 focus:outline-none'>
-                      {moreFilters.slice(7).map((filter) => (
+                      {moreFilters.map((filter, index) => (
                         <Fragment key={filter.id}>
                           <Menu.Item>
                             {({ active }) => (
-                              <div className={`py-[10px] px-5 capitalize font-semibold ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'}`}>
+                              <div
+                                onClick={() => selectFromMore(index, filter)}
+                                className={`py-[10px] px-5 capitalize font-semibold ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'}`}
+                              >
                                 <span>
                                   {filter.name}
                                 </span>
@@ -217,7 +197,7 @@ const AllFeaturesView = ({ isGetStarted }) => {
                   <div>
                     <Menu.Button className='flex items-center space-x-[5px] bg-white dark:text-white text-black dark:bg-[#000000] py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5 border border-solid border-[#414141]'>
                       <span>
-                        Filter
+                        Filters
                       </span>
                       <span>
                         <ChevDown
@@ -266,7 +246,6 @@ const AllFeaturesView = ({ isGetStarted }) => {
                 placeholder='Search...'
               />
               <div
-                onClick={clickSearchHandler}
                 className="py-3 pr-4 px-[15.5px] dark:bg-darkMode-bg h-[40px] bg-white cursor-pointer"
               >
                 <SearchIcon
