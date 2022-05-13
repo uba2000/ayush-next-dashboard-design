@@ -71,6 +71,9 @@ function KeywordsPage() {
 
   const removeQuestion = (id) => {
     let newQuestions = questions.filter((n) => n.id != id)
+    projectsState.setKeywordQuestions(
+      aQuestions(newQuestions)
+    )
     setQuestions(newQuestions)
   }
 
