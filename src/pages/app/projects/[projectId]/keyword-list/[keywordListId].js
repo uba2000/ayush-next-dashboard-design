@@ -81,7 +81,7 @@ const KeywordListView = () => {
     <DashboardLayout>
       {/* Generate Content */}
       <GenerateContentDialog generateContentDialog={generateContentDialog} setGenerateContentDialog={() => setGenerateContentDialog(false)} />
-      <ArticleLayout crumbs={[{ link: `/app/projects/${query.projectId}`, txt: 'Keywords' }, { link: '', txt: '<Keyword List Name>' }]}>
+      <ArticleLayout crumbs={[{ link: `/app/projects/${query.projectId}`, txt: 'Keywords' }, { link: '', txt: 'Keyword List Title Here' }]}>
         <div className='mt-8'>
           <div className="flex justify-end mb-8 -mt-[69px]">
             <NewKeywordListButton />
