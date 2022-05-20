@@ -76,7 +76,6 @@ function Index() {
   const [filterParam, setFilterParam] = useState("all");
 
   const searchFor = (itemsSearchFor) => {
-    console.log(itemsSearchFor);
     return itemsSearchFor.filter((item) => {
       if (item.type == filterParam) {
         return searchParam.some((newItem) => {
