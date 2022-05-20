@@ -23,7 +23,7 @@ const FeatureListView = () => {
 
   return (
     <DashboardLayout>
-      <ArticleLayout crumbs={[{ link: `/app/projects/${query.projectId}`, txt: 'Features' }, { link: '', txt: '<Feature List Name>' }]}>
+      <ArticleLayout crumbs={[{ link: `/app/projects/${query.projectId}`, txt: 'Features' }, { link: '', txt: thisFeatureList.feature }]}>
         <div className="space-y-5">
           <div className="flex justify-between items-center">
             <div>
