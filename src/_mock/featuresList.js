@@ -1,4 +1,6 @@
 import { faker } from '@faker-js/faker';
+import filters from './filters';
+import { sample } from 'lodash';
 
 // ----------------------------------------------------------------------
 
@@ -34,16 +36,15 @@ const featureList = FEATURESLIST_NAME.map((feature) => {
         featureListContent,
         date: '22/03/2022, 5:51 AM',
         user: faker.name.findName(),
-        ...feature
       },
       {
         id: faker.datatype.uuid(),
         featureListContent,
         date: '22/03/2022, 5:51 AM',
         user: faker.name.findName(),
-        ...feature
       },
     ],
+    type: sample(filters.map((f) => f.slug)),
     date: '2 days ago',
   }
 })

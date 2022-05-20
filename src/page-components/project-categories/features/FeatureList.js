@@ -7,7 +7,6 @@ import FeatureListItem from './FeatureListItem'
 function FeaturesList(props) {
   const { features, perpage } = props
 
-  const [featuresList, setFeaturesList] = useState(features)
   const [page, setPage] = useState(1)
 
   return (
@@ -43,12 +42,12 @@ function FeaturesList(props) {
           </Table.Head>
           <tbody>
             {
-              featuresList.length <= 10 ? featuresList.map((item) => {
+              features.length <= 10 ? features.map((item) => {
                 return <FeatureListItem
                   item={item}
                   key={item.id}
                 />
-              }) : featuresList.slice((page - 1) * 10, page * 10).map((item) => {
+              }) : features.slice((page - 1) * 10, page * 10).map((item) => {
                 return <FeatureListItem
                   item={item}
                   key={item}

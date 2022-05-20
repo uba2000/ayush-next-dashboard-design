@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { useState, useReducer, Fragment, useEffect } from 'react'
-import { Tab } from '@headlessui/react'
+import { Menu, Tab, Transition } from '@headlessui/react'
 import { useRouter } from 'next/router'
 
 import { useProjectsContext } from '../../../../context/projects'
@@ -12,6 +12,8 @@ import FilterSection from '../../../../components/section/Filter/FilterSection'
 import KeywordList from '../../../../page-components/project-categories/keywords/KeywordList'
 import NewKeywordListButton from '../../../../page-components/keyword-generate/NewKeywordListButton'
 import FeaturesList from '../../../../page-components/project-categories/features/FeatureList'
+import { ChevDown, SearchIcon } from '../../../../ui/icons'
+import filters from '../../../../_mock/filters'
 
 const tabs = [
   { tab: 'Articles', q: 'a' },
@@ -61,6 +63,79 @@ function Index() {
   useEffect(() => {
     checkWhichTab()
   }, [])
+
+  // Filter / Search Functionality
+  const [stateFeature] = useState(projectFeatureList)
+
+  // Beginning Search / Filter Functionality
+
+  // Search query
+  const [q, setQ] = useState('')
+
+  const [searchParam] = useState(['feature'])
+  const [filterParam, setFilterParam] = useState("all");
+
+  const searchFor = (itemsSearchFor) => {
+    console.log(itemsSearchFor);
+    return itemsSearchFor.filter((item) => {
+      if (item.type == filterParam) {
+        return searchParam.some((newItem) => {
+          return (
+            item[newItem]
+              .toString()
+              .toLowerCase()
+              .indexOf(q.toLowerCase()) > -1
+          );
+        });
+      } else if (filterParam == "all") {
+        return searchParam.some((newItem) => {
+          return (
+            item[newItem]
+              .toString()
+              .toLowerCase()
+              .indexOf(q.toLowerCase()) > -1
+          );
+        });
+      }
+    });
+  }
+
+  // Beginning of Filter
+  const [stateFilter, setStateFilter] = useState(filters)
+
+  // Filter query
+  const [f, setF] = useState('all')
+
+  const [topFilters, setTopFilters] = useState(stateFilter.slice(0, 7))
+  const [moreFilters, setMoreFilters] = useState(stateFilter.slice(7))
+
+  const selectFilter = () => {
+    let a = stateFilter
+    let b = [];
+    for (let i = 0; i < stateFilter.length; i++) {
+      if (a[i].slug == filterParam) {
+        a[i].selected = true;
+      } else {
+        a[i].selected = false;
+      }
+      b.push(a[i]);
+    }
+    setStateFilter(b)
+    setTopFilters(b.slice(0, 7))
+    setMoreFilters(b.slice(7))
+  }
+
+  const updateSelectedState = (filter, index) => {
+    setF(filter.slug)
+    setFilterParam(filter.slug)
+    selectFilter()
+  }
+
+  const selectFromMore = (indexOfMore, filter) => {
+    stateFilter.splice(indexOfMore + 7, 1)
+    stateFilter.splice(6, 0, moreFilters[indexOfMore])
+    updateSelectedState(filter, indexOfMore)
+  }
 
   return (
     <DashboardLayout>
@@ -118,11 +193,133 @@ function Index() {
               </Tab.List>
               {tabIndex == 2 && (
                 <div className="flex w-full">
-                  <div className="flex-grow">
-                    <FilterSection />
-                  </div>
-                  <div className="">
-                    <SearchInput />
+                  <div className="flex md:flex-row flex-col w-full md:space-x-10 space-x-0 space-y-5 md:space-y-0">
+                    <div className="flex-grow">
+                      <div className='md:flex hidden space-x-1'>
+                        {topFilters.map((filter, index) => {
+                          return (
+                            <Fragment key={filter.id}>
+                              <div
+                                onClick={() => updateSelectedState(filter, index)}
+                                className={`${filter.slug == filterParam ? 'bg-primary text-white' : 'border border-solid border-[#414141] dark:bg-[#000000] bg-white dark:text-white text-black'} cursor-pointer py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5`}
+                              >
+                                <span className='whitespace-nowrap'>
+                                  {filter.name}
+                                </span>
+                              </div>
+                            </Fragment>
+                          )
+                        })}
+
+                        <Menu as='div' className='inline-block'>
+                          <div className='relative'>
+                            <div>
+                              <Menu.Button className='flex items-center space-x-[5px] bg-white dark:text-white text-black dark:bg-[#000000] py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5 border border-solid border-[#414141]'>
+                                <span>
+                                  More
+                                </span>
+                                <span>
+                                  <ChevDown
+                                    className="h-2 w-2 dark:text-white text-black"
+                                  />
+                                </span>
+                              </Menu.Button>
+                            </div>
+
+                            <Transition
+                              as={Fragment}
+                              enter='transition ease-out duration-100'
+                              enterFrom='transform opacity-0 scale-95'
+                              enterTo='transform opacity-100 scale-100'
+                              leave='transition ease-in duration-75'
+                              leaveFrom='transform opacity-100 scale-100'
+                              leaveTo='transform opacity-0 scale-95'
+                            >
+                              <Menu.Items className='z-30 origin-top-left absolute left-0 mt-2 w-fit shadow-lg dark:bg-[#000000] dark:text-white text-black bg-white ring-1 ring-[#000000] ring-opacity-5 focus:outline-none'>
+                                {moreFilters.map((filter, index) => (
+                                  <Fragment key={filter.id}>
+                                    <Menu.Item>
+                                      {({ active }) => (
+                                        <div
+                                          onClick={() => selectFromMore(index, filter)}
+                                          className={`py-[10px] px-5 capitalize font-semibold ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'}`}
+                                        >
+                                          <span className='whitespace-nowrap'>
+                                            {filter.name}
+                                          </span>
+                                        </div>
+                                      )}
+                                    </Menu.Item>
+                                  </Fragment>
+                                ))}
+                              </Menu.Items>
+                            </Transition>
+                          </div>
+                        </Menu>
+                      </div>
+                      <div className="md:hidden flex">
+                        <Menu as='div' className='inline-block'>
+                          <div className='relative'>
+                            <div>
+                              <Menu.Button className='flex items-center space-x-[5px] bg-white dark:text-white text-black dark:bg-[#000000] py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5 border border-solid border-[#414141]'>
+                                <span>
+                                  Filters
+                                </span>
+                                <span>
+                                  <ChevDown
+                                    className="h-2 w-2 dark:text-white text-black"
+                                  />
+                                </span>
+                              </Menu.Button>
+                            </div>
+
+                            <Transition
+                              as={Fragment}
+                              enter='transition ease-out duration-100'
+                              enterFrom='transform opacity-0 scale-95'
+                              enterTo='transform opacity-100 scale-100'
+                              leave='transition ease-in duration-75'
+                              leaveFrom='transform opacity-100 scale-100'
+                              leaveTo='transform opacity-0 scale-95'
+                            >
+                              <Menu.Items className='z-30 origin-top-left absolute left-0 mt-2 w-fit shadow-lg dark:bg-[#000000] dark:text-white text-black bg-white ring-1 ring-[#000000] ring-opacity-5 focus:outline-none'>
+                                {stateFilter.map((filter) => (
+                                  <Fragment key={filter.id}>
+                                    <Menu.Item>
+                                      {({ active }) => (
+                                        <div className={`py-[10px] px-5 capitalize font-semibold ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'}`}>
+                                          <span>
+                                            {filter.name}
+                                          </span>
+                                        </div>
+                                      )}
+                                    </Menu.Item>
+                                  </Fragment>
+                                ))}
+                              </Menu.Items>
+                            </Transition>
+                          </div>
+                        </Menu>
+                      </div>
+                    </div>
+                    <div className="">
+                      <div className="min-w-[190px] flex items-center border border-solid border-darkMode-border dark:bg-darkMode-bg h-[43px] bg-white max-w-[293px]">
+                        <input
+                          type="text"
+                          value={q}
+                          onChange={(e) => setQ(e.target.value)}
+                          className="flex-grow flex-shrink border-none pl-6 py-3 rounded-none dark:bg-darkMode-bg h-[40px] bg-white"
+                          placeholder='Search...'
+                        />
+                        <div
+                          className="py-3 pr-4 px-[15.5px] dark:bg-darkMode-bg h-[40px] bg-white cursor-pointer"
+                        >
+                          <SearchIcon
+                            className="h-5 w-5 dark:text-white text-black"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
@@ -140,7 +337,7 @@ function Index() {
               </Tab.Panel>
               <Tab.Panel>
                 <div>
-                  <FeaturesList features={projectFeatureList} />
+                  <FeaturesList features={searchFor(stateFeature)} />
                 </div>
               </Tab.Panel>
             </Tab.Panels>
