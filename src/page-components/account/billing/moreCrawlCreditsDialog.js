@@ -11,13 +11,13 @@ const BetweenStyle = tw.div`flex justify-between`
 const MoreCrawlCreditsDialog = ({ isOpen, closeModal }) => {
   const [noOfAddOns, setNoOfAddOns] = useState(500000)
   const [plan, setPlan] = useState(500000)
-  const [price, setPrice] = useState(fCurrency(noOfAddOns / 10000))
+  const [price, setPrice] = useState(noOfAddOns / 10000)
 
   const [totalLimit, setTotalLimit] = useState(noOfAddOns + plan)
 
   const setAddOnsValue = (value) => {
     setNoOfAddOns(value)
-    setPrice(fCurrency(value / 10000))
+    setPrice(value / 10000)
     setTotalLimit(value + plan)
   }
   return (
@@ -26,7 +26,7 @@ const MoreCrawlCreditsDialog = ({ isOpen, closeModal }) => {
         <BetweenStyle>
           <span className="font-medium text-base">Site Audit crawl credits per month</span>
           <span className='text-primary font-bold text-sm'>
-            Add-on price: + {price}/month
+            Add-on price: + {fCurrency(price)}/month
           </span>
         </BetweenStyle>
       </SectionsContainers>

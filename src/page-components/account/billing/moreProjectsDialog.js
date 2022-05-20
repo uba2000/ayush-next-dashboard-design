@@ -12,12 +12,12 @@ const MoreProjectsDialog = ({ isOpen, closeModal }) => {
 
   const [noOfAddOns, setNoOfAddOns] = useState(1)
   const [standardPlan, setStandardPlan] = useState(10)
-  const [price, setPrice] = useState(fCurrency(noOfAddOns * 10))
+  const [price, setPrice] = useState(noOfAddOns * 10)
 
   const [totalLimit, setTotalLimit] = useState(noOfAddOns + standardPlan)
 
   const setAddOnsValue = (value) => {
-    setPrice(fCurrency(value * 10))
+    setPrice(value * 10)
     setNoOfAddOns(value)
     setTotalLimit(value + standardPlan)
   }
@@ -27,7 +27,7 @@ const MoreProjectsDialog = ({ isOpen, closeModal }) => {
         <BetweenStyle>
           <span className="font-medium text-base">Projects</span>
           <span className='text-primary font-bold text-sm'>
-            Add-on price: {price}/month
+            Add-on price: {fCurrency(price)}/month
           </span>
         </BetweenStyle>
       </SectionsContainers>
