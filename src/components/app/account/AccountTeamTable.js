@@ -21,10 +21,10 @@ function AccountTeamTable() {
             <span className={'line-clamp-1'}>Theresa Webb</span>
           </Table.Data>
           <Table.Data>
-            <span className={'line-clamp-1'}>Theresa.webb@example.com</span>
+            <span className="lowercase line-clamp-1">Theresa.webb@example.com</span>
           </Table.Data>
           <Table.Data>
-            <Box className="text-center max-w-[146px] py-2 px-9 mr-7">
+            <Box className="text-center max-w-[146px] py-1 px-9 mr-7 leading-7">
               Owner
             </Box>
           </Table.Data>

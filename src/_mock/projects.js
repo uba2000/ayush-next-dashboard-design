@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker';
 // ----------------------------------------------------------------------
 
 const project = {
-  title: 'Digtial Marketing Articles',
+  title: 'Digtial Marketing Project',
   tags: ['Graphic design', 'digital marketing'],
   date: '2 days ago',
   checked: false

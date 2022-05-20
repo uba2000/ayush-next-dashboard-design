@@ -4,18 +4,20 @@ import tw from 'tailwind-styled-components'
 import Box from '../../../components/layouts/Box'
 import { DialogLayout } from '../../../components/layouts/Dialog'
 import Slider from '../../../components/layouts/Slider'
-import { fNumber } from '../../../utils/formatNumber'
+import { fNumber, fCurrency } from '../../../utils/formatNumber'
 
 const BetweenStyle = tw.div`flex justify-between`
 
 const MoreCrawlCreditsDialog = ({ isOpen, closeModal }) => {
   const [noOfAddOns, setNoOfAddOns] = useState(500000)
   const [plan, setPlan] = useState(500000)
+  const [price, setPrice] = useState(fCurrency(noOfAddOns / 10000))
 
   const [totalLimit, setTotalLimit] = useState(noOfAddOns + plan)
 
   const setAddOnsValue = (value) => {
     setNoOfAddOns(value)
+    setPrice(fCurrency(value / 10000))
     setTotalLimit(value + plan)
   }
   return (
@@ -24,7 +26,7 @@ const MoreCrawlCreditsDialog = ({ isOpen, closeModal }) => {
         <BetweenStyle>
           <span className="font-medium text-base">Site Audit crawl credits per month</span>
           <span className='text-primary font-bold text-sm'>
-            Add-on price: + $50/month
+            Add-on price: + {price}/month
           </span>
         </BetweenStyle>
       </SectionsContainers>
@@ -55,14 +57,16 @@ const MoreCrawlCreditsDialog = ({ isOpen, closeModal }) => {
       </Box>
       <SectionsContainers className={'py-[34px]'}>
         <div className="text-left space-y-3">
-          <p className="font-medium text-xl space-y-2 flex flex-col">
-            <span>What’s next</span>
-            <span>
-              Today, you’ll get a pro-rated charge for the days remaining
-              in this billing cycle. Starting from your next billing cycle,
-              your account will be charged the full cost of your subscription.
-            </span>
-          </p>
+          {noOfAddOns > 0 && (
+            <p className="font-medium text-xl space-y-2 flex flex-col">
+              <span>What’s next</span>
+              <span>
+                Today, you’ll get a pro-rated charge for the days remaining
+                in this billing cycle. Starting from your next billing cycle,
+                your account will be charged the full cost of your subscription.
+              </span>
+            </p>
+          )}
           <div className="space-x-1">
             <button className="btn btn-primary text-white" >
               Pay Now

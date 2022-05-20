@@ -26,7 +26,7 @@ const LimitsHistoryItems = ({ title, credits, tags, date }) => {
         </span>
       </Table.Data>
       <Table.Data>
-        <span className='line-clamp-1'>
+        <span className='min-w-fit'>
           {date}
         </span>
       </Table.Data>

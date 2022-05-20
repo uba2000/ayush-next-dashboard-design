@@ -82,7 +82,7 @@ function limits() {
                       </span>
                     </span>
                   </Table.TH>
-                  <Table.TH style={{ width: '12%', minWidth: '144px' }}>
+                  <Table.TH style={{ minWidth: '194px' }}>
                     <span className="capitalize">
                       Date
                     </span>

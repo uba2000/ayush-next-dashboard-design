@@ -67,8 +67,12 @@ function AccountTeamItems() {
           </div>
         </Dialog>
       </Transition.Root>
-      <Table.Data>Michael Mitc</Table.Data>
-      <Table.Data>commichael.mitc@example.com</Table.Data>
+      <Table.Data>
+        <span className="line-clamp-1">Michael Mitc</span>
+      </Table.Data>
+      <Table.Data>
+        <span className="lowercase">commichael.mitc@example.com</span>
+      </Table.Data>
       <Table.Data className='relative'>
         <div className="mr-7">
           <Listbox as={'div'} value={selectedRole} onChange={setSelectedRole}>
@@ -76,9 +80,9 @@ function AccountTeamItems() {
               <>
                 <div className="relative max-w-[146px]">
                   <span className="inline-block w-full">
-                    <Listbox.Button as={Box} className='text-center max-w-[146px] w-full py-2 px-6 min-w-[112px]'>
+                    <Listbox.Button as={Box} className='cursor-pointer text-center max-w-[146px] w-full py-2 px-6 min-w-[112px] leading-7'>
                       <span className='text-center block truncate capitalize'>{selectedRole}</span>
-                      <span className='absolute right-3 top-[17.5px]'>
+                      <span className='absolute right-4 top-4'>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                         </svg>
@@ -112,7 +116,7 @@ function AccountTeamItems() {
             )}
           </Listbox>
         </div>
-        <Menu as='div' className='inline-block absolute top-6 right-[33px]'>
+        <Menu as='div' className='inline-block absolute top-[18px] right-[33px]'>
           <div className='relative'>
             <div>
               <Menu.Button className='inline-flex justify-center text-[#DCD8E7]'>

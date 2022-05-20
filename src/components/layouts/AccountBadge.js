@@ -41,7 +41,7 @@ const AccountBadge = () => {
         {({ open }) => (
           <div className='relative'>
             <div>
-              <Menu.Button as='div' className={`cursor-pointer inline-flex py-4 px-5 space-x-[11px] transition ease-out duration-100 bg-primary text-white`}>
+              <Menu.Button as='div' className={`cursor-pointer select-none inline-flex py-4 px-5 space-x-[11px] transition ease-out duration-100 bg-primary text-white`}>
                 <span className='font-medium text-[15px] tracking-tight'>
                   Carl R. Berry
                 </span>
@@ -63,13 +63,13 @@ const AccountBadge = () => {
               leaveTo='transform opacity-0 scale-95'
             >
               <Menu.Items className='w-fit z-30 origin-top-right border border-solid rounded-b-[10px] border-darkMode-border absolute right-0 mt-2 shadow-lg dark:bg-[#000000] dark:text-white text-black bg-white ring-1 ring-[#000000] ring-opacity-5 focus:outline-none'>
-                <div className='divide-y-[1.27354px] divide-darkMode-border'>
+                <div className='divide-y-[1.27354px] divide-darkMode-border dark:text-white text-black'>
                   <Menu.Item>
                     <div className="flex flex-col px-6 pt-5 pb-4 space-y-1">
-                      <span className='whitespace-nowrap font-medium text-[17px] tracking-tight dark:text-white text-black'>
+                      <span className='whitespace-nowrap font-medium text-[17px] tracking-tight'>
                         Carl R. Berry’s Worksplace
                       </span>
-                      <span className="text-[13px] dark:text-darkMode-subText tracking-tight font-medium text-ash">
+                      <span className="text-[13px] tracking-tight font-medium">
                         Standard Plan, 1 Member
                       </span>
                     </div>
@@ -78,7 +78,7 @@ const AccountBadge = () => {
                     <div className="">
                       <Link href='/app/account'>
                         <a className='flex flex-col px-6 pt-5 pb-4 space-y-1'>
-                          <span className="text-[13px] dark:text-darkMode-subText tracking-tight font-medium text-ash">
+                          <span className="text-[13px] tracking-tight font-medium">
                             Account Settings
                           </span>
                         </a>
@@ -87,9 +87,9 @@ const AccountBadge = () => {
                   </Menu.Item>
                   <Menu.Item>
                     <div className="cursor-pointer px-6 pt-5 pb-4 space-y-1" onClick={openModal}>
-                      <span className="flex justify-between text-[13px] dark:text-darkMode-subText tracking-tight font-medium text-ash">
+                      <span className="flex justify-between text-[13px] tracking-tight font-medium">
                         <span>Appearance</span>
-                        <span className='capitalize dark:text-white text-black'>
+                        <span className='capitalize hidden dark:text-white text-black'>
                           {!state.themeMode.isDarkMode ? 'Dark' : 'Light'} Mode
                         </span>
                       </span>
@@ -97,7 +97,7 @@ const AccountBadge = () => {
                   </Menu.Item>
                   <Menu.Item>
                     <div onClick={signOut} className="flex flex-col px-6 pt-5 pb-4 space-y-1 cursor-pointer">
-                      <span className="text-[13px] dark:text-darkMode-subText tracking-tight font-medium text-ash">
+                      <span className="text-[13px] tracking-tight font-medium">
                         Sign Out
                       </span>
                     </div>

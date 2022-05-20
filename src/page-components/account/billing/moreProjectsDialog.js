@@ -4,6 +4,7 @@ import tw from 'tailwind-styled-components'
 import Box from '../../../components/layouts/Box'
 import { DialogLayout } from '../../../components/layouts/Dialog'
 import Slider from '../../../components/layouts/Slider'
+import { fCurrency } from '../../../utils/formatNumber'
 
 const BetweenStyle = tw.div`flex justify-between`
 
@@ -11,10 +12,12 @@ const MoreProjectsDialog = ({ isOpen, closeModal }) => {
 
   const [noOfAddOns, setNoOfAddOns] = useState(1)
   const [standardPlan, setStandardPlan] = useState(10)
+  const [price, setPrice] = useState(fCurrency(noOfAddOns * 10))
 
   const [totalLimit, setTotalLimit] = useState(noOfAddOns + standardPlan)
 
   const setAddOnsValue = (value) => {
+    setPrice(fCurrency(value * 10))
     setNoOfAddOns(value)
     setTotalLimit(value + standardPlan)
   }
@@ -24,7 +27,7 @@ const MoreProjectsDialog = ({ isOpen, closeModal }) => {
         <BetweenStyle>
           <span className="font-medium text-base">Projects</span>
           <span className='text-primary font-bold text-sm'>
-            Add-on price: $10/month
+            Add-on price: {price}/month
           </span>
         </BetweenStyle>
       </SectionsContainers>
@@ -55,16 +58,19 @@ const MoreProjectsDialog = ({ isOpen, closeModal }) => {
       </Box>
       <SectionsContainers className={'py-[34px]'}>
         <div className="text-left space-y-3">
-          <p className="font-medium text-xl space-y-2 flex flex-col">
-            <span>What’s next</span>
-            <span>
-              Today, you’ll get a pro-rated charge for the
-              days remaining in this billing cycle.
-              Starting from your next billing cycle, your
-              account will be charged the full cost
-              of your subscription.
-            </span>
-          </p>
+          {noOfAddOns > 0 && (
+            <p className="font-medium text-xl space-y-2 flex flex-col">
+              <span>What’s next</span>
+              <span>
+                Today, you’ll get a pro-rated charge for the
+                days remaining in this billing cycle.
+                Starting from your next billing cycle, your
+                account will be charged the full cost
+                of your subscription.
+              </span>
+            </p>
+          )}
+
           <div className="space-x-1">
             <button className="btn btn-primary text-white" >
               Pay Now
