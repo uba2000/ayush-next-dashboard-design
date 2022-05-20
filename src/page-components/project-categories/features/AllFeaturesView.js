@@ -32,8 +32,7 @@ const AllFeaturesView = ({ isGetStarted }) => {
 
   const projectsState = useProjectsContext()
 
-  const [stateFeature, setStateFeature] = useState(projectsState.projectFeatures)
-  const [reserveFeatures] = useState(projectsState.projectFeatures)
+  const [stateFeature] = useState(projectsState.projectFeatures)
 
   const getStartedCTA = (route) => {
     state.layout.setShowNewProject(true)
@@ -41,9 +40,6 @@ const AllFeaturesView = ({ isGetStarted }) => {
   }
 
   // Beginning Search / Filter Functionality
-  const [error, setError] = useState(null)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [items, setItems] = useState(reserveFeatures)
 
   // Search query
   const [q, setQ] = useState('')
