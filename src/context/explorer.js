@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer } from 'react'
+import axios from 'axios'
 
 import features from '../_mock/features';
 
@@ -110,8 +111,15 @@ export function ExplorerWrapper({ children }) {
 
   const [explorerState, dispatch] = useReducer(reducer, initialState)
 
-  const generate = ({ slug, data }) => {
+  const generate = async ({ slug, data, accessToken }) => {
     console.log(`${slug}:`, data);
+    // const generateData = {
+    //   slug,
+    //   data,
+    //   accessToken
+    // }
+
+    // const { data } = await axios.post('/api/generate-feature-content', generateData)
   }
 
   const getFeatureBySlug = (slug) => {

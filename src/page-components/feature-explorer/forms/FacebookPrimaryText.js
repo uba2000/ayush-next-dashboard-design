@@ -15,10 +15,10 @@ const FacebookPrimaryText = ({ explorerState, dispatch, generate }) => {
       data={{
         language: explorerState.language,
         creativity: explorerState.creativity,
-        voiceTone: explorerState.voiceTone,
+        tone: explorerState.voiceTone,
         audience: explorerState.audience,
-        productName: explorerState.productName,
-        productDescription: explorerState.productDescription
+        productname: explorerState.productName,
+        description: explorerState.productDescription
       }}
     >
       <FormGroup label={<LabelLayout>Language:</LabelLayout>} labelFor={'languages'}>
