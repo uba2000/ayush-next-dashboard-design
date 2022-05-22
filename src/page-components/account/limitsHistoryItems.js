@@ -1,13 +1,14 @@
 import React from 'react'
 
 import { Table } from '../../components/layouts/Table'
+import { File } from '../../ui/icons'
 
 const LimitsHistoryItems = ({ title, credits, tags, date }) => {
   return (
     <Table.Row>
       <Table.Data>
         <div className="flex items-center justify-left cursor-pointer" onClick={() => { check(!checked) }}>
-
+          <File />
         </div>
       </Table.Data>
       <Table.Data className='main'>

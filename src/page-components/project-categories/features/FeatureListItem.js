@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { Menu, Transition, Dialog } from '@headlessui/react'
 import { useRouter } from 'next/router'
 import { Table } from '../../../components/layouts/Table'
-import { Dots } from '../../../ui/icons'
+import { Dots, LinkIcon } from '../../../ui/icons'
 
 function FeatureListItem(props) {
   let { id, feature, user, date } = props.item
@@ -27,7 +27,7 @@ function FeatureListItem(props) {
     <Table.Row onClick={doubleClickHandler} className='cursor-pointer'>
       <Table.Data className='w-[41.5px]'>
         <div className="flex items-center justify-left cursor-pointer">
-
+          <LinkIcon />
         </div>
       </Table.Data>
       <Table.Data className='main'>

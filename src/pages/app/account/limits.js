@@ -4,6 +4,7 @@ import AccountLayout from '../../../components/app/account/AccountLayout'
 import Box from '../../../components/layouts/Box'
 import { Table } from '../../../components/layouts/Table'
 import LimitsHistoryItems from '../../../page-components/account/limitsHistoryItems'
+import { LinkIcon } from '../../../ui/icons'
 
 function limits() {
   return (
@@ -60,7 +61,7 @@ function limits() {
                 <Table.Row className="cursor-default">
                   <Table.TH className='pl-0 cursor-pointer w-[41.5px]'>
                     <div className="flex items-center justify-center" onClick={() => checkAllArticlesHandler(!checkAllArticles)}>
-                      {/*  */}
+                      <LinkIcon />
                     </div>
                   </Table.TH>
                   <Table.TH main={true} style={{ width: '50%', minWidth: '397px' }}>
