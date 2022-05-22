@@ -8,8 +8,7 @@ const RenderThumbStyle = tw.div`
 `;
 
 const RenderViewStyle = tw.div`
-  py-4 pl-4 pr-12
-  h-[745px]
+  py-4 pr-0
   overflow-x-hidden
 `;
 
@@ -31,7 +30,9 @@ export default class ScrollbarsLayout extends Component {
     this.renderView = this.renderView.bind(this);
     this.renderThumb = this.renderThumb.bind(this);
     this.renderTrack = this.renderTrack.bind(this);
+    console.log(props)
   }
+
 
   handleUpdate(values) {
     const { top } = values;
@@ -42,7 +43,7 @@ export default class ScrollbarsLayout extends Component {
     const { top } = this.state;
     return (
       <RenderViewStyle
-        className="box"
+        className={`${this.props.h ? `max-h-[${this.props.h}]` : 'max-h-[745px]'}`}
         style={{ ...style }}
         {...props} />
     );
@@ -74,8 +75,8 @@ export default class ScrollbarsLayout extends Component {
         renderThumbVertical={this.renderThumb}
         renderTrackVertical={this.renderTrack}
         onUpdate={this.handleUpdate}
-        style={{ height: 745 }}
-        autoHide
+        style={{ height: `${this.props.h ? this.props.h : 745}` }}
+        autoHide={!!!this.props.autoHide}
         {...this.props} />
     );
   }

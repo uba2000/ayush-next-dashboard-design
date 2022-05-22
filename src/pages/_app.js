@@ -23,9 +23,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           <ThemeWrapper>
             <ProjectsWrapper>
               {Component.auth ? (
-                <Auth>
-                  <Component {...pageProps} />
-                </Auth>
+                // <Auth>
+                <Component {...pageProps} />
+                // </Auth>
               ) : (
                 <Component {...pageProps} />
               )}
