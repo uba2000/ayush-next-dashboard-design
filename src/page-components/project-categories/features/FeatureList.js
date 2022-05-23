@@ -40,7 +40,7 @@ function FeaturesList(props) {
               </Table.TH>
             </Table.Row>
           </Table.Head>
-          <tbody>
+          <Table.Body>
             {
               features.length <= 10 ? features.map((item) => {
                 return <FeatureListItem
@@ -54,7 +54,7 @@ function FeaturesList(props) {
                 />
               })
             }
-          </tbody>
+          </Table.Body>
         </Table>
       </div>
     </>

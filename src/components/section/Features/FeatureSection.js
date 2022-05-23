@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
-import ScrollbarsLayout from '../../layouts/Scrollbars'
 
+import ScrollbarsLayout from '../../layouts/Scrollbars'
 import FeatureBox from './FeatureBox'
 
 const FeatureSection = ({ features }) => {
