@@ -30,7 +30,6 @@ export default class ScrollbarsLayout extends Component {
     this.renderView = this.renderView.bind(this);
     this.renderThumb = this.renderThumb.bind(this);
     this.renderTrack = this.renderTrack.bind(this);
-    console.log(props)
   }
 
 
@@ -43,8 +42,7 @@ export default class ScrollbarsLayout extends Component {
     const { top } = this.state;
     return (
       <RenderViewStyle
-        className={`${this.props.h ? `max-h-[${this.props.h}]` : 'max-h-[745px]'}`}
-        style={{ ...style }}
+        style={{ height: `${this.props.h ? this.props.h : 745}`, ...style }}
         {...props} />
     );
   }
