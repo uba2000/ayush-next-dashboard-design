@@ -5,8 +5,8 @@ import FeatureBox from './FeatureBox'
 
 const FeatureSection = ({ features }) => {
   return (
-    <ScrollbarsLayout h="600px">
-      <div className="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-5 max-h-[230px]">
+    <div className="min-h-[600px]">
+      <div className="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-5">
         {features.map((feature) => {
           return (
             <Fragment key={feature.id}>
@@ -17,7 +17,8 @@ const FeatureSection = ({ features }) => {
           )
         })}
       </div>
-    </ScrollbarsLayout>
+
+    </div>
   )
 }
 
