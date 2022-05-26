@@ -47,7 +47,8 @@ function Index() {
   }
 
   const checkWhichTab = () => {
-    // TODO: get query from ssr, this 'query' is undefined as at mount hook
+    // TODO: get query from ssr, this 'query' is undefined as at mount hook;
+    // TODO: seems to work in production. check for flaws;
     if (query.tab) {
       let queryTabIndex = tabs.findIndex((t) => t.q == query.tab)
       if (queryTabIndex != -1) {
