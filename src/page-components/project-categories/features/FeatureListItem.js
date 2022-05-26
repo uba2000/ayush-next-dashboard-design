@@ -26,7 +26,7 @@ function FeatureListItem(props) {
   return (
     <Table.Row onClick={doubleClickHandler} className='cursor-pointer'>
       <Table.Data className='w-[41.5px]'>
-        <div className="flex items-center justify-left cursor-pointer">
+        <div className="w-6 flex items-center justify-left cursor-pointer">
           {/* <LinkIcon /> */}
           <img src={`/svg/features/${slug}.svg`} alt="" />
         </div>
