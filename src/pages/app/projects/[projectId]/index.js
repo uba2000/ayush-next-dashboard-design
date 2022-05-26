@@ -12,8 +12,10 @@ import FilterSection from '../../../../components/section/Filter/FilterSection'
 import KeywordList from '../../../../page-components/project-categories/keywords/KeywordList'
 import NewKeywordListButton from '../../../../page-components/keyword-generate/NewKeywordListButton'
 import FeaturesList from '../../../../page-components/project-categories/features/FeatureList'
-import { ChevDown, SearchIcon } from '../../../../ui/icons'
+import { ChevDown, SearchIcon, Settings } from '../../../../ui/icons'
 import filters from '../../../../_mock/filters'
+import FeatureListItem from '../../../../page-components/project-categories/features/FeatureListItem'
+import { Table } from '../../../../components/layouts/Table'
 
 const tabs = [
   { tab: 'Articles', q: 'a' },
@@ -45,6 +47,7 @@ function Index() {
   }
 
   const checkWhichTab = () => {
+    // TODO: get query from ssr, this 'query' is undefined as at mount hook
     if (query.tab) {
       let queryTabIndex = tabs.findIndex((t) => t.q == query.tab)
       if (queryTabIndex != -1) {
@@ -336,7 +339,46 @@ function Index() {
               </Tab.Panel>
               <Tab.Panel>
                 <div>
-                  <FeaturesList features={searchFor(stateFeature)} />
+                  {/* <FeaturesList features={searchFor(stateFeature)} /> */}
+                  <div className="mt-8">
+                    <Table>
+                      <Table.Head>
+                        <Table.Row className="cursor-default">
+                          <Table.TH className='pl-0 cursor-pointer w-[41.5px]'>
+
+                          </Table.TH>
+                          <Table.TH main={true} style={{ width: '50%', minWidth: '397px' }}>
+                            <span className="capitalize">
+                              All Features
+                            </span>
+                          </Table.TH>
+                          <Table.TH style={{ width: '27%', minWidth: '169px' }}>
+                            <span className='flex items-center space-x-1'>
+                              <span className="capitalize">
+                                User
+                              </span>
+                            </span>
+                          </Table.TH>
+                          <Table.TH style={{ width: '12%', minWidth: '144px' }}>
+                            <span className="capitalize">
+                              Date
+                            </span>
+                          </Table.TH>
+                          <Table.TH style={{ minWidth: '50px' }}>
+                            <Settings className="mx-auto h-[18px] w-[18px] dark:text-white text-black" />
+                          </Table.TH>
+                        </Table.Row>
+                      </Table.Head>
+                      <Table.Body>
+                        {searchFor(stateFeature).map((item) => {
+                          return <FeatureListItem
+                            item={item}
+                            key={item.id}
+                          />
+                        })}
+                      </Table.Body>
+                    </Table>
+                  </div>
                 </div>
               </Tab.Panel>
             </Tab.Panels>

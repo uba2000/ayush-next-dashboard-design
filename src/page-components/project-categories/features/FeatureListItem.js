@@ -5,7 +5,7 @@ import { Table } from '../../../components/layouts/Table'
 import { Dots, LinkIcon } from '../../../ui/icons'
 
 function FeatureListItem(props) {
-  let { id, feature, user, date } = props.item
+  let { id, feature, user, date, slug } = props.item
 
   const router = useRouter()
 
@@ -27,7 +27,8 @@ function FeatureListItem(props) {
     <Table.Row onClick={doubleClickHandler} className='cursor-pointer'>
       <Table.Data className='w-[41.5px]'>
         <div className="flex items-center justify-left cursor-pointer">
-          <LinkIcon />
+          {/* <LinkIcon /> */}
+          <img src={`/svg/features/${slug}.svg`} alt="" />
         </div>
       </Table.Data>
       <Table.Data className='main'>
