@@ -40,7 +40,7 @@ function SearchInput({ searchBy = ['name'], searchThrough = [], setItemsAfterSea
         type="text"
         value={q}
         onChange={(e) => setQ(e.target.value)}
-        className="flex-grow flex-shrink border-none pl-6 py-3 rounded-none dark:bg-darkMode-bg h-[40px] bg-white"
+        className="flex-grow placeholder:text-darkMode-subText flex-shrink border-none pl-6 py-3 rounded-none dark:bg-darkMode-bg h-[40px] bg-white"
         placeholder='Search...'
       />
       <div
