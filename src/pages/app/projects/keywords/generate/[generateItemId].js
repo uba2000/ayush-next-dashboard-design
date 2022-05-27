@@ -38,7 +38,7 @@ const PreviewArticle = () => {
         </Box>
         <Box type={'black'} className="border-t-0">
           <div className="py-[25px] w-full pl-[50px] pr-4">
-            <ScrollbarsLayout>
+            <ScrollbarsLayout h='650px'>
               <div className="pr-12">
                 <h1>How do you make money from scalping?</h1>
                 It is very common for people to want to make a quick buck and get a lot of experience in the process. However, scalping is usually not something you can make money on simply because you are competing against professionals who have years of experience.

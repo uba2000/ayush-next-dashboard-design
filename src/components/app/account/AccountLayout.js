@@ -10,7 +10,7 @@ function AccountLayout({ children }) {
   return (
     <DashboardLayout>
       <div className="container md:px-4 px-0">
-        <div className='grid md:grid-cols-[213px_auto] grid-cols-1'>
+        <div className='grid pb-[137px] md:grid-cols-[213px_auto] grid-cols-1'>
           <Box className='md:block hidden' type={'black'}>
             <div className={styles.accountAside}>
               <ul>

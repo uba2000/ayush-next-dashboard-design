@@ -42,7 +42,7 @@ export default class ScrollbarsLayout extends Component {
     const { top } = this.state;
     return (
       <RenderViewStyle
-        style={{ height: `${this.props.h ? this.props.h : 745}`, ...style }}
+        style={{ height: `${this.props.h ? this.props.h : 745}`, ...style, ...this.props.style }}
         {...props} />
     );
   }
