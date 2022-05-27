@@ -8,7 +8,7 @@ const RenderThumbStyle = tw.div`
 `;
 
 const RenderViewStyle = tw.div`
-  py-4 pr-0
+  pr-0
   overflow-x-hidden
 `;
 
@@ -42,7 +42,7 @@ export default class ScrollbarsLayout extends Component {
     const { top } = this.state;
     return (
       <RenderViewStyle
-        style={{ height: `${this.props.h ? this.props.h : 745}`, ...style, ...this.props.style }}
+        style={{ height: `${this.props.h ? this.props.h : 745}`, ...this.props.style, ...style, }}
         {...props} />
     );
   }
