@@ -23,7 +23,7 @@ const tabs = [
   { tab: 'Features', q: 'f' },
 ]
 
-function Index() {
+function Index({ ssrQuery }) {
 
   const state = useProjectsContext()
 
@@ -47,10 +47,9 @@ function Index() {
   }
 
   const checkWhichTab = () => {
-    // TODO: get query from ssr, this 'query' is undefined as at mount hook;
-    // TODO: seems to work in production. check for flaws;
-    if (query.tab) {
-      let queryTabIndex = tabs.findIndex((t) => t.q == query.tab)
+    let cQuery = query || ssrQuery
+    if (cQuery.tab) {
+      let queryTabIndex = tabs.findIndex((t) => t.q == cQuery.tab)
       if (queryTabIndex != -1) {
         setTabIndex(queryTabIndex)
       } else {
@@ -58,7 +57,7 @@ function Index() {
       }
     } else {
       router.push({
-        pathname: `/app/projects/${query.projectId}`,
+        pathname: `/app/projects/${cQuery.projectId}`,
         query: { tab: tabs[0].q }
       })
     }
@@ -404,6 +403,15 @@ const TabLayout = ({ selected, children }) => {
       <span className='text-sm leading-4 text-center font-medium'>{children}</span>
     </div>
   )
+}
+
+export async function getServerSideProps({ query }) {
+
+  return {
+    props: {
+      ssrQuery: query
+    }
+  }
 }
 
 Index.auth = true

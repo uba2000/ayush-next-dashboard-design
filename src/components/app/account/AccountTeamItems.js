@@ -137,10 +137,10 @@ function AccountTeamItems() {
             >
               <Menu.Items as={Box} className='z-30 origin-top-right absolute right-0 mt-2 w-32  shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none'>
                 <div className=''>
-                  <Menu.Item as={Box} className="border-0">
+                  <Menu.Item as={'div'} className="border-0">
                     <Link href='/app/account/team'>
                       <a
-                        className='whitespace-nowrap hover:bg-primary hover:text-white block px-4 py-2 text-sm'
+                        className='whitespace-nowrap hover:bg-primary hover:text-white block px-4 py-2 text-sm border-0'
                       >
                         Edit Access
                       </a>
