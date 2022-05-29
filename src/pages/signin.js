@@ -37,7 +37,7 @@ function Signin({ csrfToken }) {
       }
       setLoading(false)
 
-      if (res.url) router.push(router.query.callbackUrl);
+      if (res.url) router.push(`${router.query.callbackUrl ? router.query.callbackUrl : '/app/dashboard'}`);
     } catch (error) {
       console.log(error);
     }

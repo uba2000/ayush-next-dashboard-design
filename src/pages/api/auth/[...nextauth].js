@@ -1,8 +1,14 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import axios from 'axios'
+import { MongoClient } from 'mongodb';
+import { compare } from 'bcryptjs';
+import { sign } from 'jsonwebtoken';
+import axios from 'axios';
 
 export default NextAuth({
+  session: {
+    jwt: true,
+  },
   providers: [
     CredentialsProvider({
       id: 'credentials',
@@ -16,20 +22,52 @@ export default NextAuth({
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, req) {
-        const grantType = `
-          grant_type=&username=${credentials.username}&password=${credentials.password}&scope=&client_id=&client_secret=
-        `
-        const { data, status } = await axios.post("https://scai-rhasi6a2qa-uc.a.run.app/token", grantType)
-
-        if (status != 200) {
-          throw new Error('Login Failed');
+        const client = await MongoClient.connect(
+          `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_CLUSTER}.a7jcn.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
+          { useNewUrlParser: true, useUnifiedTopology: true }
+        )
+        //Get all the users
+        const users = await client.db().collection('users');
+        //Find user with the email  
+        const user = await users.findOne({
+          username: credentials.username,
+        });
+        //Not found - send error res
+        if (!user) {
+          client.close();
+          throw new Error('No user found with the email');
+        }
+        //Check hased password with DB password
+        const checkPassword = await compare(credentials.password, user.password);
+        //Incorrect password - send response
+        if (!checkPassword) {
+          client.close();
+          throw new Error('Password doesnt match');
         }
 
-        if (status == 200 && data) {
-          return data;
-        }
+        const token = await sign({
+          slot: user._id,
+        }, process.env.JWT_SECRET, { expiresIn: '24h' })
 
-        return null;
+
+        client.close();
+        return { email: user.email, username: user.username, access_token: token };
+
+
+        // const grantType = `
+        //   grant_type=&username=${credentials.username}&password=${credentials.password}&scope=&client_id=&client_secret=
+        // `
+        // const { data, status } = await axios.post("https://scai-rhasi6a2qa-uc.a.run.app/token", grantType)
+
+        // if (status != 200) {
+        //   throw new Error('Login Failed');
+        // }
+
+        // if (status == 200 && data) {
+        //   return data;
+        // }
+
+        // return null;
       },
     }),
     // ...
@@ -40,11 +78,11 @@ export default NextAuth({
   },
   callbacks: {
     async jwt({ token, user, account }) {
-
       if (account && user) {
         return {
           ...token,
           accessToken: user.access_token,
+          username: user.username,
           // refreshToken: user.data.refreshToken,
         };
       }
@@ -54,7 +92,9 @@ export default NextAuth({
 
     async session({ session, token }) {
 
+      console.log(session, token);
       session.user.accessToken = token.accessToken;
+      session.user.username = token.username;
       // session.user.refreshToken = token.refreshToken;
       session.user.accessTokenExpires = token.accessTokenExpires;
 
