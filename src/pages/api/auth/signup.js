@@ -1,7 +1,6 @@
-import { MongoClient } from 'mongodb';
 import { hash } from 'bcryptjs';
 
-// import { connect } from '../../../utils/connect'
+import { connect } from '../../../utils/connect'
 
 export default async function handler(req, res) {
   //Only POST mothod is accepted
@@ -15,12 +14,9 @@ export default async function handler(req, res) {
       return;
     }
 
-    const connect = await MongoClient.connect(
-      `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_CLUSTER}.a7jcn.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
-      { useNewUrlParser: true, useUnifiedTopology: true }
-    )
+    const client = await connect
 
-    const db = connect.db();
+    const db = client.db();
 
     //Check existing
     const checkEmailExisting = await db
@@ -30,7 +26,7 @@ export default async function handler(req, res) {
     //Send error response if duplicate user is found
     if (checkEmailExisting) {
       res.status(422).json({ message: 'User already exists' });
-      connect.close();
+      client.close();
       return;
     }
 
@@ -46,7 +42,7 @@ export default async function handler(req, res) {
     res.status(201).json({ message: 'User created', ...status });
 
     //Close DB connection
-    connect.close();
+    client.close();
   } else {
     //Response for other than POST method
     res.status(500).json({ message: 'Route not valid' });

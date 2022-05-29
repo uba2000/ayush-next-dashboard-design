@@ -1,9 +1,9 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { MongoClient } from 'mongodb';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import axios from 'axios';
+
+import { connect } from '../../../utils/connect';
 
 export default NextAuth({
   session: {
@@ -22,10 +22,7 @@ export default NextAuth({
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, req) {
-        const client = await MongoClient.connect(
-          `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_CLUSTER}.a7jcn.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
-          { useNewUrlParser: true, useUnifiedTopology: true }
-        )
+        const client = await connect
         //Get all the users
         const users = await client.db().collection('users');
         //Find user with the email  
