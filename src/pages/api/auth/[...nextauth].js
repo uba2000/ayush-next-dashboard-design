@@ -51,23 +51,14 @@ export default NextAuth({
 
 
         client.close();
-        return { email: user.email, fullName: user.full_name, access_token: token };
-
-
-        // const grantType = `
-        //   grant_type=&username=${credentials.username}&password=${credentials.password}&scope=&client_id=&client_secret=
-        // `
-        // const { data, status } = await axios.post("https://scai-rhasi6a2qa-uc.a.run.app/token", grantType)
-
-        // if (status != 200) {
-        //   throw new Error('Login Failed');
-        // }
-
-        // if (status == 200 && data) {
-        //   return data;
-        // }
-
-        // return null;
+        return {
+          email: user.email,
+          gender: user.gender,
+          address: user.address,
+          dob: user.dob,
+          fullName: user.full_name,
+          access_token: token
+        };
       },
     }),
     // ...
@@ -79,10 +70,11 @@ export default NextAuth({
   callbacks: {
     async jwt({ token, user, account }) {
       if (account && user) {
+        let { access_token, ...fUser } = user
         return {
           ...token,
+          ...fUser,
           accessToken: user.access_token,
-          fullName: user.fullName,
           // refreshToken: user.data.refreshToken,
         };
       }
