@@ -43,9 +43,8 @@ export default NextAuth({
         }
 
         const token = await sign({
-          slot: user._id,
+          _id: user._id,
         }, process.env.JWT_SECRET, { expiresIn: '24h' })
-
 
         client.close();
         return {

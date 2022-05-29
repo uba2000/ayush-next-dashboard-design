@@ -7,9 +7,11 @@ import AccountLayout from '../../../components/app/account/AccountLayout'
 import FormGroup from '../../../components/app/account/FormGroup'
 import styles from '../../../styles/Account.module.css'
 import Input from '../../../components/layouts/Input'
+import useUser from '../../../hooks/useUser'
+import { setHeaders, post } from '../../../utils/http'
 import Box from '../../../components/layouts/Box'
 
-const genders = ['male', 'female']
+const genders = ['', 'male', 'female']
 const months = [
   "January",
   "February",
@@ -27,13 +29,16 @@ const months = [
 
 function index() {
 
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
+  const { user } = useUser()
+
+  const [fullName, setFullName] = useState(user.fullName);
+  const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState('');
-  const [addressH, setAddressH] = useState('');
+  const [addressH, setAddressH] = useState(`${user.address ? user.address : ''}`);
   const [selectedDateValue, setSelectedDateValue] = useState(new Date())
   const [showCalendar, updateShowCalendar] = useState(false)
-  const [selectedGender, setSelectedGender] = useState(genders[1])
+  const [selectedGender, setSelectedGender] = useState(`${user.gender ? user.gender : genders[0]}`)
+
 
   const disabledDates = () => {
     let today, day, month, year;
@@ -44,19 +49,47 @@ function index() {
     return `${year} ${month} ${day}`;
   }
 
+
   const handleDateChange = (payload) => {
     setSelectedDateValue(new Date(payload))
     updateShowCalendar(false)
   }
 
+  const updateSettings = async (e) => {
+    e.preventDefault();
+    let updateObject = {};
+
+    if (user.full_name != fullName) {
+      updateObject.full_name = fullName;
+    }
+    if (user.password != password) {
+      updateObject.password = password;
+    }
+    if (user.gender != selectedGender) {
+      updateObject.gender = selectedGender;
+    }
+    if (user.dob != selectedDateValue) {
+      updateObject.dob = selectedDateValue;
+    }
+    if (user.address != addressH) {
+      updateObject.address = addressH;
+    }
+
+    const { response, error } = await post({
+      url: `/api/update-settings`,
+      data: updateObject,
+      headers: setHeaders({ token: user.accessToken }),
+    });
+  }
+
   return (
     <AccountLayout>
-      <div className="">
+      <form className="" onSubmit={updateSettings}>
         <FormGroup label='Full Name' labelFor='fullName'>
           <Input id='fullName' type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder='Full Name' className={styles.formGroupInput} />
         </FormGroup>
         <FormGroup label='Email' labelFor='email'>
-          <Input id='email' type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' className={styles.formGroupInput} />
+          <Input id='email' type="text" value={email} disabled={true} placeholder='Email' className={styles.formGroupInput} />
         </FormGroup>
         <FormGroup label='Password' labelFor='password'>
           <Input id='password' type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' className={styles.formGroupInput} />
@@ -69,7 +102,7 @@ function index() {
                   <div className="relative">
                     <span className="inline-block w-full">
                       <Listbox.Button className='w-full flex-shrink  border  border-solid dark:focus:text-white focus:text-black dark:border-darkMode-border  border-ash  pl-6  py-3  rounded-none  h-[45px] bg-white dark:bg-black ' style={{ paddingTop: '8.5px', paddingBottom: '8.5px' }}>
-                        <span className='block truncate capitalize text-left'>{selectedGender}</span>
+                        <span className='block truncate capitalize text-left'>{selectedGender != '' ? selectedGender : '--Choose your gender--'}</span>
                         <span className='absolute right-4 top-[12px]'>
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
@@ -92,7 +125,7 @@ function index() {
                           <Listbox.Option key={gender} value={gender}>
                             {({ selected, active }) => (
                               <div className={`capitalize cursor-pointer select-none relative py-2 pl-10 pr-4 transition ease-in duration-200  ${active ? 'text-white bg-primary' : 'dark:text-white text-black'}`}>
-                                <span className={`${selected ? 'font-bold' : 'font-normal'}`}>{gender}</span>
+                                <span className={`${selected ? 'font-bold' : 'font-normal'}`}>{gender != '' ? gender : '--Choose your gender--'}</span>
                               </div>
                             )}
                           </Listbox.Option>
@@ -134,14 +167,14 @@ function index() {
           <Input id='address' type="text" value={addressH} onChange={(e) => setAddressH(e.target.value)} placeholder="Address" className={styles.formGroupInput} />
         </FormGroup>
         <div className="mt-7 space-x-7">
-          <button className="btn btn-primary text-base">
+          <button type='submit' className="btn btn-primary text-base">
             Submit
           </button>
           <button className="btn btn-reset text-base">
             Discard
           </button>
         </div>
-      </div>
+      </form>
     </AccountLayout>
   )
 }
