@@ -1,14 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useRouter } from 'next/router'
 import Link from 'next/link';
+import axios from 'axios';
+
 import AuthLayout from '../components/AuthLayout';
 
 const Signup = () => {
 
-  const [name, setName] = useState('');
+  const router = useRouter()
+
+  const form = useRef(null)
+
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
+
+  const onSubmitSignUp = async (e) => {
+    e.preventDefault();
+    try {
+      if (agreeToTerms) {
+        setLoading(true);
+        if (!email || !email.includes('@') || !password || !username) {
+          // Show error...
+          return;
+        }
+
+        const { data, status } = await axios.post('/api/auth/signup', {
+          email,
+          password,
+          username,
+        });
+        console.log(status);
+
+        if ((status == 200 || status == 201) && data) {
+          form.current.reset();
+          router.push('/signin')
+        }
+
+        setLoading(false);
+
+      } else {
+        console.log('Agree terms');
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  }
 
   return (
     <AuthLayout>
@@ -29,14 +70,14 @@ const Signup = () => {
         </div>
 
         {/* FORM */}
-        <form action="" className='w-full'>
+        <form action="" className='w-full' onSubmit={onSubmitSignUp} ref={form}>
           <div className="">
             <input
               className="font-poppins px-5 py-3 text-white text-base border border-white rounded-md focus:outline-none bg-black focus:border-green-600"
               type="text"
-              placeholder="First Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className="mt-3">
@@ -91,8 +132,8 @@ const Signup = () => {
             </label>
           </div>
           <div className="mt-3">
-            <button className="font-inter w-full bg-gradient-to-r from-green via-green-500 to-yellow text-black py-3 px-4 font-bold text-base rounded-md">
-              Create An Account
+            <button type='submit' disabled={loading} className="w-full bg-gradient-to-r from-green via-green-500 to-yellow text-black font-inter py-3 px-4 font-bold text-base rounded-md">
+              {loading ? 'Loading...' : 'Create An Account'}
             </button>
           </div>
           <div className="mt-3 text-center">
