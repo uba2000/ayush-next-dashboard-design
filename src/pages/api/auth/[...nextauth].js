@@ -82,7 +82,7 @@ export default NextAuth({
         return {
           ...token,
           accessToken: user.access_token,
-          username: user.username,
+          fullName: user.fullName,
           // refreshToken: user.data.refreshToken,
         };
       }
@@ -93,7 +93,7 @@ export default NextAuth({
     async session({ session, token }) {
 
       session.user.accessToken = token.accessToken;
-      session.user.username = token.username;
+      session.user.fullName = token.fullName;
       // session.user.refreshToken = token.refreshToken;
       session.user.accessTokenExpires = token.accessTokenExpires;
 
