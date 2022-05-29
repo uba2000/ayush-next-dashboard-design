@@ -14,10 +14,10 @@ export default NextAuth({
       id: 'credentials',
       name: 'SCAI-Credentials',
       credentials: {
-        username: {
-          label: 'username',
-          type: 'username',
-          placeholder: 'johndoe',
+        email: {
+          label: 'email',
+          type: 'email',
+          placeholder: 'johndoe@gmail.com',
         },
         password: { label: 'Password', type: 'password' },
       },
@@ -30,7 +30,7 @@ export default NextAuth({
         const users = await client.db().collection('users');
         //Find user with the email  
         const user = await users.findOne({
-          username: credentials.username,
+          email: credentials.email,
         });
         //Not found - send error res
         if (!user) {
@@ -51,7 +51,7 @@ export default NextAuth({
 
 
         client.close();
-        return { email: user.email, username: user.username, access_token: token };
+        return { email: user.email, fullName: user.full_name, access_token: token };
 
 
         // const grantType = `
@@ -92,7 +92,6 @@ export default NextAuth({
 
     async session({ session, token }) {
 
-      console.log(session, token);
       session.user.accessToken = token.accessToken;
       session.user.username = token.username;
       // session.user.refreshToken = token.refreshToken;

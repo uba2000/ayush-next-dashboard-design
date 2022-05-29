@@ -7,10 +7,10 @@ export default async function handler(req, res) {
   //Only POST mothod is accepted
   if (req.method === 'POST') {
     //Getting email and password from body
-    const { email, password, username } = req.body;
+    const { email, password, fullName } = req.body;
 
     //Validate
-    if (!email || !email.includes('@') || !password || !username) {
+    if (!email || !email.includes('@') || !password || !fullName) {
       res.status(422).json({ message: 'Invalid Data' });
       return;
     }
@@ -26,9 +26,6 @@ export default async function handler(req, res) {
     const checkEmailExisting = await db
       .collection('users')
       .findOne({ email: email });
-    const checkUsernameExisting = await db
-      .collection('users')
-      .findOne({ username: username });
 
     //Send error response if duplicate user is found
     if (checkEmailExisting) {
@@ -37,16 +34,10 @@ export default async function handler(req, res) {
       return;
     }
 
-    if (checkUsernameExisting) {
-      res.status(422).json({ message: 'User already exists' });
-      connect.close();
-      return;
-    }
-
     //Hash password
     const status = await db.collection('users').insertOne({
       email,
-      username,
+      full_name: fullName,
       role: 'user',
       password: await hash(password, 12),
     });

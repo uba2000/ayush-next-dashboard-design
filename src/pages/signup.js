@@ -11,7 +11,7 @@ const Signup = () => {
 
   const form = useRef(null)
 
-  const [username, setUsername] = useState('');
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -31,7 +31,7 @@ const Signup = () => {
         const { data, status } = await axios.post('/api/auth/signup', {
           email,
           password,
-          username,
+          fullName,
         });
         console.log(status);
 
@@ -75,9 +75,9 @@ const Signup = () => {
             <input
               className="font-poppins px-5 py-3 text-white text-base border border-white rounded-md focus:outline-none bg-black focus:border-green-600"
               type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Full Name"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
             />
           </div>
           <div className="mt-3">

@@ -9,7 +9,7 @@ import AuthLayout from '../components/AuthLayout';
 function Signin({ csrfToken }) {
 
   const router = useRouter()
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
@@ -25,7 +25,7 @@ function Signin({ csrfToken }) {
     try {
       const res = await signIn('credentials', {
         redirect: false,
-        username: username,
+        email: email,
         password: password,
         callbackUrl: router.query.callbackUrl,
       });
@@ -72,10 +72,10 @@ function Signin({ csrfToken }) {
             <input
               className="font-poppins px-5 py-3 text-white text-base border border-white rounded-md focus:outline-none bg-black focus:border-green-600"
               type="text"
-              placeholder="Username"
-              name='username'
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Email"
+              name='email'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="mt-3 relative">
