@@ -31,12 +31,8 @@ export default async function (req, res) {
 
     const db = await client.db().collection('users');
 
-    // await db.findByIdAndUpdate(user._id,
-    //   updateObject,
-    // )
-
-    let result = await db.updateOne(
-      { id: user._id },
+    await db.updateOne(
+      { email: user.email },
       {
         $set: updateObject
       }

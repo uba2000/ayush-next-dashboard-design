@@ -44,6 +44,7 @@ export default NextAuth({
 
         const token = await sign({
           _id: user._id,
+          email: user.email,
         }, process.env.JWT_SECRET, { expiresIn: '24h' })
 
         client.close();
@@ -85,6 +86,7 @@ export default NextAuth({
       session.user.dob = token.dob;
       session.user.address = token.address;
       session.user.gender = token.gender;
+      // TODO: build refresh token
       // session.user.refreshToken = token.refreshToken;
       session.user.accessTokenExpires = token.accessTokenExpires;
 

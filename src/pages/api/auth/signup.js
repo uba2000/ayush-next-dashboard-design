@@ -35,6 +35,7 @@ export default async function handler(req, res) {
       email,
       full_name: fullName,
       role: 'user',
+      account_role: 'admin',
       password: await hash(password, 12),
     });
 
