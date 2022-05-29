@@ -82,6 +82,9 @@ export default NextAuth({
 
       session.user.accessToken = token.accessToken;
       session.user.fullName = token.fullName;
+      session.user.dob = token.dob;
+      session.user.address = token.address;
+      session.user.gender = token.gender;
       // session.user.refreshToken = token.refreshToken;
       session.user.accessTokenExpires = token.accessTokenExpires;
 

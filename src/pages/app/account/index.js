@@ -35,7 +35,7 @@ function index() {
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState('');
   const [addressH, setAddressH] = useState(`${user.address ? user.address : ''}`);
-  const [selectedDateValue, setSelectedDateValue] = useState(new Date())
+  const [selectedDateValue, setSelectedDateValue] = useState(new Date(`${user.dob ? user.dob : ''}`))
   const [showCalendar, updateShowCalendar] = useState(false)
   const [selectedGender, setSelectedGender] = useState(`${user.gender ? user.gender : genders[0]}`)
 
@@ -59,11 +59,8 @@ function index() {
     e.preventDefault();
     let updateObject = {};
 
-    if (user.full_name != fullName) {
+    if (user.fullName !== fullName) {
       updateObject.full_name = fullName;
-    }
-    if (user.password != password) {
-      updateObject.password = password;
     }
     if (user.gender != selectedGender) {
       updateObject.gender = selectedGender;
@@ -76,7 +73,7 @@ function index() {
     }
 
     const { response, error } = await post({
-      url: `/api/update-settings`,
+      url: `${process.env.BASE_URL}/api/account/update-settings`,
       data: updateObject,
       headers: setHeaders({ token: user.accessToken }),
     });

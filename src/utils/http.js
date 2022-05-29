@@ -42,39 +42,38 @@ async function ajax({
   before();
 
   // Send Request
-  console.log(process.env.BASE_URL);
-  // await axios({
-  //   // Request URL
-  //   url,
-  //   // Request Method
-  //   method,
-  //   // Post Data
-  //   data,
-  //   // Request Headers
-  //   headers,
-  //   // Axios Specific Properties
-  //   ...axiosProps,
-  // })
-  //   .then(response => {
-  //     // Assign Request Response
-  //     result.response = response;
+  await axios({
+    // Request URL
+    url,
+    // Request Method
+    method,
+    // Post Data
+    data,
+    // Request Headers
+    headers,
+    // Axios Specific Properties
+    ...axiosProps,
+  })
+    .then(response => {
+      // Assign Request Response
+      result.response = response;
 
-  //     // Handle Responses
-  //     handleHttpResponse({ response, mutate, success });
+      // Handle Responses
+      handleHttpResponse({ response, mutate, success });
 
-  //   })
-  //   .catch(err => {
-  //     // Assign Response Error
-  //     result.error = err;
+    })
+    .catch(err => {
+      // Assign Response Error
+      result.error = err;
 
-  //     error(err);
+      error(err);
 
-  //     // Handle Errors
-  //     if (handleError) {
-  //       handleHttpError({ ...err, serverError, formErrors });
-  //     }
+      // Handle Errors
+      if (handleError) {
+        handleHttpError({ ...err, serverError, formErrors });
+      }
 
-  //   });
+    });
 
   // Call After Function With Response As Parameter
   after(result);
