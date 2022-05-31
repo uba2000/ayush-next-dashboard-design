@@ -23,7 +23,7 @@ const Signup = () => {
     try {
       if (agreeToTerms) {
         setLoading(true);
-        if (!email || !email.includes('@') || !password || !username) {
+        if (!email || !email.includes('@') || !password || !fullName) {
           // Show error...
           return;
         }

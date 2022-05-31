@@ -28,6 +28,7 @@ function Signin({ csrfToken }) {
         email: email,
         password: password,
         callbackUrl: router.query.callbackUrl,
+        csrfToken
       });
       if (res?.error) {
         // TODO: Handle sigin error...

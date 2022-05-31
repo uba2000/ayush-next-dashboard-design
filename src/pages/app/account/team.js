@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Transition, Dialog, Tab } from '@headlessui/react'
 
 import styles from '../../../styles/Account.module.css'
@@ -101,4 +101,7 @@ function Team() {
 }
 
 Team.auth = true
+
+
+
 export default Team

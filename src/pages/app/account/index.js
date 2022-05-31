@@ -1,4 +1,5 @@
 import React, { useState, Fragment } from 'react'
+import { signOut } from 'next-auth/react'
 import { Listbox, Transition } from '@headlessui/react'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
@@ -75,7 +76,7 @@ function index() {
     const { response, error } = await post({
       url: `${process.env.BASE_URL}/api/account/update-settings`,
       data: updateObject,
-      headers: setHeaders({ token: user.accessToken }),
+      headers: setHeaders({ token: user.accessToken })
     });
   }
 

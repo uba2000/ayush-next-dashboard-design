@@ -1,9 +1,9 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { compare } from 'bcryptjs';
-import { sign } from 'jsonwebtoken';
 
 import { connect } from '../../../utils/connect';
+import { signAccessToken, signRefreshToken } from '../../../utils/jwtHelper';
 
 export default NextAuth({
   session: {
@@ -22,40 +22,51 @@ export default NextAuth({
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, req) {
-        const client = await connect
-        //Get all the users
-        const users = await client.db().collection('users');
-        //Find user with the email  
-        const user = await users.findOne({
-          email: credentials.email,
-        });
-        //Not found - send error res
-        if (!user) {
-          client.close();
-          throw new Error('No user found with the email');
-        }
-        //Check hased password with DB password
-        const checkPassword = await compare(credentials.password, user.password);
-        //Incorrect password - send response
-        if (!checkPassword) {
-          client.close();
-          throw new Error('Password doesnt match');
-        }
+        try {
+          const client = await connect
+          //Get all the users
+          const users = await client.db().collection('users');
+          //Find user with the email  
+          const user = await users.findOne({
+            email: credentials.email,
+          });
+          //Not found - send error res
+          if (!user) {
+            client.close();
+            throw new Error('No user found with the email');
+          }
+          //Check hased password with DB password
+          const checkPassword = await compare(credentials.password, user.password);
+          //Incorrect password - send response
+          if (!checkPassword) {
+            client.close();
+            throw new Error('Password doesnt match');
+          }
 
-        const token = await sign({
-          _id: user._id,
-          email: user.email,
-        }, process.env.JWT_SECRET, { expiresIn: '24h' })
+          const token = await signAccessToken({
+            _id: user._id,
+            email: user.email,
+          })
 
-        client.close();
-        return {
-          email: user.email,
-          gender: user.gender,
-          address: user.address,
-          dob: user.dob,
-          fullName: user.full_name,
-          access_token: token
-        };
+          const refreshToken = await signRefreshToken({
+            _id: user._id,
+            email: user.email,
+          })
+
+          client.close();
+          return {
+            email: user.email,
+            gender: user.gender,
+            address: user.address,
+            dob: user.dob,
+            fullName: user.full_name,
+            access_token: token,
+            refresh_token: refreshToken
+          };
+        } catch (error) {
+          console.log(error);
+          return null
+        }
       },
     }),
     // ...
@@ -72,7 +83,7 @@ export default NextAuth({
           ...token,
           ...fUser,
           accessToken: user.access_token,
-          // refreshToken: user.data.refreshToken,
+          refreshToken: user.refresh_token,
         };
       }
 
@@ -86,8 +97,7 @@ export default NextAuth({
       session.user.dob = token.dob;
       session.user.address = token.address;
       session.user.gender = token.gender;
-      // TODO: build refresh token
-      // session.user.refreshToken = token.refreshToken;
+      session.user.refreshToken = token.refreshToken;
       session.user.accessTokenExpires = token.accessTokenExpires;
 
       return session;

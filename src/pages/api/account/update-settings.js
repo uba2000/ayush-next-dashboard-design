@@ -5,6 +5,8 @@ import { connect } from "../../../utils/connect";
 
 export default async function (req, res) {
   try {
+    let user = checkAuth(req.headers);
+
     const { fullName, password, gender, dob, address } = req.body
 
     let updateObject = {};
@@ -24,8 +26,6 @@ export default async function (req, res) {
     if (address) {
       updateObject.address = address;
     }
-
-    let user = checkAuth(req.headers);
 
     const client = await connect;
 

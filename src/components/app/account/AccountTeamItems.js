@@ -7,9 +7,11 @@ import Box from '../../layouts/Box'
 
 const roles = ['owner', 'admin', 'editor']
 
-function AccountTeamItems() {
-  const [selectedRole, setSelectedRole] = useState(roles[1])
+function AccountTeamItems({ member }) {
+  const { email, role, fullName } = member
+  const [selectedRole, setSelectedRole] = useState(role)
   const [open, setOpen] = useState(false)
+
   return (
     <Table.Row>
       <Transition.Root as={Fragment} show={open}>
@@ -68,10 +70,10 @@ function AccountTeamItems() {
         </Dialog>
       </Transition.Root>
       <Table.Data>
-        <span className="line-clamp-1">Michael Mitc</span>
+        <span className="line-clamp-1">{fullName}</span>
       </Table.Data>
       <Table.Data>
-        <span className="lowercase">commichael.mitc@example.com</span>
+        <span className="lowercase">{email}</span>
       </Table.Data>
       <Table.Data className='relative'>
         <div className="mr-7">
