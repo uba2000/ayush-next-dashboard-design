@@ -7,13 +7,16 @@ import AccountTeamTable from '../../../components/app/account/AccountTeamTable'
 import Box from '../../../components/layouts/Box'
 import { DialogLayout } from '../../../components/layouts/Dialog'
 import Input from '../../../components/layouts/Input'
-
+import useUser from '../../../hooks/useUser'
 
 function Team() {
 
+  const { user } = useUser()
+
   const [inviteEmail, setInviteEmail] = useState('')
 
-  let [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [targetTeamBTN, setTargetTeamBTN] = useState('---')
 
   function closeModal() {
     setIsOpen(false)
@@ -31,32 +34,6 @@ function Team() {
 
   return (
     <AccountLayout>
-      <DialogLayout isOpen={isOpen} closeModal={closeModal}>
-        <div className="py-[100px] px-[150px]">
-          <div className="space-y-5">
-            <DialogLayout.Title
-              as="h3"
-              className="title"
-            >
-              Are you sure, you want to add this person in your account?
-            </DialogLayout.Title>
-            <div className="subtitle">
-              <div className="form-group mb-6">
-                <Input type="text" value={inviteEmail} onChange={(e) => setInviteEmail(e.target.value)} placeholder='example@gmail.com' className={`${styles.formGroupInput} text-center`} />
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-8">
-            <button className="btn btn-primary bg-primary text-white py-[13px] h-[46px] px-[56.38px]">
-              Confirm
-            </button>
-            <button onClick={closeModal} className="ml-3 btn btn-reset py-[13px] h-[46px] px-[56.38px]">
-              Cancel
-            </button>
-          </div>
-        </div>
-      </DialogLayout>
       <Box type={'black'} className={styles.accountFramebox}>
         <h3 className={styles.accountFrameboxTitle}>
           Invite Team
@@ -85,7 +62,7 @@ function Team() {
           <Tab.Panels>
             <Tab.Panel>
               <div className='w-full h-auto min-h-[62.45px]'>
-                <AccountTeamTable />
+                <AccountTeamTable targetTeamBTN={targetTeamBTN} isOpen={isOpen} closeModal={closeModal} />
               </div>
             </Tab.Panel>
             <Tab.Panel>

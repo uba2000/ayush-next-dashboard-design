@@ -39,6 +39,7 @@ export default async function (req, res) {
         }
       )
 
+      client.close();
       return res.send({ success: true, message: "Success" })
     } catch (error) {
       console.log(error);
