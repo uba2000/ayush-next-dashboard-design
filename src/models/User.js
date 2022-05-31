@@ -16,7 +16,7 @@ const SubscriptionSchema = new mongoose.Schema({
   },
   next_billing_date: {
     type: String
-  }
+  },
 });
 const PlanSchema = new mongoose.Schema({
   plan: {
@@ -48,7 +48,10 @@ const CurrentPlanSchem = new mongoose.Schema({
   account_plan: {
     type: PlanSchema,
   },
-})
+  next_billing_date: {
+    type: String
+  }
+});
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -83,6 +86,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: "owner"
   },
+  account_history: {
+    type: Array,
+  },
   members: {
     type: Array,
     default: []
@@ -93,6 +99,6 @@ const UserSchema = new mongoose.Schema({
   subscriptions: {
     type: [SubscriptionSchema],
   }
-})
+});
 
 export default mongoose.models.User || mongoose.model('User', UserSchema)

@@ -28,7 +28,11 @@ function limits({ accountPlan, accountHistory }) {
                     </div>
                     <div className='flex flex-col space-y-1'>
                       <LimitsDetailsLayout
-                        title={'Mar 22, 2022'}
+                        title={`
+                          ${accountPlan ? `
+                            ${months[new Date(accountPlan.next_billing_date).getMonth()]} ${accountPlan.next_billing_date.getDate()}, ${accountPlan.next_billing_date.getFullYear()}
+                              ` : '---'
+                          }`}
                         titleHead={'Billing Date'}
                       />
                     </div>
@@ -54,7 +58,14 @@ function limits({ accountPlan, accountHistory }) {
                   <div className="space-y-[10px]">
                     <div className="flex justify-between">
                       <div className='flex space-x-1 items-center'>
-                        <LimitsDetailsLayout title={'22/03/2022'} titleHead={'Reset Date'} />
+                        <LimitsDetailsLayout
+                          title={`
+                          ${accountPlan ? `
+                            ${accountPlan.next_billing_date.getDate()}/${new Date(accountPlan.next_billing_date).getMonth()}/${accountPlan.next_billing_date.getFullYear()}
+                              ` : '---'
+                            }`}
+                          titleHead={'Reset Date'}
+                        />
                       </div>
                       <div className='flex space-x-1 items-center'>
                         <LimitsDetailsLayout
