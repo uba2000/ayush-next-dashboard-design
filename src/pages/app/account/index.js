@@ -61,7 +61,7 @@ function index() {
     let updateObject = {};
 
     if (user.fullName !== fullName) {
-      updateObject.full_name = fullName;
+      updateObject.fullName = fullName;
     }
     if (user.gender != selectedGender) {
       updateObject.gender = selectedGender;
