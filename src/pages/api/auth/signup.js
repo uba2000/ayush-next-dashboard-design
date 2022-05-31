@@ -28,15 +28,15 @@ export default async function handler(req, res) {
         return;
       }
 
-      //Hash password
-      const status = await User.insertOne({
+      const newUser = new User({
         email,
         full_name: fullName,
         password: await hash(password, 12),
       });
+      await newUser.save();
 
       //Send success response
-      res.status(200).json({ success: true, ...status })
+      res.status(200).json({ success: true })
       break;
 
     default:

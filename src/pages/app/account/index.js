@@ -36,7 +36,7 @@ function index() {
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState('');
   const [addressH, setAddressH] = useState(`${user.address ? user.address : ''}`);
-  const [selectedDateValue, setSelectedDateValue] = useState(new Date(`${user.dob ? user.dob : ''}`))
+  const [selectedDateValue, setSelectedDateValue] = useState(user.dob ? new Date(user.dob) : new Date())
   const [showCalendar, updateShowCalendar] = useState(false)
   const [selectedGender, setSelectedGender] = useState(`${user.gender ? user.gender : genders[0]}`)
 
