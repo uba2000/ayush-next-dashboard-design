@@ -11,7 +11,7 @@ function AccountTeamTable() {
 
   const { user } = useUser()
 
-  const [teamMembers, setTeamMembers] = useState([])
+  const [teamMembers, setTeamMembers] = useState(false)
 
   const getTeamMembers = async () => {
     const { response, error } = await get({
@@ -51,7 +51,7 @@ function AccountTeamTable() {
             </Box>
           </Table.Data>
         </Table.Row>
-        {teamMembers.length == 0 ? (
+        {!teamMembers ? (
           <>
             <Table.Row>
               <td colSpan="3" className="text-center py-3">
