@@ -1,42 +1,53 @@
 
 import { forEach } from "lodash";
+
 import { checkAuth } from "../../../utils/checkAuth";
-import { connect } from "../../../utils/connect";
+import dbConnect from "../../../utils/connect";
+import User from "../../../models/User";
 
-export default async function (req, res) {
-  if (req.method === 'GET') {
-    try {
-      let userAuth = checkAuth(req.headers);
+export default async function handler(req, res) {
+  const { method } = req
+  await dbConnect()
 
-      const client = await connect;
+  switch (method) {
+    case 'GET':
+      try {
+        let userAuth = checkAuth(req.headers);
 
-      const users = await client.db().collection('users');
+        const user = await User.findOne({ email: userAuth.email })
 
-      const user = await users.findOne({ email: userAuth.email })
+        let newArray = []
 
-      let newArray = []
-
-      if (user.members.length > 0) {
-        forEach(user.members, async (value, index) => {
-          if (value.accepted) {
-            let memberUser = await users.findOne({ _id: value._id })
-            newArray.push({
-              fullName: memberUser.full_name,
-              email: memberUser.email,
-              ...value
+        if (user) {
+          if (user.members.length > 0) {
+            forEach(user.members, async (value, index) => {
+              if (value.accepted) {
+                let memberUser = await User.findOne({ _id: value._id })
+                newArray.push({
+                  fullName: memberUser.full_name,
+                  email: memberUser.email,
+                  ...value
+                })
+              }
+              if (index == (user.members.length - 1)) {
+                res.status(200).json({ success: true, data: newArray })
+              }
             })
+          } else {
+            res.status(200).json({ success: true, data: [] })
           }
-          if (index == (user.members.length - 1)) {
-            client.close();
-            return res.send({ success: true, message: "Success", data: newArray })
-          }
-        })
-      } else {
-        return res.send({ success: true, message: "Success", data: newArray })
+        } else {
+          res.status(200).json({ success: true, data: [] })
+        }
+      } catch (error) {
+        console.log(error);
+        return res.status(500).send(error)
       }
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send(error)
-    }
+      break;
+
+    default:
+      res.status(400).json({ success: false })
+      break
   }
+
 }

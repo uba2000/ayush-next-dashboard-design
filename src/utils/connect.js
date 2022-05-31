@@ -1,7 +1,17 @@
-import { MongoClient } from 'mongodb';
+import mongoose from 'mongoose'
 
-export const connect = MongoClient.connect(
-  `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_CLUSTER}.a7jcn.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
-  { useNewUrlParser: true, useUnifiedTopology: true }
-);
+const connection = {} /* creating connection object*/
 
+async function dbConnect() {
+  /* check if we have connection to our databse*/
+  if (connection.isConnected) {
+    return
+  }
+
+  /* connecting to our database */
+  const db = await mongoose.connect(process.env.MONGODB_URI)
+
+  connection.isConnected = db.connections[0].readyState
+}
+
+export default dbConnect

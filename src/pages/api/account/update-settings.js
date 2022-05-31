@@ -1,49 +1,55 @@
 import { hash } from 'bcryptjs';
 
 import { checkAuth } from '../../../utils/checkAuth';
-import { connect } from "../../../utils/connect";
+import User from '../../../models/User';
+import dbConnect from "../../../utils/connect";
 
 export default async function (req, res) {
-  if (req.method === 'POST') {
-    try {
-      let user = checkAuth(req.headers);
+  const { method } = req
+  await dbConnect()
 
-      const { fullName, password, gender, dob, address } = req.body
+  switch (method) {
+    case 'POST':
+      try {
+        let user = checkAuth(req.headers);
 
-      let updateObject = {};
+        const { fullName, password, gender, dob, address } = req.body
 
-      if (fullName) {
-        updateObject.full_name = fullName;
-      }
-      if (password) {
-        updateObject.password = await hash(password, 12);
-      }
-      if (gender) {
-        updateObject.gender = gender;
-      }
-      if (dob) {
-        updateObject.dob = dob;
-      }
-      if (address) {
-        updateObject.address = address;
-      }
+        let updateObject = {};
 
-      const client = await connect;
-
-      const db = await client.db().collection('users');
-
-      await db.updateOne(
-        { email: user.email },
-        {
-          $set: updateObject
+        if (fullName) {
+          updateObject.full_name = fullName;
         }
-      )
+        if (password) {
+          updateObject.password = await hash(password, 12);
+        }
+        if (gender) {
+          updateObject.gender = gender;
+        }
+        if (dob) {
+          updateObject.dob = dob;
+        }
+        if (address) {
+          updateObject.address = address;
+        }
 
-      client.close();
-      return res.send({ success: true, message: "Success" })
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send(error)
-    }
+        await User.updateOne(
+          { email: user.email },
+          {
+            $set: updateObject
+          }
+        )
+
+        res.status(200).json({ success: true })
+      } catch (error) {
+        console.log(error);
+        return res.status(500).send(error)
+      }
+      break;
+
+    default:
+      res.status(400).json({ success: false })
+      break
   }
+
 }

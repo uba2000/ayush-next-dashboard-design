@@ -2,7 +2,8 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { compare } from 'bcryptjs';
 
-import { connect } from '../../../utils/connect';
+import dbConnect from '../../../utils/connect';
+import User from '../../../models/User'
 import { signAccessToken, signRefreshToken } from '../../../utils/jwtHelper';
 
 export default NextAuth({
@@ -22,12 +23,10 @@ export default NextAuth({
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, req) {
+        await dbConnect()
         try {
-          const client = await connect
-          //Get all the users
-          const users = await client.db().collection('users');
           //Find user with the email  
-          const user = await users.findOne({
+          const user = await User.findOne({
             email: credentials.email,
           });
           //Not found - send error res
@@ -53,7 +52,6 @@ export default NextAuth({
             email: user.email,
           })
 
-          client.close();
           return {
             email: user.email,
             gender: user.gender,
