@@ -35,6 +35,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: "owner"
   },
+  account_plan: {
+    type: String,
+    default: ''
+  },
   members: {
     type: Array,
     default: []
