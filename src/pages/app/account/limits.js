@@ -1,12 +1,15 @@
 import React from 'react'
+import { getSession } from 'next-auth/react'
+
 import styles from '../../../styles/Account.module.css'
 import AccountLayout from '../../../components/app/account/AccountLayout'
 import Box from '../../../components/layouts/Box'
 import { Table } from '../../../components/layouts/Table'
 import LimitsHistoryItems from '../../../page-components/account/limitsHistoryItems'
 import { LinkIcon } from '../../../ui/icons'
+import { get, setHeaders } from '../../../utils/http'
 
-function limits() {
+function limits({ accountPlan, accountHistory }) {
   return (
     <AccountLayout>
       <div className="space-y-[30px]">
@@ -18,19 +21,34 @@ function limits() {
                 <div className="p-[30px] space-y-[29px]">
                   <div className="grid grid-cols-5">
                     <div className='flex flex-col space-y-1'>
-                      <LimitsDetailsLayout title={'Statndard Plan'} titleHead={'Your Plan'} />
+                      <LimitsDetailsLayout
+                        title={`${accountPlan ? accountPlan.account_plan.plan : '---'}`}
+                        titleHead={'Your Plan'}
+                      />
                     </div>
                     <div className='flex flex-col space-y-1'>
-                      <LimitsDetailsLayout title={'Mar 22, 2022'} titleHead={'Billing Date'} />
+                      <LimitsDetailsLayout
+                        title={'Mar 22, 2022'}
+                        titleHead={'Billing Date'}
+                      />
                     </div>
                     <div className='flex flex-col space-y-1'>
-                      <LimitsDetailsLayout title={'100,000 Credits'} titleHead={'Monthly Limit'} />
+                      <LimitsDetailsLayout
+                        title={`${accountPlan ? `${accountPlan.account_plan.monthLimit} Credits` : '---'}`}
+                        titleHead={'Monthly Limit'}
+                      />
                     </div>
                     <div className='flex flex-col space-y-1'>
-                      <LimitsDetailsLayout title={'15 of 20'} titleHead={'Total Projects'} />
+                      <LimitsDetailsLayout
+                        title={`${accountPlan ? `${accountPlan.projects} of ${accountPlan.account_plan.totalProjectsLimit}` : '---'}`}
+                        titleHead={'Total Projects'}
+                      />
                     </div>
                     <div className='flex flex-col space-y-1'>
-                      <LimitsDetailsLayout title={'25 of 30'} titleHead={'Keyword Lists'} />
+                      <LimitsDetailsLayout
+                        title={`${accountPlan ? `${accountPlan.keywords} of ${accountPlan.account_plan.keywordListLimit}` : '---'}`}
+                        titleHead={'Keyword Lists'}
+                      />
                     </div>
                   </div>
                   <div className="space-y-[10px]">
@@ -39,12 +57,20 @@ function limits() {
                         <LimitsDetailsLayout title={'22/03/2022'} titleHead={'Reset Date'} />
                       </div>
                       <div className='flex space-x-1 items-center'>
-                        <LimitsDetailsLayout title={'81,984 Of 100,000'} titleHead={'Total Credits'} />
+                        <LimitsDetailsLayout
+                          title={`${accountPlan ? `${accountPlan.month_credit} Of ${accountPlan.account_plan.monthLimit}` : '---'}`}
+                          titleHead={'Total Credits'}
+                        />
                       </div>
                     </div>
                     <div className="">
                       <div className="w-full rounded-[48px] h-[17px] bg-gray-1000">
-                        <div className="w-[81.984%] transition-[width] ease-out duration-200 rounded-[48px] h-[17px] bg-primary"></div>
+                        <div
+                          style={{
+                            width: `${accountPlan ? (accountPlan.month_credit / accountPlan.account_plan.monthLimit) * 100 : '0'}%`
+                          }}
+                          className="transition-[width] ease-out duration-200 rounded-[48px] h-[17px] bg-primary"
+                        ></div>
                       </div>
                     </div>
                   </div>
@@ -176,4 +202,44 @@ const LimitSectionHeader = ({ title }) => {
 }
 
 limits.auth = true
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context)
+
+  try {
+    if (session?.user) {
+      let details = {}
+      const { response, error } = await get({
+        url: `${process.env.BASE_URL}/api/account/get-account-details`,
+        headers: setHeaders({ token: session.user.accessToken }),
+      })
+
+      if (response.status) {
+        details = response.data.data
+        return {
+          props: {
+            accountPlan: details.current_plan || null,
+            accountHistory: []
+          }
+        }
+      }
+    }
+
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    }
+  }
+}
+
 export default limits
