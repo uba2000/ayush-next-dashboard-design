@@ -8,6 +8,7 @@ import useUser from '../../../hooks/useUser'
 import { setHeaders, get, post } from '../../../utils/http'
 import { DialogLayout } from '../../layouts/Dialog'
 import Input from '../../layouts/Input'
+import { Loader } from '../../layouts/Loader'
 
 function AccountTeamTable({ targetTeamBTN, closeModal, isOpen }) {
 
@@ -105,10 +106,7 @@ function AccountTeamTable({ targetTeamBTN, closeModal, isOpen }) {
             <>
               <Table.Row>
                 <td colSpan="3" className="text-center py-3">
-                  <div
-                    className="spinning-loader w-9 h-9 mx-auto"
-                    role="status"
-                  ></div>
+                  <Loader />
                 </td>
               </Table.Row>
             </>
