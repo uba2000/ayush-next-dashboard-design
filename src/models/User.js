@@ -17,6 +17,11 @@ const SubscriptionSchema = new mongoose.Schema({
   next_billing_date: {
     type: String
   },
+}, {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
 });
 const PlanSchema = new mongoose.Schema({
   plan: {
@@ -34,6 +39,11 @@ const PlanSchema = new mongoose.Schema({
   price: {
     type: Number
   }
+}, {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
 });
 const CurrentPlanSchem = new mongoose.Schema({
   month_credit: {
@@ -50,6 +60,11 @@ const CurrentPlanSchem = new mongoose.Schema({
   },
   next_billing_date: {
     type: String
+  }
+}, {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
   }
 });
 const UserSchema = new mongoose.Schema({
@@ -99,6 +114,13 @@ const UserSchema = new mongoose.Schema({
   subscriptions: {
     type: [SubscriptionSchema],
   }
+}, {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
 });
+
+
 
 export default mongoose.models.User || mongoose.model('User', UserSchema)

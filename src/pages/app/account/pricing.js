@@ -338,5 +338,5 @@ function pricing() {
 }
 
 
-// pricing.auth = true
+pricing.auth = true
 export default pricing
