@@ -20,6 +20,7 @@ body {
   overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Poppins', Segoe UI, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  @apply font-poppins;
 }
 
 a {
@@ -736,22 +737,20 @@ abbr[title] {
 }
 
 .spinning-loader {
-	
   @apply bg-transparent rounded-full border-[6px] border-solid border-primary-300 border-l-primary;
-	
-	animation-name: rotate-s-loader;
-	animation-iteration-count: infinite;
-	animation-duration: 1s;
-	animation-timing-function: linear;
-	position: relative;
-	
+
+  animation-name: rotate-s-loader;
+  animation-iteration-count: infinite;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  position: relative;
 }
 
 @keyframes rotate-s-loader {
-	from{
-		transform: rotate(0);
-	}
-	to {
-		transform: rotate(360deg);
-	}
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

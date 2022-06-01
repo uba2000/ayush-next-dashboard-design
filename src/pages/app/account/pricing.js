@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Switch } from '@headlessui/react'
 
 import { RoundTickActive } from '../../../ui/icons/round-tick-active'
@@ -9,11 +9,15 @@ import DashboardLanding from '../../../components/app/DashboardLanding'
 import { Table } from '../../../components/layouts/Table'
 import { fNumber } from '../../../utils/formatNumber'
 import SwitchPlanDialog from '../../../page-components/account/pricing/switchPlanDialog'
+import accountPlan from '../../../_mock/accountPlans'
 
 function pricing() {
 
   const [enabled, setEnabled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [selectedPlan, setSelectedPlan] = useState(null)
+  const [plans] = useState(accountPlan)
+  const [discount] = useState(20)
 
   const openModal = () => {
     setIsOpen(true)
@@ -21,9 +25,19 @@ function pricing() {
 
   const closeModal = () => {
     setIsOpen(false)
+    setSelectedPlan(null)
   }
 
-  const PlanLayout = ({ title, amount }) => {
+  const calculateDiscountedPrice = (price) => {
+    return fNumber(((price * 12) - ((discount / 100) * (price * 12)) - 1))
+  }
+
+  const switchPlan = (plan) => {
+    openModal()
+    setSelectedPlan(plan)
+  }
+
+  const PlanLayout = ({ title, amount, plan }) => {
     return (
       <div className="">
         <p className="text-4 leading-[22px] font-bold mb-[10px]">{title}</p>
@@ -37,7 +51,7 @@ function pricing() {
           </div>
         </div>
         <div>
-          <button onClick={openModal} className='w-full btn btn-primary font-normal'>Switch Plan</button>
+          <button onClick={() => switchPlan(plan)} className='w-full btn btn-primary font-normal'>Switch Plan</button>
         </div>
       </div>
     )
@@ -45,7 +59,7 @@ function pricing() {
 
   return (
     <>
-      <SwitchPlanDialog isOpen={isOpen} closeModal={closeModal}>
+      <SwitchPlanDialog plan={selectedPlan} isOpen={isOpen} closeModal={closeModal}>
 
       </SwitchPlanDialog>
       <DashboardLayout customChildren={true}>
@@ -84,20 +98,27 @@ function pricing() {
                     <p className="text-[19.53px]">{enabled ? 'Yearly' : 'Monthly'}</p>
                   </div>
                   {enabled && <div className="">
-                    <button className="btn btn-primary rounded-none">-20%  Discount</button>
+                    <button className="btn btn-primary rounded-none">-{discount}%  Discount</button>
                   </div>}
                 </div>
               </div>
               {!enabled ? (
                 <div className='grid md:grid-cols-3 grid-cols-2 mt-5 gap-[30px] ml-auto'>
-                  <PlanLayout title={'Starter Plan'} amount={fNumber(24)} />
-                  <PlanLayout title={'Standard Plan'} amount={fNumber(74)} />
-                  <PlanLayout title={'Premium Plan'} amount={fNumber(149)} />
+                  {plans.map((plan) => (
+                    <Fragment key={plan.id}>
+                      <PlanLayout plan={plan} title={plan.plan} amount={fNumber(plan.price)} />
+                    </Fragment>
+                  ))}
                 </div>
               ) : (<div className='grid md:grid-cols-3 grid-cols-2 mt-5 gap-[30px] ml-auto'>
-                <PlanLayout title={'Starter Plan'} amount={fNumber(299)} />
-                <PlanLayout title={'Standard Plan'} amount={fNumber(899)} />
-                <PlanLayout title={'Premium Plan'} amount={fNumber(1799)} />
+                {plans.map((plan) => (
+                  <Fragment key={plan.id}>
+                    <PlanLayout plan={plan}
+                      title={plan.plan}
+                      amount={calculateDiscountedPrice(plan.price)}
+                    />
+                  </Fragment>
+                ))}
               </div>)}
             </div>
             <div className="">

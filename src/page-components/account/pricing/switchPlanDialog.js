@@ -2,7 +2,7 @@ import React from 'react'
 
 import { DialogLayout } from '../../../components/layouts/Dialog'
 
-const SwitchPlanDialog = ({ isOpen, closeModal }) => {
+const SwitchPlanDialog = ({ isOpen, closeModal, plan }) => {
   return (
     <DialogLayout isOpen={isOpen} widthRestrict={'max-w-[818px]'} closeModal={closeModal}>
       <div className="text-left">
