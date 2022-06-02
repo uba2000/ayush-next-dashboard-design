@@ -1,11 +1,4 @@
-import React, { useState, useEffect, useMemo, Fragment } from 'react'
-import {
-  useTable,
-  useSortBy,
-  useGlobalFilter,
-  usePagination,
-  useRowSelect
-} from 'react-table'
+import React from 'react'
 import Pagination from '../Pagination'
 
 import { Table } from '../Table'
