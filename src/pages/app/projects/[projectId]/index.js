@@ -17,9 +17,11 @@ import filters from '../../../../_mock/filters'
 import FeatureListItem from '../../../../page-components/project-categories/features/FeatureListItem'
 import { Table } from '../../../../components/layouts/Table'
 import useScaiTable from '../../../../hooks/useScaiTable'
-import { ARTICLES_COLUNM } from '../../../../components/layouts/Table/columns'
+import { ARTICLES_COLUNM, KEYWORDS_COLUNM } from '../../../../components/layouts/Table/columns'
 import TableLayout from '../../../../components/layouts/TableLayout'
 import ArticleIndexItemDialog from '../../../../page-components/articles/ArticleIndexItemDialog'
+import KeywordsIndexItemDialog from '../../../../page-components/keywords/KeywordsIndexItemDialog'
+import SearchTable from '../../../../components/layouts/Table/components/SearchTable'
 
 const tabs = [
   { tab: 'Articles', q: 'a' },
@@ -155,6 +157,18 @@ function Index({ ssrQuery }) {
     }
   }])
 
+  const keywordsTableInstance = useScaiTable({
+    tableData: keywordList,
+    tableColumns: KEYWORDS_COLUNM
+  }, [{
+    Header: <Settings className="mx-auto h-[18px] w-[18px] dark:text-white text-black" />,
+    Cell: ({ row }) => {
+      return (
+        <KeywordsIndexItemDialog item={row.original} />
+      )
+    }
+  }])
+
   return (
     <DashboardLayout>
       <ArticleLayout crumbs={[{ link: '', txt: tabs[tabIndex].tab }]}>
@@ -196,9 +210,20 @@ function Index({ ssrQuery }) {
                     )}
                   </Tab>
                 </div>
-                {tabIndex !== 2 && (
+                {tabIndex == 0 && (
                   <div className="flex items-center justify-end">
-                    <SearchInput />
+                    <SearchTable
+                      filter={articleTableInstance.globalFilter}
+                      setFilter={articleTableInstance.setGlobalFilter}
+                    />
+                  </div>
+                )}
+                {tabIndex == 1 && (
+                  <div className="flex items-center justify-end">
+                    <SearchTable
+                      filter={keywordsTableInstance.globalFilter}
+                      setFilter={keywordsTableInstance.setGlobalFilter}
+                    />
                   </div>
                 )}
                 {tabIndex == 2 && (
@@ -352,7 +377,9 @@ function Index({ ssrQuery }) {
               </Tab.Panel>
               <Tab.Panel>
                 <div>
-                  <KeywordList keywords={keywordList} />
+                  <TableLayout
+                    tableInstance={keywordsTableInstance}
+                  />
                 </div>
               </Tab.Panel>
               <Tab.Panel>
