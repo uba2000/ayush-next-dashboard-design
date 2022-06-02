@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
+import { useTable, useSortBy } from 'react-table'
 
+import { PROJECT_COLUNMS } from '../../layouts/Table/columns'
 import CheckBox from '../../layouts/CheckBox'
 import { Settings } from '../../../ui/icons'
 import ProjectListItem from './ProjectListItem'
@@ -33,10 +35,16 @@ function ProjectList(props) {
     tickAllProjects(va);
   }
 
+
+
   return (
     <>
       <div className="mt-7">
-        <Table>
+
+
+
+
+        {/* <Table>
           <Table.Head>
             <Table.Row className="cursor-default">
               <Table.TH className='cursor-pointer w-[41.5px] pl-[21px]'>
@@ -90,7 +98,7 @@ function ProjectList(props) {
               })
             }
           </Table.Body>
-        </Table>
+        </Table> */}
       </div>
       <div className="dark:bg-darkMode-bg bg-white border border-t-0 dark:border-darkMode-border border-ash border-solid">
         <div className="flex justify-between pl-11 pr-10 py-4">
@@ -153,3 +161,4 @@ function ProjectList(props) {
 }
 
 export default ProjectList
+// #156

@@ -1,14 +1,14 @@
 import React from 'react'
 import tw from "tailwind-styled-components"
 
-const TableBody = ({ children, ...rest }) => {
-  return (
-    <StyledTableBody {...rest}>{children}</StyledTableBody>
-  )
-}
-
 const StyledTableBody = tw.tbody`
   
 `;
 
-export { TableBody }
+export const TableBody = React.forwardRef(
+  ({ children, ...rest }, ref) => (
+    <StyledTableBody ref={ref} {...rest}>{children}</StyledTableBody>
+  )
+)
+
+TableBody.displayName = 'TableBody';

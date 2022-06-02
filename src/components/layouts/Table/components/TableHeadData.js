@@ -1,12 +1,6 @@
 import React from 'react'
 import tw from "tailwind-styled-components"
 
-const TableHeadData = ({ children, main, className, ...rest }) => {
-  return (
-    <StyledTableData {...rest} className={`${className} ${main ? 'w-4/6 text-left' : 'w-fit'}`}>{children}</StyledTableData>
-  )
-}
-
 const StyledTableData = tw.th`
   px-[7.5px]
   py-[6px]
@@ -19,4 +13,10 @@ const StyledTableData = tw.th`
   last-of-type:pr-[21px]
 `;
 
-export { TableHeadData }
+export const TableHeadData = React.forwardRef(
+  ({ children, main, className, ...rest }, ref) => (
+    <StyledTableData ref={ref} {...rest} className={`${className} ${main ? 'w-4/6 text-left' : 'w-fit'}`}>{children}</StyledTableData>
+  )
+)
+
+TableHeadData.displayName = 'TableHeadData';

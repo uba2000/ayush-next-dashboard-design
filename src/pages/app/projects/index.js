@@ -1,69 +1,32 @@
-import { useRouter } from 'next/router'
-import React, { useState, useReducer, Fragment, useEffect } from 'react'
-import { Transition } from '@headlessui/react'
+import React, { useState, useEffect, useMemo } from 'react'
+import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table'
 
 import { useAppContext } from '../../../context/state'
+import { PROJECT_COLUNMS } from '../../../components/layouts/Table/columns'
 import Projects from '../../../_mock/projects'
-import industries from '../../../_mock/industries'
 import { fTags } from '../../../utils/formatTags'
 import DashboardLayout from '../../../components/app/DasboardLayout'
 import DashboardLanding from '../../../components/app/DashboardLanding'
 import ProjectList from '../../../components/app/project/ProjectList'
-import SearchInput from '../../../components/SearchInput'
-import { DialogLayout } from '../../../components/layouts/Dialog'
-import Input from '../../../components/layouts/Input'
-import FormGroup from '../../../components/FormGroup'
-
-const initialProjectDetails = {
-  title: '',
-  tags: [],
-  industry: '',
-}
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'setTitle':
-      return { ...state, title: action.value }
-    case 'setTags':
-      let arrTags = fTags(action.value)
-      return { ...state, tags: arrTags }
-    case 'setIndustry':
-      return { ...state, industry: action.value }
-    default:
-      return state
-  }
-}
+import SearchTable from '../../../components/layouts/Table/components/SearchTable'
+import ProjectsIndexDialog from '../../../page-components/projects/ProjectsIndexDialog'
+import { Table } from '../../../components/layouts/Table'
+import Pagination from '../../../components/layouts/Pagination'
 
 function AllProjects() {
 
-  const router = useRouter()
-
-  const state = useAppContext()
+  const contextState = useAppContext()
 
   const [projects, setProjects] = useState(Projects)
-  const [showPredict, setPredictTitle] = useState(false)
   const [projectDialog, setProjectDialog] = useState(false)
-  const [showPredictIndustry, setShowPredictIndustry] = useState(false)
-
-  const [newProject, dispatch] = useReducer(reducer, initialProjectDetails)
 
   useEffect(() => {
-    setTimeout(() => setProjectDialog(state.layout.showNewProject), 200)
+    setTimeout(() => setProjectDialog(contextState.layout.showNewProject), 200)
 
     return () => {
-      state.layout.setShowNewProject(false)
+      contextState.layout.setShowNewProject(false)
     }
   }, [])
-
-  const predictTitle = (value) => {
-    dispatch({ type: 'setTitle', value })
-    setPredictTitle(newProject.title.length > 2)
-  }
-
-  const predictIndustry = (value) => {
-    dispatch({ type: 'setIndustry', value })
-    setShowPredictIndustry(newProject.industry.length > 2)
-  }
 
   const openProjectDialog = () => {
     setProjectDialog(true)
@@ -73,118 +36,34 @@ function AllProjects() {
     setProjectDialog(false)
   }
 
-  const continueProjectCreation = () => {
-    state.project.setNewProjectData(newProject)
-    router.push('/app/projects/keywords')
-  }
+  const columns = useMemo(() => PROJECT_COLUNMS, [])
+  const data = useMemo(() => projects, [])
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    prepareRow,
+    state,
+    setGlobalFilter,
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
+    gotoPage,
+    pageCount
+  } = useTable({
+    columns,
+    data
+  }, useGlobalFilter, useSortBy, usePagination)
+
+  const { globalFilter, pageIndex } = state
 
   return (
     <DashboardLayout>
-      <DialogLayout isOpen={projectDialog} widthRestrict={'max-w-[1299px]'} isSharp={true} closeModal={closeProjectDialog}>
-        <div className='w-full text-left py-[30px] md:px-14 px-5'>
-          <div className="pb-5">
-            <FormGroup label='Project Title' imp={true} labelFor="project">
-              <Input
-                id='project'
-                value={newProject.title}
-                onChange={(e) => predictTitle(e.target.value)}
-                placeholder='Your Campaign, Product, or client'
-              />
-              <Transition
-                as={Fragment}
-                show={showPredict}
-                enter='transition ease-out duration-100 overflow-hidden'
-                enterFrom='transform min-h-0'
-                enterTo='transform max-h-[105px] h-auto'
-                leave='transition ease-in'
-                leaveFrom='transform duration-75 max-h-[105px] h-auto'
-                leaveTo='transform min-h-0'
-              >
-                <ul className='predict-title max-h-[176px] overflow-y-scroll'>
-                  <li className='px-[27.18px] py-[10px]'>
-                    <span className='cursor-pointer'
-                      onClick={() => {
-                        dispatch({ type: 'setTitle', value: `${newProject.title} Class Notes` });
-                        setPredictTitle(false)
-                      }}
-                    >
-                      {newProject.title} <span className='font-bold'>Class Notes</span>
-                    </span>
-                  </li>
-                  <li className='px-[27.18px] py-[10px]'>
-                    <span className='cursor-pointer'
-                      onClick={() => {
-                        dispatch({ type: 'setTitle', value: `${newProject.title} Agency` });
-                        setPredictTitle(false)
-                      }}
-                    >
-                      {newProject.title} <span className='font-bold'>Agency</span>
-                    </span>
-                  </li>
-                  <li className='px-[27.18px] py-[10px]'>
-                    <span className='cursor-pointer'
-                      onClick={() => {
-                        dispatch({ type: 'setTitle', value: `${newProject.title} Book Article` });
-                        setPredictTitle(false)
-                      }}
-                    >
-                      {newProject.title} <span className='font-bold'>Book Article</span>
-                    </span>
-                  </li>
-                </ul>
-              </Transition>
-            </FormGroup>
-
-            <FormGroup label='Project Tags' imp={true} labelFor="prize">
-              <Input
-                id='prize'
-                value={newProject.tags.join(', ')}
-                onChange={e => dispatch({ type: 'setTags', value: e.target.value })}
-                placeholder='graphic design, digital marketing, marketing'
-              />
-            </FormGroup>
-
-            <FormGroup label='Industry(optional)' className="mb-0" labelFor='indutry'>
-              <Input
-                id='industry'
-                value={newProject.industry}
-                onChange={(e) => predictIndustry(e.target.value)}
-                placeholder='Industry'
-              />
-              <Transition
-                as={Fragment}
-                show={showPredictIndustry}
-                enter='transition ease-out duration-100 overflow-hidden'
-                enterFrom='transform min-h-0'
-                enterTo='transform max-h-[105px] h-auto'
-                leave='transition ease-in'
-                leaveFrom='transform duration-75 max-h-[105px] h-auto'
-                leaveTo='transform min-h-0'
-              >
-                <ul className='predict-title max-h-[176px] overflow-y-scroll'>
-                  {industries.map((industry, index) => {
-                    return (
-                      <li className='px-[27.18px] py-[10px]' key={index}>
-                        <span className='cursor-pointer' onClick={() => { dispatch({ type: 'setIndustry', value: industry }); setShowPredictIndustry(false) }}>
-                          <span className='font-bold'>{industry}</span>
-                        </span>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </Transition>
-            </FormGroup>
-          </div>
-
-          <div className='form-group flex mb-0 justify-between'>
-            <div className="space-x-4 flex">
-              <button type='button' onClick={continueProjectCreation} className='block w-fit btn btn-primary bg-primary text-white'>
-                Next
-              </button>
-            </div>
-          </div>
-        </div>
-      </DialogLayout>
+      <ProjectsIndexDialog projectDialog={projectDialog} closeProjectDialog={closeProjectDialog} />
       <DashboardLanding
         landingText='All Projects'
         oneChild={true}
@@ -204,10 +83,75 @@ function AllProjects() {
               </p>
             </div>
             <div className="flex items-center justify-end">
-              <SearchInput />
+              <SearchTable
+                filter={globalFilter}
+                setFilter={setGlobalFilter}
+              />
             </div>
           </div>
-          <ProjectList projects={projects} />
+          <div className="mt-7">
+            <Table {...getTableProps()}>
+              <Table.Head>
+                {headerGroups.map((headerGroup) => (
+                  <Table.Row {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map((column) => (
+                      <Table.TH {...column.getHeaderProps(column.getSortByToggleProps())}>
+                        <div className="flex items-center space-x-1">
+                          {column.render('Header')}
+                          <span>
+                            {column.isSorted ? (column.isSortedDesc ? (
+
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5"
+                                viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                              </svg>
+                            ) : (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                              </svg>
+                            )) : ''}
+                          </span>
+                        </div>
+                      </Table.TH>
+                    ))}
+                  </Table.Row>
+                ))}
+              </Table.Head>
+              <Table.Body {...getTableBodyProps()}>
+                {page.map(row => {
+                  prepareRow(row)
+                  return (
+                    <Table.Row {...row.getRowProps()}>
+                      {row.cells.map(cell => {
+                        return (
+                          <Table.Data {...cell.getCellProps()}>
+                            {cell.render('Cell')}
+                          </Table.Data>
+                        )
+                      })}
+                    </Table.Row>
+                  )
+                })}
+              </Table.Body>
+            </Table>
+            {/* <ProjectList projects={projects} /> */}
+          </div>
+          <Pagination
+            nextPage={nextPage}
+            previousPage={previousPage}
+            canNextPage={canNextPage}
+            canPreviousPage={canPreviousPage}
+            pageIndex={pageIndex}
+            pageOptions={pageOptions}
+            itemsLength={projects.length}
+            pages={page}
+            gotoPage={gotoPage}
+            pageCount={pageCount}
+          />
         </div>
       </DashboardLanding>
     </DashboardLayout>
