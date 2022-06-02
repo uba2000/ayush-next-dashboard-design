@@ -1,4 +1,5 @@
 import { format } from 'date-fns'
+import { fCurrency } from '../../../utils/formatNumber'
 
 export const PROJECTS_COLUNM = [
   {
@@ -87,5 +88,79 @@ export const KEYWORDS_COLUNM = [
     },
     width: '12%',
     minWidth: '144px'
+  },
+]
+
+export const KEYWORDSLIST_COLUNM = [
+  {
+    Header: 'Keywords',
+    accessor: 'question',
+    main: true,
+  },
+  {
+    Header: 'Volume',
+    accessor: 'volume',
+    Cell: ({ value }) => {
+      return (
+        <span className='block text-center'>
+          {value}
+        </span>
+      )
+    },
+  },
+  {
+    Header: 'Traffic',
+    accessor: 'traffic',
+    Cell: ({ value }) => {
+      return (
+        <span className='block text-center'>
+          {value}
+        </span>
+      )
+    },
+  },
+  {
+    Header: 'CPC',
+    accessor: 'cpc',
+    Cell: ({ value }) => {
+      return (
+        <span className='block text-center'>
+          {`${fCurrency(value)}`}
+        </span>
+      )
+    },
+  },
+  {
+    Header: 'Difficulty',
+    accessor: 'difficulty',
+    Cell: ({ value }) => {
+      return (
+        <span className='block text-center'>
+          {value}
+        </span>
+      )
+    },
+  },
+  {
+    Header: 'Trending',
+    accessor: 'trending',
+    Cell: ({ value }) => {
+      return (
+        <span className='block text-center'>
+          {value}%
+        </span>
+      )
+    },
+  },
+  {
+    Header: 'AIT',
+    accessor: 'ait',
+    Cell: ({ value }) => {
+      return (
+        <span className='block text-center'>
+          {value}
+        </span>
+      )
+    },
   },
 ]

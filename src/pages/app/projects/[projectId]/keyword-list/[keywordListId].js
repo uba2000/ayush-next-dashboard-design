@@ -22,6 +22,9 @@ import CheckBox from '../../../../../components/layouts/CheckBox'
 import ArticleLayout from '../../../../../page-components/project-categories/ArticleLayout'
 import NewKeywordListButton from '../../../../../page-components/keyword-generate/NewKeywordListButton'
 import GenerateContentDialog from '../../../../../page-components/keyword-generate/GenerateContentDialog'
+import useScaiTable from '../../../../../hooks/useScaiTable'
+import { KEYWORDSLIST_COLUNM } from '../../../../../components/layouts/Table/columns'
+import TableLayout from '../../../../../components/layouts/TableLayout'
 
 const KeywordListView = () => {
 
@@ -77,6 +80,11 @@ const KeywordListView = () => {
     setKeywords(b)
   }, [])
 
+  const tableInstance = useScaiTable({
+    tableColumns: KEYWORDSLIST_COLUNM,
+    tableData: keywords
+  }, [])
+
   return (
     <DashboardLayout>
       {/* Generate Content */}
@@ -104,7 +112,7 @@ const KeywordListView = () => {
               />
               <ExportMenu />
               <div>
-                <button disabled={!canGenerateContent} onClick={openGenerateContentDialog} className={`cursor-pointer border border-solid ${canGenerateContent ? 'dark:bg-primary bg-primary text-white border-primary' : 'dark:bg-darkMode-bg bg-white dark:text-white text-black border-ash dark:border-darkMode-border'}`}>
+                <button disabled={!tableInstance.selectedFlatRows.length > 0} onClick={openGenerateContentDialog} className={`cursor-pointer border border-solid ${tableInstance.selectedFlatRows.length > 0 ? 'dark:bg-primary bg-primary text-white border-primary' : 'dark:bg-darkMode-bg bg-white dark:text-white text-black border-ash dark:border-darkMode-border'}`}>
                   <div className="flex py-2 px-5 items-center">
                     <span>
                       <PencilAlt className="w-[17px] h-[17px]" />
@@ -116,115 +124,10 @@ const KeywordListView = () => {
             </div>
           </div>
           <div>
-            <div>
-              <Table>
-                <Table.Head>
-                  <Table.Row className="text-center cursor-default">
-                    <Table.TH className='cursor-pointer w-[41.5px]'>
-                      <div className="flex items-center justify-center" onClick={checkAllKeywords}>
-                        <CheckBox checked={isAllKeywordsChecked} />
-                      </div>
-                    </Table.TH>
-                    <Table.TH className={'w-3/6 text-left'}>
-                      <span className="capitalize">
-                        Keywords
-                      </span>
-                    </Table.TH>
-                    <Table.TH>
-                      <span className="capitalize">
-                        Volume
-                      </span>
-                    </Table.TH>
-                    <Table.TH>
-                      <span className="capitalize">
-                        Traffic
-                      </span>
-                    </Table.TH>
-                    <Table.TH>
-                      <span className="capitalize">
-                        CPC
-                      </span>
-                    </Table.TH>
-                    <Table.TH>
-                      <span className="capitalize">
-                        Difficulty
-                      </span>
-                    </Table.TH>
-                    <Table.TH>
-                      <span className="capitalize">
-                        Trending
-                      </span>
-                    </Table.TH>
-                    <Table.TH>
-                      <span className="capitalize">
-                        AIT
-                      </span>
-                    </Table.TH>
-                  </Table.Row>
-                </Table.Head>
-                <Table.Body className="dark:bg-darkMode-bg bg-white text-center">
-                  {keywords.map((k, index) => (
-                    <Fragment key={k.id}>
-                      <KeywordItem k={k} index={index} handleCheck={handleKeywordCheck} />
-                    </Fragment>
-                  ))}
-                </Table.Body>
-              </Table>
-            </div>
-            <div className="dark:bg-darkMode-bg border-t-0 bg-white border dark:border-darkMode-border border-ash border-solid">
-              <div className="flex justify-between pl-11 pr-10 py-4">
-                <span className="font-poppins text-sm align-middle">
-                  1-20 of 1000 projects
-                </span>
-                <div className="flex items-center">
-                  <button
-                    className={`py-1 px-2 border border-solid dark:border-darkMode-border border-ash`}
-                  // disabled={page == 1}
-                  // onClick={() => setPage(page - 1)}
-                  >
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      className='icon icon-tabler icon-tabler-chevron-left'
-                      width='20'
-                      height='20'
-                      viewBox='0 0 24 24'
-                      strokeWidth='1.5'
-                      stroke='currentColor'
-                      fill='none'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    >
-                      <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                      <polyline points='15 6 9 12 15 18' />
-                    </svg>
-                  </button>
-                  <p className="text-sm mx-4 font-poppins">
-                    {/* {page} */}1
-                  </p>
-                  <button
-                    className={`py-1 px-2 border border-solid dark:border-darkMode-border border-ash`}
-                  // disabled={page == Math.ceil(projects.length / 10)}
-                  // onClick={() => setPage(page + 1)}
-                  >
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      className='icon icon-tabler icon-tabler-chevron-right'
-                      width='20'
-                      height='20'
-                      viewBox='0 0 24 24'
-                      strokeWidth='1.5'
-                      stroke='currentColor'
-                      fill='none'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    >
-                      <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                      <polyline points='9 6 15 12 9 18' />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
+            {/*  */}
+            <TableLayout
+              tableInstance={tableInstance}
+            />
           </div>
         </div>
       </ArticleLayout>

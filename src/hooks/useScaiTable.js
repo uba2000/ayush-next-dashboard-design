@@ -43,6 +43,7 @@ const useScaiTable = ({
     pageOptions,
     gotoPage,
     pageCount,
+    selectedFlatRows,
   } = useTable({
     columns,
     data
@@ -84,6 +85,7 @@ const useScaiTable = ({
     pageCount,
     globalFilter,
     pageIndex,
+    selectedFlatRows,
     rowsLength: data.length
   }
 }
