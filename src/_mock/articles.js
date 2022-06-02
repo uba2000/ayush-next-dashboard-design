@@ -7,7 +7,7 @@ import articleContent from './article-content';
 const article = {
   title: 'How to start agency',
   tags: ['Graphic design', 'digital marketing'],
-  date: '2 days ago',
+  date: '2020-12-24T23:00:00.000Z',
   checked: false,
   content: articleContent,
 }

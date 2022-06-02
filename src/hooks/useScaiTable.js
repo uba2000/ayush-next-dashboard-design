@@ -14,7 +14,16 @@ import { Settings } from '../ui/icons'
 const useScaiTable = ({
   tableColumns,
   tableData,
-}) => {
+}, afterColumn = [{
+  Header: <Settings className="mx-auto h-[18px] w-[18px] dark:text-white text-black" />,
+  Cell: ({ row }) => {
+    return (
+      <ProjectsIndexItemDialog item={row.original} />
+    )
+  }
+}],
+  isCheckBox = true
+) => {
 
   const columns = useMemo(() => tableColumns, [])
   const data = useMemo(() => tableData, [])
@@ -40,7 +49,7 @@ const useScaiTable = ({
   }, useGlobalFilter, useSortBy, usePagination, useRowSelect, (hooks) => {
     hooks.visibleColumns.push((columns) => {
       return [
-        {
+        ...(() => isCheckBox ? [{
           id: 'selection',
           Header: ({ getToggleAllRowsSelectedProps }) => (
             <TableCheckBox {...getToggleAllRowsSelectedProps()} />
@@ -49,16 +58,9 @@ const useScaiTable = ({
             <TableCheckBox {...row.getToggleRowSelectedProps()} />
           ),
           width: '41.5px',
-        },
+        }] : [])(),
         ...columns,
-        {
-          Header: <Settings className="mx-auto h-[18px] w-[18px] dark:text-white text-black" />,
-          Cell: ({ row }) => {
-            return (
-              <ProjectsIndexItemDialog item={row.original} />
-            )
-          }
-        }
+        ...afterColumn,
       ]
     })
   })

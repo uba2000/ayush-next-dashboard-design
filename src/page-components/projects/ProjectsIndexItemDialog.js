@@ -7,8 +7,11 @@ import FormGroup from '../../components/FormGroup';
 import Input from '../../components/layouts/Input';
 import { fTags } from '../../utils/formatTags';
 import industries from '../../_mock/industries';
+import { useRouter } from 'next/router';
 
 const ProjectsIndexItemDialog = ({ item }) => {
+
+  const router = useRouter()
 
   let [isOpen, setIsOpen] = useState(false)
   let [editIsOpen, setEditIsOpen] = useState(false)
@@ -51,6 +54,10 @@ const ProjectsIndexItemDialog = ({ item }) => {
     setProjectTitle(rProjectTitle)
     setSelectedIndustry(rSelectedIndustry)
     closeEditModal()
+  }
+
+  const viewHandler = (e) => {
+    router.push(`/app/projects/${item.id}`)
   }
 
   return (
@@ -200,6 +207,13 @@ const ProjectsIndexItemDialog = ({ item }) => {
           >
             <Menu.Items className='z-30 origin-top-right absolute right-0 mt-2 w-52 shadow-lg dark:bg-[#000000] dark:text-white text-black bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none'>
               <div className=''>
+                <Menu.Item>
+                  {({ active }) => (
+                    <button type='button' onClick={viewHandler} className={`w-full text-left whitespace-nowrap ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'} block px-4 py-2 text-sm`}>
+                      View Project
+                    </button>
+                  )}
+                </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
                     <button type='button' onClick={openEditModal} className={`w-full text-left whitespace-nowrap ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'} block px-4 py-2 text-sm`}>

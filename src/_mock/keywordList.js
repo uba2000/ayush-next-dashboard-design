@@ -29,8 +29,7 @@ const keywordList = KEYWORDSLIST_NAME.map((keyword) => {
     id: faker.datatype.uuid(),
     title: keyword,
     tags: ['Graphic design', 'digital marketing'],
-    date: '2 days ago',
-    checked: false,
+    date: '2020-12-24T23:00:00.000Z',
   }
 })
 

@@ -16,6 +16,10 @@ import { ChevDown, SearchIcon, Settings } from '../../../../ui/icons'
 import filters from '../../../../_mock/filters'
 import FeatureListItem from '../../../../page-components/project-categories/features/FeatureListItem'
 import { Table } from '../../../../components/layouts/Table'
+import useScaiTable from '../../../../hooks/useScaiTable'
+import { ARTICLES_COLUNM } from '../../../../components/layouts/Table/columns'
+import TableLayout from '../../../../components/layouts/TableLayout'
+import ArticleIndexItemDialog from '../../../../page-components/articles/ArticleIndexItemDialog'
 
 const tabs = [
   { tab: 'Articles', q: 'a' },
@@ -138,6 +142,18 @@ function Index({ ssrQuery }) {
     stateFilter.splice(6, 0, moreFilters[indexOfMore])
     updateSelectedState(filter, indexOfMore)
   }
+
+  const articleTableInstance = useScaiTable({
+    tableData: articles,
+    tableColumns: ARTICLES_COLUNM
+  }, [{
+    Header: <Settings className="mx-auto h-[18px] w-[18px] dark:text-white text-black" />,
+    Cell: ({ row }) => {
+      return (
+        <ArticleIndexItemDialog item={row.original} />
+      )
+    }
+  }])
 
   return (
     <DashboardLayout>
@@ -329,7 +345,9 @@ function Index({ ssrQuery }) {
             <Tab.Panels>
               <Tab.Panel>
                 <div>
-                  <ArticlesList articles={articles} />
+                  <TableLayout
+                    tableInstance={articleTableInstance}
+                  />
                 </div>
               </Tab.Panel>
               <Tab.Panel>
