@@ -1,8 +1,14 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table'
+import React, { useState, useEffect, useMemo, Fragment } from 'react'
+import {
+  useTable,
+  useSortBy,
+  useGlobalFilter,
+  usePagination,
+  useRowSelect
+} from 'react-table'
 
 import { useAppContext } from '../../../context/state'
-import { PROJECT_COLUNMS } from '../../../components/layouts/Table/columns'
+import { PROJECTS_COLUNM } from '../../../components/layouts/Table/columns'
 import Projects from '../../../_mock/projects'
 import { fTags } from '../../../utils/formatTags'
 import DashboardLayout from '../../../components/app/DasboardLayout'
@@ -12,6 +18,9 @@ import SearchTable from '../../../components/layouts/Table/components/SearchTabl
 import ProjectsIndexDialog from '../../../page-components/projects/ProjectsIndexDialog'
 import { Table } from '../../../components/layouts/Table'
 import Pagination from '../../../components/layouts/Pagination'
+import TableCheckBox from '../../../components/layouts/Table/components/TableCheckBox'
+import { Dots, Settings } from '../../../ui/icons'
+import ProjectsIndexItemDialog from '../../../page-components/projects/ProjectsIndexItemDialog'
 
 function AllProjects() {
 
@@ -36,7 +45,7 @@ function AllProjects() {
     setProjectDialog(false)
   }
 
-  const columns = useMemo(() => PROJECT_COLUNMS, [])
+  const columns = useMemo(() => PROJECTS_COLUNM, [])
   const data = useMemo(() => projects, [])
 
   const {
@@ -53,11 +62,36 @@ function AllProjects() {
     canPreviousPage,
     pageOptions,
     gotoPage,
-    pageCount
+    pageCount,
+    selectedFlatRows
   } = useTable({
     columns,
     data
-  }, useGlobalFilter, useSortBy, usePagination)
+  }, useGlobalFilter, useSortBy, usePagination, useRowSelect, (hooks) => {
+    hooks.visibleColumns.push((columns) => {
+      return [
+        {
+          id: 'selection',
+          Header: ({ getToggleAllRowsSelectedProps }) => (
+            <TableCheckBox {...getToggleAllRowsSelectedProps()} />
+          ),
+          Cell: ({ row }) => (
+            <TableCheckBox {...row.getToggleRowSelectedProps()} />
+          ),
+          width: '41.5px',
+        },
+        ...columns,
+        {
+          Header: <Settings className="mx-auto h-[18px] w-[18px] dark:text-white text-black" />,
+          Cell: ({ row }) => {
+            return (
+              <ProjectsIndexItemDialog item={row.original} />
+            )
+          }
+        }
+      ]
+    })
+  })
 
   const { globalFilter, pageIndex } = state
 
@@ -95,8 +129,17 @@ function AllProjects() {
                 {headerGroups.map((headerGroup) => (
                   <Table.Row {...headerGroup.getHeaderGroupProps()}>
                     {headerGroup.headers.map((column) => (
-                      <Table.TH {...column.getHeaderProps(column.getSortByToggleProps())}>
-                        <div className="flex items-center space-x-1">
+                      <Table.TH
+                        main={column.main}
+                        {...column.getHeaderProps(column.getSortByToggleProps())}
+                      >
+                        <div
+                          style={{
+                            width: `${column.width ? column.width : ''}`,
+                            minWidth: `${column.minWidth ? column.minWidth : ''}`,
+                          }}
+                          className="flex items-center space-x-1"
+                        >
                           {column.render('Header')}
                           <span>
                             {column.isSorted ? (column.isSortedDesc ? (

@@ -1,22 +1,31 @@
 import { format } from 'date-fns'
 
-export const PROJECT_COLUNMS = [
+export const PROJECTS_COLUNM = [
   {
     Header: 'All Projects',
-    accessor: 'title'
+    accessor: 'title',
+    main: true,
   },
   {
     Header: 'Tags',
     accessor: 'tags',
-    cell: ({ value }) => {
-      return value.join(', ')
-    }
+    Cell: ({ value }) => {
+      return (
+        <span className='line-clamp-1'>
+          {value.join(', ')}
+        </span>
+      )
+    },
+    width: '27%',
+    minWidth: '169px'
   },
   {
     Header: 'Date',
     accessor: 'date',
-    cell: ({ value }) => {
+    Cell: ({ value }) => {
       return format(new Date(value), 'dd/MM/yyyy')
-    }
+    },
+    width: '12%',
+    minWidth: '144px'
   },
 ]
