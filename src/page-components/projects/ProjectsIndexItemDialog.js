@@ -29,12 +29,12 @@ const ProjectsIndexItemDialog = ({ item }) => {
     setEditIsOpen(true)
   }
 
-  const [projectTitle, setProjectTitle] = useState('Digital Marketing')
-  const [rProjectTitle, setRProjectTitle] = useState('Digital Marketing')
+  const [projectTitle, setProjectTitle] = useState(item.title)
+  const [rProjectTitle, setRProjectTitle] = useState(item.title)
   const [showPredict, setPredictTitle] = useState(false)
-  const [pTags, setPTags] = useState(['Digital', 'Marheting']);
-  const [selectedIndustry, setSelectedIndustry] = useState('')
-  const [rSelectedIndustry, setRSelectedIndustry] = useState('')
+  const [pTags, setPTags] = useState(item.tags);
+  const [selectedIndustry, setSelectedIndustry] = useState(item.industry ? item.industry : '')
+  const [rSelectedIndustry, setRSelectedIndustry] = useState(item.industry ? item.industry : '')
   const [showPredictIndustry, setShowPredictIndustry] = useState(false)
 
   const predictTitle = (value) => {
