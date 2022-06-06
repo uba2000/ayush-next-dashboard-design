@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useEffect, useReducer } from 'react'
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useReducer,
+} from 'react';
 
 import returnKeywordList from '../_mock/keywordList';
 import returnKeywords from '../_mock/keywords';
@@ -18,47 +24,52 @@ const initialState = {
   // Articles State
   projectArticles: articles,
 
-  keywordQuestions: []
-}
+  keywordQuestions: [],
+  keywordsStackAnalysed: [],
+};
 
 const reducer = (state, action) => {
   switch (action.type) {
     case 'setKeywords':
-      return { keywords: action.value, ...state }
+      return { keywords: action.value, ...state };
     case 'setKeywordList':
-      return { keywordList: action.value, ...state }
+      return { keywordList: action.value, ...state };
     case 'setProjectFeatures':
-      return { projectFeatures: action.value, ...state }
+      return { projectFeatures: action.value, ...state };
     case 'setProjectFeatureList':
-      return { projectFeatureList: action.value, ...state }
+      return { projectFeatureList: action.value, ...state };
     case 'setProjectArticles':
-      return { projectArticles: action.value, ...state }
+      return { projectArticles: action.value, ...state };
     case 'setKeywordQuestions':
-      return { ...state, keywordQuestions: action.value }
+      return { ...state, keywordQuestions: action.value };
+    case 'setKeywordsStackAnalysed':
+      return { ...state, keywordsStackAnalysed: action.value };
     default:
-      return state
+      return state;
   }
-}
+};
 
 export function ProjectsWrapper({ children }) {
-
-  const [projectState, dispatch] = useReducer(reducer, initialState)
+  const [projectState, dispatch] = useReducer(reducer, initialState);
 
   const getAFeatureList = (id) => {
-    return projectState.projectFeatureList.find((fl) => fl.id == id)
-  }
+    return projectState.projectFeatureList.find((fl) => fl.id == id);
+  };
 
   const deleteAFeatureListContent = ({ featureId, featureListContentId }) => {
-    let featureList = projectState.projectFeatureList
-    let featureListContentIndex = featureList.findIndex((pl) => pl.id == featureId)
-    let newFeatureList = featureList[featureListContentIndex].featureContent.filter(fc => fc.id != featureListContentId)
-    dispatch({ type: 'setProjectFeatureList', value: newFeatureList })
-  }
+    let featureList = projectState.projectFeatureList;
+    let featureListContentIndex = featureList.findIndex(
+      (pl) => pl.id == featureId
+    );
+    let newFeatureList = featureList[
+      featureListContentIndex
+    ].featureContent.filter((fc) => fc.id != featureListContentId);
+    dispatch({ type: 'setProjectFeatureList', value: newFeatureList });
+  };
 
   const setState = (action) => {
-    dispatch(action)
-  }
-
+    dispatch(action);
+  };
 
   let sharedState = {
     keywords: projectState.keywords,
@@ -67,9 +78,11 @@ export function ProjectsWrapper({ children }) {
     setKeywordList: (value) => setState({ type: 'setKeywordList', value }),
 
     projectFeatures: projectState.projectFeatures,
-    setProjectFeatures: (value) => setState({ type: 'setProjectFeatures', value }),
+    setProjectFeatures: (value) =>
+      setState({ type: 'setProjectFeatures', value }),
     projectFeatureList: projectState.projectFeatureList,
-    setProjectFeatureList: (value) => setState({ type: 'setProjectFeatureList', value }),
+    setProjectFeatureList: (value) =>
+      setState({ type: 'setProjectFeatureList', value }),
     getAFeatureList,
     deleteAFeatureListContent,
 
@@ -77,8 +90,13 @@ export function ProjectsWrapper({ children }) {
     setArticles: (value) => setState({ type: 'setProjectArticles', value }),
 
     keywordQuestions: projectState.keywordQuestions,
-    setKeywordQuestions: (value) => setState({ type: 'setKeywordQuestions', value }),
-  }
+    setKeywordQuestions: (value) =>
+      setState({ type: 'setKeywordQuestions', value }),
+
+    keywordsStackAnalysed: projectState.keywordsStackAnalysed,
+    setKeywordsStackAnalysed: (value) =>
+      setState({ type: 'setKeywordsStackAnalysed', value }),
+  };
 
   return (
     <ProjectsContext.Provider value={sharedState}>

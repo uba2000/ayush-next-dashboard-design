@@ -1,55 +1,90 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { getSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
-import { useAppContext } from '../../../context/state'
-import { PROJECTS_COLUNM } from '../../../components/layouts/Table/columns'
-import Projects from '../../../_mock/projects'
-import DashboardLayout from '../../../components/app/DasboardLayout'
-import DashboardLanding from '../../../components/app/DashboardLanding'
-import SearchTable from '../../../components/layouts/Table/components/SearchTable'
-import ProjectsIndexDialog from '../../../page-components/projects/ProjectsIndexDialog'
-import useScaiTable from '../../../hooks/useScaiTable'
-import TableLayout from '../../../components/layouts/TableLayout'
+import { useAppContext } from '../../../context/state';
+import { PROJECTS_COLUNM } from '../../../components/layouts/Table/columns';
+import { Settings } from '../../../ui/icons';
+import DashboardLayout from '../../../components/app/DasboardLayout';
+import DashboardLanding from '../../../components/app/DashboardLanding';
+import SearchTable from '../../../components/layouts/Table/components/SearchTable';
+import ProjectsIndexDialog from '../../../page-components/projects/ProjectsIndexDialog';
+import useScaiTable from '../../../hooks/useScaiTable';
+import TableLayout from '../../../components/layouts/TableLayout';
+import { get, setHeaders } from '../../../utils/http';
+import SearchInput from '../../../components/SearchInput';
+import ProjectsIndexItemDialog from '../../../page-components/projects/ProjectsIndexItemDialog';
 
-function AllProjects() {
+function AllProjects({ projects }) {
+  const contextState = useAppContext();
+  const router = useRouter();
 
-  const contextState = useAppContext()
+  // const [allProjects, setAllProjects] = useState(projects);
+  const [projectDialog, setProjectDialog] = useState(false);
+  const [loadingProjects, setLoadingProjects] = useState(true);
 
-  const [projects, setProjects] = useState(Projects)
-  const [projectDialog, setProjectDialog] = useState(false)
-
-  useEffect(() => {
-    setTimeout(() => setProjectDialog(contextState.layout.showNewProject), 200)
+  useEffect(async () => {
+    setTimeout(() => setProjectDialog(contextState.layout.showNewProject), 200);
 
     return () => {
-      contextState.layout.setShowNewProject(false)
-    }
-  }, [])
+      contextState.layout.setShowNewProject(false);
+    };
+  }, []);
 
   const openProjectDialog = () => {
-    setProjectDialog(true)
-  }
+    setProjectDialog(true);
+  };
 
   const closeProjectDialog = () => {
-    setProjectDialog(false)
-  }
+    setProjectDialog(false);
+  };
 
-  const tableInstance = useScaiTable({
-    tableColumns: PROJECTS_COLUNM,
-    tableData: projects
-  })
+  const updateProjectChange = (_) => {
+    // TODO: use https://codesandbox.io/s/zqxl6r190l?file=/reducers.js example to update projects
+    router.reload();
+  };
+
+  const tableInstance = useScaiTable(
+    {
+      tableColumns: PROJECTS_COLUNM,
+      tableData: projects,
+    },
+    [
+      {
+        Header: (
+          <Settings className="mx-auto h-[18px] w-[18px] dark:text-white text-black" />
+        ),
+        Cell: ({ row }) => {
+          return (
+            <ProjectsIndexItemDialog
+              reloadProjects={(payload) => updateProjectChange(payload)}
+              item={row.original}
+            />
+          );
+        },
+      },
+    ]
+  );
 
   return (
     <DashboardLayout>
-      <ProjectsIndexDialog projectDialog={projectDialog} closeProjectDialog={closeProjectDialog} />
+      <ProjectsIndexDialog
+        projectDialog={projectDialog}
+        closeProjectDialog={closeProjectDialog}
+      />
       <DashboardLanding
-        landingText='All Projects'
+        landingText="All Projects"
         oneChild={true}
         subLandingShort={true}
-        subLandingText='I am so lorem ipum deloas In deloas with deloas Lorem ipsum dolo amet, consectetur adipiscing elit Porta pharetra scelerisque lacus id vitae aenean'
+        subLandingText="I am so lorem ipum deloas In deloas with deloas Lorem ipsum dolo amet, consectetur adipiscing elit Porta pharetra scelerisque lacus id vitae aenean"
       >
         <div className="mt-12">
           <div className="flex justify-end mb-[21px]">
-            <button type='button' onClick={openProjectDialog} className="block w-fit btn btn-primary bg-primary text-white">
+            <button
+              type="button"
+              onClick={openProjectDialog}
+              className="block w-fit btn btn-primary bg-primary text-white"
+            >
               New Project
             </button>
           </div>
@@ -66,15 +101,49 @@ function AllProjects() {
               />
             </div>
           </div>
-          <TableLayout
-            tableInstance={tableInstance}
-          />
+          <div className="mt-7">
+            <TableLayout tableInstance={tableInstance} />
+          </div>
         </div>
       </DashboardLanding>
     </DashboardLayout>
-  )
+  );
 }
 
-AllProjects.auth = true
+AllProjects.auth = true;
 
-export default AllProjects
+export async function getServerSideProps(context) {
+  try {
+    const session = await getSession(context);
+
+    if (session?.user) {
+      const { response, error } = await get({
+        url: `${process.env.BASE_URL}/api/project`,
+        headers: setHeaders({ token: session.user.accessToken }),
+      });
+      if (response.data.success) {
+        return {
+          props: {
+            projects: response.data.data,
+          },
+        };
+      }
+    }
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  }
+}
+
+export default AllProjects;
