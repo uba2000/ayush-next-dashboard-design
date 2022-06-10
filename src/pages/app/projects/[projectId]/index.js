@@ -1,124 +1,113 @@
-import Link from 'next/link'
-import React, { useState, useReducer, Fragment, useEffect } from 'react'
-import { Menu, Tab, Transition } from '@headlessui/react'
-import { useRouter } from 'next/router'
+import Link from 'next/link';
+import React, { useState, Fragment, useEffect } from 'react';
+import { Menu, Tab, Transition } from '@headlessui/react';
+import { useRouter } from 'next/router';
+import { getSession } from 'next-auth/react';
 
-import { useProjectsContext } from '../../../../context/projects'
-import ArticleLayout from '../../../../page-components/project-categories/ArticleLayout'
-import ArticlesList from '../../../../page-components/project-categories/articles/ArticlesList'
-import DashboardLayout from '../../../../components/app/DasboardLayout'
-import SearchInput from '../../../../components/SearchInput'
-import FilterSection from '../../../../components/section/Filter/FilterSection'
-import KeywordList from '../../../../page-components/project-categories/keywords/KeywordList'
-import NewKeywordListButton from '../../../../page-components/keyword-generate/NewKeywordListButton'
-import FeaturesList from '../../../../page-components/project-categories/features/FeatureList'
-import { ChevDown, SearchIcon, Settings } from '../../../../ui/icons'
-import filters from '../../../../_mock/filters'
-import FeatureListItem from '../../../../page-components/project-categories/features/FeatureListItem'
-import { Table } from '../../../../components/layouts/Table'
-import useScaiTable from '../../../../hooks/useScaiTable'
-import { ARTICLES_COLUNM, KEYWORDS_COLUNM } from '../../../../components/layouts/Table/columns'
-import TableLayout from '../../../../components/layouts/TableLayout'
-import ArticleIndexItemDialog from '../../../../page-components/articles/ArticleIndexItemDialog'
-import KeywordsIndexItemDialog from '../../../../page-components/keywords/KeywordsIndexItemDialog'
-import SearchTable from '../../../../components/layouts/Table/components/SearchTable'
+import { useProjectsContext } from '../../../../context/projects';
+import ArticleLayout from '../../../../page-components/project-categories/ArticleLayout';
+import DashboardLayout from '../../../../components/app/DasboardLayout';
+import NewKeywordListButton from '../../../../page-components/keyword-generate/NewKeywordListButton';
+import { ChevDown, SearchIcon, Settings } from '../../../../ui/icons';
+import filters from '../../../../_mock/filters';
+import FeatureListItem from '../../../../page-components/project-categories/features/FeatureListItem';
+import { Table } from '../../../../components/layouts/Table';
+import useScaiTable from '../../../../hooks/useScaiTable';
+import {
+  ARTICLES_COLUNM,
+  KEYWORDS_COLUNM,
+} from '../../../../components/layouts/Table/columns';
+import TableLayout from '../../../../components/layouts/TableLayout';
+import ArticleIndexItemDialog from '../../../../page-components/articles/ArticleIndexItemDialog';
+import KeywordsIndexItemDialog from '../../../../page-components/keywords/KeywordsIndexItemDialog';
+import SearchTable from '../../../../components/layouts/Table/components/SearchTable';
+import Project from '../../../../models/Project';
 
 const tabs = [
   { tab: 'Articles', q: 'a' },
   { tab: 'Keywords', q: 'k' },
   { tab: 'Features', q: 'f' },
-]
+];
 
 function Index({ ssrQuery }) {
+  const state = useProjectsContext();
 
-  const state = useProjectsContext()
+  const router = useRouter();
+  const { query } = router;
 
-  const router = useRouter()
-  const { query } = router
+  const { articles, keywordList, projectFeatureList } = state;
 
-  const {
-    articles,
-    keywordList,
-    projectFeatureList,
-  } = state;
-
-  const [tabIndex, setTabIndex] = useState(0)
+  const [tabIndex, setTabIndex] = useState(0);
 
   const updateTabIndex = (index) => {
-    setTabIndex(index)
+    setTabIndex(index);
     router.push({
       pathname: `/app/projects/${query.projectId}`,
-      query: { tab: tabs[index].q }
-    })
-  }
+      query: { tab: tabs[index].q },
+    });
+  };
 
   const checkWhichTab = () => {
-    let cQuery = query || ssrQuery
+    let cQuery = query || ssrQuery;
     if (cQuery.tab) {
-      let queryTabIndex = tabs.findIndex((t) => t.q == cQuery.tab)
+      let queryTabIndex = tabs.findIndex((t) => t.q == cQuery.tab);
       if (queryTabIndex != -1) {
-        setTabIndex(queryTabIndex)
+        setTabIndex(queryTabIndex);
       } else {
-        setTabIndex(0)
+        setTabIndex(0);
       }
     } else {
       router.push({
         pathname: `/app/projects/${cQuery.projectId}`,
-        query: { tab: tabs[0].q }
-      })
+        query: { tab: tabs[0].q },
+      });
     }
-  }
+  };
 
   useEffect(() => {
-    checkWhichTab()
-  }, [])
+    checkWhichTab();
+  }, []);
 
   // Filter / Search Functionality
-  const [stateFeature] = useState(projectFeatureList)
+  const [stateFeature] = useState(projectFeatureList);
 
   // Beginning Search / Filter Functionality
 
   // Search query
-  const [q, setQ] = useState('')
+  const [q, setQ] = useState('');
 
-  const [searchParam] = useState(['feature'])
-  const [filterParam, setFilterParam] = useState("all");
+  const [searchParam] = useState(['feature']);
+  const [filterParam, setFilterParam] = useState('all');
 
   const searchFor = (itemsSearchFor) => {
     return itemsSearchFor.filter((item) => {
       if (item.type == filterParam) {
         return searchParam.some((newItem) => {
           return (
-            item[newItem]
-              .toString()
-              .toLowerCase()
-              .indexOf(q.toLowerCase()) > -1
+            item[newItem].toString().toLowerCase().indexOf(q.toLowerCase()) > -1
           );
         });
-      } else if (filterParam == "all") {
+      } else if (filterParam == 'all') {
         return searchParam.some((newItem) => {
           return (
-            item[newItem]
-              .toString()
-              .toLowerCase()
-              .indexOf(q.toLowerCase()) > -1
+            item[newItem].toString().toLowerCase().indexOf(q.toLowerCase()) > -1
           );
         });
       }
     });
-  }
+  };
 
   // Beginning of Filter
-  const [stateFilter, setStateFilter] = useState(filters)
+  const [stateFilter, setStateFilter] = useState(filters);
 
   // Filter query
-  const [f, setF] = useState('all')
+  const [f, setF] = useState('all');
 
-  const [topFilters, setTopFilters] = useState(stateFilter.slice(0, 7))
-  const [moreFilters, setMoreFilters] = useState(stateFilter.slice(7))
+  const [topFilters, setTopFilters] = useState(stateFilter.slice(0, 7));
+  const [moreFilters, setMoreFilters] = useState(stateFilter.slice(7));
 
   const selectFilter = () => {
-    let a = stateFilter
+    let a = stateFilter;
     let b = [];
     for (let i = 0; i < stateFilter.length; i++) {
       if (a[i].slug == filterParam) {
@@ -128,63 +117,76 @@ function Index({ ssrQuery }) {
       }
       b.push(a[i]);
     }
-    setStateFilter(b)
-    setTopFilters(b.slice(0, 7))
-    setMoreFilters(b.slice(7))
-  }
+    setStateFilter(b);
+    setTopFilters(b.slice(0, 7));
+    setMoreFilters(b.slice(7));
+  };
 
   const updateSelectedState = (filter, index) => {
-    setF(filter.slug)
-    setFilterParam(filter.slug)
-    selectFilter()
-  }
+    setF(filter.slug);
+    setFilterParam(filter.slug);
+    selectFilter();
+  };
 
   const selectFromMore = (indexOfMore, filter) => {
-    stateFilter.splice(indexOfMore + 7, 1)
-    stateFilter.splice(6, 0, moreFilters[indexOfMore])
-    updateSelectedState(filter, indexOfMore)
-  }
+    stateFilter.splice(indexOfMore + 7, 1);
+    stateFilter.splice(6, 0, moreFilters[indexOfMore]);
+    updateSelectedState(filter, indexOfMore);
+  };
 
-  const articleTableInstance = useScaiTable({
-    tableData: articles,
-    tableColumns: ARTICLES_COLUNM
-  }, [{
-    Header: <Settings className="mx-auto h-[18px] w-[18px] dark:text-white text-black" />,
-    Cell: ({ row }) => {
-      return (
-        <ArticleIndexItemDialog item={row.original} />
-      )
-    }
-  }])
+  const articleTableInstance = useScaiTable(
+    {
+      tableData: articles,
+      tableColumns: ARTICLES_COLUNM,
+    },
+    [
+      {
+        Header: (
+          <Settings className="mx-auto h-[18px] w-[18px] dark:text-white text-black" />
+        ),
+        Cell: ({ row }) => {
+          return <ArticleIndexItemDialog item={row.original} />;
+        },
+      },
+    ]
+  );
 
-  const keywordsTableInstance = useScaiTable({
-    tableData: keywordList,
-    tableColumns: KEYWORDS_COLUNM
-  }, [{
-    Header: <Settings className="mx-auto h-[18px] w-[18px] dark:text-white text-black" />,
-    Cell: ({ row }) => {
-      return (
-        <KeywordsIndexItemDialog item={row.original} />
-      )
-    }
-  }])
+  const keywordsTableInstance = useScaiTable(
+    {
+      tableData: keywordList,
+      tableColumns: KEYWORDS_COLUNM,
+    },
+    [
+      {
+        Header: (
+          <Settings className="mx-auto h-[18px] w-[18px] dark:text-white text-black" />
+        ),
+        Cell: ({ row }) => {
+          return <KeywordsIndexItemDialog item={row.original} />;
+        },
+      },
+    ]
+  );
 
   return (
     <DashboardLayout>
       <ArticleLayout crumbs={[{ link: '', txt: tabs[tabIndex].tab }]}>
-        <div className='mt-8'>
+        <div className="mt-8">
           <div className="flex justify-end mb-8">
             {tabIndex == 0 ? (
-              <Link href='/app/projects/keywords/'>
+              <Link href="/app/projects/keywords/">
                 <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
                   Write New Article
                 </a>
               </Link>
-            ) : tabIndex == 1 && (
-              <NewKeywordListButton />
+            ) : (
+              tabIndex == 1 && <NewKeywordListButton />
             )}
           </div>
-          <Tab.Group selectedIndex={tabIndex} onChange={(index) => updateTabIndex(index)}>
+          <Tab.Group
+            selectedIndex={tabIndex}
+            onChange={(index) => updateTabIndex(index)}
+          >
             <div className="space-y-5">
               <Tab.List className="flex justify-between items-center">
                 <div className="flex space-x-[10px]">
@@ -238,56 +240,64 @@ function Index({ ssrQuery }) {
                 <div className="flex w-full">
                   <div className="flex md:flex-row flex-col w-full md:space-x-10 space-x-0 space-y-5 md:space-y-0">
                     <div className="flex-grow">
-                      <div className='md:flex hidden space-x-1'>
+                      <div className="md:flex hidden space-x-1">
                         {topFilters.map((filter, index) => {
                           return (
                             <Fragment key={filter.id}>
                               <div
-                                onClick={() => updateSelectedState(filter, index)}
-                                className={`${filter.slug == filterParam ? 'bg-primary text-white' : 'border border-solid border-[#414141] dark:bg-[#000000] bg-white dark:text-white text-black'} cursor-pointer py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5`}
+                                onClick={() =>
+                                  updateSelectedState(filter, index)
+                                }
+                                className={`${
+                                  filter.slug == filterParam
+                                    ? 'bg-primary text-white'
+                                    : 'border border-solid border-[#414141] dark:bg-[#000000] bg-white dark:text-white text-black'
+                                } cursor-pointer py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5`}
                               >
-                                <span className='whitespace-nowrap'>
+                                <span className="whitespace-nowrap">
                                   {filter.name}
                                 </span>
                               </div>
                             </Fragment>
-                          )
+                          );
                         })}
 
-                        <Menu as='div' className='inline-block'>
-                          <div className='relative'>
+                        <Menu as="div" className="inline-block">
+                          <div className="relative">
                             <div>
-                              <Menu.Button className='flex items-center space-x-[5px] bg-white dark:text-white text-black dark:bg-[#000000] py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5 border border-solid border-[#414141]'>
+                              <Menu.Button className="flex items-center space-x-[5px] bg-white dark:text-white text-black dark:bg-[#000000] py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5 border border-solid border-[#414141]">
+                                <span>More</span>
                                 <span>
-                                  More
-                                </span>
-                                <span>
-                                  <ChevDown
-                                    className="h-2 w-2 dark:text-white text-black"
-                                  />
+                                  <ChevDown className="h-2 w-2 dark:text-white text-black" />
                                 </span>
                               </Menu.Button>
                             </div>
 
                             <Transition
                               as={Fragment}
-                              enter='transition ease-out duration-100'
-                              enterFrom='transform opacity-0 scale-95'
-                              enterTo='transform opacity-100 scale-100'
-                              leave='transition ease-in duration-75'
-                              leaveFrom='transform opacity-100 scale-100'
-                              leaveTo='transform opacity-0 scale-95'
+                              enter="transition ease-out duration-100"
+                              enterFrom="transform opacity-0 scale-95"
+                              enterTo="transform opacity-100 scale-100"
+                              leave="transition ease-in duration-75"
+                              leaveFrom="transform opacity-100 scale-100"
+                              leaveTo="transform opacity-0 scale-95"
                             >
-                              <Menu.Items className='z-30 origin-top-left absolute left-0 mt-2 w-fit shadow-lg dark:bg-[#000000] dark:text-white text-black bg-white ring-1 ring-[#000000] ring-opacity-5 focus:outline-none'>
+                              <Menu.Items className="z-30 origin-top-left absolute left-0 mt-2 w-fit shadow-lg dark:bg-[#000000] dark:text-white text-black bg-white ring-1 ring-[#000000] ring-opacity-5 focus:outline-none">
                                 {moreFilters.map((filter, index) => (
                                   <Fragment key={filter.id}>
                                     <Menu.Item>
                                       {({ active }) => (
                                         <div
-                                          onClick={() => selectFromMore(index, filter)}
-                                          className={`py-[10px] px-5 capitalize font-semibold ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'}`}
+                                          onClick={() =>
+                                            selectFromMore(index, filter)
+                                          }
+                                          className={`py-[10px] px-5 capitalize font-semibold ${
+                                            active
+                                              ? 'bg-primary text-white cursor-pointer'
+                                              : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'
+                                          }`}
                                         >
-                                          <span className='whitespace-nowrap'>
+                                          <span className="whitespace-nowrap">
                                             {filter.name}
                                           </span>
                                         </div>
@@ -301,39 +311,39 @@ function Index({ ssrQuery }) {
                         </Menu>
                       </div>
                       <div className="md:hidden flex">
-                        <Menu as='div' className='inline-block'>
-                          <div className='relative'>
+                        <Menu as="div" className="inline-block">
+                          <div className="relative">
                             <div>
-                              <Menu.Button className='flex items-center space-x-[5px] bg-white dark:text-white text-black dark:bg-[#000000] py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5 border border-solid border-[#414141]'>
+                              <Menu.Button className="flex items-center space-x-[5px] bg-white dark:text-white text-black dark:bg-[#000000] py-[10px] px-5 font-semibold capitalize text-center text-sm leading-5 border border-solid border-[#414141]">
+                                <span>Filters</span>
                                 <span>
-                                  Filters
-                                </span>
-                                <span>
-                                  <ChevDown
-                                    className="h-2 w-2 dark:text-white text-black"
-                                  />
+                                  <ChevDown className="h-2 w-2 dark:text-white text-black" />
                                 </span>
                               </Menu.Button>
                             </div>
 
                             <Transition
                               as={Fragment}
-                              enter='transition ease-out duration-100'
-                              enterFrom='transform opacity-0 scale-95'
-                              enterTo='transform opacity-100 scale-100'
-                              leave='transition ease-in duration-75'
-                              leaveFrom='transform opacity-100 scale-100'
-                              leaveTo='transform opacity-0 scale-95'
+                              enter="transition ease-out duration-100"
+                              enterFrom="transform opacity-0 scale-95"
+                              enterTo="transform opacity-100 scale-100"
+                              leave="transition ease-in duration-75"
+                              leaveFrom="transform opacity-100 scale-100"
+                              leaveTo="transform opacity-0 scale-95"
                             >
-                              <Menu.Items className='z-30 origin-top-left absolute left-0 mt-2 w-fit shadow-lg dark:bg-[#000000] dark:text-white text-black bg-white ring-1 ring-[#000000] ring-opacity-5 focus:outline-none'>
+                              <Menu.Items className="z-30 origin-top-left absolute left-0 mt-2 w-fit shadow-lg dark:bg-[#000000] dark:text-white text-black bg-white ring-1 ring-[#000000] ring-opacity-5 focus:outline-none">
                                 {stateFilter.map((filter) => (
                                   <Fragment key={filter.id}>
                                     <Menu.Item>
                                       {({ active }) => (
-                                        <div className={`py-[10px] px-5 capitalize font-semibold ${active ? 'bg-primary text-white cursor-pointer' : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'}`}>
-                                          <span>
-                                            {filter.name}
-                                          </span>
+                                        <div
+                                          className={`py-[10px] px-5 capitalize font-semibold ${
+                                            active
+                                              ? 'bg-primary text-white cursor-pointer'
+                                              : 'dark:bg-darkMode-bg bg-white text-black dark:text-white'
+                                          }`}
+                                        >
+                                          <span>{filter.name}</span>
                                         </div>
                                       )}
                                     </Menu.Item>
@@ -352,14 +362,10 @@ function Index({ ssrQuery }) {
                           value={q}
                           onChange={(e) => setQ(e.target.value)}
                           className="flex-grow placeholder:text-darkMode-subText flex-shrink border-none pl-6 py-3 rounded-none dark:bg-darkMode-bg h-[40px] bg-white"
-                          placeholder='Search...'
+                          placeholder="Search..."
                         />
-                        <div
-                          className="py-3 pr-4 px-[15.5px] dark:bg-darkMode-bg h-[40px] bg-white cursor-pointer"
-                        >
-                          <SearchIcon
-                            className="h-5 w-5 dark:text-white text-black"
-                          />
+                        <div className="py-3 pr-4 px-[15.5px] dark:bg-darkMode-bg h-[40px] bg-white cursor-pointer">
+                          <SearchIcon className="h-5 w-5 dark:text-white text-black" />
                         </div>
                       </div>
                     </div>
@@ -370,16 +376,12 @@ function Index({ ssrQuery }) {
             <Tab.Panels>
               <Tab.Panel>
                 <div>
-                  <TableLayout
-                    tableInstance={articleTableInstance}
-                  />
+                  <TableLayout tableInstance={articleTableInstance} />
                 </div>
               </Tab.Panel>
               <Tab.Panel>
                 <div>
-                  <TableLayout
-                    tableInstance={keywordsTableInstance}
-                  />
+                  <TableLayout tableInstance={keywordsTableInstance} />
                 </div>
               </Tab.Panel>
               <Tab.Panel>
@@ -389,25 +391,20 @@ function Index({ ssrQuery }) {
                     <Table>
                       <Table.Head>
                         <Table.Row className="cursor-default">
-                          <Table.TH className='pl-0 cursor-pointer w-[41.5px]'>
-
-                          </Table.TH>
-                          <Table.TH main={true} style={{ width: '50%', minWidth: '397px' }}>
-                            <span className="capitalize">
-                              All Features
-                            </span>
+                          <Table.TH className="pl-0 cursor-pointer w-[41.5px]"></Table.TH>
+                          <Table.TH
+                            main={true}
+                            style={{ width: '50%', minWidth: '397px' }}
+                          >
+                            <span className="capitalize">All Features</span>
                           </Table.TH>
                           <Table.TH style={{ width: '27%', minWidth: '169px' }}>
-                            <span className='flex items-center space-x-1'>
-                              <span className="capitalize">
-                                User
-                              </span>
+                            <span className="flex items-center space-x-1">
+                              <span className="capitalize">User</span>
                             </span>
                           </Table.TH>
                           <Table.TH style={{ width: '12%', minWidth: '144px' }}>
-                            <span className="capitalize">
-                              Date
-                            </span>
+                            <span className="capitalize">Date</span>
                           </Table.TH>
                           <Table.TH style={{ minWidth: '50px' }}>
                             <Settings className="mx-auto h-[18px] w-[18px] dark:text-white text-black" />
@@ -416,10 +413,7 @@ function Index({ ssrQuery }) {
                       </Table.Head>
                       <Table.Body>
                         {searchFor(stateFeature).map((item) => {
-                          return <FeatureListItem
-                            item={item}
-                            key={item.id}
-                          />
+                          return <FeatureListItem item={item} key={item.id} />;
                         })}
                       </Table.Body>
                     </Table>
@@ -431,7 +425,7 @@ function Index({ ssrQuery }) {
         </div>
       </ArticleLayout>
     </DashboardLayout>
-  )
+  );
 }
 
 const TabLayout = ({ selected, children }) => {
@@ -439,25 +433,54 @@ const TabLayout = ({ selected, children }) => {
     <div
       className={`
         cursor-pointer py-[13px] px-[39px] text-center
-        ${selected ?
-          'dark:bg-primary bg-primary border-primary border border-solid text-white'
-          : 'dark:bg-darkMode-bg bg-white dark:text-white text-black border border-solid border-ash dark:border-darkMode-border'
+        ${
+          selected
+            ? 'dark:bg-primary bg-primary border-primary border border-solid text-white'
+            : 'dark:bg-darkMode-bg bg-white dark:text-white text-black border border-solid border-ash dark:border-darkMode-border'
         }
       `}
     >
-      <span className='text-sm leading-4 text-center font-medium'>{children}</span>
+      <span className="text-sm leading-4 text-center font-medium">
+        {children}
+      </span>
     </div>
-  )
-}
+  );
+};
 
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps(context) {
+  const { query } = context;
+  try {
+    const session = await getSession(context);
 
-  return {
-    props: {
-      ssrQuery: query
+    if (session?.user) {
+      const ssrProjects = await Project.findById(query.projectId);
+
+      return {
+        props: {
+          ssrQuery: query,
+          articles: ssrProjects.articles,
+          keywords: [],
+          feaures: [],
+        },
+      };
     }
+
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
   }
 }
 
-Index.auth = true
-export default Index
+Index.auth = true;
+export default Index;

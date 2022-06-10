@@ -13,9 +13,11 @@ import { fQue } from '../../../../../utils/formatQuestions';
 import { useProjectsContext } from '../../../../../context/projects';
 import { aQuestions } from '../../../../../utils/analyseQuestions';
 import ScrollbarsLayout from '../../../../../components/layouts/Scrollbars';
+import { post, setHeaders } from '../../../../../utils/http';
+import useUser from '../../../../../hooks/useUser';
 
 function KeywordsPage() {
-  const { data: user } = useSession();
+  const { user } = useUser();
 
   const router = useRouter();
   const { query } = router;
@@ -26,8 +28,9 @@ function KeywordsPage() {
   const [errorDialog, setErrorDialog] = useState(false);
   const [isNewKeyword, setIsNewKeyword] = useState(false);
   const [newKeyword, setNewKeyword] = useState('');
-  const [questions, setQuestions] = useState(keywordQuestions);
+  const [questions, setQuestions] = useState([]);
   const [loadingQuestions, setLoadingQuestions] = useState(false);
+  const [loadingSaveAnalyze, setLoadingSaveAnalyze] = useState(false);
 
   const openErrorDialog = () => {
     setErrorDialog(true);
@@ -52,7 +55,7 @@ function KeywordsPage() {
         setKeywordsStackAnalysed([...keywordsStackAnalysed, newKeyword]);
         const { data } = await axios.post('/api/questions', {
           keyword: newKeyword,
-          accessToken: user.user.accessToken,
+          accessToken: user.accessToken,
         });
 
         if (data.success) {
@@ -96,10 +99,33 @@ function KeywordsPage() {
     }
   };
 
-  const handleKeywordAnalysis = () => {
+  const handleKeywordAnalysis = async () => {
     if (checkQuestionLength) {
-      projectsState.setKeywordQuestions(aQuestions(questions));
-      router.push(`/app/projects/${query.projectId}/keywords/results`);
+      console.log(user);
+      try {
+        setLoadingSaveAnalyze(true);
+        const { response, error } = await post({
+          url: `${process.env.BASE_URL}/api/project/add-keywords`,
+          headers: setHeaders({ token: user.accessToken }),
+          data: {
+            title: 'Keyword List Title',
+            industry: '',
+            tags: keywordsStackAnalysed,
+            keywordsQuestions: aQuestions(questions),
+            project_id: query.projectId,
+          },
+        });
+
+        if (response) {
+          projectsState.setKeywordQuestions(aQuestions(questions));
+          router.push(
+            `/app/projects/${query.projectId}/keywords/${response.data.data._id}/results`
+          );
+        }
+      } catch (error) {
+        console.log(error);
+        setLoadingSaveAnalyze(false);
+      }
     }
   };
 
@@ -255,8 +281,9 @@ function KeywordsPage() {
                 <button
                   onClick={handleKeywordAnalysis}
                   className="btn btn-primary"
+                  disabled={loadingSaveAnalyze}
                 >
-                  Start Analysis
+                  {loadingSaveAnalyze ? 'Loading...' : 'Start Analysis'}
                 </button>
               </div>
             </div>

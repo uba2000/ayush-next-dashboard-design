@@ -90,6 +90,7 @@ const ProjectsIndexDialog = ({ projectDialog, closeProjectDialog }) => {
               value={newProject.title}
               onChange={(e) => predictTitle(e.target.value)}
               placeholder="Your Campaign, Product, or client"
+              autoComplete="off"
             />
             <Transition
               as={Fragment}
@@ -171,6 +172,7 @@ const ProjectsIndexDialog = ({ projectDialog, closeProjectDialog }) => {
               value={newProject.industry}
               onChange={(e) => predictIndustry(e.target.value)}
               placeholder="Industry"
+              autoComplete="off"
             />
             <Transition
               as={Fragment}

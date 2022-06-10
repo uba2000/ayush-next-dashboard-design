@@ -1,6 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Tab } from '@headlessui/react';
+import { getSession } from 'next-auth/react';
+import { useDispatch } from 'react-redux';
 
 import {
   VolumeFilter,
@@ -13,27 +15,30 @@ import {
   AllInTitleFilter,
   AddToMenu,
   ExportMenu,
-} from '../../../../../../page-components/keyword-results';
-import DashboardLayout from '../../../../../../components/app/DasboardLayout';
-import Box from '../../../../../../components/layouts/Box';
-import { SearchIcon, PencilAlt } from '../../../../../../ui/icons';
-import { DialogLayout } from '../../../../../../components/layouts/Dialog';
-import Input from '../../../../../../components/layouts/Input';
-import { Table } from '../../../../../../components/layouts/Table';
-import CheckBox from '../../../../../../components/layouts/CheckBox';
-import KeywordItem from '../../../../../../page-components/keyword-results/keywordItem';
-import { useProjectsContext } from '../../../../../../context/projects';
-import { KEYWORDSLIST_COLUNM } from '../../../../../../components/layouts/Table/columns';
-import TableLayout from '../../../../../../components/layouts/TableLayout';
-import useScaiTable from '../../../../../../hooks/useScaiTable';
+} from '../../../../../../../page-components/keyword-results';
+import DashboardLayout from '../../../../../../../components/app/DasboardLayout';
+import Box from '../../../../../../../components/layouts/Box';
+import { SearchIcon, PencilAlt } from '../../../../../../../ui/icons';
+import { DialogLayout } from '../../../../../../../components/layouts/Dialog';
+import Input from '../../../../../../../components/layouts/Input';
+import { Table } from '../../../../../../../components/layouts/Table';
+import CheckBox from '../../../../../../../components/layouts/CheckBox';
+import KeywordItem from '../../../../../../../page-components/keyword-results/keywordItem';
+import { useProjectsContext } from '../../../../../../../context/projects';
+import { KEYWORDSLIST_COLUNM } from '../../../../../../../components/layouts/Table/columns';
+import TableLayout from '../../../../../../../components/layouts/TableLayout';
+import useScaiTable from '../../../../../../../hooks/useScaiTable';
+import ProjectKeywordsList from '../../../../../../../models/ProjectKeywordsList';
+import { setArticlesDetailsGenerate } from '../../../../../../../features/project/projectSlice';
 
-const results = () => {
+const results = ({ keywordQuestions, keywords }) => {
   const router = useRouter();
+  const { query } = router;
+  const dispatch = useDispatch();
 
   const projectState = useProjectsContext();
 
-  const { keywords, setKeywords, keywordQuestions, setKeywordQuestions } =
-    projectState;
+  const { setKeywords, setKeywordQuestions } = projectState;
 
   const [canGenerateContent, setCanGenerateContent] = useState(false);
   const [isAllKeywordsChecked, setIsAllKeywordsChecked] = useState(false);
@@ -49,47 +54,29 @@ const results = () => {
     setGenerateContentDialog(true);
   };
 
-  const checkToGenerateContent = () => {
-    let isToGenerate = keywordQuestions.find((k) => k.checked);
-    setCanGenerateContent(!!isToGenerate);
-  };
-
   const generateContent = () => {
-    router.push('/app/projects/keywords/generate');
-  };
+    dispatch(
+      setArticlesDetailsGenerate({
+        noOfArticles: noArticles,
+        noOfQuestionPerArticles: noQuestionPerArticles,
+        includeInternalLinking: includeInternalLinking,
+        articleTags: articleTags,
+        keywordQuestions: tableInstance.selectedFlatRows.map((d) => {
+          return {
+            ...d.original,
+          };
+        }),
+      })
+    );
 
-  const checkAllKeywords = () => {
-    setIsAllKeywordsChecked(!isAllKeywordsChecked);
-    setCanGenerateContent(!isAllKeywordsChecked);
-    let a = keywordQuestions;
-    let b = [];
-    for (let i = 0; i < keywordQuestions.length; i++) {
-      a[i].checked = !isAllKeywordsChecked;
-      b.push(a[i]);
-    }
-    setKeywords(b);
-  };
-
-  const handleKeywordCheck = ({ index, value }) => {
-    let a = keywordQuestions;
-    a[index].checked = value;
-    setKeywords(a);
-    checkToGenerateContent();
+    router.push(
+      `/app/projects/${query.projectId}/keywords/${query.keywordlistId}/generate`
+    );
   };
 
   useEffect(() => {
     if (keywordQuestions.length == 0) {
-      // router.push('/app/projects/keywords')
-    } else {
-      setIsAllKeywordsChecked(false);
-      setCanGenerateContent(false);
-      let a = keywordQuestions;
-      let b = [];
-      for (let i = 0; i < keywordQuestions.length; i++) {
-        a[i].checked = false;
-        b.push(a[i]);
-      }
-      setKeywords(b);
+      router.push('/app/projects/keywords');
     }
   }, []);
 
@@ -307,9 +294,11 @@ const results = () => {
                 <Box className={'py-5 px-[31px]'}>
                   <div className="flex justify-between">
                     <div>
-                      <span className="text-sm font-medium">
-                        Keyword 1, keyword 2, Keyword 3, keyword 4, keyword 5,
-                        keyword 6
+                      <span className="text-sm font-medium capitalize">
+                        {keywords.map(
+                          (k, index) =>
+                            `${k}${index !== keywords.length - 1 ? ', ' : ''}`
+                        )}
                       </span>
                     </div>
                     <div>
@@ -335,10 +324,10 @@ const results = () => {
                     <ExportMenu />
                     <div>
                       <button
-                        disabled={!canGenerateContent}
+                        disabled={!tableInstance.selectedFlatRows.length > 0}
                         onClick={openGenerateContentDialog}
                         className={`cursor-pointer border border-solid ${
-                          canGenerateContent
+                          tableInstance.selectedFlatRows.length > 0
                             ? 'dark:bg-primary bg-primary text-white border-primary'
                             : 'dark:bg-darkMode-bg bg-white dark:text-white text-black border-ash dark:border-darkMode-border'
                         }`}
@@ -380,5 +369,38 @@ const results = () => {
 };
 
 results.auth = true;
+
+export async function getServerSideProps(context) {
+  const { query } = context;
+  try {
+    const session = await getSession(context);
+
+    if (session?.user) {
+      let ssrProject = await ProjectKeywordsList.findById(query.keywordlistId);
+      ssrProject = JSON.parse(JSON.stringify(ssrProject));
+
+      return {
+        props: {
+          keywordQuestions: ssrProject.list,
+          keywords: ssrProject.tags,
+        },
+      };
+    }
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  }
+}
 
 export default results;

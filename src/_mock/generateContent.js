@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { sample, orderBy } from 'lodash';
 
-
 // ----------------------------------------------------------------------
 
 const KEYWORDS_NAME = [
@@ -18,15 +17,30 @@ const KEYWORDS_NAME = [
   'What is SEO and how it works?',
   'What is SEO example?',
   'What are the 4 main components of an SEO?',
-]
+];
 
 const contents = KEYWORDS_NAME.map((keyword) => {
   return {
     id: faker.datatype.number({ min: 1234567, max: 1234585, precision: 1 }),
     title: keyword,
     status: sample(['completed', 'processing', 'waiting']),
-    words: faker.datatype.number({ min: 200, max: 1000, precision: 1 })
-  }
-})
+    words: faker.datatype.number({ min: 200, max: 1000, precision: 1 }),
+  };
+});
+
+export const generateArticlesContent = (contents) => {
+  return orderBy(
+    contents.keywordQuestions.map((c, index) => {
+      return {
+        id: 1234567 + index,
+        title: c.question,
+        status: sample(['c', 'p', 'w']),
+        words: faker.datatype.number({ min: 200, max: 1000, precision: 1 }),
+      };
+    }),
+    ['status'],
+    ['asc']
+  );
+};
 
 export default orderBy(contents, ['status'], ['asc']);

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { SessionProvider, useSession, signIn } from 'next-auth/react';
 
+import { wrapper } from '../store/store';
 import { Progress } from '../components/layouts/progress';
 import { ProjectsWrapper } from '../context/projects';
 import { ThemeWrapper } from '../context/theme';
@@ -79,4 +79,4 @@ const Auth = ({ children }) => {
   return <></>;
 };
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);
