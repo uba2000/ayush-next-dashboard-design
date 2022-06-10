@@ -647,7 +647,7 @@ abbr[title] {
 }
 
 .generator-container {
-  background-color: #fff;
+  @apply bg-white dark:bg-transparent;
 }
 
 .generator-box,

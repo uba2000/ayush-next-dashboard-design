@@ -453,7 +453,8 @@ export async function getServerSideProps(context) {
     const session = await getSession(context);
 
     if (session?.user) {
-      const ssrProjects = await Project.findById(query.projectId);
+      let ssrProjects = await Project.findById(query.projectId);
+      ssrProjects = JSON.parse(JSON.stringify(ssrProjects));
 
       return {
         props: {

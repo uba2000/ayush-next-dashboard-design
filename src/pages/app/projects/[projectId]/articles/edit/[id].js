@@ -1,23 +1,23 @@
-import React, { Component } from 'react'
-import { withRouter } from 'next/router'
+import React, { Component } from 'react';
+import { withRouter } from 'next/router';
 import draftToHtml from 'draftjs-to-html';
 
-import ArticleLayout from '../../../../../../page-components/project-categories/ArticleLayout'
-import DashboardLayout from '../../../../../../components/app/DasboardLayout'
-import styles from '../../../../../../styles/Article.module.css'
-import accountStyles from '../../../../../../styles/Account.module.css'
-import { AppContext } from '../../../../../../context/state'
-import Box from '../../../../../../components/layouts/Box'
+import ArticleLayout from '../../../../../../page-components/project-categories/ArticleLayout';
+import DashboardLayout from '../../../../../../components/app/DasboardLayout';
+import styles from '../../../../../../styles/Article.module.css';
+import accountStyles from '../../../../../../styles/Account.module.css';
+import { AppContext } from '../../../../../../context/state';
+import Box from '../../../../../../components/layouts/Box';
 import articleContent from '../../../../../../_mock/article-content';
 import ArticleEditor from '../../../../../../page-components/project-categories/articles/ArticleEditor';
 import Input from '../../../../../../components/layouts/Input';
+import EditorContainer from '../../../../../../components/layouts/EditorContainer';
 
 class EditArticle extends Component {
-
-  static contextType = AppContext
+  static contextType = AppContext;
 
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       titleChange: false,
@@ -32,41 +32,40 @@ class EditArticle extends Component {
         wordCount: 1000,
         plagiarism: 0,
         density: 96,
-        fluency: 98
-      }
-    }
+        fluency: 98,
+      },
+    };
   }
-
 
   setStateArticleContent(article) {
     this.setState({
-      stateArticleContent: article
-    })
+      stateArticleContent: article,
+    });
   }
 
   showEditorHandler = () => {
     this.setState((prevState) => {
       return {
-        showEditor: !prevState.showEditor
-      }
-    })
-  }
+        showEditor: !prevState.showEditor,
+      };
+    });
+  };
 
   saveArticle = () => {
     this.showEditorHandler();
-  }
+  };
 
   handleEditorContent = (content) => {
     this.setState({
       stateArticleContent: content,
     });
-  }
+  };
 
   render() {
-
-    let { titleChange, tagsChange, showEditor, stateArticleContent } = this.state
-    const { layout } = this.context
-    const { router } = this.props
+    let { titleChange, tagsChange, showEditor, stateArticleContent } =
+      this.state;
+    const { layout } = this.context;
+    const { router } = this.props;
 
     if (layout.toEditArticle && (!titleChange || !tagsChange || !showEditor)) {
       this.setState({
@@ -77,11 +76,16 @@ class EditArticle extends Component {
       // layout.setToEditArticle(false)
     }
 
-    const body = draftToHtml(JSON.parse(stateArticleContent))
+    const body = draftToHtml(JSON.parse(stateArticleContent));
 
     return (
       <DashboardLayout>
-        <ArticleLayout crumbs={[{ txt: 'Article', link: `/app/projects/${router.query.projectId}` }, { txt: this.state.title }]}>
+        <ArticleLayout
+          crumbs={[
+            { txt: 'Article', link: `/app/projects/${router.query.projectId}` },
+            { txt: this.state.title },
+          ]}
+        >
           <div className="mt-16">
             <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-4 mb-6">
               <div className="flex flex-col">
@@ -93,27 +97,32 @@ class EditArticle extends Component {
                           {this.state.title}
                         </h3>
                       </div>
-                      <div className="cursor-pointer" onClick={() => { this.setState({ titleChange: true }) }}>
+                      <div
+                        className="cursor-pointer"
+                        onClick={() => {
+                          this.setState({ titleChange: true });
+                        }}
+                      >
                         {/* pencil */}
                         <svg
-                          xmlns='http://www.w3.org/2000/svg'
-                          className='icon icon-tabler icon-tabler-pencil ml-2'
-                          width='24'
-                          height='24'
-                          viewBox='0 0 24 24'
-                          strokeWidth='1'
-                          stroke='white'
-                          fill='#00A141'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="icon icon-tabler icon-tabler-pencil ml-2"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          strokeWidth="1"
+                          stroke="white"
+                          fill="#00A141"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         >
                           <path
-                            stroke='none'
-                            d='M0 0h24v24H0z'
-                            fill='none'
+                            stroke="none"
+                            d="M0 0h24v24H0z"
+                            fill="none"
                           ></path>
-                          <path d='M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4'></path>
-                          <line x1='13.5' y1='6.5' x2='17.5' y2='10.5'></line>
+                          <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                          <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
                         </svg>
                       </div>
                     </div>
@@ -122,131 +131,188 @@ class EditArticle extends Component {
                   <>
                     <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-2 mb-2">
                       <div className="">
-                        <Input type="text" value={this.state.title} onChange={(e) => this.setState({ title: e.target.value })} className={accountStyles.formGroupInput} style={{ minWidth: '273.6px', height: '53px' }} />
+                        <Input
+                          type="text"
+                          value={this.state.title}
+                          onChange={(e) =>
+                            this.setState({ title: e.target.value })
+                          }
+                          className={accountStyles.formGroupInput}
+                          style={{ minWidth: '273.6px', height: '53px' }}
+                        />
                       </div>
-                      <div className='flex'>
-                        <button className="btn btn-primary" onClick={() => { this.setState({ titleChange: false }); layout.setToEditArticle(false) }}>
+                      <div className="flex">
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => {
+                            this.setState({ titleChange: false });
+                            layout.setToEditArticle(false);
+                          }}
+                        >
                           Save
                         </button>
-                        <button className="btn btn-reset" onClick={() => {
-                          this.setState({ title: this.state.reserveTitle, })
-                        }}>
+                        <button
+                          className="btn btn-reset"
+                          onClick={() => {
+                            this.setState({ title: this.state.reserveTitle });
+                          }}
+                        >
                           Reset
                         </button>
                       </div>
                     </div>
                   </>
                 )}
-                {
-                  !tagsChange ? (
-                    <>
+                {!tagsChange ? (
+                  <>
+                    <div className="flex">
+                      <div className="mr-2">
+                        <h5 className={styles.articleEditHeaderTags}>
+                          {this.state.tags}
+                        </h5>
+                      </div>
+                      <div
+                        className="cursor-pointer"
+                        onClick={() => {
+                          this.setState({ tagsChange: true });
+                        }}
+                      >
+                        {/* pencil */}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="icon icon-tabler icon-tabler-pencil ml-2"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          strokeWidth="1"
+                          stroke="white"
+                          fill="#00A141"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path
+                            stroke="none"
+                            d="M0 0h24v24H0z"
+                            fill="none"
+                          ></path>
+                          <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                          <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
+                        </svg>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-2 mb-2">
+                      <div className="">
+                        <Input
+                          type="text"
+                          value={this.state.tags}
+                          onChange={(e) =>
+                            this.setState({ tags: e.target.value })
+                          }
+                          className={accountStyles.formGroupInput}
+                          style={{ minWidth: '273.6px', height: '53px' }}
+                        />
+                      </div>
                       <div className="flex">
-                        <div className="mr-2">
-                          <h5 className={styles.articleEditHeaderTags}>
-                            {this.state.tags}
-                          </h5>
-                        </div>
-                        <div className="cursor-pointer" onClick={() => { this.setState({ tagsChange: true }) }}>
-                          {/* pencil */}
-                          <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            className='icon icon-tabler icon-tabler-pencil ml-2'
-                            width='16'
-                            height='16'
-                            viewBox='0 0 24 24'
-                            strokeWidth='1'
-                            stroke='white'
-                            fill='#00A141'
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                          >
-                            <path
-                              stroke='none'
-                              d='M0 0h24v24H0z'
-                              fill='none'
-                            ></path>
-                            <path d='M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4'></path>
-                            <line x1='13.5' y1='6.5' x2='17.5' y2='10.5'></line>
-                          </svg>
-                        </div>
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => {
+                            this.setState({ tagsChange: false });
+                            layout.setToEditArticle(false);
+                          }}
+                        >
+                          Save
+                        </button>
+                        <button
+                          className="btn btn-reset"
+                          onClick={() => {
+                            this.setState({ tags: this.state.reserveTags });
+                          }}
+                        >
+                          Reset
+                        </button>
                       </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-2 mb-2">
-                        <div className="">
-                          <Input type="text" value={this.state.tags} onChange={(e) => this.setState({ tags: e.target.value })} className={accountStyles.formGroupInput} style={{ minWidth: '273.6px', height: '53px' }} />
-                        </div>
-                        <div className='flex'>
-                          <button className="btn btn-primary" onClick={() => { this.setState({ tagsChange: false }); layout.setToEditArticle(false) }}>
-                            Save
-                          </button>
-                          <button className="btn btn-reset" onClick={() => {
-                            this.setState({ tags: this.state.reserveTags, })
-                          }}>
-                            Reset
-                          </button>
-                        </div>
-                      </div>
-                    </>
-                  )
-                }
+                    </div>
+                  </>
+                )}
               </div>
               <div className="flex justify-end items-end">
-                <span className='text-xs text-right font-medium'>
+                <span className="text-xs text-right font-medium">
                   1682 Words
                 </span>
               </div>
             </div>
-            <Box type="black" className={`generator-container relative ${!showEditor ? 'md:pt-[25px] pt-[70px] md:px-[70px] px-4' : ''}  pb-[25px]`}>
-              <div className="content">
-                {!showEditor ? (<div dangerouslySetInnerHTML={{ __html: body }}></div>) : (
-                  <ArticleEditor content={articleContent} handleContent={this.handleEditorContent} />
+            <Box
+              type="black"
+              className={`generator-container relative ${
+                !showEditor ? 'md:pt-[25px] pt-[70px] md:px-[70px] px-4' : ''
+              }  pb-[25px]`}
+            >
+              <EditorContainer>
+                {!showEditor ? (
+                  <div dangerouslySetInnerHTML={{ __html: body }}></div>
+                ) : (
+                  <ArticleEditor
+                    content={articleContent}
+                    handleContent={this.handleEditorContent}
+                  />
                 )}
-              </div>
-              {!showEditor ? (<div className="absolute top-6 right-6 cursor-pointer" onClick={this.showEditorHandler}>
-                {/* pencil */}
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  className='icon icon-tabler icon-tabler-pencil'
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  strokeWidth='1'
-                  stroke='white'
-                  fill='#00A141'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
+              </EditorContainer>
+              {!showEditor ? (
+                <div
+                  className="absolute top-6 right-6 cursor-pointer"
+                  onClick={this.showEditorHandler}
                 >
-                  <path
-                    stroke='none'
-                    d='M0 0h24v24H0z'
-                    fill='none'
-                  ></path>
-                  <path d='M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4'></path>
-                  <line x1='13.5' y1='6.5' x2='17.5' y2='10.5'></line>
-                </svg>
-              </div>) : (
+                  {/* pencil */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="icon icon-tabler icon-tabler-pencil"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1"
+                    stroke="white"
+                    fill="#00A141"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"></path>
+                    <line x1="13.5" y1="6.5" x2="17.5" y2="10.5"></line>
+                  </svg>
+                </div>
+              ) : (
                 <div className="absolute right-7 top-3 flex items-center space-x-2">
-                  <button className='btn btn-outline text-[13px] py-[11px] px-5 leading-5'>
+                  <button className="btn btn-outline text-[13px] py-[11px] px-5 leading-5">
                     Cancel
                   </button>
-                  <button className="btn btn-primary" onClick={() => { this.setState({ showEditor: false }); layout.setToEditArticle(false) }}>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => {
+                      this.setState({ showEditor: false });
+                      layout.setToEditArticle(false);
+                    }}
+                  >
                     Save article
                   </button>
                 </div>
               )}
             </Box>
             <div className="md:flex grid grid-cols-1 gap-5 mt-6 md:justify-end">
-              {!showEditor && (<>
-                <button className="btn btn-primary text-white text-base">
-                  Publish to Wordpress
-                </button></>)}
+              {!showEditor && (
+                <>
+                  <button className="btn btn-primary text-white text-base">
+                    Publish to Wordpress
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </ArticleLayout>
       </DashboardLayout>
-    )
+    );
   }
 }
 
@@ -261,5 +327,5 @@ class EditArticle extends Component {
 //   }
 // }
 
-EditArticle.auth = true
-export default withRouter(EditArticle)
+EditArticle.auth = true;
+export default withRouter(EditArticle);

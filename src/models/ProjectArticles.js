@@ -13,6 +13,14 @@ const ProjectArticleSchema = new mongoose.Schema(
     article_content: {
       type: String,
     },
+    project_id: {
+      type: mongoose.Schema.ObjectId,
+      required: true,
+    },
+    keywordlist_id: {
+      type: mongoose.Schema.ObjectId,
+      required: true,
+    },
   },
   {
     timestamps: {

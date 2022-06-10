@@ -29,6 +29,7 @@ const contents = KEYWORDS_NAME.map((keyword) => {
 });
 
 export const generateArticlesContent = (contents) => {
+  if (!contents) return [];
   return orderBy(
     contents.keywordQuestions.map((c, index) => {
       return {
