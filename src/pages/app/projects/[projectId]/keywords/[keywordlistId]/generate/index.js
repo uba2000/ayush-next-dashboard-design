@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { forEach } from 'lodash';
 
 import { Table } from '../../../../../../../components/layouts/Table';
@@ -12,9 +12,13 @@ import contents, {
 import GenerateListItem from '../../../../../../../page-components/keyword-generate/generateListItem';
 import { DialogLayout } from '../../../../../../../components/layouts/Dialog';
 import { X, RoundTickActive } from '../../../../../../../ui/icons';
+import { setShowNewProject } from '../../../../../../../features/layout/layoutSlice';
 
 const Index = () => {
   const router = useRouter();
+  const { query } = router;
+
+  const dispatch = useDispatch();
 
   const [contentGenerationComplete, setContentGenerationComplete] = useState(
     checkAllContentIsComplete
@@ -38,7 +42,7 @@ const Index = () => {
     return allContents;
   };
 
-  const triggerComplete = (status) => {
+  const triggerComplete = (status, articleDetails = null) => {
     if (status == 'c') {
       setCompleteCount(++completeCount);
       // TODO: save articles on complete...
@@ -53,7 +57,12 @@ const Index = () => {
   };
 
   const viewAllProjects = () => {
-    router.push('/app/projects/123');
+    router.push(`/app/projects/${query.projectsId}`);
+  };
+
+  const startNewProject = () => {
+    dispatch(setShowNewProject(true));
+    router.push(`/app/projects`);
   };
 
   return (
@@ -89,7 +98,9 @@ const Index = () => {
               </p>
             </div>
             <div className="space-x-4">
-              <button className="btn btn-primary">Start Another Project</button>
+              <button onClick={startNewProject} className="btn btn-primary">
+                Start Another Project
+              </button>
               <button
                 onClick={viewAllProjects}
                 className="btn btn-reset dark:text-darkMode-subText text-ash"
