@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'next/router';
+import { getSession } from 'next-auth/react';
 import draftToHtml from 'draftjs-to-html';
 
 import ArticleLayout from '../../../../../../page-components/project-categories/ArticleLayout';
@@ -12,6 +13,8 @@ import articleContent from '../../../../../../_mock/article-content';
 import ArticleEditor from '../../../../../../page-components/project-categories/articles/ArticleEditor';
 import Input from '../../../../../../components/layouts/Input';
 import EditorContainer from '../../../../../../components/layouts/EditorContainer';
+import ProjectArticles from '../../../../../../models/ProjectArticles';
+import { post, setHeaders } from '../../../../../../utils/http';
 
 class EditArticle extends Component {
   static contextType = AppContext;
@@ -19,14 +22,15 @@ class EditArticle extends Component {
   constructor(props) {
     super(props);
 
+    const _this = this;
     this.state = {
       titleChange: false,
       tagsChange: false,
-      title: 'How do you make money from scalping?',
-      reserveTitle: 'How to start the agency',
-      tags: ['money', 'trading'].join(', '),
-      reserveTags: ['money', 'trading'].join(', '),
-      stateArticleContent: articleContent,
+      title: _this.props.article.title,
+      reserveTitle: _this.props.article.title,
+      tags: _this.props.article.tags.join(', '),
+      reserveTags: _this.props.article.tags.join(', '),
+      stateArticleContent: _this.props.article.article_content,
       showEditor: false,
       stats: {
         wordCount: 1000,
@@ -59,6 +63,22 @@ class EditArticle extends Component {
     this.setState({
       stateArticleContent: content,
     });
+  };
+
+  handleArticleUpdate = async (field, value) => {
+    let updateObject = {};
+    updateObject.article_id = this.props.router.query.id;
+    updateObject[field] = value;
+
+    try {
+      await post({
+        url: `${process.env.BASE_URL}/api/project/article/update-article`,
+        headers: setHeaders({ token: this.props.user.accessToken }),
+        data: updateObject,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   render() {
@@ -147,6 +167,7 @@ class EditArticle extends Component {
                           onClick={() => {
                             this.setState({ titleChange: false });
                             layout.setToEditArticle(false);
+                            this.handleArticleUpdate('title', this.state.title);
                           }}
                         >
                           Save
@@ -221,6 +242,10 @@ class EditArticle extends Component {
                           onClick={() => {
                             this.setState({ tagsChange: false });
                             layout.setToEditArticle(false);
+                            this.handleArticleUpdate(
+                              'tags',
+                              this.state.tags.split(', ')
+                            );
                           }}
                         >
                           Save
@@ -255,7 +280,7 @@ class EditArticle extends Component {
                   <div dangerouslySetInnerHTML={{ __html: body }}></div>
                 ) : (
                   <ArticleEditor
-                    content={articleContent}
+                    content={stateArticleContent}
                     handleContent={this.handleEditorContent}
                   />
                 )}
@@ -293,6 +318,10 @@ class EditArticle extends Component {
                     onClick={() => {
                       this.setState({ showEditor: false });
                       layout.setToEditArticle(false);
+                      this.handleArticleUpdate(
+                        'newContent',
+                        stateArticleContent
+                      );
                     }}
                   >
                     Save article
@@ -316,16 +345,39 @@ class EditArticle extends Component {
   }
 }
 
-// export async function getServerSideProps(context) {
+export async function getServerSideProps(context) {
+  try {
+    const { query } = context;
 
-//   console.log(context);
+    const session = await getSession(context);
 
-//   return {
-//     props: {
+    if (session?.user) {
+      let ssrArticle = await ProjectArticles.findById(query.id);
+      ssrArticle = JSON.parse(JSON.stringify(ssrArticle));
 
-//     }
-//   }
-// }
+      return {
+        props: {
+          article: ssrArticle,
+          user: session.user,
+        },
+      };
+    }
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  }
+}
 
 EditArticle.auth = true;
 export default withRouter(EditArticle);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import draftToHtml from 'draftjs-to-html';
 
 import { Tick, Processing, Waiting, ChevDown, Mini } from '../../ui/icons';
 import { Table } from '../../components/layouts/Table';
@@ -83,39 +84,11 @@ const GenerateListItem = ({ content, triggerComplete, index, showPreview }) => {
           <div className="table-cell pt-[25px]"></div>
           <div className="table-cell line-clamp-10 pt-[25px] pr-3">
             <EditorContainer>
-              <h1>How do you make money from scalping?</h1>
-              <p>
-                It is very common for people to want to make a quick buck and
-                get a lot of experience in the process. However, scalping is
-                usually not something you can make money on simply because you
-                are competing against professionals who have years of
-                experience. If you want to make money from scalping, you have to
-                be willing to put the time into it and invest in the required
-                equipment. Scalping is the practice of buying and selling
-                securities in the hope of profiting from short-term price
-                movements. The practice can be very lucrative, but also risky
-                due to the large amounts of capital required. Buying a stock at
-                a low price with the intention of reselling it at a profit can
-                result in a high loss if the stock drops in value before you
-                sell it. Scalping is a market-based practice where traders buy
-                and sell assets at an agreed-upon price with the intent of
-                profiting from short-term price movements. The practice is
-                widely considered unethical because it exploits market
-                inefficiency and the emotional responses of participants. There
-                are a few ways to make money from scalping tickets. One way is
-                to buy cheap tickets in bulk and then sell them for a profit at
-                the last minute when it is too late for the public to buy them.
-                Tickets purchased this way are known as "pre-purchased. ". Two
-                other ways of making money from scalping are by buying the
-                tickets and reselling them at face value and buying a "coupon"
-                that entitles you to buy tickets at a discounted price. Scalping
-                is a type of trading that involves buying and selling precious
-                metals, stocks, or other merchandise at a high price. It is
-                popular because it can make you money in the short term since
-                investment sites only charge fees based on how often an investor
-                buys and sells. If you want to make money scalping, you need to
-                follow these simple steps:.
-              </p>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: draftToHtml(JSON.parse(articleContent)),
+                }}
+              ></div>
             </EditorContainer>
           </div>
           <div className="table-cell relative z-10 pt-[25px]">
