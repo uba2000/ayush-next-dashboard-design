@@ -36,6 +36,7 @@ export const generateArticlesContent = (contents) => {
         id: 1234567 + index,
         title: c.question,
         status: sample(['c', 'p', 'w']),
+        tags: contents.articleTags,
         words: faker.datatype.number({ min: 200, max: 1000, precision: 1 }),
       };
     }),

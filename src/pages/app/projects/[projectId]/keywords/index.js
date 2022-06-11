@@ -179,9 +179,9 @@ function KeywordsPage() {
         subLandingText="I am so lorem ipum deloas In working with you Lorem ipsum dolo amet, consectetur adipiscing elit Porta pharetra scelerisque lacus id vitae aenean"
       >
         <div className="space-y-4 mt-[55px]">
-          <ScrollbarsLayout h="597px">
-            <Box className={`min-h-[532px] py-6 md:px-7 px-4 rounded-sm`}>
-              <div className="flex flex-wrap">
+          <Box className={``}>
+            <ScrollbarsLayout h="597px">
+              <div className="flex flex-wrap min-h-[532px] py-6 md:px-7 px-4 rounded-sm">
                 {loadingQuestions ? (
                   <>
                     <span className="flex items-center pr-4 mb-[11px]">
@@ -252,8 +252,8 @@ function KeywordsPage() {
                   </span>
                 </div>
               </div>
-            </Box>
-          </ScrollbarsLayout>
+            </ScrollbarsLayout>
+          </Box>
           <Box className={'py-6 md:px-[59px] px-4'}>
             <div className="flex md:justify-between md:flex-row md:space-y-0 space-y-4 flex-col">
               <button className="btn max-w- btn-primary bg-black border border-solid border-ash dark:border-darkMode-border">

@@ -69,7 +69,7 @@ const Index = () => {
   };
 
   const viewAllProjects = () => {
-    router.push(`/app/projects/${query.projectsId}`);
+    router.push(`/app/projects/${query.projectId}`);
   };
 
   const startNewProject = () => {

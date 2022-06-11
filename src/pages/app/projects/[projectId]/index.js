@@ -21,7 +21,7 @@ import TableLayout from '../../../../components/layouts/TableLayout';
 import ArticleIndexItemDialog from '../../../../page-components/articles/ArticleIndexItemDialog';
 import KeywordsIndexItemDialog from '../../../../page-components/keywords/KeywordsIndexItemDialog';
 import SearchTable from '../../../../components/layouts/Table/components/SearchTable';
-import Project from '../../../../models/Project';
+import ProjectArticles from '../../../../models/ProjectArticles';
 
 const tabs = [
   { tab: 'Articles', q: 'a' },
@@ -29,13 +29,13 @@ const tabs = [
   { tab: 'Features', q: 'f' },
 ];
 
-function Index({ ssrQuery }) {
+function Index({ ssrQuery, articles }) {
   const state = useProjectsContext();
 
   const router = useRouter();
   const { query } = router;
 
-  const { articles, keywordList, projectFeatureList } = state;
+  const { keywordList, projectFeatureList } = state;
 
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -453,15 +453,17 @@ export async function getServerSideProps(context) {
     const session = await getSession(context);
 
     if (session?.user) {
-      let ssrProjects = await Project.findById(query.projectId);
-      ssrProjects = JSON.parse(JSON.stringify(ssrProjects));
+      let ssrArticles = await ProjectArticles.find({
+        project_id: query.projectId,
+      });
+      // ssrProjects = JSON.parse(JSON.stringify(ssrProjects));
 
       // TODO: get keywords and features on this PROJECT...
-
+      console.log(ssrArticles);
       return {
         props: {
           ssrQuery: query,
-          articles: ssrProjects.articles,
+          articles: JSON.parse(JSON.stringify(ssrArticles)),
           keywords: [],
           feaures: [],
         },
