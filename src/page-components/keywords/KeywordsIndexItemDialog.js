@@ -4,6 +4,9 @@ import { useRouter } from 'next/router';
 
 import { Dots } from '../../ui/icons';
 import { DialogLayout } from '../../components/layouts/Dialog';
+import FormGroup from '../../components/FormGroup';
+import Input from '../../components/layouts/Input';
+import industries from '../../_mock/industries';
 
 const KeywordsIndexItemDialog = ({ item }) => {
   const router = useRouter();
@@ -11,6 +14,17 @@ const KeywordsIndexItemDialog = ({ item }) => {
   const { query } = router;
 
   let [isOpen, setIsOpen] = useState(false);
+  let [isEditOpen, setIsEditOpen] = useState(false);
+
+  const [keywordListTitle, setKeywordList] = useState(item.title);
+  const [kTags, setKTags] = useState(item.tags);
+  const [selectedIndustry, setSelectedIndustry] = useState(item.industry);
+  const [showPredictIndustry, setShowPredictIndustry] = useState(false);
+
+  const predictIndustry = (value) => {
+    setSelectedIndustry(value);
+    setShowPredictIndustry(selectedIndustry.length > 2);
+  };
 
   function closeModal() {
     setIsOpen(false);
@@ -20,12 +34,21 @@ const KeywordsIndexItemDialog = ({ item }) => {
     setIsOpen(true);
   }
 
+  function closeEditModal() {
+    setIsEditOpen(false);
+  }
+
+  function openEditModal() {
+    setIsEditOpen(true);
+  }
+
   const viewList = () => {
     router.push(`/app/projects/${query.projectId}/keyword-list/${item._id}`);
   };
 
   return (
     <>
+      {/* delete */}
       <DialogLayout isOpen={isOpen} closeModal={closeModal}>
         <div className="py-24 px-44">
           <div className="space-y-[13px]">
@@ -48,6 +71,100 @@ const KeywordsIndexItemDialog = ({ item }) => {
             >
               Cancel
             </button>
+          </div>
+        </div>
+      </DialogLayout>
+      {/* edit */}
+      <DialogLayout
+        isSharp={true}
+        widthRestrict={'max-w-[1299px]'}
+        isOpen={isEditOpen}
+        closeModal={closeEditModal}
+      >
+        <div className="w-full text-left pt-[30px] divide-y-[1px] dark:divide-darkMode-border divide-ash">
+          <div className="pb-[30px] px-14">
+            <FormGroup label="Keyword List Title" imp={true} labelFor="keyword">
+              <Input
+                id="keyword"
+                value={keywordListTitle}
+                onChange={(e) => setKeywordList(e.target.value)}
+                placeholder="Graphic Design keywords"
+              />
+            </FormGroup>
+
+            <FormGroup label="Keywords List Tags*" imp={true} labelFor="tags">
+              <Input
+                id="tags"
+                value={kTags.join(', ')}
+                onChange={(e) => setKTags(fTags(e.target.value))}
+                placeholder="graphic design, digital marketing, marketing"
+              />
+            </FormGroup>
+
+            <FormGroup
+              label="Industry(optional)"
+              className="mb-0"
+              labelFor="indutry"
+            >
+              <Input
+                id="industry"
+                value={selectedIndustry}
+                onChange={(e) => predictIndustry(e.target.value)}
+                placeholder="Industry"
+              />
+              <Transition
+                as={Fragment}
+                show={showPredictIndustry}
+                enter="transition ease-out duration-100 overflow-hidden"
+                enterFrom="transform min-h-0"
+                enterTo="transform max-h-[105px] h-auto"
+                leave="transition ease-in"
+                leaveFrom="transform duration-75 max-h-[105px] h-auto"
+                leaveTo="transform min-h-0"
+              >
+                <ul className="predict-title max-h-[176px] overflow-y-scroll">
+                  {industries.map((industry, index) => {
+                    return (
+                      <li className="px-[27.18px] py-[10px]" key={index}>
+                        <span
+                          className="cursor-pointer"
+                          onClick={() => {
+                            setSelectedIndustry(industry);
+                            setShowPredictIndustry(false);
+                          }}
+                        >
+                          <span className="font-bold">{industry}</span>
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </Transition>
+            </FormGroup>
+          </div>
+
+          <div className="form-group px-14 py-4 flex mb-0 justify-between">
+            <div className="flex items-center">
+              <span className="dark:text-darkMode-subText text-black">
+                Make sure to save the changes
+              </span>
+            </div>
+            <div className="space-x-4 flex">
+              <button
+                type="button"
+                onClick={closeEditModal}
+                className="btn btn-reset dark:text-white text-black"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => {}}
+                className="block w-fit btn btn-primary bg-primary text-white"
+              >
+                Continue
+              </button>
+            </div>
           </div>
         </div>
       </DialogLayout>
@@ -91,6 +208,7 @@ const KeywordsIndexItemDialog = ({ item }) => {
                   {({ active }) => (
                     <button
                       type="button"
+                      onClick={openEditModal}
                       className={`w-full text-left whitespace-nowrap ${
                         active
                           ? 'bg-primary text-white cursor-pointer'
