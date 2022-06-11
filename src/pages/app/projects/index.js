@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { useAppContext } from '../../../context/state';
 import { PROJECTS_COLUNM } from '../../../components/layouts/Table/columns';
@@ -14,19 +15,24 @@ import TableLayout from '../../../components/layouts/TableLayout';
 import { get, setHeaders } from '../../../utils/http';
 import SearchInput from '../../../components/SearchInput';
 import ProjectsIndexItemDialog from '../../../page-components/projects/ProjectsIndexItemDialog';
+import { setShowNewProject } from '../../../features/layout/layoutSlice';
 
 function AllProjects({ projects }) {
   const contextState = useAppContext();
   const router = useRouter();
+  const dispatch = useDispatch();
 
   // const [allProjects, setAllProjects] = useState(projects);
   const [projectDialog, setProjectDialog] = useState(false);
   const [loadingProjects, setLoadingProjects] = useState(true);
 
+  const isShowNewProject = useSelector((state) => state.layout.showNewProject);
+
   useEffect(async () => {
-    setTimeout(() => setProjectDialog(contextState.layout.showNewProject), 200);
+    setTimeout(() => setProjectDialog(isShowNewProject), 200);
 
     return () => {
+      dispatch(setShowNewProject(false));
       contextState.layout.setShowNewProject(false);
     };
   }, []);
