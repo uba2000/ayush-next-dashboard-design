@@ -121,7 +121,7 @@ export async function getServerSideProps(context) {
         url: `${process.env.BASE_URL}/api/project`,
         headers: setHeaders({ token: session.user.accessToken }),
       });
-      if (response.data.success) {
+      if (response) {
         return {
           props: {
             projects: response.data.data,

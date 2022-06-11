@@ -456,6 +456,8 @@ export async function getServerSideProps(context) {
       let ssrProjects = await Project.findById(query.projectId);
       ssrProjects = JSON.parse(JSON.stringify(ssrProjects));
 
+      // TODO: get keywords and features on this PROJECT...
+
       return {
         props: {
           ssrQuery: query,
