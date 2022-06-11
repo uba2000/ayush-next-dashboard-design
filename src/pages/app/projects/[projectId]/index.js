@@ -456,10 +456,10 @@ export async function getServerSideProps(context) {
     if (session?.user) {
       let ssrArticles = await ProjectArticles.find({
         project_id: query.projectId,
-      });
+      }).select('title tags created_at industry');
       let ssrKeywordLists = await ProjectKeywordsList.find({
         project_id: query.projectId,
-      });
+      }).select('title tags created_at industry');
       // ssrProjects = JSON.parse(JSON.stringify(ssrProjects));
 
       // TODO: get keywords and features on this PROJECT...

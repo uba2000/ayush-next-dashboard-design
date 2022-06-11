@@ -7,10 +7,13 @@ import { DialogLayout } from '../../components/layouts/Dialog';
 import FormGroup from '../../components/FormGroup';
 import Input from '../../components/layouts/Input';
 import industries from '../../_mock/industries';
+import { post, setHeaders } from '../../utils/http';
+import useUser from '../../hooks/useUser';
 
 const KeywordsIndexItemDialog = ({ item }) => {
-  const router = useRouter();
+  const { user } = useUser();
 
+  const router = useRouter();
   const { query } = router;
 
   let [isOpen, setIsOpen] = useState(false);
@@ -41,6 +44,25 @@ const KeywordsIndexItemDialog = ({ item }) => {
   function openEditModal() {
     setIsEditOpen(true);
   }
+
+  const saveKeywordDetail = async () => {
+    let updateObject = {};
+
+    if (item.title !== keywordListTitle) {
+      updateObject.title = keywordListTitle;
+    }
+    updateObject.tags = item.tags;
+    if (item.industry != selectedIndustry) {
+      updateObject.industry = selectedIndustry;
+    }
+
+    await post({
+      url: `${process.env.BASE_URL}/api/project/update-keyword-details`,
+      headers: setHeaders({ token: user.accessToken }),
+      data: { ...updateObject, list_id: item._id },
+    });
+    closeEditModal();
+  };
 
   const viewList = () => {
     router.push(`/app/projects/${query.projectId}/keyword-list/${item._id}`);
@@ -159,7 +181,7 @@ const KeywordsIndexItemDialog = ({ item }) => {
               </button>
               <button
                 type="button"
-                onClick={() => {}}
+                onClick={saveKeywordDetail}
                 className="block w-fit btn btn-primary bg-primary text-white"
               >
                 Continue
