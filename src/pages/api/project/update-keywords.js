@@ -10,18 +10,24 @@ export default async function (req, res) {
     case 'POST':
       try {
         const userAuth = checkAuth(req.headers);
-        const { project_id, title, tags, industry, keywordsQuestions } =
-          req.body;
+        const { keywordsQuestions, keywordId } = req.body;
 
-        const newProjectListKeyword = new ProjectKeywordsList({
-          title,
-          tags,
-          industry,
-          list: keywordsQuestions,
-          project_id: project_id,
-        });
-        await newProjectListKeyword.save();
-        res.status(200).json({ success: true, data: newProjectListKeyword });
+        if (!keywordsQuestions || !keywordId) {
+          return res.status(422).json({ message: 'Invalid Data' });
+        }
+
+        await ProjectKeywordsList.updateOne(
+          {
+            _id: keywordId,
+          },
+          {
+            $set: {
+              list: keywordsQuestions,
+            },
+          }
+        );
+
+        res.status(200).json({ success: true, data: keywordId });
       } catch (error) {
         console.log(error);
         return res.status(500).send(error);
@@ -29,6 +35,7 @@ export default async function (req, res) {
       break;
 
     default:
+      res.status(400).json({ success: false });
       break;
   }
 }

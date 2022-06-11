@@ -1,33 +1,60 @@
-import React, { useState } from 'react'
-import { useRouter } from 'next/router'
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 
-import { DialogLayout } from '../../components/layouts/Dialog'
-import Input from '../../components/layouts/Input'
-import Box from '../../components/layouts/Box'
-import CheckBox from '../../components/layouts/CheckBox'
+import { DialogLayout } from '../../components/layouts/Dialog';
+import Input from '../../components/layouts/Input';
+import Box from '../../components/layouts/Box';
+import CheckBox from '../../components/layouts/CheckBox';
+import { setArticlesDetailsGenerate } from '../../features/project/projectSlice';
 
-const GenerateContentDialog = ({ generateContentDialog, setGenerateContentDialog }) => {
+const GenerateContentDialog = ({
+  generateContentDialog,
+  setGenerateContentDialog,
+  selectedFlatRows,
+}) => {
+  const router = useRouter();
+  const { query } = router;
 
-  const router = useRouter()
+  const dispatch = useDispatch();
 
-  const [noArticles, setNoArticles] = useState(237)
-  const [articleTags, setArticleTags] = useState([])
-  const [noQuestionPerArticles, setNoQuestionPerArticles] = useState(15)
-  const [includeInternalLinking, setIncludeInternalLinking] = useState(false)
+  const [noArticles, setNoArticles] = useState(237);
+  const [articleTags, setArticleTags] = useState([]);
+  const [noQuestionPerArticles, setNoQuestionPerArticles] = useState(15);
+  const [includeInternalLinking, setIncludeInternalLinking] = useState(false);
 
   const generateContent = () => {
-    router.push('/app/projects/keywords/generate')
-  }
+    dispatch(
+      setArticlesDetailsGenerate({
+        noOfArticles: noArticles,
+        noOfQuestionPerArticles: noQuestionPerArticles,
+        includeInternalLinking: includeInternalLinking,
+        articleTags: articleTags,
+        keywordQuestions: selectedFlatRows.map((d) => {
+          return {
+            ...d.original,
+          };
+        }),
+      })
+    );
+
+    router.push(
+      `/app/projects/${query.projectId}/keywords/${query.keywordListId}/generate`
+    );
+  };
 
   return (
     <>
       {/* Generate Content */}
-      <DialogLayout isSharp={true} widthRestrict={'max-w-[776px]'} isOpen={generateContentDialog} closeModal={setGenerateContentDialog}>
+      <DialogLayout
+        isSharp={true}
+        widthRestrict={'max-w-[776px]'}
+        isOpen={generateContentDialog}
+        closeModal={setGenerateContentDialog}
+      >
         <div className="text-left py-[30px] px-[50px] space-y-8">
           <div className="space-y-5">
-            <DialogLayout.Title>
-              Generate Content
-            </DialogLayout.Title>
+            <DialogLayout.Title>Generate Content</DialogLayout.Title>
             <div className="">
               <div className="flex space-x-[13px]">
                 <div className="">
@@ -41,9 +68,11 @@ const GenerateContentDialog = ({ generateContentDialog, setGenerateContentDialog
                 </div>
                 <div className="">
                   <div className="flex flex-col space-y-1">
-                    <span className='text-[18px] font-medium'>How many articles?</span>
-                    <span className='dark:text-darkMode-subText text-sm tracking-[0.1px] text-ash'>
-                      *Estimated  Total Word Count: 1,250,000
+                    <span className="text-[18px] font-medium">
+                      How many articles?
+                    </span>
+                    <span className="dark:text-darkMode-subText text-sm tracking-[0.1px] text-ash">
+                      *Estimated Total Word Count: 1,250,000
                     </span>
                   </div>
                 </div>
@@ -62,16 +91,23 @@ const GenerateContentDialog = ({ generateContentDialog, setGenerateContentDialog
                 </div>
                 <div className="">
                   <div className="flex flex-col space-y-1">
-                    <span className='text-[18px] font-medium'>How many questions per article?</span>
-                    <span className='dark:text-darkMode-subText text-sm tracking-[0.1px] text-ash'>
-                      *Estimated  Total Word Count: 1,250,000
+                    <span className="text-[18px] font-medium">
+                      How many questions per article?
+                    </span>
+                    <span className="dark:text-darkMode-subText text-sm tracking-[0.1px] text-ash">
+                      *Estimated Total Word Count: 1,250,000
                     </span>
                   </div>
                 </div>
               </div>
             </div>
             <div className="">
-              <div className="grid grid-cols-[62px_auto] gap-x-[13px] cursor-pointer" onClick={() => setIncludeInternalLinking(!includeInternalLinking)}>
+              <div
+                className="grid grid-cols-[62px_auto] gap-x-[13px] cursor-pointer"
+                onClick={() =>
+                  setIncludeInternalLinking(!includeInternalLinking)
+                }
+              >
                 <div>
                   <div className="flex justify-center">
                     <CheckBox checked={includeInternalLinking} />
@@ -79,9 +115,12 @@ const GenerateContentDialog = ({ generateContentDialog, setGenerateContentDialog
                 </div>
                 <div className="">
                   <div className="flex flex-col space-y-1">
-                    <span className='text-[18px] font-medium'>Include internal linking</span>
-                    <span className='dark:text-darkMode-subText text-sm tracking-[0.1px] text-ash'>
-                      Note: Internal linking can help increase ranking and crawl budget
+                    <span className="text-[18px] font-medium">
+                      Include internal linking
+                    </span>
+                    <span className="dark:text-darkMode-subText text-sm tracking-[0.1px] text-ash">
+                      Note: Internal linking can help increase ranking and crawl
+                      budget
                     </span>
                   </div>
                 </div>
@@ -89,7 +128,7 @@ const GenerateContentDialog = ({ generateContentDialog, setGenerateContentDialog
             </div>
             <div className="space-y-[10px]">
               <div className="">
-                <span className='font-medium text-[18px] tracking-[-0.01em]'>
+                <span className="font-medium text-[18px] tracking-[-0.01em]">
                   Article Tags
                 </span>
               </div>
@@ -113,16 +152,23 @@ const GenerateContentDialog = ({ generateContentDialog, setGenerateContentDialog
               <button className="btn btn-primary" onClick={generateContent}>
                 Generate
               </button>
-              <button className="btn btn-outline" onClick={() => setGenerateContentDialog(false)}>Cancel</button>
+              <button
+                className="btn btn-outline"
+                onClick={() => setGenerateContentDialog(false)}
+              >
+                Cancel
+              </button>
             </div>
             <div className="flex items-center">
-              <span className='font-normal text-sm dark:text-darkMode-subText text-ash'>99,993 / 100k monthly credits left</span>
+              <span className="font-normal text-sm dark:text-darkMode-subText text-ash">
+                99,993 / 100k monthly credits left
+              </span>
             </div>
           </div>
         </div>
       </DialogLayout>
     </>
-  )
-}
+  );
+};
 
-export default GenerateContentDialog
+export default GenerateContentDialog;

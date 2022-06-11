@@ -37,27 +37,35 @@ const ListSchema = new mongoose.Schema(
   }
 );
 
-const ProjectKeywordsListSchema = new mongoose.Schema({
-  project_id: {
-    type: mongoose.Schema.ObjectId,
-    required: true,
+const ProjectKeywordsListSchema = new mongoose.Schema(
+  {
+    project_id: {
+      type: mongoose.Schema.ObjectId,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    tags: {
+      type: [String],
+      required: true,
+    },
+    industry: {
+      type: String,
+    },
+    list: {
+      type: [ListSchema],
+      default: [],
+    },
   },
-  title: {
-    type: String,
-    required: true,
-  },
-  tags: {
-    type: [String],
-    required: true,
-  },
-  industry: {
-    type: String,
-  },
-  list: {
-    type: [ListSchema],
-    default: [],
-  },
-});
+  {
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+    },
+  }
+);
 
 export default mongoose.models.ProjectKeywordsList ||
   mongoose.model('ProjectKeywordsList', ProjectKeywordsListSchema);

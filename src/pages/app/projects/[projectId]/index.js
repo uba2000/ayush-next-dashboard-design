@@ -22,6 +22,7 @@ import ArticleIndexItemDialog from '../../../../page-components/articles/Article
 import KeywordsIndexItemDialog from '../../../../page-components/keywords/KeywordsIndexItemDialog';
 import SearchTable from '../../../../components/layouts/Table/components/SearchTable';
 import ProjectArticles from '../../../../models/ProjectArticles';
+import ProjectKeywordsList from '../../../../models/ProjectKeywordsList';
 
 const tabs = [
   { tab: 'Articles', q: 'a' },
@@ -29,13 +30,13 @@ const tabs = [
   { tab: 'Features', q: 'f' },
 ];
 
-function Index({ ssrQuery, articles }) {
+function Index({ ssrQuery, articles, keywordList }) {
   const state = useProjectsContext();
 
   const router = useRouter();
   const { query } = router;
 
-  const { keywordList, projectFeatureList } = state;
+  const { projectFeatureList } = state;
 
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -174,7 +175,7 @@ function Index({ ssrQuery, articles }) {
         <div className="mt-8">
           <div className="flex justify-end mb-8">
             {tabIndex == 0 ? (
-              <Link href="/app/projects/keywords/">
+              <Link href={`/app/projects/${query.projectId}/keywords`}>
                 <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
                   Write New Article
                 </a>
@@ -456,15 +457,17 @@ export async function getServerSideProps(context) {
       let ssrArticles = await ProjectArticles.find({
         project_id: query.projectId,
       });
+      let ssrKeywordLists = await ProjectKeywordsList.find({
+        project_id: query.projectId,
+      });
       // ssrProjects = JSON.parse(JSON.stringify(ssrProjects));
 
       // TODO: get keywords and features on this PROJECT...
-      console.log(ssrArticles);
       return {
         props: {
           ssrQuery: query,
           articles: JSON.parse(JSON.stringify(ssrArticles)),
-          keywords: [],
+          keywordList: JSON.parse(JSON.stringify(ssrKeywordLists)),
           feaures: [],
         },
       };

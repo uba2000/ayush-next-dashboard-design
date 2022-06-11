@@ -101,26 +101,43 @@ function KeywordsPage() {
 
   const handleKeywordAnalysis = async () => {
     if (checkQuestionLength) {
-      console.log(user);
       try {
         setLoadingSaveAnalyze(true);
-        const { response, error } = await post({
-          url: `${process.env.BASE_URL}/api/project/add-keywords`,
-          headers: setHeaders({ token: user.accessToken }),
-          data: {
-            title: 'Keyword List Title',
-            industry: '',
-            tags: keywordsStackAnalysed,
-            keywordsQuestions: aQuestions(questions),
-            project_id: query.projectId,
-          },
-        });
+        if (!query.keywordsId) {
+          const { response, error } = await post({
+            url: `${process.env.BASE_URL}/api/project/add-keywords`,
+            headers: setHeaders({ token: user.accessToken }),
+            data: {
+              title: 'Keyword List Title',
+              industry: '',
+              tags: keywordsStackAnalysed,
+              keywordsQuestions: aQuestions(questions),
+              project_id: query.projectId,
+            },
+          });
 
-        if (response) {
-          projectsState.setKeywordQuestions(aQuestions(questions));
-          router.push(
-            `/app/projects/${query.projectId}/keywords/${response.data.data._id}/results`
-          );
+          if (response) {
+            projectsState.setKeywordQuestions(aQuestions(questions));
+            router.push(
+              `/app/projects/${query.projectId}/keywords/${response.data.data._id}/results`
+            );
+          }
+        } else {
+          const { response, error } = await post({
+            url: `${process.env.BASE_URL}/api/project/update-keywords`,
+            headers: setHeaders({ token: user.accessToken }),
+            data: {
+              keywordId: query.keywordsId,
+              keywordsQuestions: aQuestions(questions),
+            },
+          });
+
+          if (response) {
+            projectsState.setKeywordQuestions(aQuestions(questions));
+            router.push(
+              `/app/projects/${query.projectId}/keywords/${query.keywordsId}/results`
+            );
+          }
         }
       } catch (error) {
         console.log(error);
@@ -181,75 +198,77 @@ function KeywordsPage() {
         <div className="space-y-4 mt-[55px]">
           <Box className={``}>
             <ScrollbarsLayout h="597px">
-              <div className="flex flex-wrap min-h-[532px] py-6 md:px-7 px-4 rounded-sm">
-                {loadingQuestions ? (
-                  <>
-                    <span className="flex items-center pr-4 mb-[11px]">
-                      Loading...
+              <div className="min-h-full py-6 md:px-7 px-4 rounded-sm">
+                <div className="flex flex-wrap">
+                  {loadingQuestions ? (
+                    <>
+                      <span className="flex items-center pr-4 mb-[11px]">
+                        Loading...
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      {questions.map((k) => (
+                        <Fragment key={k.id}>
+                          <Box
+                            type={'black'}
+                            className="p-2 text-left w-fit min-w-fit mb-[11px] mr-2"
+                          >
+                            <div className="flex space-x-[6px]">
+                              <span className="font-medium text-sm line-clamp-2">
+                                {k.question}
+                              </span>
+                              <span
+                                onClick={() => removeQuestion(k.id)}
+                                className="cursor-pointer flex items-center"
+                              >
+                                <XSolid className="w-[14px] h-[14px]" />
+                              </span>
+                            </div>
+                          </Box>
+                        </Fragment>
+                      ))}
+                    </>
+                  )}
+                  {isNewKeyword && (
+                    <Fragment>
+                      <Box
+                        type={'black'}
+                        className="pr-2 w-fit min-w-fit mb-[11px] mr-2 h-[38px]"
+                      >
+                        <div className="flex space-x-[6px]">
+                          <span className="font-medium text-sm">
+                            <Input
+                              autoFocus
+                              value={newKeyword}
+                              placeholder="Enter keyword"
+                              onChange={(e) => setNewKeyword(e.target.value)}
+                              className="text-sm font-medium py-1 px-2 h-[35px] border-0"
+                            />
+                          </span>
+                          <span
+                            onClick={saveNewKeywordInput}
+                            className="cursor-pointer flex items-center"
+                          >
+                            {checkKeywordValid() ? (
+                              <div className="pop-in-animation">
+                                <Tick className="w-[14px] h-[14px]" />
+                              </div>
+                            ) : (
+                              <div className="pop-in-animation">
+                                <XSolid className="w-[14px] h-[14px]" />
+                              </div>
+                            )}
+                          </span>
+                        </div>
+                      </Box>
+                    </Fragment>
+                  )}
+                  <div className="cursor-pointer mb-[11px] flex items-center">
+                    <span onClick={showNewKeywordInput}>
+                      <Plus className="w-[19px] h-[19px] text-primary" />
                     </span>
-                  </>
-                ) : (
-                  <>
-                    {questions.map((k) => (
-                      <Fragment key={k.id}>
-                        <Box
-                          type={'black'}
-                          className="p-2 text-left w-fit min-w-fit mb-[11px] mr-2"
-                        >
-                          <div className="flex space-x-[6px]">
-                            <span className="font-medium text-sm line-clamp-2">
-                              {k.question}
-                            </span>
-                            <span
-                              onClick={() => removeQuestion(k.id)}
-                              className="cursor-pointer flex items-center"
-                            >
-                              <XSolid className="w-[14px] h-[14px]" />
-                            </span>
-                          </div>
-                        </Box>
-                      </Fragment>
-                    ))}
-                  </>
-                )}
-                {isNewKeyword && (
-                  <Fragment>
-                    <Box
-                      type={'black'}
-                      className="pr-2 w-fit min-w-fit mb-[11px] mr-2 h-[38px]"
-                    >
-                      <div className="flex space-x-[6px]">
-                        <span className="font-medium text-sm">
-                          <Input
-                            autoFocus
-                            value={newKeyword}
-                            placeholder="Enter keyword"
-                            onChange={(e) => setNewKeyword(e.target.value)}
-                            className="text-sm font-medium py-1 px-2 h-[35px] border-0"
-                          />
-                        </span>
-                        <span
-                          onClick={saveNewKeywordInput}
-                          className="cursor-pointer flex items-center"
-                        >
-                          {checkKeywordValid() ? (
-                            <div className="pop-in-animation">
-                              <Tick className="w-[14px] h-[14px]" />
-                            </div>
-                          ) : (
-                            <div className="pop-in-animation">
-                              <XSolid className="w-[14px] h-[14px]" />
-                            </div>
-                          )}
-                        </span>
-                      </div>
-                    </Box>
-                  </Fragment>
-                )}
-                <div className="cursor-pointer mb-[11px] flex items-center">
-                  <span onClick={showNewKeywordInput}>
-                    <Plus className="w-[19px] h-[19px] text-primary" />
-                  </span>
+                  </div>
                 </div>
               </div>
             </ScrollbarsLayout>
