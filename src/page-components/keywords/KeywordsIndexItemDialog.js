@@ -9,6 +9,7 @@ import Input from '../../components/layouts/Input';
 import industries from '../../_mock/industries';
 import { post, setHeaders } from '../../utils/http';
 import useUser from '../../hooks/useUser';
+import { fTags } from '../../utils/formatTags';
 
 const KeywordsIndexItemDialog = ({ item }) => {
   const { user } = useUser();
@@ -51,7 +52,7 @@ const KeywordsIndexItemDialog = ({ item }) => {
     if (item.title !== keywordListTitle) {
       updateObject.title = keywordListTitle;
     }
-    updateObject.tags = item.tags;
+    updateObject.tags = kTags;
     if (item.industry != selectedIndustry) {
       updateObject.industry = selectedIndustry;
     }
