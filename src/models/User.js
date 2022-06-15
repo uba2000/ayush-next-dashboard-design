@@ -30,18 +30,23 @@ const PlanSchema = new mongoose.Schema(
   {
     plan: {
       type: String,
+      default: '',
     },
     monthLimit: {
       type: Number,
+      default: '',
     },
     totalProjectsLimit: {
       type: Number,
+      default: '',
     },
     keywordListLimit: {
       type: Number,
+      default: '',
     },
     price: {
       type: Number,
+      default: '',
     },
   },
   {
@@ -55,18 +60,22 @@ const CurrentPlanSchem = new mongoose.Schema(
   {
     month_credit: {
       type: Number,
+      default: null,
     },
     projects: {
       type: Number,
+      default: null,
     },
     keywords: {
       type: Number,
+      default: null,
     },
     account_plan: {
       type: PlanSchema,
     },
     next_billing_date: {
       type: String,
+      default: '',
     },
   },
   {
@@ -143,6 +152,7 @@ const UserSchema = new mongoose.Schema(
     },
     account_history: {
       type: Array,
+      default: [],
     },
     members: {
       type: Array,

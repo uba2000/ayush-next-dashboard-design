@@ -54,7 +54,8 @@ export default async function (req, res) {
             },
           }
         );
-        res.status(200).json({ success: true });
+
+        return res.status(200).json({ success: true });
       } catch (error) {
         console.log(error);
         return res.status(500).send(error);
@@ -95,7 +96,7 @@ export default async function (req, res) {
           });
         });
 
-        res.status(200).json({ success: true, data: paymentMethods });
+        return res.status(200).json({ success: true, data: paymentMethods });
       } catch (error) {
         console.log(error);
         return res.status(500).send(error);
