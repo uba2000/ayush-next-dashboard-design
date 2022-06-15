@@ -1,6 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   env: {
+    ENC_SECRET: 'scai###encrtp##32983t53908##tion#2134488i2psecret032084?##',
     BASE_URL: `${
       process.env.NODE_ENV == 'development'
         ? 'http://localhost:3000'

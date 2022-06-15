@@ -3,7 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { compare } from 'bcryptjs';
 
 import dbConnect from '../../../utils/connect';
-import User from '../../../models/User'
+import User from '../../../models/User';
 import { signAccessToken, signRefreshToken } from '../../../utils/jwtHelper';
 
 export default NextAuth({
@@ -23,9 +23,9 @@ export default NextAuth({
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, req) {
-        await dbConnect()
+        await dbConnect();
         try {
-          //Find user with the email  
+          //Find user with the email
           const user = await User.findOne({
             email: credentials.email,
           });
@@ -35,7 +35,10 @@ export default NextAuth({
             throw new Error('No user found with the email');
           }
           //Check hased password with DB password
-          const checkPassword = await compare(credentials.password, user.password);
+          const checkPassword = await compare(
+            credentials.password,
+            user.password
+          );
           //Incorrect password - send response
           if (!checkPassword) {
             client.close();
@@ -45,12 +48,12 @@ export default NextAuth({
           const token = await signAccessToken({
             _id: user._id,
             email: user.email,
-          })
+          });
 
           const refreshToken = await signRefreshToken({
             _id: user._id,
             email: user.email,
-          })
+          });
 
           return {
             email: user.email,
@@ -59,11 +62,11 @@ export default NextAuth({
             dob: user.dob,
             fullName: user.full_name,
             access_token: token,
-            refresh_token: refreshToken
+            refresh_token: refreshToken,
           };
         } catch (error) {
           console.log(error);
-          return null
+          return null;
         }
       },
     }),
@@ -76,7 +79,7 @@ export default NextAuth({
   callbacks: {
     async jwt({ token, user, account }) {
       if (account && user) {
-        let { access_token, ...fUser } = user
+        let { access_token, ...fUser } = user;
         return {
           ...token,
           ...fUser,
@@ -89,7 +92,6 @@ export default NextAuth({
     },
 
     async session({ session, token }) {
-
       session.user.accessToken = token.accessToken;
       session.user.fullName = token.fullName;
       session.user.dob = token.dob;
