@@ -55,20 +55,24 @@ const ProjectsIndexDialog = ({ projectDialog, closeProjectDialog }) => {
 
   const continueProjectCreation = async () => {
     try {
-      const { data } = await axios.post(
-        `${process.env.BASE_URL}/api/project`,
-        {
-          title: newProject.title,
-          tags: newProject.tags,
-          industry: newProject.industry,
-        },
-        {
-          headers: { Authorization: `Bearer ${user.accessToken}` },
+      if (user.currentPlan) {
+        const { data } = await axios.post(
+          `${process.env.BASE_URL}/api/project`,
+          {
+            title: newProject.title,
+            tags: newProject.tags,
+            industry: newProject.industry,
+          },
+          {
+            headers: { Authorization: `Bearer ${user.accessToken}` },
+          }
+        );
+        if (data.success) {
+          contextState.project.setNewProjectData(data.data);
+          router.push(`/app/projects/${data.data._id}/keywords`);
         }
-      );
-      if (data.success) {
-        contextState.project.setNewProjectData(data.data);
-        router.push(`/app/projects/${data.data._id}/keywords`);
+      } else {
+        router.push('/app/account/pricing');
       }
     } catch (error) {
       console.log(error);

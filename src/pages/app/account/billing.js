@@ -98,14 +98,19 @@ export async function getServerSideProps(context) {
   try {
     if (session?.user) {
       const { response, error } = await get({
-        url: `${process.env.BASE_URL}/api/account/payment-method`,
+        url: `${process.env.BASE_URL}/api/account/get-billing-info`,
         headers: setHeaders({ token: session.user.accessToken }),
       });
 
       if (response.status) {
         return {
           props: {
-            paymentMethods: JSON.parse(JSON.stringify(response.data.data)),
+            paymentMethods: JSON.parse(
+              JSON.stringify(response.data.data.paymentMethods)
+            ),
+            currentPlan: JSON.parse(
+              JSON.stringify(response.data.data.currentPlan)
+            ),
           },
         };
       }

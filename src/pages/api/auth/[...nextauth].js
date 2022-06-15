@@ -63,6 +63,7 @@ export default NextAuth({
             fullName: user.full_name,
             access_token: token,
             refresh_token: refreshToken,
+            current_plan: user.current_plan,
           };
         } catch (error) {
           console.log(error);
@@ -93,6 +94,7 @@ export default NextAuth({
 
     async session({ session, token }) {
       session.user.accessToken = token.accessToken;
+      session.user.currentPlan = token.current_plan;
       session.user.fullName = token.fullName;
       session.user.dob = token.dob;
       session.user.address = token.address;

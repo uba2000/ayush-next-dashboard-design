@@ -1,5 +1,6 @@
 import dbConnect from '../../../utils/connect';
 import Project from '../../../models/Project';
+import User from '../../../models/User';
 import { checkAuth } from '../../../utils/checkAuth';
 
 export default async function (req, res) {
@@ -54,6 +55,14 @@ export default async function (req, res) {
       try {
         let userAuth = checkAuth(req.headers);
 
+        const user = await User.findById(userAuth._id).select('current_plan');
+
+        if (!user.current_plan) {
+          return res
+            .status(400)
+            .json({ success: false, error: { message: 'No active plan!' } });
+        }
+
         const { title, tags, industry } = req.body;
 
         if (!title || !tags) {
@@ -69,7 +78,21 @@ export default async function (req, res) {
         });
 
         await newProject.save();
-        res.status(200).json({ success: true, data: newProject });
+
+        await User.findOneAndUpdate(
+          { _id: userAuth._id },
+          {
+            $set: {
+              current_plan: {
+                $push: {
+                  projects: newProject._id,
+                },
+              },
+            },
+          }
+        );
+
+        return res.status(200).json({ success: true, data: newProject });
       } catch (error) {
         console.log(error);
         return res.status(500).send(error);

@@ -32,15 +32,15 @@ const PlanSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
-    monthLimit: {
+    period_limit: {
       type: Number,
       default: '',
     },
-    totalProjectsLimit: {
+    total_projects: {
       type: Number,
       default: '',
     },
-    keywordListLimit: {
+    keyword_list_limit: {
       type: Number,
       default: '',
     },
@@ -58,24 +58,36 @@ const PlanSchema = new mongoose.Schema(
 );
 const CurrentPlanSchem = new mongoose.Schema(
   {
-    month_credit: {
+    period_type: {
+      type: String,
+      default: 'M',
+    },
+    period_credit: {
       type: Number,
       default: null,
     },
+    plan_local_id: {
+      type: String,
+      required: true,
+    },
     projects: {
-      type: Number,
+      type: [mongoose.Schema.ObjectId],
       default: null,
     },
     keywords: {
-      type: Number,
+      type: [mongoose.Schema.ObjectId],
       default: null,
     },
     account_plan: {
       type: PlanSchema,
     },
     next_billing_date: {
-      type: String,
+      type: Date,
       default: '',
+    },
+    is_active: {
+      type: Boolean,
+      default: true,
     },
   },
   {
@@ -105,6 +117,20 @@ const PaymentMethodSchema = new mongoose.Schema(
     },
     security_code: {
       type: String,
+      required: true,
+    },
+  },
+  {
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+    },
+  }
+);
+const AccountHistorySchema = new mongoose.Schema(
+  {
+    project_id: {
+      type: mongoose.Schema.ObjectId,
       required: true,
     },
   },
@@ -160,7 +186,7 @@ const UserSchema = new mongoose.Schema(
     },
     current_plan: {
       type: CurrentPlanSchem,
-      default: {},
+      default: null,
     },
     subscriptions: {
       type: [SubscriptionSchema],
