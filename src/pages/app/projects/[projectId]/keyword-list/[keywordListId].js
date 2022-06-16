@@ -14,21 +14,18 @@ import {
   AddToMenu,
   ExportMenu,
 } from '../../../../../page-components/keyword-results';
-import KeywordItem from '../../../../../page-components/keyword-results/keywordItem';
-import { Table } from '../../../../../components/layouts/Table';
-import { useProjectsContext } from '../../../../../context/projects';
 import DashboardLayout from '../../../../../components/app/DasboardLayout';
 import { PencilAlt } from '../../../../../ui/icons';
-import CheckBox from '../../../../../components/layouts/CheckBox';
+
 import ArticleLayout from '../../../../../page-components/project-categories/ArticleLayout';
 import NewKeywordListButton from '../../../../../page-components/keyword-generate/NewKeywordListButton';
 import GenerateContentDialog from '../../../../../page-components/keyword-generate/GenerateContentDialog';
 import useScaiTable from '../../../../../hooks/useScaiTable';
 import { KEYWORDSLIST_COLUNM } from '../../../../../components/layouts/Table/columns';
 import TableLayout from '../../../../../components/layouts/TableLayout';
-import ProjectKeywordsList from '../../../../../models/ProjectKeywordsList';
+import { setHeaders, get } from '../../../../../utils/http';
 
-const KeywordListView = ({ keywords }) => {
+const KeywordListView = ({ keywords, keywordList }) => {
   const router = useRouter();
 
   const { query } = router;
@@ -58,7 +55,7 @@ const KeywordListView = ({ keywords }) => {
       <ArticleLayout
         crumbs={[
           { link: `/app/projects/${query.projectId}?tab=k`, txt: 'Keywords' },
-          { link: '', txt: 'Keyword List Title Here' },
+          { link: '', txt: keywordList.title },
         ]}
       >
         <div className="mt-8">
@@ -123,18 +120,20 @@ export async function getServerSideProps(context) {
     const session = await getSession(context);
 
     if (session?.user) {
-      let ssrKeywordList = await ProjectKeywordsList.findById(
-        query.keywordListId
-      );
-      ssrKeywordList = JSON.parse(JSON.stringify(ssrKeywordList));
-      const keywords = ssrKeywordList.list;
-
-      return {
-        props: {
-          keywords: keywords,
-          keywordList: ssrKeywordList,
-        },
-      };
+      const { response, error } = await get({
+        url: `${process.env.BASE_URL}/api/project/keywords/${query.keywordListId}/result`,
+        headers: setHeaders({ token: session.user.accessToken }),
+      });
+      if (response) {
+        const ssrKeywordList = JSON.parse(JSON.stringify(response.data.data));
+        const keywords = ssrKeywordList.list;
+        return {
+          props: {
+            keywords: keywords,
+            keywordList: ssrKeywordList,
+          },
+        };
+      }
     }
 
     return {

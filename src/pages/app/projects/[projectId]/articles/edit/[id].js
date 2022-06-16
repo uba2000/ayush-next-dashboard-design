@@ -9,12 +9,10 @@ import styles from '../../../../../../styles/Article.module.css';
 import accountStyles from '../../../../../../styles/Account.module.css';
 import { AppContext } from '../../../../../../context/state';
 import Box from '../../../../../../components/layouts/Box';
-import articleContent from '../../../../../../_mock/article-content';
 import ArticleEditor from '../../../../../../page-components/project-categories/articles/ArticleEditor';
 import Input from '../../../../../../components/layouts/Input';
 import EditorContainer from '../../../../../../components/layouts/EditorContainer';
-import ProjectArticles from '../../../../../../models/ProjectArticles';
-import { post, setHeaders } from '../../../../../../utils/http';
+import { post, get, setHeaders } from '../../../../../../utils/http';
 
 class EditArticle extends Component {
   static contextType = AppContext;
@@ -352,15 +350,18 @@ export async function getServerSideProps(context) {
     const session = await getSession(context);
 
     if (session?.user) {
-      let ssrArticle = await ProjectArticles.findById(query.id);
-      ssrArticle = JSON.parse(JSON.stringify(ssrArticle));
-
-      return {
-        props: {
-          article: ssrArticle,
-          user: session.user,
-        },
-      };
+      const { response, error } = await get({
+        url: `${process.env.BASE_URL}/api/project/article/${query.id}`,
+        headers: setHeaders({ token: session.user.accessToken }),
+      });
+      if (response) {
+        return {
+          props: {
+            article: JSON.parse(JSON.stringify(response.data.data)),
+            user: session.user,
+          },
+        };
+      }
     }
     return {
       redirect: {

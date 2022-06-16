@@ -28,8 +28,8 @@ import { useProjectsContext } from '../../../../../../../context/projects';
 import { KEYWORDSLIST_COLUNM } from '../../../../../../../components/layouts/Table/columns';
 import TableLayout from '../../../../../../../components/layouts/TableLayout';
 import useScaiTable from '../../../../../../../hooks/useScaiTable';
-import ProjectKeywordsList from '../../../../../../../models/ProjectKeywordsList';
 import { setArticlesDetailsGenerate } from '../../../../../../../features/project/projectSlice';
+import { setHeaders, get } from '../../../../../../../utils/http';
 
 const results = ({ keywordQuestions, keywords }) => {
   const router = useRouter();
@@ -372,19 +372,24 @@ results.auth = true;
 
 export async function getServerSideProps(context) {
   const { query } = context;
+
   try {
     const session = await getSession(context);
 
     if (session?.user) {
-      let ssrProject = await ProjectKeywordsList.findById(query.keywordlistId);
-      ssrProject = JSON.parse(JSON.stringify(ssrProject));
-
-      return {
-        props: {
-          keywordQuestions: ssrProject.list || [],
-          keywords: ssrProject.tags || [],
-        },
-      };
+      const { response, error } = await get({
+        url: `${process.env.BASE_URL}/api/project/keywords/${query.keywordlistId}/result`,
+        headers: setHeaders({ token: session.user.accessToken }),
+      });
+      if (response) {
+        const ssrProject = JSON.parse(JSON.stringify(response.data.data));
+        return {
+          props: {
+            keywordQuestions: ssrProject.list || [],
+            keywords: ssrProject.tags || [],
+          },
+        };
+      }
     }
     return {
       redirect: {

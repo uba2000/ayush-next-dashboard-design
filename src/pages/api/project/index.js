@@ -55,7 +55,7 @@ export default async function (req, res) {
       try {
         let userAuth = checkAuth(req.headers);
 
-        const user = await User.findById(userAuth._id).select('current_plan');
+        const user = await User.findById(userAuth._id);
 
         if (!user.current_plan) {
           return res
@@ -77,20 +77,11 @@ export default async function (req, res) {
           user_id: userAuth._id,
         });
 
-        await newProject.save();
+        user.current_plan.projects.push(newProject._id);
 
-        await User.findOneAndUpdate(
-          { _id: userAuth._id },
-          {
-            $set: {
-              current_plan: {
-                $push: {
-                  projects: newProject._id,
-                },
-              },
-            },
-          }
-        );
+        await user.save();
+
+        await newProject.save();
 
         return res.status(200).json({ success: true, data: newProject });
       } catch (error) {
@@ -100,7 +91,7 @@ export default async function (req, res) {
       break;
 
     default:
-      res.status(400).json({ success: false });
+      return res.status(400).json({ success: false });
       break;
   }
 }
