@@ -13,6 +13,8 @@ export default async function (req, res) {
         const { project_id, title, tags, industry, keywordsQuestions } =
           req.body;
 
+        const user = await User.findById(userAuth._id);
+
         const newProjectListKeyword = new ProjectKeywordsList({
           title,
           tags,
@@ -20,6 +22,11 @@ export default async function (req, res) {
           list: keywordsQuestions,
           project_id: project_id,
         });
+
+        user.current_plan.keywords.push(newProjectListKeyword._id);
+
+        await user.save();
+
         await newProjectListKeyword.save();
         res.status(200).json({ success: true, data: newProjectListKeyword });
       } catch (error) {

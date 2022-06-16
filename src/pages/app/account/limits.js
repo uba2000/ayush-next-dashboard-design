@@ -87,7 +87,7 @@ function limits({ accountPlan, accountHistory }) {
                       <LimitsDetailsLayout
                         title={`${
                           accountPlan
-                            ? `${accountPlan.projects || 0} of ${
+                            ? `${accountPlan.projects.length || 0} of ${
                                 accountPlan.account_plan.total_projects
                               }`
                             : '---'
