@@ -1,11 +1,18 @@
 import { format } from 'date-fns';
 import { fCurrency } from '../../../utils/formatNumber';
 
+const tagLayout = ({ value }) => {
+  return <span className="line-clamp-1">{value.join(', ')}</span>;
+};
+
 export const PROJECTS_COLUNM = [
   {
     Header: 'All Projects',
     accessor: 'title',
     main: true,
+    Cell: ({ value }) => {
+      return <span className="line-clamp-1">{value}</span>;
+    },
   },
   {
     Header: 'Tags',
@@ -32,6 +39,9 @@ export const ARTICLES_COLUNM = [
     Header: 'Articles',
     accessor: 'title',
     main: true,
+    Cell: ({ value }) => {
+      return <span className="line-clamp-1">{value}</span>;
+    },
   },
   {
     Header: 'Tags',
@@ -58,6 +68,9 @@ export const KEYWORDS_COLUNM = [
     Header: 'Keyword List',
     accessor: 'title',
     main: true,
+    Cell: ({ value }) => {
+      return <span className="line-clamp-1">{value}</span>;
+    },
   },
   {
     Header: 'Tags',
@@ -84,6 +97,9 @@ export const KEYWORDSLIST_COLUNM = [
     Header: 'Keywords',
     accessor: 'question',
     main: true,
+    Cell: ({ value }) => {
+      return <span className="line-clamp-1">{value}</span>;
+    },
   },
   {
     Header: 'Volume',
@@ -126,5 +142,29 @@ export const KEYWORDSLIST_COLUNM = [
     Cell: ({ value }) => {
       return <span className="block text-center">{value}</span>;
     },
+  },
+];
+
+export const ACCOUNT_HISTORY_COLUNM = [
+  {
+    Header: 'Project Titles',
+    accessor: 'title',
+    main: true,
+    Cell: ({ value }) => {
+      return <span className="line-clamp-1">{value}</span>;
+    },
+  },
+  {
+    Header: 'Tags',
+    accessor: 'tags',
+    Cell: tagLayout,
+  },
+  {
+    Header: 'Date',
+    accessor: 'created_at',
+    Cell: ({ value }) => {
+      return format(new Date(value), 'dd/MM/yyyy h:m bb');
+    },
+    minWidth: '194px',
   },
 ];

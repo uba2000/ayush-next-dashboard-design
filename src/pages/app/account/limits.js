@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { getSession } from 'next-auth/react';
 
-import styles from '../../../styles/Account.module.css';
 import AccountLayout from '../../../components/app/account/AccountLayout';
 import Box from '../../../components/layouts/Box';
-import { Table } from '../../../components/layouts/Table';
-import LimitsHistoryItems from '../../../page-components/account/limitsHistoryItems';
-import { LinkIcon } from '../../../ui/icons';
+import { File, LinkIcon } from '../../../ui/icons';
 import { get, setHeaders } from '../../../utils/http';
+import TableLayout from '../../../components/layouts/TableLayout';
+import useScaiTable from '../../../hooks/useScaiTable';
+import { ACCOUNT_HISTORY_COLUNM } from '../../../components/layouts/Table/columns';
 
 function limits({ accountPlan, accountHistory }) {
   const [months] = useState([
@@ -24,6 +24,26 @@ function limits({ accountPlan, accountHistory }) {
     'Nov',
     'Dec',
   ]);
+
+  const tableInstance = useScaiTable(
+    {
+      tableColumns: ACCOUNT_HISTORY_COLUNM,
+      tableData: accountHistory,
+    },
+    [],
+    false,
+    () => [
+      {
+        id: 'file',
+        Header: ({ getToggleAllRowsSelectedProps }) => (
+          <LinkIcon {...getToggleAllRowsSelectedProps()} />
+        ),
+        Cell: ({ row }) => <File {...row.getToggleRowSelectedProps()} />,
+        width: '41.5px',
+      },
+    ]
+  );
+
   return (
     <AccountLayout>
       <div className="space-y-[30px]">
@@ -99,7 +119,7 @@ function limits({ accountPlan, accountHistory }) {
                       <LimitsDetailsLayout
                         title={`${
                           accountPlan
-                            ? `${accountPlan.keywords || 0} of ${
+                            ? `${accountPlan.keywords.length || 0} of ${
                                 accountPlan.account_plan.keyword_list_limit
                               }`
                             : '---'
@@ -165,95 +185,7 @@ function limits({ accountPlan, accountHistory }) {
         <div>
           <LimitSectionHeader title={'Account History'} />
           <div>
-            <Table>
-              <Table.Head>
-                <Table.Row className="cursor-default">
-                  <Table.TH className="pl-0 cursor-pointer w-[41.5px]">
-                    <div
-                      className="flex items-center justify-center"
-                      onClick={() => checkAllArticlesHandler(!checkAllArticles)}
-                    >
-                      <LinkIcon />
-                    </div>
-                  </Table.TH>
-                  <Table.TH
-                    main={true}
-                    style={{ width: '50%', minWidth: '397px' }}
-                  >
-                    <span className="capitalize">Project Titles</span>
-                  </Table.TH>
-                  <Table.TH style={{ minWidth: '140px' }}>
-                    <span className="flex items-center space-x-1">
-                      <span className="capitalize">Credits</span>
-                    </span>
-                  </Table.TH>
-                  <Table.TH style={{ width: '27%', minWidth: '169px' }}>
-                    <span className="flex items-center space-x-1">
-                      <span className="capitalize">Tags</span>
-                    </span>
-                  </Table.TH>
-                  <Table.TH style={{ minWidth: '194px' }}>
-                    <span className="capitalize">Date</span>
-                  </Table.TH>
-                </Table.Row>
-              </Table.Head>
-              <Table.Body className="dark:bg-black bg-white">
-                <LimitsHistoryItems
-                  title={'Digital Marketing Articles'}
-                  credits={'25,145'}
-                  tags={['graphics design', 'digital, marketing']}
-                  date={'22/03/2022, 5:51 AM '}
-                />
-              </Table.Body>
-            </Table>
-            <div className="dark:bg-darkMode-bg bg-white border border-t-0 dark:border-darkMode-border border-ash border-solid">
-              <div className="flex justify-between pl-11 pr-10 py-4">
-                <span className="font-poppins text-sm align-middle">
-                  1-10 of 100 articles
-                </span>
-                <div className="flex items-center">
-                  <button
-                    className={`py-1 px-2 border border-solid dark:border-darkMode-border border-ash`}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="icon icon-tabler icon-tabler-chevron-left"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <polyline points="15 6 9 12 15 18" />
-                    </svg>
-                  </button>
-                  <p className="text-sm mx-4 font-poppins">1</p>
-                  <button
-                    className={`py-1 px-2 border border-solid dark:border-darkMode-border border-ash`}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="icon icon-tabler icon-tabler-chevron-right"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <polyline points="9 6 15 12 9 18" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
+            <TableLayout tableInstance={tableInstance} />
           </div>
         </div>
       </div>
@@ -295,11 +227,10 @@ export async function getServerSideProps(context) {
 
       if (response.status) {
         details = response.data.data;
-
         return {
           props: {
-            accountPlan: details.current_plan || null,
-            accountHistory: [],
+            accountPlan: details.user.current_plan || null,
+            accountHistory: details.history.projects,
           },
         };
       }

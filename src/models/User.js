@@ -127,11 +127,15 @@ const PaymentMethodSchema = new mongoose.Schema(
     },
   }
 );
-const AccountHistorySchema = new mongoose.Schema(
+const AccountProjectHistorySchema = new mongoose.Schema(
   {
     project_id: {
       type: mongoose.Schema.ObjectId,
       required: true,
+    },
+    credits: {
+      type: Number,
+      default: 0,
     },
   },
   {
@@ -175,10 +179,6 @@ const UserSchema = new mongoose.Schema(
     account_role: {
       type: String,
       default: 'owner',
-    },
-    account_history: {
-      type: Array,
-      default: [],
     },
     members: {
       type: Array,

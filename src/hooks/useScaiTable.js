@@ -23,7 +23,22 @@ const useScaiTable = (
       },
     },
   ],
-  isCheckBox = true
+  isCheckBox = true,
+  beforeColumn = () =>
+    isCheckBox
+      ? [
+          {
+            id: 'selection',
+            Header: ({ getToggleAllRowsSelectedProps }) => (
+              <TableCheckBox {...getToggleAllRowsSelectedProps()} />
+            ),
+            Cell: ({ row }) => (
+              <TableCheckBox {...row.getToggleRowSelectedProps()} />
+            ),
+            width: '41.5px',
+          },
+        ]
+      : []
 ) => {
   const columns = useMemo(() => tableColumns, []);
   const data = useMemo(() => tableData, []);
@@ -55,25 +70,7 @@ const useScaiTable = (
     useRowSelect,
     (hooks) => {
       hooks.visibleColumns.push((columns) => {
-        return [
-          ...(() =>
-            isCheckBox
-              ? [
-                  {
-                    id: 'selection',
-                    Header: ({ getToggleAllRowsSelectedProps }) => (
-                      <TableCheckBox {...getToggleAllRowsSelectedProps()} />
-                    ),
-                    Cell: ({ row }) => (
-                      <TableCheckBox {...row.getToggleRowSelectedProps()} />
-                    ),
-                    width: '41.5px',
-                  },
-                ]
-              : [])(),
-          ...columns,
-          ...afterColumn,
-        ];
+        return [...beforeColumn(), ...columns, ...afterColumn];
       });
     }
   );

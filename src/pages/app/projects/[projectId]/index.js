@@ -375,12 +375,12 @@ function Index({ ssrQuery, articles, keywordList }) {
             </div>
             <Tab.Panels>
               <Tab.Panel>
-                <div>
+                <div className="mt-7">
                   <TableLayout tableInstance={articleTableInstance} />
                 </div>
               </Tab.Panel>
               <Tab.Panel>
-                <div>
+                <div className="mt-7">
                   <TableLayout tableInstance={keywordsTableInstance} />
                 </div>
               </Tab.Panel>

@@ -103,7 +103,7 @@ const KeywordListView = ({ keywords, keywordList }) => {
               </div>
             </div>
           </div>
-          <div>
+          <div className="mt-7">
             {/*  */}
             <TableLayout tableInstance={tableInstance} />
           </div>

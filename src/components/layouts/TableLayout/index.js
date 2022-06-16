@@ -1,12 +1,9 @@
-import React from 'react'
-import Pagination from '../Pagination'
+import React from 'react';
+import Pagination from '../Pagination';
 
-import { Table } from '../Table'
+import { Table } from '../Table';
 
-const TableLayout = ({
-  tableInstance
-}) => {
-
+const TableLayout = ({ tableInstance, bodyStyle = {} }) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -23,12 +20,12 @@ const TableLayout = ({
     gotoPage,
     pageCount,
     pageIndex,
-    rowsLength
-  } = tableInstance
+    rowsLength,
+  } = tableInstance;
 
   return (
     <>
-      <div className="mt-7">
+      <div>
         <Table {...getTableProps()}>
           <Table.Head>
             {headerGroups.map((headerGroup) => (
@@ -47,21 +44,37 @@ const TableLayout = ({
                     >
                       {column.render('Header')}
                       <span>
-                        {column.isSorted ? (column.isSortedDesc ? (
-
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
-                            viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
+                        {column.isSorted ? (
+                          column.isSortedDesc ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-5 w-5"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-5 w-5"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          )
                         ) : (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                          </svg>
-                        )) : ''}
+                          ''
+                        )}
                       </span>
                     </div>
                   </Table.TH>
@@ -69,20 +82,24 @@ const TableLayout = ({
               </Table.Row>
             ))}
           </Table.Head>
-          <Table.Body {...getTableBodyProps()}>
-            {page.map(row => {
-              prepareRow(row)
+          <Table.Body
+            className="dark:bg-black bg-white"
+            {...getTableBodyProps()}
+            style={{ ...bodyStyle }}
+          >
+            {page.map((row) => {
+              prepareRow(row);
               return (
                 <Table.Row {...row.getRowProps()}>
-                  {row.cells.map(cell => {
+                  {row.cells.map((cell) => {
                     return (
                       <Table.Data {...cell.getCellProps()}>
                         {cell.render('Cell')}
                       </Table.Data>
-                    )
+                    );
                   })}
                 </Table.Row>
-              )
+              );
             })}
           </Table.Body>
         </Table>
@@ -100,7 +117,7 @@ const TableLayout = ({
         pageCount={pageCount}
       />
     </>
-  )
-}
+  );
+};
 
-export default TableLayout
+export default TableLayout;

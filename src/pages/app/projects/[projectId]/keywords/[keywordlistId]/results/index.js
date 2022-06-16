@@ -347,7 +347,7 @@ const results = ({ keywordQuestions, keywords }) => {
                     </div>
                   </div>
                 </div>
-                <div>
+                <div className="mt-7">
                   <TableLayout tableInstance={tableInstance} />
                 </div>
               </div>
