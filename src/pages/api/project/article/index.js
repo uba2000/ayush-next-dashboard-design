@@ -21,14 +21,14 @@ export default async function (req, res) {
           keywordlist_id,
         });
         await newProjectArticle.save();
-        res.status(200).json({ success: true, data: newProjectArticle });
+        return res.status(200).json({ success: true, data: newProjectArticle });
       } catch (error) {
         console.log(error);
         return res.status(500).send(error);
       }
 
     default:
-      res.status(400).json({ success: false });
+      return res.status(400).json({ success: false });
       break;
   }
 }
