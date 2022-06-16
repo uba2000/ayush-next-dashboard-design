@@ -17,7 +17,7 @@ export default async function (req, res) {
 
       // const { data } = await axios.get(url, options)
 
-      res.status(200).json({
+      return res.status(200).json({
         message: 'Successful',
         success: true,
         questions: [
@@ -36,8 +36,8 @@ export default async function (req, res) {
         ],
       });
     } catch (error) {
-      res.json({ message: 'An error occured!', success: false, error });
+      return res.json({ message: 'An error occured!', success: false, error });
     }
   }
-  res.json({ message: 'Invalid token', success: false });
+  return res.json({ message: 'Invalid token', success: false });
 }
