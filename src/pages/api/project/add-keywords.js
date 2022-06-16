@@ -1,5 +1,6 @@
 import dbConnect from '../../../utils/connect';
 import ProjectKeywordsList from '../../../models/ProjectKeywordsList';
+import User from '../../../models/User';
 import { checkAuth } from '../../../utils/checkAuth';
 
 export default async function (req, res) {
