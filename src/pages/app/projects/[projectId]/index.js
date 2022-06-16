@@ -21,8 +21,7 @@ import TableLayout from '../../../../components/layouts/TableLayout';
 import ArticleIndexItemDialog from '../../../../page-components/articles/ArticleIndexItemDialog';
 import KeywordsIndexItemDialog from '../../../../page-components/keywords/KeywordsIndexItemDialog';
 import SearchTable from '../../../../components/layouts/Table/components/SearchTable';
-import ProjectArticles from '../../../../models/ProjectArticles';
-import ProjectKeywordsList from '../../../../models/ProjectKeywordsList';
+import { get, setHeaders } from '../../../../utils/http';
 
 const tabs = [
   { tab: 'Articles', q: 'a' },
@@ -454,23 +453,19 @@ export async function getServerSideProps(context) {
     const session = await getSession(context);
 
     if (session?.user) {
-      let ssrArticles = await ProjectArticles.find({
-        project_id: query.projectId,
-      }).select('title tags created_at industry');
-      let ssrKeywordLists = await ProjectKeywordsList.find({
-        project_id: query.projectId,
-      }).select('title tags created_at industry');
-      // ssrProjects = JSON.parse(JSON.stringify(ssrProjects));
-
-      // TODO: get keywords and features on this PROJECT...
-      return {
-        props: {
-          ssrQuery: query,
-          articles: JSON.parse(JSON.stringify(ssrArticles)),
-          keywordList: JSON.parse(JSON.stringify(ssrKeywordLists)),
-          feaures: [],
-        },
-      };
+      const { response, error } = await get({
+        url: `${process.env.BASE_URL}/api/project/${query.projectId}`,
+        headers: setHeaders({ token: session.user.accessToken }),
+      });
+      if (response) {
+        return {
+          props: {
+            ssrQuery: query,
+            feaures: [],
+            ...JSON.parse(JSON.stringify(response.data.data)),
+          },
+        };
+      }
     }
 
     return {
