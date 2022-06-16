@@ -58,6 +58,7 @@ const Index = () => {
           article_content: articleContent,
           project_id: query.projectId,
           keywordlist_id: query.keywordlistId,
+          articleWordCount: article.words,
         },
       });
     }

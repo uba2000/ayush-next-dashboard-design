@@ -21,17 +21,19 @@ import Box from '../../../../../../../components/layouts/Box';
 import { SearchIcon, PencilAlt } from '../../../../../../../ui/icons';
 import { DialogLayout } from '../../../../../../../components/layouts/Dialog';
 import Input from '../../../../../../../components/layouts/Input';
-import { Table } from '../../../../../../../components/layouts/Table';
 import CheckBox from '../../../../../../../components/layouts/CheckBox';
-import KeywordItem from '../../../../../../../page-components/keyword-results/keywordItem';
 import { useProjectsContext } from '../../../../../../../context/projects';
 import { KEYWORDSLIST_COLUNM } from '../../../../../../../components/layouts/Table/columns';
 import TableLayout from '../../../../../../../components/layouts/TableLayout';
 import useScaiTable from '../../../../../../../hooks/useScaiTable';
 import { setArticlesDetailsGenerate } from '../../../../../../../features/project/projectSlice';
 import { setHeaders, get } from '../../../../../../../utils/http';
+import useUser from '../../../../../../../hooks/useUser';
+import { fNumber } from '../../../../../../../utils/formatNumber';
 
 const results = ({ keywordQuestions, keywords }) => {
+  const { user } = useUser();
+
   const router = useRouter();
   const { query } = router;
   const dispatch = useDispatch();
@@ -72,6 +74,17 @@ const results = ({ keywordQuestions, keywords }) => {
     router.push(
       `/app/projects/${query.projectId}/keywords/${query.keywordlistId}/generate`
     );
+  };
+
+  const creditsLeftUI = () => {
+    let currentPlan = user.currentPlan;
+    let remainingCredit =
+      currentPlan.account_plan.period_limit - currentPlan.period_credit;
+    let period = currentPlan.period_type == 'M' ? 'monthly' : 'yearly';
+
+    return `${fNumber(remainingCredit)} / ${fNumber(
+      currentPlan.account_plan.period_limit
+    )} ${period} credits left`;
   };
 
   useEffect(() => {
@@ -206,7 +219,7 @@ const results = ({ keywordQuestions, keywords }) => {
             </div>
             <div className="flex items-center">
               <span className="font-normal text-sm dark:text-darkMode-subText text-ash">
-                99,993 / 100k monthly credits left
+                {user.currentPlan && creditsLeftUI()}
               </span>
             </div>
           </div>
