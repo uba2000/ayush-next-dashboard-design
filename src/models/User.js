@@ -145,6 +145,51 @@ const PaymentMethodSchema = new mongoose.Schema(
     },
   }
 );
+const FeatureListContentSchema = new mongoose.Schema(
+  {
+    user: {
+      type: String,
+    },
+    content: {
+      type: String,
+    },
+  },
+  {
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+    },
+  }
+);
+const FeaturesListSchema = new mongoose.Schema(
+  {
+    user: {
+      type: String,
+    },
+    feature: {
+      type: String,
+      default: '',
+    },
+    type: {
+      type: String,
+      default: '',
+    },
+    slug: {
+      type: String,
+      default: '',
+    },
+    feature_content: {
+      type: [FeatureListContentSchema],
+      default: [],
+    },
+  },
+  {
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+    },
+  }
+);
 const UserSchema = new mongoose.Schema(
   {
     email: {
@@ -194,6 +239,10 @@ const UserSchema = new mongoose.Schema(
     },
     payment_methods: {
       type: [PaymentMethodSchema],
+      default: [],
+    },
+    features: {
+      type: [FeaturesListSchema],
       default: [],
     },
   },

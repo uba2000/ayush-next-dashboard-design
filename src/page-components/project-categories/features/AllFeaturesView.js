@@ -16,8 +16,8 @@ import { ChevDown } from '../../../ui/icons/chev-down';
 import { setShowNewProject } from '../../../features/layout/layoutSlice';
 import { Button } from '../../../ui/button';
 
-const AllFeaturesView = ({ isGetStarted }) => {
-  const stateFeature = useSelector((state) => state.project.projectFeatures);
+const AllFeaturesView = ({ isGetStarted, stateFeature }) => {
+  // const stateFeature = useSelector((state) => state.project.projectFeatures);
   const dispatch = useDispatch();
 
   const router = useRouter();

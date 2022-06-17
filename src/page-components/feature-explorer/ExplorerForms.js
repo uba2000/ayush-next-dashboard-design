@@ -1,12 +1,12 @@
-import React from 'react'
-import { useRouter } from 'next/router'
+import React from 'react';
+import { useRouter } from 'next/router';
 
-import Input from '../../components/layouts/Input'
-import FormGroup from '../../components/FormGroup'
-import { fTags } from '../../utils/formatTags'
-import FormLayout from './forms/FormLayout'
-import DropdownLayout from '../../components/layouts/Dropdown'
-import { ExplorerTwoInputLayout, LabelLayout } from './ExplorerLayout'
+import Input from '../../components/layouts/Input';
+import FormGroup from '../../components/FormGroup';
+import { fTags } from '../../utils/formatTags';
+import FormLayout from './forms/FormLayout';
+import DropdownLayout from '../../components/layouts/Dropdown';
+import { ExplorerTwoInputLayout, LabelLayout } from './ExplorerLayout';
 import {
   ParagraphWriter,
   FacebookPrimaryText,
@@ -54,16 +54,12 @@ import {
   TestimonialsReviews,
   CallToAction,
   AboutUs,
-  BackLinks
-} from './forms'
-import { useExplorerContext } from '../../context/explorer'
+  BackLinks,
+} from './forms';
+import { useExplorerContext } from '../../context/explorer';
 
-
-const ExplorerForms = ({ slug }) => {
-
-  const {
-    explorerState, dispatch, generate
-  } = useExplorerContext()
+const ExplorerForms = ({ slug, generate }) => {
+  const { explorerState, dispatch } = useExplorerContext();
 
   switch (slug) {
     case 'paragraph-writer':
@@ -73,7 +69,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'paragraph-rewriter':
       return (
         <ParagraphRewriter
@@ -81,7 +77,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'facebook-primary-text':
       return (
         <FacebookPrimaryText
@@ -89,7 +85,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'facebook-headlines':
       return (
         <FacebookHeadlines
@@ -97,7 +93,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'google-ads-headlines':
       return (
         <GoogleAdsHeadlines
@@ -105,7 +101,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'google-ads-description':
       return (
         <GoogleAdsDescription
@@ -113,7 +109,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'blog-titles':
       return (
         <BlogTitles
@@ -121,7 +117,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'blog-ideas':
       return (
         <BlogIdeas
@@ -129,7 +125,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'blog-intros':
       return (
         <BlogIntros
@@ -137,7 +133,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'blog-outlines':
       return (
         <BlogOutlines
@@ -145,7 +141,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'video-titles':
       return (
         <VideoTitles
@@ -153,7 +149,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'video-descriptions':
       return (
         <VideoDescription
@@ -161,7 +157,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'quora-answers':
       return (
         <QuoraAnswers
@@ -169,7 +165,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'rewrite-with-keyword':
       return (
         <RewriteKeyword
@@ -177,7 +173,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'text-summarizer-tl-dr-':
       return (
         <TextSummarizer
@@ -185,7 +181,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'grammar-rewriter':
       return (
         <GrammarRewriter
@@ -193,7 +189,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'essay-intros':
       return (
         <EssayIntros
@@ -201,7 +197,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'essay-outlines':
       return (
         <EssayOutlines
@@ -209,7 +205,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'ecommerce-product-descriptions':
       return (
         <EcommerceProductDescriptions
@@ -217,7 +213,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'ecommerce-category-descriptions':
       return (
         <EcommerceCategoryDescriptions
@@ -225,7 +221,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'ecommerce-product-names':
       return (
         <EcommerceProductNames
@@ -233,7 +229,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'product-descriptions':
       return (
         <ProductDescriptions
@@ -241,7 +237,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'value-proposition':
       return (
         <ValueProposition
@@ -249,7 +245,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'feature-to-benefit':
       return (
         <FeatureBenefit
@@ -257,7 +253,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'startup-name-generator':
       return (
         <StartupNameGenerator
@@ -265,7 +261,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'video-script-intros':
       return (
         <VideoScriptIntro
@@ -273,7 +269,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'video-script-outlines':
       return (
         <VideoScriptOutlines
@@ -281,7 +277,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'video-script-section':
       return (
         <VideoScriptSection
@@ -289,7 +285,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'follow-up-email':
       return (
         <FollowUpEmail
@@ -297,7 +293,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'welcome-email':
       return (
         <WelcomeEmail
@@ -305,7 +301,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'cancellation-email':
       return (
         <CancellationEmail
@@ -313,7 +309,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'confirmation-email':
       return (
         <ConfirmationEmail
@@ -321,7 +317,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'email-subject-lines':
       return (
         <EmailSubjectLines
@@ -329,7 +325,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'website-headlines':
       return (
         <WebsiteHeadlines
@@ -337,7 +333,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'website-subheaders':
       return (
         <WebsiteSubheaders
@@ -345,7 +341,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'meta-titles-url-':
       return (
         <MetaTitlesUrl
@@ -353,7 +349,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'meta-descriptions':
       return (
         <MetaDescription
@@ -361,7 +357,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'meta-descriptions-url-':
       return (
         <MetaDescriptionsUrl
@@ -369,7 +365,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'faqs':
       return (
         <Faqs
@@ -377,7 +373,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'faq-answers':
       return (
         <FaqAnswers
@@ -385,7 +381,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'pain-agitate-solution':
       return (
         <PainAgitateSolution
@@ -393,7 +389,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'aida-formula':
       return (
         <AidaFormula
@@ -401,7 +397,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'quest-formula':
       return (
         <QuestFormula
@@ -409,7 +405,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'testimonials-reviews':
       return (
         <TestimonialsReviews
@@ -417,7 +413,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'call-to-action':
       return (
         <CallToAction
@@ -425,7 +421,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     case 'about-us':
       return (
         <AboutUs
@@ -433,7 +429,7 @@ const ExplorerForms = ({ slug }) => {
           dispatch={dispatch}
           generate={generate}
         />
-      )
+      );
     // case 'backlinks':
     //   return (
     //     <BackLinks
@@ -448,27 +444,43 @@ const ExplorerForms = ({ slug }) => {
         <>
           <FormLayout
             isDefault={true}
-            subText={'I am so lorem ipum deloas In deloas with deloaorem ipsum doloamet'}
+            subText={
+              'I am so lorem ipum deloas In deloas with deloaorem ipsum doloamet'
+            }
           >
             <ExplorerTwoInputLayout>
-              <FormGroup label={<LabelLayout>Search Engine:</LabelLayout>} labelFor={'searchEngine'}>
+              <FormGroup
+                label={<LabelLayout>Search Engine:</LabelLayout>}
+                labelFor={'searchEngine'}
+              >
                 <DropdownLayout
                   options={explorerState.searchEngines}
                   value={explorerState.searchEngine}
-                  onChange={(value) => { dispatch({ value, type: 'setSearchEngine' }); console.log(value); }}
+                  onChange={(value) => {
+                    dispatch({ value, type: 'setSearchEngine' });
+                    console.log(value);
+                  }}
                   id={'searchEngine'}
                 />
               </FormGroup>
-              <FormGroup label={<LabelLayout>Search Engine Type:</LabelLayout>} labelFor={'searchEngineType'}>
+              <FormGroup
+                label={<LabelLayout>Search Engine Type:</LabelLayout>}
+                labelFor={'searchEngineType'}
+              >
                 <DropdownLayout
                   options={explorerState.searchEnginesTypes}
                   value={explorerState.searchEngineType}
-                  onChange={(value) => dispatch({ value, type: 'setSearchEngineType' })}
+                  onChange={(value) =>
+                    dispatch({ value, type: 'setSearchEngineType' })
+                  }
                   id={'searchEngineType'}
                 />
               </FormGroup>
             </ExplorerTwoInputLayout>
-            <FormGroup label={<LabelLayout>Location:</LabelLayout>} labelFor={'location'}>
+            <FormGroup
+              label={<LabelLayout>Location:</LabelLayout>}
+              labelFor={'location'}
+            >
               <DropdownLayout
                 options={explorerState.locations}
                 value={explorerState.location}
@@ -477,7 +489,10 @@ const ExplorerForms = ({ slug }) => {
               />
             </FormGroup>
             <ExplorerTwoInputLayout>
-              <FormGroup label={<LabelLayout>Languages:</LabelLayout>} labelFor={'languages'}>
+              <FormGroup
+                label={<LabelLayout>Languages:</LabelLayout>}
+                labelFor={'languages'}
+              >
                 <DropdownLayout
                   options={explorerState.languages}
                   value={explorerState.language}
@@ -485,7 +500,10 @@ const ExplorerForms = ({ slug }) => {
                   id={'languages'}
                 />
               </FormGroup>
-              <FormGroup label={<LabelLayout>Device:</LabelLayout>} labelFor={'devices'}>
+              <FormGroup
+                label={<LabelLayout>Device:</LabelLayout>}
+                labelFor={'devices'}
+              >
                 <DropdownLayout
                   options={explorerState.devices}
                   value={explorerState.device}
@@ -503,7 +521,10 @@ const ExplorerForms = ({ slug }) => {
                   id={'os'}
                 />
               </FormGroup>
-              <FormGroup label={<LabelLayout>Depth:</LabelLayout>} labelFor={'depths'}>
+              <FormGroup
+                label={<LabelLayout>Depth:</LabelLayout>}
+                labelFor={'depths'}
+              >
                 <DropdownLayout
                   options={explorerState.depths}
                   value={explorerState.depth}
@@ -512,22 +533,39 @@ const ExplorerForms = ({ slug }) => {
                 />
               </FormGroup>
             </ExplorerTwoInputLayout>
-            <FormGroup label={<LabelLayout>Search engine parameters:</LabelLayout>} labelFor={'searchEngineParameters'}>
+            <FormGroup
+              label={<LabelLayout>Search engine parameters:</LabelLayout>}
+              labelFor={'searchEngineParameters'}
+            >
               <Input
                 value={explorerState.searchEngineParameters}
-                onChange={(e) => dispatch({ value: e.target.value, type: 'setSearchEngineParameters' })}
+                onChange={(e) =>
+                  dispatch({
+                    value: e.target.value,
+                    type: 'setSearchEngineParameters',
+                  })
+                }
                 id={'searchEngineParameters'}
                 placeholder="example: &tbs=qdr:h"
                 className="rounded"
               />
             </FormGroup>
-            <FormGroup label={<LabelLayout>Keywords:</LabelLayout>} labelFor={'keywords'} className="mb-4">
+            <FormGroup
+              label={<LabelLayout>Keywords:</LabelLayout>}
+              labelFor={'keywords'}
+              className="mb-4"
+            >
               <textarea
                 value={explorerState.keywords.join(', ')}
-                onChange={(e) => dispatch({ value: fTags(e.target.value), type: 'setKeywords' })}
+                onChange={(e) =>
+                  dispatch({
+                    value: fTags(e.target.value),
+                    type: 'setKeywords',
+                  })
+                }
                 id={'keywords'}
-                placeholder='E.g Weather Forecast'
-                className='rounded h-[139px] w-full flex-shrink  border  border-solid dark:focus:text-white focus:text-black dark:border-darkMode-border border-ash pl-3 pr-4 py-[10px] bg-white dark:bg-black '
+                placeholder="E.g Weather Forecast"
+                className="rounded h-[139px] w-full flex-shrink  border  border-solid dark:focus:text-white focus:text-black dark:border-darkMode-border border-ash pl-3 pr-4 py-[10px] bg-white dark:bg-black "
               ></textarea>
             </FormGroup>
             <button className="btn btn-primary w-full font-medium text-base">
@@ -535,8 +573,8 @@ const ExplorerForms = ({ slug }) => {
             </button>
           </FormLayout>
         </>
-      )
+      );
   }
-}
+};
 
-export default ExplorerForms
+export default ExplorerForms;

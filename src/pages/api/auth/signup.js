@@ -1,11 +1,11 @@
 import { hash } from 'bcryptjs';
 
-import dbConnect from '../../../utils/connect'
-import User from '../../../models/User'
+import dbConnect from '../../../utils/connect';
+import User from '../../../models/User';
 
 export default async function handler(req, res) {
-  const { method } = req
-  await dbConnect()
+  const { method } = req;
+  await dbConnect();
 
   switch (method) {
     case 'POST':
@@ -36,12 +36,11 @@ export default async function handler(req, res) {
       await newUser.save();
 
       //Send success response
-      res.status(200).json({ success: true })
+      return res.status(200).json({ success: true });
       break;
 
     default:
-      res.status(400).json({ success: false })
-      break
+      return res.status(400).json({ success: false });
+      break;
   }
-
 }

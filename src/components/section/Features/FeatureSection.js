@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react'
+import React, { Fragment } from 'react';
 
-import FeatureBox from './FeatureBox'
+import FeatureBox from './FeatureBox';
 
 const FeatureSection = ({ features }) => {
   return (
@@ -8,17 +8,14 @@ const FeatureSection = ({ features }) => {
       <div className="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-5">
         {features.map((feature) => {
           return (
-            <Fragment key={feature.id}>
-              <FeatureBox
-                feature={feature}
-              />
+            <Fragment key={feature._id}>
+              <FeatureBox feature={feature} />
             </Fragment>
-          )
+          );
         })}
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default FeatureSection
+export default FeatureSection;
