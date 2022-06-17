@@ -100,9 +100,9 @@ function limits({ accountPlan, accountHistory }) {
                             ? `${accountPlan.account_plan.period_limit} Credits`
                             : '---'
                         }`}
-                        titleHead={`${
+                        titleHead={`${accountPlan ? `${
                           accountPlan.period_type == 'M' ? 'Monthly' : 'Yearly'
-                        } Limit`}
+                        } Limit` : 'Period Limit'}`}
                       />
                     </div>
                     <div className="flex flex-col space-y-1">
@@ -232,7 +232,7 @@ export async function getServerSideProps(context) {
         return {
           props: {
             accountPlan: details.user.current_plan || null,
-            accountHistory: details.history.projects,
+            accountHistory: details.history.projects || [],
           },
         };
       }
