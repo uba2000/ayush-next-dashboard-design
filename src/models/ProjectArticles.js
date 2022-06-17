@@ -21,6 +21,10 @@ const ProjectArticleSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       required: true,
     },
+    word_count: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: {

@@ -6,6 +6,7 @@ import ProjectArticles from '../../../../models/ProjectArticles';
 export default async function (req, res) {
   const { method } = req;
   await dbConnect();
+  console.log(method);
   switch (method) {
     case 'POST':
       try {
@@ -28,6 +29,7 @@ export default async function (req, res) {
           article_content,
           project_id,
           keywordlist_id,
+          word_count: articleWordCount,
         });
 
         let periodCredits = user.current_plan.period_credit;
@@ -39,16 +41,26 @@ export default async function (req, res) {
           return res.status(400).send({ message: 'Credit Limit Exceeded!' });
         }
 
+        const userProjectIndex = user.current_plan.projects.findIndex(
+          (up) => up.project_id == project_id
+        );
+
         user.current_plan.period_credit = periodCredits + articleWordCount;
+
+        user.current_plan.projects[userProjectIndex].credits =
+          user.current_plan.projects[userProjectIndex].credits +
+          articleWordCount;
 
         await user.save();
 
         await newProjectArticle.save();
 
         return res.status(200).json({ success: true, data: newProjectArticle });
+        break;
       } catch (error) {
         console.log(error);
         return res.status(500).send(error);
+        break;
       }
 
     default:

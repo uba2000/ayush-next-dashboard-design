@@ -15,6 +15,7 @@ import { aQuestions } from '../../../../../utils/analyseQuestions';
 import ScrollbarsLayout from '../../../../../components/layouts/Scrollbars';
 import { post, setHeaders } from '../../../../../utils/http';
 import useUser from '../../../../../hooks/useUser';
+import { Button } from '../../../../../ui/button';
 
 function KeywordsPage() {
   const { user } = useUser();
@@ -297,13 +298,12 @@ function KeywordsPage() {
                     className="absolute w-full h-full hidden left-0 top-0"
                   />
                 </form>
-                <button
+                <Button
                   onClick={handleKeywordAnalysis}
-                  className="btn btn-primary"
-                  disabled={loadingSaveAnalyze}
+                  state={loadingSaveAnalyze && 'loading'}
                 >
-                  {loadingSaveAnalyze ? 'Loading...' : 'Start Analysis'}
-                </button>
+                  Start Analysis
+                </Button>
               </div>
             </div>
           </Box>

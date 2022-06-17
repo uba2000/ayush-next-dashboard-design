@@ -56,6 +56,24 @@ const PlanSchema = new mongoose.Schema(
     },
   }
 );
+const AccountProjectHistorySchema = new mongoose.Schema(
+  {
+    project_id: {
+      type: mongoose.Schema.ObjectId,
+      required: true,
+    },
+    credits: {
+      type: Number,
+      default: 0,
+    },
+  },
+  {
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+    },
+  }
+);
 const CurrentPlanSchem = new mongoose.Schema(
   {
     period_type: {
@@ -71,7 +89,7 @@ const CurrentPlanSchem = new mongoose.Schema(
       required: true,
     },
     projects: {
-      type: [mongoose.Schema.ObjectId],
+      type: [AccountProjectHistorySchema],
       default: null,
     },
     keywords: {
@@ -118,24 +136,6 @@ const PaymentMethodSchema = new mongoose.Schema(
     security_code: {
       type: String,
       required: true,
-    },
-  },
-  {
-    timestamps: {
-      createdAt: 'created_at',
-      updatedAt: 'updated_at',
-    },
-  }
-);
-const AccountProjectHistorySchema = new mongoose.Schema(
-  {
-    project_id: {
-      type: mongoose.Schema.ObjectId,
-      required: true,
-    },
-    credits: {
-      type: Number,
-      default: 0,
     },
   },
   {

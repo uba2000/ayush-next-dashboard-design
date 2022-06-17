@@ -10,6 +10,7 @@ import industries from '../../_mock/industries';
 import { useAppContext } from '../../context/state';
 import useUser from '../../hooks/useUser';
 import { fTags } from '../../utils/formatTags';
+import { Button } from '../../ui/button';
 
 const initialProjectDetails = {
   title: '',
@@ -41,6 +42,8 @@ const ProjectsIndexDialog = ({ projectDialog, closeProjectDialog }) => {
   const [showPredict, setPredictTitle] = useState(false);
   const [showPredictIndustry, setShowPredictIndustry] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+
   const [newProject, dispatch] = useReducer(reducer, initialProjectDetails);
 
   const predictTitle = (value) => {
@@ -56,6 +59,7 @@ const ProjectsIndexDialog = ({ projectDialog, closeProjectDialog }) => {
   const continueProjectCreation = async () => {
     try {
       if (user.currentPlan) {
+        setLoading(true);
         const { data } = await axios.post(
           `${process.env.BASE_URL}/api/project`,
           {
@@ -76,6 +80,7 @@ const ProjectsIndexDialog = ({ projectDialog, closeProjectDialog }) => {
       }
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -211,13 +216,12 @@ const ProjectsIndexDialog = ({ projectDialog, closeProjectDialog }) => {
 
         <div className="form-group flex mb-0 justify-between">
           <div className="space-x-4 flex">
-            <button
-              type="button"
+            <Button
+              state={loading && 'loading'}
               onClick={continueProjectCreation}
-              className="block w-fit btn btn-primary bg-primary text-white"
             >
               Next
-            </button>
+            </Button>
           </div>
         </div>
       </div>

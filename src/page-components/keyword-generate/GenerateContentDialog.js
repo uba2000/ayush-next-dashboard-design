@@ -7,12 +7,16 @@ import Input from '../../components/layouts/Input';
 import Box from '../../components/layouts/Box';
 import CheckBox from '../../components/layouts/CheckBox';
 import { setArticlesDetailsGenerate } from '../../features/project/projectSlice';
+import useUser from '../../hooks/useUser';
+import { fNumber } from '../../utils/formatNumber';
 
 const GenerateContentDialog = ({
   generateContentDialog,
   setGenerateContentDialog,
   selectedFlatRows,
 }) => {
+  const { user } = useUser();
+
   const router = useRouter();
   const { query } = router;
 
@@ -41,6 +45,17 @@ const GenerateContentDialog = ({
     router.push(
       `/app/projects/${query.projectId}/keywords/${query.keywordListId}/generate`
     );
+  };
+
+  const creditsLeftUI = () => {
+    let currentPlan = user.currentPlan;
+    let remainingCredit =
+      currentPlan.account_plan.period_limit - currentPlan.period_credit;
+    let period = currentPlan.period_type == 'M' ? 'monthly' : 'yearly';
+
+    return `${fNumber(remainingCredit)} / ${fNumber(
+      currentPlan.account_plan.period_limit
+    )} ${period} credits left`;
   };
 
   return (
@@ -161,7 +176,7 @@ const GenerateContentDialog = ({
             </div>
             <div className="flex items-center">
               <span className="font-normal text-sm dark:text-darkMode-subText text-ash">
-                99,993 / 100k monthly credits left
+                {user.currentPlan && creditsLeftUI()}
               </span>
             </div>
           </div>

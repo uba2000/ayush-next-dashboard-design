@@ -40,6 +40,8 @@ function limits({ accountPlan, accountHistory }) {
         ),
         Cell: ({ row }) => <File {...row.getToggleRowSelectedProps()} />,
         width: '41.5px',
+        maxWidth: '41.5px',
+        minWidth: '41.5px',
       },
     ]
   );

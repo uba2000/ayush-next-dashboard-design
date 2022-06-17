@@ -1,37 +1,63 @@
-import React from 'react'
-import Link from 'next/link'
-import styled from 'styled-components'
+import React from 'react';
+import Link from 'next/link';
+import styled from 'styled-components';
+
+import ScalingDots from '../components/layouts/ScalingDots';
+
+const STATES = {
+  LOADING: 'loading',
+};
 
 const Outer = styled.button.attrs((p) => ({
-  type: p.type || 'button'
+  type: p.type || 'button',
 }))`
-  color: #fff;
-  border-radius: 5px;
-  font-weight: 600;
-  padding: 16px 25px;
-  text-align: center;
-  cursor: pointer;
-  font-size: 16px;
-  font-family: Inter, sans-serif !important;
-  &:focus, &:not(:disabled):not(.disabled):active, .btn-secondary.dropdown-toggle {
-    color: initial !important;
-    background-color: initial !important;
-    border-color: initial !important;
-    box-shadow: none !important;
-  }
-  a {
-    display: block;
-  }
+  position: relative;
 `;
 
 const Text = styled.span`
+  color: inherit;
+  position: relative;
+  z-index: 2;
+  transition: opacity 100ms, transform 100ms;
   white-space: nowrap;
+  ${(props) =>
+    !props.shown &&
+    `
+  opacity: 0;
+  transform: scale(0.7);
+
+  `}
+`;
+
+const Loading = styled.span`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  svg {
+    height: 50%;
+    width: auto;
+  }
 `;
 
 export const Button = React.forwardRef(
-  ({ children, variant, isLink, link, ...rest }, ref) => (
-    <Outer className={`btn ${variant}`} {...rest} ref={ref}>
-      {!isLink ? (<Text>{children}</Text>) : (
+  ({ children, state, variant = 'primary', isLink, link, ...rest }, ref) => (
+    <Outer className={`btn btn-${variant}`} {...rest} ref={ref}>
+      {!isLink ? (
+        <>
+          <Text shown={state !== STATES.LOADING}>{children}</Text>
+          {state === STATES.LOADING && (
+            <Loading>
+              <ScalingDots />
+            </Loading>
+          )}
+        </>
+      ) : (
         <Link href={link}>
           <a>
             <Text>{children}</Text>
@@ -40,6 +66,6 @@ export const Button = React.forwardRef(
       )}
     </Outer>
   )
-)
+);
 
 Button.displayName = 'Button';

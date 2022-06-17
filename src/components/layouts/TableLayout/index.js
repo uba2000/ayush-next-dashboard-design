@@ -39,6 +39,7 @@ const TableLayout = ({ tableInstance, bodyStyle = {} }) => {
                       style={{
                         width: `${column.width ? column.width : ''}`,
                         minWidth: `${column.minWidth ? column.minWidth : ''}`,
+                        maxWidth: `${column.maxWidth ? column.maxWidth : ''}`,
                       }}
                       className="flex items-center space-x-1"
                     >

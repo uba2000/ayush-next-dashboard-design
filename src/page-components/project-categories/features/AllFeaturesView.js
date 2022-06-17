@@ -14,6 +14,7 @@ import { SearchIcon } from '../../../ui/icons/search-icon';
 import filters from '../../../_mock/filters';
 import { ChevDown } from '../../../ui/icons/chev-down';
 import { setShowNewProject } from '../../../features/layout/layoutSlice';
+import { Button } from '../../../ui/button';
 
 const AllFeaturesView = ({ isGetStarted }) => {
   const stateFeature = useSelector((state) => state.project.projectFeatures);
@@ -251,13 +252,9 @@ const AllFeaturesView = ({ isGetStarted }) => {
                     </p>
                   </div>
                   <div className="flex flex-grow md:justify-end justify-start items-center">
-                    <button
-                      type="button"
-                      onClick={() => getStartedCTA('/app/projects')}
-                      className="block w-fit btn btn-primary bg-primary text-white font-poppins"
-                    >
+                    <Button onClick={() => getStartedCTA('/app/projects')}>
                       Get Started
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </div>

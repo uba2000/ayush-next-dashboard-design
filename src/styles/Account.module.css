@@ -102,6 +102,7 @@
 
 .accountFrameboxCardSection {
   padding: 18.5px 30px;
+  @apply space-x-4;
 }
 
 .accountFrameboxCardSection:not(:last-child) {

@@ -155,9 +155,15 @@ export const ACCOUNT_HISTORY_COLUNM = [
     },
   },
   {
+    Header: 'Credits',
+    accessor: 'credits',
+    minWidth: '140px',
+  },
+  {
     Header: 'Tags',
     accessor: 'tags',
     Cell: tagLayout,
+    minWidth: '169px',
   },
   {
     Header: 'Date',

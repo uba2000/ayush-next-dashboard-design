@@ -15,6 +15,7 @@ import Box from '../../layouts/Box';
 import Input from '../../layouts/Input';
 import useUser from '../../../hooks/useUser';
 import { post, setHeaders } from '../../../utils/http';
+import { Button } from '../../../ui/button';
 
 function AccountPaymentMethods({ showMethods }) {
   const { user } = useUser();
@@ -195,18 +196,15 @@ function AccountPaymentMethods({ showMethods }) {
       </div>
       {cardChecked && (
         <div className={styles.accountFrameboxCardSection}>
-          <button
-            className="btn btn-primary mr-4"
+          <Button
+            state={loading && 'loading'}
             onClick={() => createNewMethod()}
           >
-            {loading ? 'Loading...' : 'Setup Payment Methods'}
-          </button>
-          <button
-            className="btn btn-reset"
-            onClick={() => paymentForm.current.reset()}
-          >
+            Setup Payment Methods
+          </Button>
+          <Button variant="reset" onClick={() => paymentForm.current.reset()}>
             Reset
-          </button>
+          </Button>
         </div>
       )}
       {!cardChecked && (

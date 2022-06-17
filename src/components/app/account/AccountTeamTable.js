@@ -1,26 +1,26 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect, Fragment } from 'react';
 
-import { Table } from '../../layouts/Table'
-import AccountTeamItems from './AccountTeamItems'
-import styles from '../../../styles/Account.module.css'
-import Box from '../../layouts/Box'
-import useUser from '../../../hooks/useUser'
-import { setHeaders, get, post } from '../../../utils/http'
-import { DialogLayout } from '../../layouts/Dialog'
-import Input from '../../layouts/Input'
-import { Loader } from '../../layouts/Loader'
+import { Table } from '../../layouts/Table';
+import AccountTeamItems from './AccountTeamItems';
+import styles from '../../../styles/Account.module.css';
+import Box from '../../layouts/Box';
+import useUser from '../../../hooks/useUser';
+import { setHeaders, get, post } from '../../../utils/http';
+import { DialogLayout } from '../../layouts/Dialog';
+import Input from '../../layouts/Input';
+import { Loader } from '../../layouts/Loader';
+import { Button } from '../../../ui/button';
 
 function AccountTeamTable({ targetTeamBTN, closeModal, isOpen }) {
+  const { user } = useUser();
 
-  const { user } = useUser()
+  const [inviteEmail, setInviteEmail] = useState('');
 
-  const [inviteEmail, setInviteEmail] = useState('')
-
-  const [teamMembers, setTeamMembers] = useState(false)
-  const [stateTargetTeamBTN, setStateTargetTeamBTN] = useState(targetTeamBTN)
+  const [teamMembers, setTeamMembers] = useState(false);
+  const [stateTargetTeamBTN, setStateTargetTeamBTN] = useState(targetTeamBTN);
 
   const getTeamMembers = async () => {
-    setTeamMembers(false)
+    setTeamMembers(false);
     const { response, error } = await get({
       url: `${process.env.BASE_URL}/api/account/get-team-members`,
       headers: setHeaders({ token: user.accessToken }),
@@ -29,63 +29,82 @@ function AccountTeamTable({ targetTeamBTN, closeModal, isOpen }) {
     if (response.status) {
       setTeamMembers(response.data.data);
     }
-  }
+  };
 
   const inviteMember = async () => {
     if (inviteEmail && inviteEmail.includes('@')) {
       const { response, error } = await post({
         url: `${process.env.BASE_URL}/api/account/invite-team-member`,
         data: {
-          email: inviteEmail
+          email: inviteEmail,
         },
         headers: setHeaders({ token: user.accessToken }),
-      })
+      });
 
       if (response.status) {
         getTeamMembers();
         closeModal();
       }
     }
-  }
+  };
 
   useEffect(() => {
     getTeamMembers();
-  }, [])
+  }, []);
 
   return (
     <>
       <DialogLayout isOpen={isOpen} closeModal={closeModal}>
         <div className="py-[100px] px-[150px]">
           <div className="space-y-5">
-            <DialogLayout.Title
-              as="h3"
-              className="title"
-            >
+            <DialogLayout.Title as="h3" className="title">
               Are you sure, you want to add this person in your account?
             </DialogLayout.Title>
             <div className="subtitle">
               <div className="form-group mb-6">
-                <Input type="text" value={inviteEmail} onChange={(e) => setInviteEmail(e.target.value)} placeholder='example@gmail.com' className={`${styles.formGroupInput} text-center`} />
+                <Input
+                  type="text"
+                  value={inviteEmail}
+                  onChange={(e) => setInviteEmail(e.target.value)}
+                  placeholder="example@gmail.com"
+                  className={`${styles.formGroupInput} text-center`}
+                />
               </div>
             </div>
           </div>
 
-          <div className="mt-8">
-            <button onClick={inviteMember} className="btn btn-primary bg-primary text-white py-[13px] h-[46px] px-[56.38px]">
+          <div className="mt-8 space-x-3">
+            <Button onClick={inviteMember}>Confirm</Button>
+            {/* <button
+              onClick={inviteMember}
+              className="btn btn-primary bg-primary text-white py-[13px] h-[46px] px-[56.38px]"
+            >
               Confirm
-            </button>
-            <button onClick={closeModal} className="ml-3 btn btn-reset py-[13px] h-[46px] px-[56.38px]">
+            </button> */}
+            <Button variant="reset" onClick={closeModal}>
               Cancel
-            </button>
+            </Button>
+            {/* <button
+              onClick={closeModal}
+              className="ml-3 btn btn-reset py-[13px] h-[46px] px-[56.38px]"
+            >
+              Cancel
+            </button> */}
           </div>
         </div>
       </DialogLayout>
-      <Table className='border-b'>
+      <Table className="border-b">
         <Table.Head className="dark:bg-black bg-white">
           <Table.Row>
-            <Table.TH className={'w-1/3'} style={{ width: '30%' }}>User Name</Table.TH>
-            <Table.TH main={true} style={{ width: '50%' }}>Email</Table.TH>
-            <Table.TH style={{ width: '20%', minWidth: '245.22px' }}>Access Level</Table.TH>
+            <Table.TH className={'w-1/3'} style={{ width: '30%' }}>
+              User Name
+            </Table.TH>
+            <Table.TH main={true} style={{ width: '50%' }}>
+              Email
+            </Table.TH>
+            <Table.TH style={{ width: '20%', minWidth: '245.22px' }}>
+              Access Level
+            </Table.TH>
           </Table.Row>
         </Table.Head>
         <Table.Body className="dark:bg-black bg-white">
@@ -120,7 +139,7 @@ function AccountTeamTable({ targetTeamBTN, closeModal, isOpen }) {
         </Table.Body>
       </Table>
     </>
-  )
+  );
 }
 
-export default AccountTeamTable
+export default AccountTeamTable;

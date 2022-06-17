@@ -77,7 +77,10 @@ export default async function (req, res) {
           user_id: userAuth._id,
         });
 
-        user.current_plan.projects.push(newProject._id);
+        user.current_plan.projects.push({
+          project_id: newProject._id,
+          credits: 0,
+        });
 
         await user.save();
 

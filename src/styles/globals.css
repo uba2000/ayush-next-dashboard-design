@@ -265,6 +265,7 @@ input {
   z-index: -2;
 }
 
+/* Button Styles */
 .btn {
   outline: none;
   padding: 12.31px 39px;
@@ -338,15 +339,13 @@ input {
 .btn-primary:hover {
   border-radius: 0;
   padding: 11px 34px;
-  font-family: 'Poppins';
-  color: white;
 
   font-weight: bold;
   font-size: 13px;
   line-height: 19px;
   text-align: center;
   letter-spacing: 0.0813187px;
-  background-color: #00a141;
+  @apply bg-primary text-white font-poppins;
 }
 
 .btn-deactive,
@@ -502,22 +501,6 @@ input {
   100% {
     opacity: 1;
     transform: scale(1);
-  }
-}
-
-.spinning-loader {
-  animation-name: rotate-s-loader;
-  animation-iteration-count: infinite;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-}
-
-@keyframes rotate-s-loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
   }
 }
 
@@ -754,3 +737,60 @@ abbr[title] {
     transform: rotate(360deg);
   }
 }
+
+@-webkit-keyframes scaling-dots {
+  0%,
+  100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  40%,
+  60% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@keyframes scaling-dots {
+  0%,
+  100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  40%,
+  60% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+.scaling-dots {
+  display: grid;
+  height: 10px;
+  grid-gap: 5px;
+  grid-template-columns: repeat(4, 10px);
+}
+.scaling-dots div {
+  -webkit-animation: scaling-dots 1s infinite ease backwards;
+  animation: scaling-dots 1s infinite ease backwards;
+  @apply bg-white w-[10px] h-[10px] rounded-full;
+}
+.scaling-dots div:nth-child(1) {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+.scaling-dots div:nth-child(2) {
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+.scaling-dots div:nth-child(3) {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+.scaling-dots div:nth-child(4) {
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+/* .scaling-dots div:nth-child(5) {
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+} */

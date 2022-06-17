@@ -16,6 +16,7 @@ import { get, setHeaders } from '../../../utils/http';
 import SearchInput from '../../../components/SearchInput';
 import ProjectsIndexItemDialog from '../../../page-components/projects/ProjectsIndexItemDialog';
 import { setShowNewProject } from '../../../features/layout/layoutSlice';
+import { Button } from '../../../ui/button';
 
 function AllProjects({ projects }) {
   const contextState = useAppContext();
@@ -86,13 +87,7 @@ function AllProjects({ projects }) {
       >
         <div className="mt-12">
           <div className="flex justify-end mb-[21px]">
-            <button
-              type="button"
-              onClick={openProjectDialog}
-              className="block w-fit btn btn-primary bg-primary text-white"
-            >
-              New Project
-            </button>
+            <Button onClick={openProjectDialog}>New Project</Button>
           </div>
           <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
             <div className="">
