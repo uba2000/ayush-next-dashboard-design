@@ -11,6 +11,7 @@ import useUser from '../../hooks/useUser';
 import { fNumber } from '../../utils/formatNumber';
 
 const GenerateContentDialog = ({
+  listId,
   generateContentDialog,
   setGenerateContentDialog,
   selectedFlatRows,
@@ -26,6 +27,7 @@ const GenerateContentDialog = ({
   const [articleTags, setArticleTags] = useState([]);
   const [noQuestionPerArticles, setNoQuestionPerArticles] = useState(15);
   const [includeInternalLinking, setIncludeInternalLinking] = useState(false);
+  const [noArticleTopicPerCluster, setNoArticleTopicPerCluster] = useState(15);
 
   const generateContent = () => {
     dispatch(
@@ -33,6 +35,7 @@ const GenerateContentDialog = ({
         noOfArticles: noArticles,
         noOfQuestionPerArticles: noQuestionPerArticles,
         includeInternalLinking: includeInternalLinking,
+        noArticleTopicPerCluster: noArticleTopicPerCluster,
         articleTags: articleTags,
         keywordQuestions: selectedFlatRows.map((d) => {
           return {
@@ -42,9 +45,7 @@ const GenerateContentDialog = ({
       })
     );
 
-    router.push(
-      `/app/projects/${query.projectId}/keywords/${query.keywordListId}/generate`
-    );
+    router.push(`/app/projects/${query.projectId}/keywords/${listId}/generate`);
   };
 
   const creditsLeftUI = () => {
@@ -141,6 +142,34 @@ const GenerateContentDialog = ({
                 </div>
               </div>
             </div>
+            {includeInternalLinking && (
+              <div className="">
+                <div className="flex space-x-[13px]">
+                  <div className="">
+                    <Box type={'black'}>
+                      <Input
+                        value={noArticleTopicPerCluster}
+                        onChange={(e) =>
+                          setNoArticleTopicPerCluster(e.target.value)
+                        }
+                        className="py-1 px-2 text-[18px] font-medium w-[62px] text-center"
+                      />
+                    </Box>
+                  </div>
+                  <div className="">
+                    <div className="flex flex-col space-y-1">
+                      <span className="text-[18px] font-medium">
+                        How many articles per topic cluster?
+                      </span>
+                      <span className="dark:text-darkMode-subText text-sm tracking-[0.1px] text-ash">
+                        Note: A low topic-cluster count may result in crawl
+                        budget issues.
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
             <div className="space-y-[10px]">
               <div className="">
                 <span className="font-medium text-[18px] tracking-[-0.01em]">

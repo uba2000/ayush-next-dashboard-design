@@ -27,7 +27,6 @@ import { setHeaders, get } from '../../../../../utils/http';
 
 const KeywordListView = ({ keywords, keywordList }) => {
   const router = useRouter();
-
   const { query } = router;
 
   const [generateContentDialog, setGenerateContentDialog] = useState(false);
@@ -48,6 +47,7 @@ const KeywordListView = ({ keywords, keywordList }) => {
     <DashboardLayout>
       {/* Generate Content */}
       <GenerateContentDialog
+        listId={query.keywordListId}
         selectedFlatRows={tableInstance.selectedFlatRows}
         generateContentDialog={generateContentDialog}
         setGenerateContentDialog={() => setGenerateContentDialog(false)}

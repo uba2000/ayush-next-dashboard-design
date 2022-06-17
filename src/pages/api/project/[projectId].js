@@ -20,7 +20,8 @@ export default async function (req, res) {
         let ssrKeywordLists = await ProjectKeywordsList.find({
           project_id: projectId,
         }).select('title tags created_at industry');
-        // TODO: get keywords and features on this PROJECT...
+
+        // TODO: get features on this PROJECT...
 
         return res.status(200).json({
           success: true,
