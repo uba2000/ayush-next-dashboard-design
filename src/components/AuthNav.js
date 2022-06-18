@@ -10,7 +10,7 @@ function AuthNav() {
           <span>
             <Logo />
           </span>
-          <span className="tracking-tighter md:text-brand text-[30.4024px] font-medium font-poppins text-black dark:text-white">
+          <span className="hidden tracking-tighter md:text-brand text-[30.4024px] font-medium font-poppins text-black dark:text-white">
             SEO Content .Ai
           </span>
         </a>
