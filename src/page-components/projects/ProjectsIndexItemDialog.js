@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 import { post, setHeaders } from '../../utils/http';
 import useUser from '../../hooks/useUser';
 
-const ProjectsIndexItemDialog = ({ item, reloadProjects }) => {
+const ProjectsIndexItemDialog = ({ item, reloadProject }) => {
   const router = useRouter();
   const { user } = useUser();
 
@@ -80,7 +80,7 @@ const ProjectsIndexItemDialog = ({ item, reloadProjects }) => {
           headers: setHeaders({ token: user.accessToken }),
         });
         if (response) {
-          reloadProjects({ ...updateObject });
+          reloadProject({ ...updateObject });
           setLoading(false);
           closeEditModal();
         }
