@@ -6,6 +6,7 @@ import { Tick, Processing, Waiting, ChevDown, Mini } from '../../ui/icons';
 import { Table } from '../../components/layouts/Table';
 import EditorContainer from '../../components/layouts/EditorContainer';
 import articleContent from '../../_mock/article-content';
+import { Button } from '../../ui/button';
 
 const GenerateListItem = ({ content, triggerComplete, index, showPreview }) => {
   const router = useRouter();
@@ -92,17 +93,10 @@ const GenerateListItem = ({ content, triggerComplete, index, showPreview }) => {
             </EditorContainer>
           </div>
           <div className="table-cell relative z-10 pt-[25px]">
-            <button
-              className="btn btn-primary"
-              onClick={() => showPreview(content)}
-            >
-              Preview
-            </button>
+            <Button onClick={() => showPreview(content)}>Preview</Button>
           </div>
           <div className="table-cell relative z-10 pt-[25px]">
-            <button className="btn btn-reset dark:text-white text-black">
-              Edit Article
-            </button>
+            <Button variant="reset">Edit Article</Button>
           </div>
           <div
             className="absolute table-cell bg-gradient-to-t dark:from-[#000000f2] from-[#fffffff2] to-transparent"

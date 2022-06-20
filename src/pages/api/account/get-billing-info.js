@@ -22,25 +22,24 @@ export default async function (req, res) {
         let paymentMethods = [];
 
         forEach(userPaymentDetails.payment_methods, (value, index) => {
-          let p = userPaymentDetails.payment_methods[index];
           paymentMethods.push({
-            ...p._doc,
+            ...value._doc,
             card_number: Crypto.AES.decrypt(
-              p.card_number,
+              value.card_number,
               process.env.ENC_SECRET
             ).toString(Crypto.enc.Utf8),
             mask_card_number: cardHide(
               Crypto.AES.decrypt(
-                p.card_number,
+                value.card_number,
                 process.env.ENC_SECRET
               ).toString(Crypto.enc.Utf8)
             ),
             exp_date: Crypto.AES.decrypt(
-              p.exp_date,
+              value.exp_date,
               process.env.ENC_SECRET
             ).toString(Crypto.enc.Utf8),
             security_code: Crypto.AES.decrypt(
-              p.security_code,
+              value.security_code,
               process.env.ENC_SECRET
             ).toString(Crypto.enc.Utf8),
           });

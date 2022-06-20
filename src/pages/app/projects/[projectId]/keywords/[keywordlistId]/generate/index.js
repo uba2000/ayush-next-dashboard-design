@@ -194,7 +194,7 @@ const Index = () => {
           <div className="dark:bg-darkMode-bg border-t-0 bg-white border dark:border-darkMode-border border-ash border-solid">
             <div className="flex justify-between pl-11 pr-10 py-4">
               <span className="font-poppins text-sm align-middle">
-                1-20 of 1000 projects
+                1-1 of {allContents.length} projects
               </span>
               <div className="flex items-center">
                 <button
