@@ -48,7 +48,6 @@ const Index = () => {
   const triggerComplete = async (status, article = null) => {
     if (status == 'c') {
       setCompleteCount(++completeCount);
-      console.log(article);
       await post({
         url: `${process.env.BASE_URL}/api/project/article`,
         headers: setHeaders({ token: user.accessToken }),

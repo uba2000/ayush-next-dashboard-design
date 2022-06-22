@@ -3,7 +3,12 @@ import Pagination from '../Pagination';
 
 import { Table } from '../Table';
 
-const TableLayout = ({ tableInstance, bodyStyle = {} }) => {
+const TableLayout = ({
+  tableInstance,
+  bodyStyle = {},
+  rowToClick = false,
+  rowClick = () => {},
+}) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -91,7 +96,11 @@ const TableLayout = ({ tableInstance, bodyStyle = {} }) => {
             {page.map((row) => {
               prepareRow(row);
               return (
-                <Table.Row {...row.getRowProps()}>
+                <Table.Row
+                  {...row.getRowProps()}
+                  className={`${rowToClick ? 'cursor-pointer' : ''}`}
+                  onClick={(e) => rowClick(e, row)}
+                >
                   {row.cells.map((cell) => {
                     return (
                       <Table.Data {...cell.getCellProps()}>

@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { fCurrency } from '../../../utils/formatNumber';
 
 const tagLayout = ({ value }) => {
-  return <span className="line-clamp-1">{value.join(', ')}</span>;
+  return <span className="line-clamp-1 select-none">{value.join(', ')}</span>;
 };
 
 export const PROJECTS_COLUNM = [
@@ -11,15 +11,13 @@ export const PROJECTS_COLUNM = [
     accessor: 'title',
     main: true,
     Cell: ({ value }) => {
-      return <span className="line-clamp-1">{value}</span>;
+      return <span className="line-clamp-1 select-none">{value}</span>;
     },
   },
   {
     Header: 'Tags',
     accessor: 'tags',
-    Cell: ({ value }) => {
-      return <span className="line-clamp-1">{value.join(', ')}</span>;
-    },
+    Cell: tagLayout,
     width: '27%',
     minWidth: '169px',
   },
