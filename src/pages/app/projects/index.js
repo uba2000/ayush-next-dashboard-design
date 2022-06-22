@@ -19,17 +19,18 @@ import { setShowNewProject } from '../../../features/layout/layoutSlice';
 import { Button } from '../../../ui/button';
 
 function AllProjects({ projects }) {
+  const [allProjects, setAllProjects] = useState(projects);
+
   const contextState = useAppContext();
   const router = useRouter();
   const dispatch = useDispatch();
 
-  // const [allProjects, setAllProjects] = useState(projects);
   const [projectDialog, setProjectDialog] = useState(false);
   const [loadingProjects, setLoadingProjects] = useState(true);
 
   const isShowNewProject = useSelector((state) => state.layout.showNewProject);
 
-  useEffect(async () => {
+  useEffect(() => {
     setTimeout(() => setProjectDialog(isShowNewProject), 200);
 
     return () => {
@@ -46,15 +47,28 @@ function AllProjects({ projects }) {
     setProjectDialog(false);
   };
 
-  const updateProjectChange = (_) => {
+  const doubleClickHandler = (e, row) => {
+    if (e.detail == 2) {
+      router.push(`/app/projects/${row.original._id}?tab=a`);
+    }
+  };
+
+  const updateProjectChange = ({ project_id, ...rest }) => {
+    setAllProjects(
+      allProjects.map((u) => {
+        if (u._id == project_id) {
+          u = { ...u, ...rest };
+        }
+        return u;
+      })
+    );
     // TODO: use https://codesandbox.io/s/zqxl6r190l?file=/reducers.js example to update projects
-    router.reload();
   };
 
   const tableInstance = useScaiTable(
     {
       tableColumns: PROJECTS_COLUNM,
-      tableData: projects,
+      tableData: allProjects,
     },
     [
       {
@@ -64,7 +78,7 @@ function AllProjects({ projects }) {
         Cell: ({ row }) => {
           return (
             <ProjectsIndexItemDialog
-              reloadProjects={(payload) => updateProjectChange(payload)}
+              reloadProject={(payload) => updateProjectChange(payload)}
               item={row.original}
             />
           );
@@ -103,7 +117,11 @@ function AllProjects({ projects }) {
             </div>
           </div>
           <div className="mt-7">
-            <TableLayout tableInstance={tableInstance} />
+            <TableLayout
+              tableInstance={tableInstance}
+              rowToClick={true}
+              rowClick={doubleClickHandler}
+            />
           </div>
         </div>
       </DashboardLanding>
