@@ -171,8 +171,8 @@ function Index({ ssrQuery, articles, keywordList }) {
   return (
     <DashboardLayout>
       <ArticleLayout crumbs={[{ link: '', txt: tabs[tabIndex].tab }]}>
-        <div className="mt-8">
-          <div className="flex justify-end mb-8">
+        <div className="mt-[57px] relative">
+          <div className="absolute right-0 -top-[61px] flex justify-end mb-8">
             {tabIndex == 0 ? (
               <Link href={`/app/projects/${query.projectId}/keywords`}>
                 <a className="block w-fit btn btn-primary bg-primary text-white font-poppins">
