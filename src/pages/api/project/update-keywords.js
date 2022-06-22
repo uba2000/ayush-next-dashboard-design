@@ -27,7 +27,21 @@ export default async function (req, res) {
           }
         );
 
-        res.status(200).json({ success: true, data: keywordId });
+        return res.status(200).json({ success: true, data: keywordId });
+      } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+      }
+      break;
+    case 'DELETE':
+      try {
+        let user = checkAuth(req.headers);
+
+        const { keywordId } = req.body;
+
+        await ProjectKeywordsList.deleteOne({ _id: keywordId });
+
+        return res.status(200).json({ success: true });
       } catch (error) {
         console.log(error);
         return res.status(500).send(error);

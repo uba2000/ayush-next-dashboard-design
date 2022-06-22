@@ -267,20 +267,20 @@ input {
 
 /* Button Styles */
 .btn {
+  border-radius: 0;
+  padding: 11px 34px;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 19px;
+  text-align: center;
+  letter-spacing: 0.0813187px;
   outline: none;
-  padding: 12.31px 39px;
   cursor: pointer;
-  border: 2px solid rgba(0, 161, 65, 1);
   box-shadow: none;
   white-space: nowrap;
   user-select: none !important;
-
-  font-family: 'Poppins';
+  @apply border-[2px] border-solid border-primary font-poppins;
   font-style: normal;
-  font-weight: 600;
-  font-size: 16.7456px;
-  line-height: 28px;
-  letter-spacing: -0.276302px;
 }
 
 .btn-white,
@@ -319,9 +319,8 @@ input {
 
 .btn-danger,
 .btn-danger:hover {
-  border-radius: 0;
-  color: #ff0000;
-  background-color: transparent;
+  color: #ffffff;
+  background-color: #ff1212;
   border: none;
 }
 
@@ -337,48 +336,22 @@ input {
 
 .btn-primary,
 .btn-primary:hover {
-  border-radius: 0;
-  padding: 11px 34px;
-
-  font-weight: bold;
-  font-size: 13px;
-  line-height: 19px;
-  text-align: center;
-  letter-spacing: 0.0813187px;
   @apply bg-primary text-white font-poppins;
 }
 
 .btn-deactive,
 .btn-deactive:hover {
-  border-radius: 0;
-  padding: 11px 34px;
-  font-family: 'Helvetica';
-  color: #000000;
-
-  font-weight: bold;
-  font-size: 13px;
-  line-height: 19px;
-  text-align: center;
-  letter-spacing: 0.0813187px;
   border-color: #f8fffb;
   background-color: #f8fffb;
 }
 
 .btn-dark,
 .btn-dark:hover {
-  border-radius: 0;
-  padding: 11px 34px;
-  font-family: 'Poppins';
-
-  font-weight: bold;
-  font-size: 13px;
-  line-height: 19px;
-  text-align: center;
-  letter-spacing: 0.0813187px;
   border-color: #000000;
   color: #ffffff;
   background-color: #000000;
 }
+/* End */
 
 .overlay {
   background: radial-gradient(

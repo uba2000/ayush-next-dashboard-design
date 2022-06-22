@@ -38,6 +38,20 @@ export default async function (req, res) {
         return res.status(500).send(error);
       }
       break;
+    case 'DELETE':
+      try {
+        let user = checkAuth(req.headers);
+
+        const { article_id } = req.body;
+
+        await ProjectArticles.deleteOne({ _id: article_id });
+
+        return res.status(200).json({ success: true });
+      } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+      }
+      break;
 
     default:
       res.status(400).json({ success: false });

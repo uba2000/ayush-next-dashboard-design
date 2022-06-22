@@ -32,12 +32,27 @@ export default async function (req, res) {
           }
         );
 
-        res.status(200).json({ success: true });
+        return res.status(200).json({ success: true });
       } catch (error) {
         console.log(error);
         return res.status(500).send(error);
       }
       break;
+    case 'DELETE':
+      try {
+        let user = checkAuth(req.headers);
+
+        const { project_id } = req.body;
+
+        await Project.deleteOne({ _id: project_id });
+
+        return res.status(200).json({ success: true });
+      } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+      }
+      break;
+
     default:
       res.status(400).json({ success: false });
       break;

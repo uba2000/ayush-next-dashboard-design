@@ -5,8 +5,13 @@ import { useRouter } from 'next/router';
 import { Dots } from '../../ui/icons';
 import { useAppContext } from '../../context/state';
 import { DialogLayout } from '../../components/layouts/Dialog';
+import { Button } from '../../ui/button';
+import { deleteRequest, setHeaders } from '../../utils/http';
+import useUser from '../../hooks/useUser';
 
 const ArticleIndexItemDialog = ({ item }) => {
+  const { user } = useUser();
+
   const router = useRouter();
 
   const { query } = router;
@@ -17,6 +22,7 @@ const ArticleIndexItemDialog = ({ item }) => {
   const [articleEditLink] = useState(
     `/app/projects/${query.projectId}/articles/edit/${item._id}`
   );
+  let [loading, setLoading] = useState(false);
 
   function closeModal() {
     setIsOpen(false);
@@ -40,6 +46,24 @@ const ArticleIndexItemDialog = ({ item }) => {
     router.push(articleEditLink);
   };
 
+  const deleteArticle = async () => {
+    try {
+      setLoading(true);
+      const { response } = await deleteRequest({
+        url: `${process.env.BASE_URL}/api/project/article/update-article`,
+        data: { article_id: item._id },
+        headers: setHeaders({ token: user.accessToken }),
+      });
+      if (response) {
+        setLoading(false);
+        closeModal();
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <DialogLayout isOpen={isOpen} closeModal={closeModal}>
@@ -55,15 +79,16 @@ const ArticleIndexItemDialog = ({ item }) => {
           </div>
 
           <div className="mt-[19px]">
-            <button className="btn btn-primary bg-[#FF1212] border-[#FF1212] text-white">
-              Confirm
-            </button>
-            <button
-              onClick={closeModal}
-              className="ml-3 btn btn-reset dark:text-white text-black"
+            <Button
+              onClick={deleteArticle}
+              state={loading && 'loading'}
+              variant="danger"
             >
+              Confirm
+            </Button>
+            <Button onClick={closeModal} variant="reset">
               Cancel
-            </button>
+            </Button>
           </div>
         </div>
       </DialogLayout>

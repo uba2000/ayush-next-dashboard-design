@@ -47,7 +47,12 @@ const Loading = styled.span`
 
 export const Button = React.forwardRef(
   ({ children, state, variant = 'primary', isLink, link, ...rest }, ref) => (
-    <Outer className={`btn btn-${variant}`} {...rest} ref={ref}>
+    <Outer
+      disabled={state === STATES.LOADING}
+      className={`btn btn-${variant}`}
+      {...rest}
+      ref={ref}
+    >
       {!isLink ? (
         <>
           <Text shown={state !== STATES.LOADING}>{children}</Text>

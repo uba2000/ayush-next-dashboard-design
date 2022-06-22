@@ -16,6 +16,11 @@ export const post = async (payload) => {
   return await ajax({ ...payload, method: 'POST' });
 };
 
+// Send DELETE Requests
+export const deleteRequest = async (payload) => {
+  return await ajax({ ...payload, method: 'DELETE' });
+};
+
 // Send Any HTTP Request
 async function ajax({
   method = 'GET',

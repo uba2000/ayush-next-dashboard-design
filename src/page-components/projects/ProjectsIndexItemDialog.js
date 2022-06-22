@@ -8,8 +8,9 @@ import Input from '../../components/layouts/Input';
 import { fTags } from '../../utils/formatTags';
 import industries from '../../_mock/industries';
 import { useRouter } from 'next/router';
-import { post, setHeaders } from '../../utils/http';
+import { deleteRequest, post, setHeaders } from '../../utils/http';
 import useUser from '../../hooks/useUser';
+import { Button } from '../../ui/button';
 
 const ProjectsIndexItemDialog = ({ item, reloadProject }) => {
   const router = useRouter();
@@ -91,6 +92,25 @@ const ProjectsIndexItemDialog = ({ item, reloadProject }) => {
     }
   };
 
+  const deleteProject = async () => {
+    try {
+      setLoading(true);
+      const { response } = await deleteRequest({
+        url: `${process.env.BASE_URL}/api/project/update-project`,
+        data: { project_id: item._id },
+        headers: setHeaders({ token: user.accessToken }),
+      });
+      if (response) {
+        reloadProject({ project_id: item._id });
+        setLoading(false);
+        closeModal();
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
   const viewHandler = (e) => {
     router.push(`/app/projects/${item._id}?tab=a`);
   };
@@ -110,16 +130,17 @@ const ProjectsIndexItemDialog = ({ item, reloadProject }) => {
             </DialogLayout.SubTitle>
           </div>
 
-          <div className="mt-[19px]">
-            <button className="btn btn-primary bg-[#FF1212] border-[#FF1212] text-white">
-              Confirm
-            </button>
-            <button
-              onClick={closeModal}
-              className="ml-3 btn btn-reset dark:text-white text-black"
+          <div className="mt-[19px] space-x-3">
+            <Button
+              onClick={deleteProject}
+              state={loading && 'loading'}
+              variant="danger"
             >
+              Confirm
+            </Button>
+            <Button onClick={closeModal} variant="reset">
               Cancel
-            </button>
+            </Button>
           </div>
         </div>
       </DialogLayout>
@@ -247,21 +268,10 @@ const ProjectsIndexItemDialog = ({ item, reloadProject }) => {
               </span>
             </div>
             <div className="space-x-4 flex">
-              <button
-                type="button"
-                onClick={closeEditModal}
-                className="btn btn-reset dark:text-white text-black"
-              >
+              <Button variant="reset" onClick={closeEditModal}>
                 Cancel
-              </button>
-              <button
-                type="button"
-                onClick={saveEdit}
-                disabled={loading}
-                className="block w-fit btn btn-primary bg-primary text-white"
-              >
-                {loading ? 'Loading...' : 'Save Changes'}
-              </button>
+              </Button>
+              <Button state={loading && 'loading'}>Save Changes</Button>
             </div>
           </div>
         </div>

@@ -7,9 +7,10 @@ import { DialogLayout } from '../../components/layouts/Dialog';
 import FormGroup from '../../components/FormGroup';
 import Input from '../../components/layouts/Input';
 import industries from '../../_mock/industries';
-import { post, setHeaders } from '../../utils/http';
+import { post, setHeaders, deleteRequest } from '../../utils/http';
 import useUser from '../../hooks/useUser';
 import { fTags } from '../../utils/formatTags';
+import { Button } from '../../ui/button';
 
 const KeywordsIndexItemDialog = ({ item }) => {
   const { user } = useUser();
@@ -19,6 +20,7 @@ const KeywordsIndexItemDialog = ({ item }) => {
 
   let [isOpen, setIsOpen] = useState(false);
   let [isEditOpen, setIsEditOpen] = useState(false);
+  let [loading, setLoading] = useState(false);
 
   const [keywordListTitle, setKeywordList] = useState(item.title);
   const [kTags, setKTags] = useState(item.tags);
@@ -65,6 +67,24 @@ const KeywordsIndexItemDialog = ({ item }) => {
     closeEditModal();
   };
 
+  const deleteKeyword = async () => {
+    try {
+      setLoading(true);
+      const { response } = await deleteRequest({
+        url: `${process.env.BASE_URL}/api/project/update-keywords`,
+        data: { keywordId: item._id },
+        headers: setHeaders({ token: user.accessToken }),
+      });
+      if (response) {
+        setLoading(false);
+        closeModal();
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
   const viewList = () => {
     router.push(`/app/projects/${query.projectId}/keyword-list/${item._id}`);
   };
@@ -76,7 +96,7 @@ const KeywordsIndexItemDialog = ({ item }) => {
         <div className="py-24 px-44">
           <div className="space-y-[13px]">
             <DialogLayout.Title as="h3" className="title">
-              Are you sure, you want to delete this articles?
+              Are you sure, you want to delete this keyword list?
             </DialogLayout.Title>
             <DialogLayout.SubTitle>
               Deleting is final and cannot be reversed. are you sure you still
@@ -85,15 +105,16 @@ const KeywordsIndexItemDialog = ({ item }) => {
           </div>
 
           <div className="mt-[19px]">
-            <button className="btn btn-primary bg-[#FF1212] border-[#FF1212] text-white">
-              Confirm
-            </button>
-            <button
-              onClick={closeModal}
-              className="ml-3 btn btn-reset dark:text-white text-black"
+            <Button
+              onClick={deleteKeyword}
+              state={loading && 'loading'}
+              variant="danger"
             >
+              Confirm
+            </Button>
+            <Button onClick={closeModal} variant="reset">
               Cancel
-            </button>
+            </Button>
           </div>
         </div>
       </DialogLayout>
