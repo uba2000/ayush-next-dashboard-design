@@ -325,13 +325,14 @@ input {
 }
 
 .btn-gradient {
-  border-radius: 0;
+  @apply rounded-md text-black border-0 py-3 px-4 font-bold text-base;
   background: linear-gradient(
     90.72deg,
     rgb(64, 237, 195) 0%,
     rgb(127, 251, 169) 49.62%,
     rgb(211, 248, 154) 100%
   );
+  @apply bg-gradient-to-r from-[rgb(64,237,195)] via-[rgb(127,251,169)] to-[rgb(211,248,154)];
 }
 
 .btn-primary,

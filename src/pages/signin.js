@@ -5,13 +5,14 @@ import axios from 'axios';
 import { signIn, getCsrfToken } from 'next-auth/react';
 
 import AuthLayout from '../components/AuthLayout';
+import { Button } from '../ui/button';
 
 function Signin({ csrfToken }) {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [agreeToTerms, setAgreeToTerms] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState(null);
 
   const [loading, setLoading] = useState(false);
@@ -26,6 +27,7 @@ function Signin({ csrfToken }) {
         redirect: false,
         email: email,
         password: password,
+        rememberMe: rememberMe,
         callbackUrl: router.query.callbackUrl,
         csrfToken,
       });
@@ -50,17 +52,17 @@ function Signin({ csrfToken }) {
     }
   };
   return (
-    <AuthLayout>
+    <AuthLayout metaTitle="Sign In">
       <div className="z-20 w-full max-w-sm">
         {/* TITLE */}
         <div className="flex justify-center mb-2">
-          <p className="text-title mt-12 md:mt-12 font-bold text-center font-poppins flex flex-col text-white">
+          <p className="text-title mt-12 md:mt-12 font-bold text-center font-poppins flex flex-col ">
             Sign In
           </p>
         </div>
         {/* SUBTITLE */}
         <div className="mb-3">
-          <p className="text-subtitle text-center font-poppins text-white">
+          <p className="text-subtitle text-center font-poppins ">
             I am so lorem ipum deloas In working with you sit amet, consectetur
             adipiscing elit. Porta pharetra scelerisque
           </p>
@@ -71,7 +73,7 @@ function Signin({ csrfToken }) {
           <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
           <div className="">
             <input
-              className="font-poppins px-5 py-3 text-white text-base border border-white rounded-md focus:outline-none bg-black focus:border-green-600"
+              className="font-poppins px-5 py-3  text-base border border-white rounded-md focus:outline-none bg-black focus:border-green-600"
               type="text"
               placeholder="Email"
               name="email"
@@ -81,7 +83,7 @@ function Signin({ csrfToken }) {
           </div>
           <div className="mt-3 relative">
             <input
-              className="font-poppins px-5 py-3 text-white text-base border border-white rounded-md focus:outline-none bg-black focus:border-green-600"
+              className="font-poppins px-5 py-3  text-base border border-white rounded-md focus:outline-none bg-black focus:border-green-600"
               type={!passwordVisible ? 'password' : 'text'}
               placeholder="Password"
               name="password"
@@ -137,9 +139,9 @@ function Signin({ csrfToken }) {
           <div className="mt-3 flex justify-between">
             <div
               className="flex cursor-pointer"
-              onClick={() => setAgreeToTerms(!agreeToTerms)}
+              onClick={() => setRememberMe(!rememberMe)}
             >
-              {!agreeToTerms ? (
+              {!rememberMe ? (
                 <span className="w-[16.33px] h-[16.33px] bg-white"></span>
               ) : (
                 <div className="pop-in-animation">
@@ -162,28 +164,29 @@ function Signin({ csrfToken }) {
               )}
               <label
                 htmlFor="termsAgree"
-                className="text-white text-xs ml-2 font-poppins flex-grow flex-shrink"
+                className=" text-xs ml-2 font-poppins flex-grow flex-shrink"
               >
                 Remember me
               </label>
             </div>
-            <div className="text-white text-right text-xs font-poppins flex items-center">
+            <div className=" text-right text-xs font-poppins flex items-center">
               <Link href="/forget-password">
                 <a>Forget Password?</a>
               </Link>
             </div>
           </div>
           <div className="mt-3">
-            <button
+            <Button
+              className="w-full"
               type="submit"
-              disabled={loading}
-              className="w-full bg-gradient-to-r from-green via-green-500 to-yellow text-black font-inter py-3 px-4 font-bold text-base rounded-md"
+              variant="gradient"
+              state={loading && 'loading'}
             >
-              {loading ? 'Loading...' : 'Sign In'}
-            </button>
+              Sign In
+            </Button>
           </div>
           <div className="mt-3 text-center">
-            <p className="text-white text-inter font-inter">
+            <p className="">
               Looking for a new Account?&nbsp;
               {/*  */}
               <Link href="/signup">

@@ -79,8 +79,11 @@ export default NextAuth({
   },
   callbacks: {
     async jwt({ token, user, account }) {
+      // console.log('Help');
+      // TODO: refresh token here...
+      // console.log({ token, user, account });
       if (account && user) {
-        let { access_token, ...fUser } = user;
+        let { access_token, refresh_token, ...fUser } = user;
         return {
           ...token,
           ...fUser,
