@@ -164,7 +164,7 @@ function Signin({ csrfToken }) {
               )}
               <label
                 htmlFor="termsAgree"
-                className=" text-xs ml-2 font-poppins flex-grow flex-shrink"
+                className="cursor-pointer select-none text-xs ml-2 font-poppins flex-grow flex-shrink"
               >
                 Remember me
               </label>

@@ -6,6 +6,7 @@ import { signIn, getCsrfToken } from 'next-auth/react';
 
 import AuthLayout from '../components/AuthLayout';
 import { Button } from '../ui/button';
+import { post } from '../utils/http';
 
 function ForgetPassword({ csrfToken }) {
   const router = useRouter();
@@ -20,17 +21,24 @@ function ForgetPassword({ csrfToken }) {
     setLoading(true);
 
     try {
-      if (agreeToTerms) {
-        setLoading(true);
-        if (!email || !email.includes('@')) {
-          // Show error...
-          return;
-        }
-
-        setLoading(false);
-      } else {
-        console.log('Agree terms');
+      if (!email || !email.includes('@')) {
+        // Show error...
+        return;
       }
+      setLoading(true);
+
+      const { response, error } = await post({
+        url: `${process.env.BASE_URL}/api/auth/forget-password`,
+        data: {
+          email,
+        },
+      });
+
+      if (response) {
+        // Check Email...
+      }
+
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       console.log(error);
