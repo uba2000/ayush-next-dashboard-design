@@ -7,7 +7,7 @@ import { setHeaders, get } from '../../../../utils/http';
 
 const Index = ({ features }) => {
   return (
-    <DashboardLayout>
+    <DashboardLayout metaTitle="All Features">
       <AllFeaturesView stateFeature={features} />
     </DashboardLayout>
   );

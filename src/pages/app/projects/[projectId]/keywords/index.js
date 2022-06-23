@@ -148,7 +148,7 @@ function KeywordsPage() {
   };
 
   return (
-    <DashboardLayout>
+    <DashboardLayout metaTitle="Provide Keywords">
       <DialogLayout isOpen={errorDialog} closeModal={closeErrorDialog}>
         <div className="md:px-[130px] px-4 py-20 relative">
           <div

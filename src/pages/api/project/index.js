@@ -42,9 +42,10 @@ export default async function (req, res) {
       try {
         let userAuth = checkAuth(req.headers);
 
-        const projects = await Project.find({ user_id: userAuth._id }).select(
-          'title tags created_at industry'
-        );
+        const projects = await Project.find({
+          user_id: userAuth._id,
+          active: true,
+        }).select('title tags created_at industry');
         return res.status(200).json({ success: true, data: projects });
       } catch (error) {
         console.log(error);

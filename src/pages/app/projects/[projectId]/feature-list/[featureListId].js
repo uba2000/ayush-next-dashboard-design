@@ -26,7 +26,7 @@ const FeatureListView = () => {
   };
 
   return (
-    <DashboardLayout>
+    <DashboardLayout metaTitle={thisFeatureList.feature}>
       <ArticleLayout
         crumbs={[
           { link: `/app/projects/${query.projectId}?tab=f`, txt: 'Features' },

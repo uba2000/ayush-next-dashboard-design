@@ -27,7 +27,7 @@ const SubscriptionListStyle = styledComponents.li`
   }
 `;
 
-function AccountBillingSubscription() {
+function AccountBillingSubscription({ currentPlan }) {
   // Cancel Subscription Dialog
   let [isOpen, setIsOpen] = useState(false);
   let [moreProjectIsOpen, setMoreProjectIsOpen] = useState(false);
@@ -62,7 +62,7 @@ function AccountBillingSubscription() {
         </div>
       </Box>
       <div className="">
-        <AccountBillingTable />
+        <AccountBillingTable currentPlan={currentPlan} />
       </div>
       <Box type={'black'} className="border-t-0">
         <div className="px-[30px] pb-[32px] space-y-4">
@@ -104,7 +104,7 @@ function AccountBillingSubscription() {
                 <Button>Upgrade Plan</Button>
               </a>
             </Link>
-            <Button variant="danger" onClick={openModal}>
+            <Button variant="danger-text" onClick={openModal}>
               Cancel Subscriptions
             </Button>
           </div>

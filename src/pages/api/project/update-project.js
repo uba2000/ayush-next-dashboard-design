@@ -44,7 +44,12 @@ export default async function (req, res) {
 
         const { project_id } = req.body;
 
-        await Project.deleteOne({ _id: project_id });
+        await Project.updateOne(
+          { _id: project_id },
+          {
+            $set: { active: false },
+          }
+        );
 
         return res.status(200).json({ success: true });
       } catch (error) {

@@ -46,7 +46,7 @@ function ForgetPassword({ csrfToken }) {
   };
 
   return (
-    <AuthLayout metaTitle="Sign In">
+    <AuthLayout metaTitle="Forgot Password">
       <div className="z-20 w-full max-w-sm">
         {/* TITLE */}
         <div className="flex justify-center mb-2">

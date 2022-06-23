@@ -97,10 +97,13 @@ class EditArticle extends Component {
     const body = draftToHtml(JSON.parse(stateArticleContent));
 
     return (
-      <DashboardLayout>
+      <DashboardLayout metaTitle={`${this.state.title}`}>
         <ArticleLayout
           crumbs={[
-            { txt: 'Article', link: `/app/projects/${router.query.projectId}` },
+            {
+              txt: 'Articles',
+              link: `/app/projects/${router.query.projectId}`,
+            },
             { txt: this.state.title },
           ]}
         >

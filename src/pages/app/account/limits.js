@@ -47,7 +47,7 @@ function limits({ accountPlan, accountHistory }) {
   );
 
   return (
-    <AccountLayout>
+    <AccountLayout metaTitle="Limit &amp; Usage">
       <div className="space-y-[30px]">
         <div>
           <LimitSectionHeader title={'Plan Details'} />
@@ -100,9 +100,15 @@ function limits({ accountPlan, accountHistory }) {
                             ? `${accountPlan.account_plan.period_limit} Credits`
                             : '---'
                         }`}
-                        titleHead={`${accountPlan ? `${
-                          accountPlan.period_type == 'M' ? 'Monthly' : 'Yearly'
-                        } Limit` : 'Period Limit'}`}
+                        titleHead={`${
+                          accountPlan
+                            ? `${
+                                accountPlan.period_type == 'M'
+                                  ? 'Monthly'
+                                  : 'Yearly'
+                              } Limit`
+                            : 'Period Limit'
+                        }`}
                       />
                     </div>
                     <div className="flex flex-col space-y-1">

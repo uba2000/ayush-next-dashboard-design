@@ -29,7 +29,7 @@ const tabs = [
   { tab: 'Features', q: 'f' },
 ];
 
-function Index({ ssrQuery, articles, keywordList }) {
+function Index({ ssrQuery, articles, keywordList, project }) {
   const state = useProjectsContext();
 
   const router = useRouter();
@@ -169,7 +169,7 @@ function Index({ ssrQuery, articles, keywordList }) {
   );
 
   return (
-    <DashboardLayout>
+    <DashboardLayout metaTitle={`${project.title}`}>
       <ArticleLayout crumbs={[{ link: '', txt: tabs[tabIndex].tab }]}>
         <div className="mt-[57px] relative">
           <div className="absolute right-0 -top-[61px] flex justify-end mb-8">

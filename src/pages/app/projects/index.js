@@ -88,7 +88,7 @@ function AllProjects({ projects }) {
   );
 
   return (
-    <DashboardLayout>
+    <DashboardLayout metaTitle="All Projects">
       <ProjectsIndexDialog
         projectDialog={projectDialog}
         closeProjectDialog={closeProjectDialog}

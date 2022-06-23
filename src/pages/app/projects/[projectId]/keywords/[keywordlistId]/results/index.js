@@ -49,7 +49,7 @@ const results = ({ keywordQuestions, keywords }) => {
   );
 
   return (
-    <DashboardLayout>
+    <DashboardLayout metaTitle="Keywords Result">
       {/* Generate Content */}
       <GenerateContentDialog
         listId={query.keywordlistId}

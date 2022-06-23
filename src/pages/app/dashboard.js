@@ -8,7 +8,7 @@ import features from '../../_mock/features';
 
 function Dashboard({ features }) {
   return (
-    <DashboardLayout>
+    <DashboardLayout metaTitle="Dashboard">
       <AllFeaturesView stateFeature={features} isGetStarted={true} />
     </DashboardLayout>
   );

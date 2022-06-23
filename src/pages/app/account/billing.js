@@ -10,7 +10,7 @@ import AccountAvailablePaymentMethod from '../../../components/app/account/Accou
 import AccountPaymentMethods from '../../../components/app/account/AccountPaymentMethods';
 import { get, setHeaders } from '../../../utils/http';
 
-function billing({ paymentMethods }) {
+function billing({ paymentMethods, currentPlan }) {
   const [tabIndex, setTabIndex] = useState(0);
 
   const [isNewPaymentMethod, setIsNewPaymentMethod] = useState(false);
@@ -20,7 +20,7 @@ function billing({ paymentMethods }) {
   };
 
   return (
-    <AccountLayout>
+    <AccountLayout metaTitle="Billing">
       <Tab.Group
         selectedIndex={tabIndex}
         onChange={(index) => updateTabIndex(index)}
@@ -62,7 +62,7 @@ function billing({ paymentMethods }) {
         <Tab.Panels>
           <Tab.Panel>
             <div>
-              <AccountBillingSubscription />
+              <AccountBillingSubscription currentPlan={currentPlan} />
             </div>
           </Tab.Panel>
           <Tab.Panel>

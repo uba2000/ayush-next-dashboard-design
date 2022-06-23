@@ -44,7 +44,7 @@ const KeywordListView = ({ keywords, keywordList }) => {
   );
 
   return (
-    <DashboardLayout>
+    <DashboardLayout metaTitle={keywordList.title}>
       {/* Generate Content */}
       <GenerateContentDialog
         listId={query.keywordListId}

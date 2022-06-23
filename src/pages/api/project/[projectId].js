@@ -2,6 +2,7 @@ import dbConnect from '../../../utils/connect';
 import ProjectArticles from '../../../models/ProjectArticles';
 import ProjectKeywordsList from '../../../models/ProjectKeywordsList';
 import { checkAuth } from '../../../utils/checkAuth';
+import Project from '../../../models/Project';
 
 export default async function (req, res) {
   const { method } = req;
@@ -12,6 +13,8 @@ export default async function (req, res) {
         let userAuth = checkAuth(req.headers);
 
         const { projectId } = req.query;
+
+        const thisProjects = await Project.findById(projectId).select('title');
 
         let ssrArticles = await ProjectArticles.find({
           project_id: projectId,
@@ -26,6 +29,7 @@ export default async function (req, res) {
         return res.status(200).json({
           success: true,
           data: {
+            project: thisProjects,
             articles: ssrArticles,
             keywordList: ssrKeywordLists,
           },

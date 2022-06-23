@@ -324,6 +324,13 @@ input {
   border: none;
 }
 
+.btn-danger-text,
+.btn-danger-text:hover {
+  color: #ff1212;
+  background-color: transparent;
+  border: none;
+}
+
 .btn-gradient {
   @apply rounded-md text-black border-0 py-3 px-4 font-bold text-base;
   background: linear-gradient(

@@ -1,21 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useContext } from 'react';
 
-import DashboardLayout from '../../../../../components/app/DasboardLayout'
-import ExplorerLayout from '../../../../../page-components/feature-explorer/ExplorerLayout'
-import { ExplorerWrapper, useExplorerContext } from '../../../../../context/explorer'
-
+import DashboardLayout from '../../../../../components/app/DasboardLayout';
+import ExplorerLayout from '../../../../../page-components/feature-explorer/ExplorerLayout';
+import {
+  ExplorerWrapper,
+  useExplorerContext,
+} from '../../../../../context/explorer';
 
 const Index = () => {
   return (
     <ExplorerWrapper>
-      <DashboardLayout>
-        <ExplorerLayout>
-
-        </ExplorerLayout>
+      <DashboardLayout metaTitle="Feature">
+        <ExplorerLayout></ExplorerLayout>
       </DashboardLayout>
     </ExplorerWrapper>
-  )
-}
+  );
+};
 
 export async function getStaticPaths() {
   return {
@@ -70,16 +70,13 @@ export async function getStaticPaths() {
       { params: { slug: 'backlinks' } },
     ],
     fallback: true,
-  }
+  };
 }
 
 export async function getStaticProps() {
-
   return {
-    props: {
-
-    }
-  }
+    props: {},
+  };
 }
-Index.auth = true
-export default Index
+Index.auth = true;
+export default Index;

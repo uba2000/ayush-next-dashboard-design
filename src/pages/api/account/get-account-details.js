@@ -25,6 +25,7 @@ export default async function handler(req, res) {
           _id: {
             $in: projectsIds,
           },
+          active: true,
         }).select('title tags created_at');
 
         const projectHistory = user.current_plan

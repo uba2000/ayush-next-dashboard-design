@@ -107,7 +107,7 @@ const Index = () => {
   }
 
   return (
-    <DashboardLayout>
+    <DashboardLayout metaTitle="Generate Articles">
       <div className={`${showGenerate ? 'block' : 'hidden'} w-full`}>
         <DialogLayout
           isOpen={isCompleteDialog}
