@@ -1,16 +1,17 @@
 import React, { Fragment, useState } from 'react';
-import { Transition, Dialog } from '@headlessui/react';
 import Link from 'next/link';
 import styledComponents from 'styled-components';
 
 import AccountBillingTable from './AccountBillingTable';
 import Box from '../../layouts/Box';
-import { DialogLayout } from '../../layouts/Dialog';
 import CancelSubscriptionDialog from '../../../page-components/account/billing/cancelSubscriptionDialog';
 import MoreProjectsDialog from '../../../page-components/account/billing/moreProjectsDialog';
 import MoreCrawlCreditsDialog from '../../../page-components/account/billing/moreCrawlCreditsDialog';
 import MoreRankTrackerDialog from '../../../page-components/account/billing/moreRankTrackerDialog';
 import { Button } from '../../../ui/button';
+import useUser from '../../../hooks/useUser';
+import { useRouter } from 'next/router';
+import usePaypal from '../../../hooks/usePaypal';
 
 const SubscriptionListStyle = styledComponents.li`
   color: #7A7A7A;
@@ -28,6 +29,12 @@ const SubscriptionListStyle = styledComponents.li`
 `;
 
 function AccountBillingSubscription({ currentPlan }) {
+  const { user } = useUser();
+
+  const { scriptLoaded } = usePaypal();
+
+  const router = useRouter();
+
   // Cancel Subscription Dialog
   let [isOpen, setIsOpen] = useState(false);
   let [moreProjectIsOpen, setMoreProjectIsOpen] = useState(false);
@@ -41,6 +48,18 @@ function AccountBillingSubscription({ currentPlan }) {
   function openModal() {
     setIsOpen(true);
   }
+
+  const checkPlanExist = () => {
+    return !!user.currentPlan;
+  };
+
+  const showMoreDialog = (toCall) => {
+    if (!checkPlanExist()) {
+      router.push('/app/account/pricing');
+    }
+    toCall(true);
+  };
+
   return (
     <>
       <CancelSubscriptionDialog isOpen={isOpen} closeModal={closeModal} />
@@ -76,14 +95,17 @@ function AccountBillingSubscription({ currentPlan }) {
                 </Link>
               </SubscriptionListStyle>
               <SubscriptionListStyle>
-                <span className="" onClick={() => setMoreProjectIsOpen(true)}>
+                <span
+                  className=""
+                  onClick={() => showMoreDialog(setMoreProjectIsOpen)}
+                >
                   Add more projects
                 </span>
               </SubscriptionListStyle>
               <SubscriptionListStyle>
                 <span
                   className=""
-                  onClick={() => setMoreCrawlCreditsIsOpen(true)}
+                  onClick={() => showMoreDialog(setMoreCrawlCreditsIsOpen)}
                 >
                   Add more site audit crawl Credits
                 </span>
@@ -91,7 +113,7 @@ function AccountBillingSubscription({ currentPlan }) {
               <SubscriptionListStyle>
                 <span
                   className=""
-                  onClick={() => setMoreRankTrackerIsOpen(true)}
+                  onClick={() => showMoreDialog(setMoreRankTrackerIsOpen)}
                 >
                   Add Rank Tracker Pro
                 </span>
