@@ -1,28 +1,33 @@
-import React, { Fragment } from 'react'
-import { Tab } from '@headlessui/react'
+import React, { Fragment } from 'react';
+import { Tab } from '@headlessui/react';
 
-import Layout from '../Layout'
-import Input from '../../../components/layouts/Input'
+import Layout from '../Layout';
+import Input from '../../../components/layouts/Input';
+import { Button } from '../../../ui/button';
 
 const IncludeFilter = () => {
   return (
     <Layout label={'Inlude'}>
-      <div className='divide-y-2 dark:divide-darkMode-border divide-ash' style={{ width: '177px' }}>
+      <div
+        className="divide-y-2 dark:divide-darkMode-border divide-ash"
+        style={{ width: '177px' }}
+      >
         <div className="p-[10px] pb-[5px] space-y-[5px]">
           <Tab.Group>
-            <Tab.List className='grid grid-cols-2'>
+            <Tab.List className="grid grid-cols-2">
               <Tab as={Fragment}>
                 {({ selected }) => (
                   <div
                     className={`
                       cursor-pointer py-[6px] text-center
-                      ${selected ?
-                        'dark:bg-primary bg-primary border-primary text-white'
-                        : 'dark:bg-darkMode-bg bg-white dark:text-white text-black border border-solid border-ash dark:border-darkMode-border'
+                      ${
+                        selected
+                          ? 'dark:bg-primary bg-primary border-primary text-white'
+                          : 'dark:bg-darkMode-bg bg-white dark:text-white text-black border border-solid border-ash dark:border-darkMode-border'
                       }
                     `}
                   >
-                    <span className='text-xs'>All Words</span>
+                    <span className="text-xs">All Words</span>
                   </div>
                 )}
               </Tab>
@@ -31,13 +36,14 @@ const IncludeFilter = () => {
                   <div
                     className={`
                       cursor-pointer py-[6px] text-center
-                      ${selected ?
-                        'dark:bg-primary bg-primary border-primary text-white'
-                        : 'dark:bg-darkMode-bg bg-white dark:text-white text-black border border-solid border-ash dark:border-darkMode-border'
+                      ${
+                        selected
+                          ? 'dark:bg-primary bg-primary border-primary text-white'
+                          : 'dark:bg-darkMode-bg bg-white dark:text-white text-black border border-solid border-ash dark:border-darkMode-border'
                       }
                     `}
                   >
-                    <span className='text-xs'>Any Word</span>
+                    <span className="text-xs">Any Word</span>
                   </div>
                 )}
               </Tab>
@@ -45,12 +51,18 @@ const IncludeFilter = () => {
             <Tab.Panels style={{ marginTop: '5px' }}>
               <Tab.Panel>
                 <div>
-                  <Input placeholder="Type A keywords" className="w-full h-[21px] text-xs px-2" />
+                  <Input
+                    placeholder="Type A keywords"
+                    className="w-full h-[21px] text-xs px-2"
+                  />
                 </div>
               </Tab.Panel>
               <Tab.Panel>
                 <div>
-                  <Input placeholder="Type A keywords" className="w-full h-[21px] text-xs px-2" />
+                  <Input
+                    placeholder="Type A keywords"
+                    className="w-full h-[21px] text-xs px-2"
+                  />
                 </div>
               </Tab.Panel>
             </Tab.Panels>
@@ -62,11 +74,11 @@ const IncludeFilter = () => {
           </div>
         </div>
         <div>
-          <button className='btn btn-primary w-full py-2'>Apply</button>
+          <Button className="w-full py-2">Apply</Button>
         </div>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
-export { IncludeFilter }
+export { IncludeFilter };

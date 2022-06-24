@@ -194,20 +194,12 @@ const KeywordsIndexItemDialog = ({ item }) => {
               </span>
             </div>
             <div className="space-x-4 flex">
-              <button
-                type="button"
-                onClick={closeEditModal}
-                className="btn btn-reset dark:text-white text-black"
-              >
+              <Button onClick={closeEditModal} variant="reset">
                 Cancel
-              </button>
-              <button
-                type="button"
-                onClick={saveKeywordDetail}
-                className="block w-fit btn btn-primary bg-primary text-white"
-              >
+              </Button>
+              <Button onClick={saveKeywordDetail} className="block w-fit">
                 Continue
-              </button>
+              </Button>
             </div>
           </div>
         </div>

@@ -9,6 +9,7 @@ import industries from '../../../_mock/industries';
 import { fTags } from '../../../utils/formatTags';
 import { post, setHeaders } from '../../../utils/http';
 import useUser from '../../../hooks/useUser';
+import { Button } from '../../../ui/button';
 
 const NewKeywordListDialog = ({ isOpen, closeModal }) => {
   const { user } = useUser();
@@ -126,20 +127,15 @@ const NewKeywordListDialog = ({ isOpen, closeModal }) => {
             </span>
           </div>
           <div className="space-x-4 flex">
-            <button
-              type="button"
-              onClick={closeModal}
-              className="btn btn-reset dark:text-white text-black"
-            >
+            <Button variant="reset" onClick={closeModal}>
               Cancel
-            </button>
-            <button
-              type="button"
+            </Button>
+            <Button
               onClick={continueKeywordCreation}
-              className="block w-fit btn btn-primary bg-primary text-white"
+              className="block w-fit"
             >
               Continue
-            </button>
+            </Button>
           </div>
         </div>
       </div>

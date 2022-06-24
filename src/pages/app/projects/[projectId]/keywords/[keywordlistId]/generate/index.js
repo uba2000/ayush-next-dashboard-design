@@ -20,6 +20,7 @@ import Box from '../../../../../../../components/layouts/Box';
 import ScrollbarsLayout from '../../../../../../../components/layouts/Scrollbars';
 import EditorContainer from '../../../../../../../components/layouts/EditorContainer';
 import articleContent from '../../../../../../../_mock/article-content';
+import { Button } from '../../../../../../../ui/button';
 
 const Index = () => {
   const router = useRouter();
@@ -140,15 +141,14 @@ const Index = () => {
                 </p>
               </div>
               <div className="space-x-4">
-                <button onClick={startNewProject} className="btn btn-primary">
-                  Start Another Project
-                </button>
-                <button
+                <Button onClick={startNewProject}>Start Another Project</Button>
+                <Button
+                  variant="reset"
                   onClick={viewAllProjects}
-                  className="btn btn-reset dark:text-darkMode-subText text-ash"
+                  className="dark:text-darkMode-subText text-ash"
                 >
                   View All Articles
-                </button>
+                </Button>
               </div>
             </div>
           </div>

@@ -9,6 +9,7 @@ import CheckBox from '../../components/layouts/CheckBox';
 import { setArticlesDetailsGenerate } from '../../features/project/projectSlice';
 import useUser from '../../hooks/useUser';
 import { fNumber } from '../../utils/formatNumber';
+import { Button } from '../../ui/button';
 
 const GenerateContentDialog = ({
   listId,
@@ -193,15 +194,13 @@ const GenerateContentDialog = ({
           </div>
           <div className="flex space-x-[35px]">
             <div className="space-x-[11px] flex">
-              <button className="btn btn-primary" onClick={generateContent}>
-                Generate
-              </button>
-              <button
-                className="btn btn-outline"
+              <Button onClick={generateContent}>Generate</Button>
+              <Button
+                variant="outline"
                 onClick={() => setGenerateContentDialog(false)}
               >
                 Cancel
-              </button>
+              </Button>
             </div>
             <div className="flex items-center">
               <span className="font-normal text-sm dark:text-darkMode-subText text-ash">

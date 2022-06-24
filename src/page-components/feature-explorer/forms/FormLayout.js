@@ -2,6 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 
 import { useExplorerContext } from '../../../context/explorer';
+import { Button } from '../../../ui/button';
 // import { setHeaders, post } from '../../../utils/http';
 // import useUser from '../../../hooks/useUser';
 
@@ -42,12 +43,9 @@ const FormLayout = ({
       <div>
         {children}
         {!isDefault && (
-          <button
-            onClick={generateContent}
-            className="btn btn-primary w-full font-medium text-base"
-          >
+          <Button onClick={generateContent} className="w-full">
             Generate
-          </button>
+          </Button>
         )}
       </div>
     </>

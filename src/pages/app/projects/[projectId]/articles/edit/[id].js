@@ -13,6 +13,7 @@ import ArticleEditor from '../../../../../../page-components/project-categories/
 import Input from '../../../../../../components/layouts/Input';
 import EditorContainer from '../../../../../../components/layouts/EditorContainer';
 import { post, get, setHeaders } from '../../../../../../utils/http';
+import { Button } from '../../../../../../ui/button';
 
 class EditArticle extends Component {
   static contextType = AppContext;
@@ -163,8 +164,7 @@ class EditArticle extends Component {
                         />
                       </div>
                       <div className="flex">
-                        <button
-                          className="btn btn-primary"
+                        <Button
                           onClick={() => {
                             this.setState({ titleChange: false });
                             layout.setToEditArticle(false);
@@ -172,15 +172,15 @@ class EditArticle extends Component {
                           }}
                         >
                           Save
-                        </button>
-                        <button
-                          className="btn btn-reset"
+                        </Button>
+                        <Button
+                          variant="reset"
                           onClick={() => {
                             this.setState({ title: this.state.reserveTitle });
                           }}
                         >
                           Reset
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   </>
@@ -238,8 +238,7 @@ class EditArticle extends Component {
                         />
                       </div>
                       <div className="flex">
-                        <button
-                          className="btn btn-primary"
+                        <Button
                           onClick={() => {
                             this.setState({ tagsChange: false });
                             layout.setToEditArticle(false);
@@ -250,15 +249,16 @@ class EditArticle extends Component {
                           }}
                         >
                           Save
-                        </button>
-                        <button
+                        </Button>
+                        <Button
+                          variant="reset"
                           className="btn btn-reset"
                           onClick={() => {
                             this.setState({ tags: this.state.reserveTags });
                           }}
                         >
                           Reset
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   </>
@@ -311,11 +311,13 @@ class EditArticle extends Component {
                 </div>
               ) : (
                 <div className="absolute right-7 top-3 flex items-center space-x-2">
-                  <button className="btn btn-outline text-[13px] py-[11px] px-5 leading-5">
+                  <Button
+                    variant="outline"
+                    className="text-[13px] py-[11px] px-5 leading-5"
+                  >
                     Cancel
-                  </button>
-                  <button
-                    className="btn btn-primary"
+                  </Button>
+                  <Button
                     onClick={() => {
                       this.setState({ showEditor: false });
                       layout.setToEditArticle(false);
@@ -326,16 +328,16 @@ class EditArticle extends Component {
                     }}
                   >
                     Save article
-                  </button>
+                  </Button>
                 </div>
               )}
             </Box>
             <div className="md:flex grid grid-cols-1 gap-5 mt-6 md:justify-end">
               {!showEditor && (
                 <>
-                  <button className="btn btn-primary text-white text-base">
+                  <Button>
                     Publish to Wordpress
-                  </button>
+                  </Button>
                 </>
               )}
             </div>

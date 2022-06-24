@@ -177,15 +177,14 @@ function KeywordsPage() {
               </p>
             </div>
             <div className="space-x-4">
-              <button onClick={clickCSVImport} className="btn btn-primary">
-                Upload another File
-              </button>
-              <button
+              <Button onClick={clickCSVImport}>Upload another File</Button>
+              <Button
+                variant="reset"
                 onClick={closeErrorDialog}
-                className="btn btn-reset dark:text-darkMode-subText text-ash"
+                className="dark:text-darkMode-subText text-ash"
               >
                 Cancel
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -276,18 +275,21 @@ function KeywordsPage() {
           </Box>
           <Box className={'py-6 md:px-[59px] px-4'}>
             <div className="flex md:justify-between md:flex-row md:space-y-0 space-y-4 flex-col">
-              <button className="btn max-w- btn-primary bg-black border border-solid border-ash dark:border-darkMode-border">
+              <button
+                onClick={() => router.back()}
+                className="btn max-w- btn-primary bg-black border border-solid border-ash dark:border-darkMode-border"
+              >
                 Go Back
               </button>
               <div className="md:space-x-4 justify-between flex">
                 <form className="relative">
-                  <button
-                    type="button"
+                  <Button
+                    variant="reset"
                     onClick={clickCSVImport}
-                    className="btn btn-reset text-sm dark:text-white text-black"
+                    className="text-sm"
                   >
                     Import CSV
-                  </button>
+                  </Button>
                   <input
                     type="file"
                     accept=".csv"

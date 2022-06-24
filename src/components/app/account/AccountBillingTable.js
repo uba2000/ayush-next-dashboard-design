@@ -60,9 +60,7 @@ function AccountBillingTable({ currentPlan }) {
           </Table.Data>
           <Table.Data>
             <span>
-              {currentPlan
-                ? fCurrency(`${currentPlan.account_plan.price}.00`)
-                : '---'}
+              {currentPlan ? fCurrency(currentPlan.account_plan.price) : '---'}
             </span>
           </Table.Data>
         </Table.Row>

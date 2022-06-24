@@ -8,6 +8,7 @@ import Box from '../../../components/layouts/Box';
 import { DialogLayout } from '../../../components/layouts/Dialog';
 import Input from '../../../components/layouts/Input';
 import useUser from '../../../hooks/useUser';
+import { Button } from '../../../ui/button';
 
 function Team() {
   const { user } = useUser();
@@ -40,9 +41,7 @@ function Team() {
           charge of $30 month for each number that exceeds the user seats
           available on your plan
         </p>
-        <button className="btn btn-primary" onClick={openModal}>
-          Invite Team
-        </button>
+        <Button onClick={openModal}>Invite Team</Button>
       </Box>
       <div className="">
         <Tab.Group

@@ -11,7 +11,6 @@ import MoreRankTrackerDialog from '../../../page-components/account/billing/more
 import { Button } from '../../../ui/button';
 import useUser from '../../../hooks/useUser';
 import { useRouter } from 'next/router';
-import usePaypal from '../../../hooks/usePaypal';
 
 const SubscriptionListStyle = styledComponents.li`
   color: #7A7A7A;
@@ -30,8 +29,6 @@ const SubscriptionListStyle = styledComponents.li`
 
 function AccountBillingSubscription({ currentPlan }) {
   const { user } = useUser();
-
-  const { scriptLoaded } = usePaypal();
 
   const router = useRouter();
 

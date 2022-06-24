@@ -11,6 +11,7 @@ import Input from '../../../components/layouts/Input';
 import useUser from '../../../hooks/useUser';
 import { setHeaders, post } from '../../../utils/http';
 import Box from '../../../components/layouts/Box';
+import { Button } from '../../../ui/button';
 
 const genders = ['', 'male', 'female'];
 const months = [
@@ -37,6 +38,7 @@ function index() {
   const [addressH, setAddressH] = useState(
     `${user.address ? user.address : ''}`
   );
+  const [loading, setLoading] = useState(false);
   const [selectedDateValue, setSelectedDateValue] = useState(
     user.dob ? new Date(user.dob) : new Date()
   );
@@ -61,6 +63,7 @@ function index() {
 
   const updateSettings = async (e) => {
     e.preventDefault();
+    setLoading(true);
     let updateObject = {};
 
     if (user.fullName !== fullName) {
@@ -81,6 +84,7 @@ function index() {
       data: updateObject,
       headers: setHeaders({ token: user.accessToken }),
     });
+    setLoading(false);
   };
 
   return (
@@ -258,11 +262,11 @@ function index() {
             className={styles.formGroupInput}
           />
         </FormGroup>
-        <div className="mt-7 space-x-7">
-          <button type="submit" className="btn btn-primary text-base">
+        <div className="mt-7 space-x-3">
+          <Button type="submit" state={loading && 'loading'}>
             Submit
-          </button>
-          <button className="btn btn-reset text-base">Discard</button>
+          </Button>
+          <Button variant="reset">Discard</Button>
         </div>
       </form>
     </AccountLayout>

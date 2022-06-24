@@ -4,6 +4,7 @@ import React from 'react';
 import { DialogLayout } from '../../../components/layouts/Dialog';
 import { post, setHeaders } from '../../../utils/http';
 import useUser from '../../../hooks/useUser';
+import { Button } from '../../../ui/button';
 
 const SwitchPlanDialog = ({ isOpen, closeModal, plan, period }) => {
   const router = useRouter();
@@ -62,15 +63,14 @@ const SwitchPlanDialog = ({ isOpen, closeModal, plan, period }) => {
             </p>
           </div>
           <div className="space-x-1">
-            <button onClick={switchPlan} className="btn btn-primary text-white">
-              Proceed Switching
-            </button>
-            <button
+            <Button onClick={switchPlan}>Proceed Switching</Button>
+            <Button
+              variant="reset"
+              className="dark:text-darkMode-subText text-ash"
               onClick={closeModal}
-              className="ml-3 btn btn-reset dark:text-darkMode-subText text-ash"
             >
               Cancel
-            </button>
+            </Button>
           </div>
         </div>
       </div>

@@ -11,6 +11,7 @@ import { fNumber } from '../../../utils/formatNumber';
 import SwitchPlanDialog from '../../../page-components/account/pricing/switchPlanDialog';
 import accountPlan from '../../../_mock/accountPlans';
 import useUser from '../../../hooks/useUser';
+import { Button } from '../../../ui/button';
 
 function pricing() {
   const [enabled, setEnabled] = useState(false);
@@ -40,7 +41,7 @@ function pricing() {
   };
 
   const calculateDiscountedPrice = (price) => {
-    return fNumber(price * 12 - (discount / 100) * (price * 12) - 1);
+    return price * 12 - (discount / 100) * (price * 12) - 1;
   };
 
   const switchPlan = (plan) => {
@@ -63,16 +64,13 @@ function pricing() {
         </div>
         <div>
           {currentPlanId(plan) ? (
-            <button className="w-full btn btn-primary text-primary bg-white border-white font-normal">
+            <Button className="w-full text-primary bg-white border-white">
               Current Plan
-            </button>
+            </Button>
           ) : (
-            <button
-              onClick={() => switchPlan(plan)}
-              className="w-full btn btn-primary font-normal"
-            >
+            <Button onClick={() => switchPlan(plan)} className="w-full">
               Switch Plan
-            </button>
+            </Button>
           )}
         </div>
       </div>
@@ -87,7 +85,7 @@ function pricing() {
         period={`${!enabled ? 'M' : 'Y'}`}
         closeModal={closeModal}
       ></SwitchPlanDialog>
-      <DashboardLayout customChildren={true}>
+      <DashboardLayout customChildren={true} metaTitle="Pricing">
         <div className="container">
           <DashboardLanding
             subLandingShort={true}
@@ -133,9 +131,7 @@ function pricing() {
                   </div>
                   {enabled && (
                     <div className="">
-                      <button className="btn btn-primary rounded-none">
-                        -{discount}% Discount
-                      </button>
+                      <Button>-{discount}% Discount</Button>
                     </div>
                   )}
                 </div>
@@ -157,10 +153,13 @@ function pricing() {
                   {plans.map((plan) => (
                     <Fragment key={plan.id}>
                       <PlanLayout
-                        plan={plan}
+                        plan={{
+                          ...plan,
+                          price: calculateDiscountedPrice(plan.price),
+                        }}
                         title={plan.plan}
                         per={'yr'}
-                        amount={calculateDiscountedPrice(plan.price)}
+                        amount={fNumber(calculateDiscountedPrice(plan.price))}
                       />
                     </Fragment>
                   ))}

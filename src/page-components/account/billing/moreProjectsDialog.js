@@ -4,7 +4,9 @@ import tw from 'tailwind-styled-components';
 import Box from '../../../components/layouts/Box';
 import { DialogLayout } from '../../../components/layouts/Dialog';
 import Slider from '../../../components/layouts/Slider';
+import usePaypal from '../../../hooks/usePaypal';
 import useUser from '../../../hooks/useUser';
+import { Button } from '../../../ui/button';
 import { fCurrency } from '../../../utils/formatNumber';
 
 const BetweenStyle = tw.div`flex justify-between`;
@@ -12,9 +14,11 @@ const BetweenStyle = tw.div`flex justify-between`;
 const MoreProjectsDialog = ({ isOpen, closeModal }) => {
   const { user } = useUser();
 
+  const { scriptLoaded } = usePaypal();
+
   const [noOfAddOns, setNoOfAddOns] = useState(1);
   const [standardPlan, setStandardPlan] = useState(
-    user.currentPlan.account_plan.total_projects
+    user.currentPlan ? user.currentPlan.account_plan.total_projects : 1
   );
   const [price, setPrice] = useState(noOfAddOns * 10);
 
@@ -25,6 +29,7 @@ const MoreProjectsDialog = ({ isOpen, closeModal }) => {
     setNoOfAddOns(value);
     setTotalLimit(value + standardPlan);
   };
+
   return (
     <DialogLayout
       isOpen={isOpen}
@@ -86,14 +91,11 @@ const MoreProjectsDialog = ({ isOpen, closeModal }) => {
             </p>
           )}
 
-          <div className="space-x-1">
-            <button className="btn btn-primary text-white">Pay Now</button>
-            <button
-              onClick={closeModal}
-              className="ml-3 btn btn-reset dark:text-white text-black"
-            >
+          <div className="space-x-3">
+            <Button>Pay Now</Button>
+            <Button variant="reset" onClick={closeModal}>
               Cancel
-            </button>
+            </Button>
           </div>
         </div>
       </SectionsContainers>

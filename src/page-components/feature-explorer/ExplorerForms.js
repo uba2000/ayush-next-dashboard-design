@@ -57,6 +57,7 @@ import {
   BackLinks,
 } from './forms';
 import { useExplorerContext } from '../../context/explorer';
+import { Button } from '../../ui/button';
 
 const ExplorerForms = ({ slug, generate }) => {
   const { explorerState, dispatch } = useExplorerContext();
@@ -568,9 +569,7 @@ const ExplorerForms = ({ slug, generate }) => {
                 className="rounded h-[139px] w-full flex-shrink  border  border-solid dark:focus:text-white focus:text-black dark:border-darkMode-border border-ash pl-3 pr-4 py-[10px] bg-white dark:bg-black "
               ></textarea>
             </FormGroup>
-            <button className="btn btn-primary w-full font-medium text-base">
-              Run SERP Explorer
-            </button>
+            <Button className="w-full">Run SERP Explorer</Button>
           </FormLayout>
         </>
       );
