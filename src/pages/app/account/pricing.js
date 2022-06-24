@@ -489,7 +489,7 @@ function pricing() {
                 <h4 className="text-primary text-[18px] leading-base font-bold">
                   SEO Features
                 </h4>
-                <Table className="new vary pricing-table">
+                <Table className="new vary mt-[30px] pricing-table">
                   <Table.Head className="hidden">
                     <Table.Row>
                       <Table.TH
