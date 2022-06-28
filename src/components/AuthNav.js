@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 function AuthNav() {
   const router = useRouter();
   return (
-    <div className="relative flex w-full md:px-2 py-10 justify-between items-center z-10">
+    <div className="fixed container flex w-full left-0 top-0 right-0 md:px-2 py-10 justify-between items-center z-10">
       <Link href="/app/dashboard">
         <a className=" flex space-x-[11px] items-center whitespace-nowrap">
           <span>
