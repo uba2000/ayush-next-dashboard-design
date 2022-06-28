@@ -7,7 +7,7 @@ import 'react-calendar/dist/Calendar.css';
 import AccountLayout from '../../../components/app/account/AccountLayout';
 import FormGroup from '../../../components/app/account/FormGroup';
 import styles from '../../../styles/Account.module.css';
-import Input from '../../../components/layouts/Input';
+import { Input } from '../../../ui/input';
 import useUser from '../../../hooks/useUser';
 import { setHeaders, post } from '../../../utils/http';
 import Box from '../../../components/layouts/Box';
@@ -92,10 +92,10 @@ function index() {
       <form className="" onSubmit={updateSettings}>
         <FormGroup label="Full Name" labelFor="fullName">
           <Input
+            variant="dark"
             id="fullName"
-            type="text"
             value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            onChange={(e) => setFullName(e)}
             placeholder="Full Name"
             className={styles.formGroupInput}
           />
@@ -103,7 +103,8 @@ function index() {
         <FormGroup label="Email" labelFor="email">
           <Input
             id="email"
-            type="text"
+            variant="dark"
+            type="email"
             value={email}
             disabled={true}
             placeholder="Email"
@@ -113,9 +114,10 @@ function index() {
         <FormGroup label="Password" labelFor="password">
           <Input
             id="password"
+            variant="dark"
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e)}
             placeholder="Password"
             className={styles.formGroupInput}
           />
@@ -211,6 +213,7 @@ function index() {
               >
                 <div className="relative">
                   <Input
+                    variant="dark"
                     type="text"
                     onChange={(e) =>
                       setSelectedDateValue(
@@ -255,9 +258,10 @@ function index() {
         <FormGroup label="Address" labelFor="address">
           <Input
             id="address"
+            variant="dark"
             type="text"
             value={addressH}
-            onChange={(e) => setAddressH(e.target.value)}
+            onChange={(e) => setAddressH(e)}
             placeholder="Address"
             className={styles.formGroupInput}
           />

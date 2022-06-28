@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 
 import { DialogLayout } from '../../components/layouts/Dialog';
-import Input from '../../components/layouts/Input';
+import { Input } from '../../ui/input';
 import Box from '../../components/layouts/Box';
 import CheckBox from '../../components/layouts/CheckBox';
 import { setArticlesDetailsGenerate } from '../../features/project/projectSlice';
@@ -77,8 +77,9 @@ const GenerateContentDialog = ({
                 <div className="">
                   <Box type={'black'}>
                     <Input
+                      variant="dark"
                       value={noArticles}
-                      onChange={(e) => setNoArticles(e.target.value)}
+                      onChange={(e) => setNoArticles(e)}
                       className="py-1 px-2 text-[18px] font-medium w-[62px] text-center"
                     />
                   </Box>
@@ -101,7 +102,8 @@ const GenerateContentDialog = ({
                   <Box type={'black'}>
                     <Input
                       value={noQuestionPerArticles}
-                      onChange={(e) => setNoQuestionPerArticles(e.target.value)}
+                      variant="dark"
+                      onChange={(e) => setNoQuestionPerArticles(e)}
                       className="py-1 px-2 text-[18px] font-medium w-[62px] text-center"
                     />
                   </Box>
@@ -149,10 +151,9 @@ const GenerateContentDialog = ({
                   <div className="">
                     <Box type={'black'}>
                       <Input
+                        variant="dark"
                         value={noArticleTopicPerCluster}
-                        onChange={(e) =>
-                          setNoArticleTopicPerCluster(e.target.value)
-                        }
+                        onChange={(e) => setNoArticleTopicPerCluster(e)}
                         className="py-1 px-2 text-[18px] font-medium w-[62px] text-center"
                       />
                     </Box>
@@ -180,7 +181,8 @@ const GenerateContentDialog = ({
               <div className="">
                 <Input
                   value={articleTags.join(', ')}
-                  onChange={(e) => setArticleTags(e.target.value.split(', '))}
+                  onChange={(e) => setArticleTags(e.split(', '))}
+                  variant="dark"
                   placeholder="Graphic Design, Marketing"
                   className="max-w-[547px]"
                 />

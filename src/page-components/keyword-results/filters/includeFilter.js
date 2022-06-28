@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Tab } from '@headlessui/react';
 
 import Layout from '../Layout';
-import Input from '../../../components/layouts/Input';
+import { Input } from '../../../ui/input';
 import { Button } from '../../../ui/button';
 
 const IncludeFilter = () => {
@@ -52,6 +52,7 @@ const IncludeFilter = () => {
               <Tab.Panel>
                 <div>
                   <Input
+                    variant="dark-small"
                     placeholder="Type A keywords"
                     className="w-full h-[21px] text-xs px-2"
                   />
@@ -60,6 +61,7 @@ const IncludeFilter = () => {
               <Tab.Panel>
                 <div>
                   <Input
+                    variant="dark-small"
                     placeholder="Type A keywords"
                     className="w-full h-[21px] text-xs px-2"
                   />

@@ -10,7 +10,7 @@ import accountStyles from '../../../../../../styles/Account.module.css';
 import { AppContext } from '../../../../../../context/state';
 import Box from '../../../../../../components/layouts/Box';
 import ArticleEditor from '../../../../../../page-components/project-categories/articles/ArticleEditor';
-import Input from '../../../../../../components/layouts/Input';
+import { Input } from '../../../../../../ui/input';
 import EditorContainer from '../../../../../../components/layouts/EditorContainer';
 import { post, get, setHeaders } from '../../../../../../utils/http';
 import { Button } from '../../../../../../ui/button';
@@ -154,11 +154,10 @@ class EditArticle extends Component {
                     <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-2 mb-2">
                       <div className="">
                         <Input
+                          variant="dark"
                           type="text"
                           value={this.state.title}
-                          onChange={(e) =>
-                            this.setState({ title: e.target.value })
-                          }
+                          onChange={(e) => this.setState({ title: e })}
                           className={accountStyles.formGroupInput}
                           style={{ minWidth: '273.6px', height: '53px' }}
                         />
@@ -228,11 +227,10 @@ class EditArticle extends Component {
                     <div className="grid md:grid-cols-[auto_auto] grid-cols-1 gap-2 mb-2">
                       <div className="">
                         <Input
+                          variant="dark"
                           type="text"
                           value={this.state.tags}
-                          onChange={(e) =>
-                            this.setState({ tags: e.target.value })
-                          }
+                          onChange={(e) => this.setState({ tags: e })}
                           className={accountStyles.formGroupInput}
                           style={{ minWidth: '273.6px', height: '53px' }}
                         />
@@ -335,9 +333,7 @@ class EditArticle extends Component {
             <div className="md:flex grid grid-cols-1 gap-5 mt-6 md:justify-end">
               {!showEditor && (
                 <>
-                  <Button>
-                    Publish to Wordpress
-                  </Button>
+                  <Button>Publish to Wordpress</Button>
                 </>
               )}
             </div>

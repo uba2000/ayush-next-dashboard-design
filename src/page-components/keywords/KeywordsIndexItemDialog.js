@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { Dots } from '../../ui/icons';
 import { DialogLayout } from '../../components/layouts/Dialog';
 import FormGroup from '../../components/FormGroup';
-import Input from '../../components/layouts/Input';
+import { Input } from '../../ui/input';
 import industries from '../../_mock/industries';
 import { post, setHeaders, deleteRequest } from '../../utils/http';
 import useUser from '../../hooks/useUser';
@@ -129,9 +129,10 @@ const KeywordsIndexItemDialog = ({ item }) => {
           <div className="pb-[30px] px-14">
             <FormGroup label="Keyword List Title" imp={true} labelFor="keyword">
               <Input
+                variant="dark"
                 id="keyword"
                 value={keywordListTitle}
-                onChange={(e) => setKeywordList(e.target.value)}
+                onChange={(e) => setKeywordList(e)}
                 placeholder="Graphic Design keywords"
               />
             </FormGroup>
@@ -139,8 +140,9 @@ const KeywordsIndexItemDialog = ({ item }) => {
             <FormGroup label="Keywords List Tags*" imp={true} labelFor="tags">
               <Input
                 id="tags"
+                variant="dark"
                 value={kTags.join(', ')}
-                onChange={(e) => setKTags(fTags(e.target.value))}
+                onChange={(e) => setKTags(fTags(e))}
                 placeholder="graphic design, digital marketing, marketing"
               />
             </FormGroup>
@@ -151,9 +153,10 @@ const KeywordsIndexItemDialog = ({ item }) => {
               labelFor="indutry"
             >
               <Input
+                variant="dark"
                 id="industry"
                 value={selectedIndustry}
-                onChange={(e) => predictIndustry(e.target.value)}
+                onChange={(e) => predictIndustry(e)}
                 placeholder="Industry"
               />
               <Transition

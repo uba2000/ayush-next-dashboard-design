@@ -7,7 +7,7 @@ import Box from '../../layouts/Box';
 import useUser from '../../../hooks/useUser';
 import { setHeaders, get, post } from '../../../utils/http';
 import { DialogLayout } from '../../layouts/Dialog';
-import Input from '../../layouts/Input';
+import { Input } from '../../../ui/input';
 import { Loader } from '../../layouts/Loader';
 import { Button } from '../../../ui/button';
 
@@ -18,6 +18,8 @@ function AccountTeamTable({ targetTeamBTN, closeModal, isOpen }) {
 
   const [teamMembers, setTeamMembers] = useState(false);
   const [stateTargetTeamBTN, setStateTargetTeamBTN] = useState(targetTeamBTN);
+
+  const [loading, setLoading] = useState(false);
 
   const getTeamMembers = async () => {
     setTeamMembers(false);
@@ -33,6 +35,7 @@ function AccountTeamTable({ targetTeamBTN, closeModal, isOpen }) {
 
   const inviteMember = async () => {
     if (inviteEmail && inviteEmail.includes('@')) {
+      setLoading(true);
       const { response, error } = await post({
         url: `${process.env.BASE_URL}/api/account/invite-team-member`,
         data: {
@@ -45,6 +48,7 @@ function AccountTeamTable({ targetTeamBTN, closeModal, isOpen }) {
         getTeamMembers();
         closeModal();
       }
+      setLoading(false);
     }
   };
 
@@ -63,33 +67,22 @@ function AccountTeamTable({ targetTeamBTN, closeModal, isOpen }) {
             <div className="subtitle">
               <div className="form-group mb-6">
                 <Input
-                  type="text"
                   value={inviteEmail}
-                  onChange={(e) => setInviteEmail(e.target.value)}
+                  onChange={(e) => setInviteEmail(e)}
                   placeholder="example@gmail.com"
-                  className={`${styles.formGroupInput} text-center`}
+                  className={`${styles.formGroupInput} text-center dark:bg-black`}
                 />
               </div>
             </div>
           </div>
 
           <div className="mt-8 space-x-3">
-            <Button onClick={inviteMember}>Confirm</Button>
-            {/* <button
-              onClick={inviteMember}
-              className="btn btn-primary bg-primary text-white py-[13px] h-[46px] px-[56.38px]"
-            >
+            <Button onClick={inviteMember} state={loading && 'loading'}>
               Confirm
-            </button> */}
+            </Button>
             <Button variant="reset" onClick={closeModal}>
               Cancel
             </Button>
-            {/* <button
-              onClick={closeModal}
-              className="ml-3 btn btn-reset py-[13px] h-[46px] px-[56.38px]"
-            >
-              Cancel
-            </button> */}
           </div>
         </div>
       </DialogLayout>

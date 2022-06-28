@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 
-import Input from '../../components/layouts/Input';
+import { Input } from '../../ui/input';
 import FormGroup from '../../components/FormGroup';
 import { fTags } from '../../utils/formatTags';
 import FormLayout from './forms/FormLayout';
@@ -542,7 +542,7 @@ const ExplorerForms = ({ slug, generate }) => {
                 value={explorerState.searchEngineParameters}
                 onChange={(e) =>
                   dispatch({
-                    value: e.target.value,
+                    value: e,
                     type: 'setSearchEngineParameters',
                   })
                 }

@@ -3,7 +3,7 @@ import { Transition } from '@headlessui/react';
 import { useRouter } from 'next/router';
 
 import FormGroup from '../../../components/FormGroup';
-import Input from '../../../components/layouts/Input';
+import { Input } from '../../../ui/input';
 import { DialogLayout } from '../../../components/layouts/Dialog';
 import industries from '../../../_mock/industries';
 import { fTags } from '../../../utils/formatTags';
@@ -63,17 +63,19 @@ const NewKeywordListDialog = ({ isOpen, closeModal }) => {
           <FormGroup label="Keyword List Title" imp={true} labelFor="keyword">
             <Input
               id="keyword"
+              variant="dark"
               value={keywordListTitle}
-              onChange={(e) => setKeywordList(e.target.value)}
+              onChange={(e) => setKeywordList(e)}
               placeholder="Graphic Design keywords"
             />
           </FormGroup>
 
           <FormGroup label="Keywords List Tags*" imp={true} labelFor="tags">
             <Input
+              variant="dark"
               id="tags"
               value={kTags.join(', ')}
-              onChange={(e) => setKTags(fTags(e.target.value))}
+              onChange={(e) => setKTags(fTags(e))}
               placeholder="graphic design, digital marketing, marketing"
             />
           </FormGroup>
@@ -85,8 +87,9 @@ const NewKeywordListDialog = ({ isOpen, closeModal }) => {
           >
             <Input
               id="industry"
+              variant="dark"
               value={selectedIndustry}
-              onChange={(e) => predictIndustry(e.target.value)}
+              onChange={(e) => predictIndustry(e)}
               placeholder="Industry"
             />
             <Transition
@@ -130,10 +133,7 @@ const NewKeywordListDialog = ({ isOpen, closeModal }) => {
             <Button variant="reset" onClick={closeModal}>
               Cancel
             </Button>
-            <Button
-              onClick={continueKeywordCreation}
-              className="block w-fit"
-            >
+            <Button onClick={continueKeywordCreation} className="block w-fit">
               Continue
             </Button>
           </div>

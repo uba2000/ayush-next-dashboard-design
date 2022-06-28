@@ -15,6 +15,7 @@ import filters from '../../../_mock/filters';
 import { ChevDown } from '../../../ui/icons/chev-down';
 import { setShowNewProject } from '../../../features/layout/layoutSlice';
 import { Button } from '../../../ui/button';
+import { Input } from '../../../ui/input';
 
 const AllFeaturesView = ({ isGetStarted, stateFeature }) => {
   // const stateFeature = useSelector((state) => state.project.projectFeatures);
@@ -221,11 +222,9 @@ const AllFeaturesView = ({ isGetStarted, stateFeature }) => {
           </div>
           <div className="">
             <div className="min-w-[190px] flex items-center border border-solid border-darkMode-border dark:bg-darkMode-bg h-[43px] bg-white max-w-[293px]">
-              <input
-                type="text"
+              <Input
                 value={q}
-                onChange={(e) => setQ(e.target.value)}
-                className="flex-grow flex-shrink border-none pl-6 py-3 rounded-none dark:bg-darkMode-bg h-[40px] bg-white"
+                onChange={(e) => setQ(e)}
                 placeholder="Search..."
               />
               <div className="py-3 pr-4 px-[15.5px] dark:bg-darkMode-bg h-[40px] bg-white cursor-pointer">

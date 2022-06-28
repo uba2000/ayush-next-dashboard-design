@@ -6,7 +6,7 @@ import AccountLayout from '../../../components/app/account/AccountLayout';
 import AccountTeamTable from '../../../components/app/account/AccountTeamTable';
 import Box from '../../../components/layouts/Box';
 import { DialogLayout } from '../../../components/layouts/Dialog';
-import Input from '../../../components/layouts/Input';
+import { Input } from '../../../ui/input';
 import useUser from '../../../hooks/useUser';
 import { Button } from '../../../ui/button';
 

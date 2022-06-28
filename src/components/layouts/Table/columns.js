@@ -90,6 +90,10 @@ export const KEYWORDS_COLUNM = [
   },
 ];
 
+const NumberRangeColumnFilter = ({ column }) => {
+  return <>{JSON.stringify(column)}</>;
+};
+
 export const KEYWORDSLIST_COLUNM = [
   {
     Header: 'Keywords',
@@ -105,6 +109,8 @@ export const KEYWORDSLIST_COLUNM = [
     Cell: ({ value }) => {
       return <span className="block text-center">{value}</span>;
     },
+    filter: 'between',
+    Filter: NumberRangeColumnFilter,
   },
   {
     Header: 'Traffic',

@@ -5,7 +5,7 @@ import Layout from './Layout';
 import { SearchIcon } from '../../../ui/icons/search-icon';
 import CheckBox from '../../../components/layouts/CheckBox';
 import { DialogLayout } from '../../../components/layouts/Dialog';
-import Input from '../../../components/layouts/Input';
+import { Input } from '../../../ui/input';
 import FormGroup from '../../../components/FormGroup';
 import industries from '../../../_mock/industries';
 import { Button } from '../../../ui/button';
@@ -179,8 +179,9 @@ const AddToMenu = ({}) => {
             >
               <Input
                 id="project"
+                variant="dark"
                 value={newKeywordList.title}
-                onChange={(e) => predictTitle(e.target.value)}
+                onChange={(e) => predictTitle(e)}
                 placeholder="Graphic Design keywords"
               />
               <Transition
@@ -247,9 +248,8 @@ const AddToMenu = ({}) => {
               <Input
                 id="prize"
                 value={newKeywordList.tags.join(', ')}
-                onChange={(e) =>
-                  dispatch({ type: 'setTags', value: e.target.value })
-                }
+                variant="dark"
+                onChange={(e) => dispatch({ type: 'setTags', value: e })}
                 placeholder="graphic design, digital marketing, marketing"
               />
             </FormGroup>
@@ -261,8 +261,9 @@ const AddToMenu = ({}) => {
             >
               <Input
                 id="industry"
+                variant="dark"
                 value={newKeywordList.industry}
-                onChange={(e) => predictIndustry(e.target.value)}
+                onChange={(e) => predictIndustry(e)}
                 placeholder="Industry"
               />
               <Transition
@@ -307,7 +308,8 @@ const AddToMenu = ({}) => {
               <input
                 type="text"
                 value={q}
-                onChange={(e) => setQ(e.target.value)}
+                variant="dark"
+                onChange={(e) => setQ(e)}
                 style={{ paddingLeft: '12px' }}
                 className="flex-grow flex-shrink border-0 py-3 text-xs rounded-none dark:bg-darkMode-bg h-[40px] bg-white"
                 placeholder="Search..."

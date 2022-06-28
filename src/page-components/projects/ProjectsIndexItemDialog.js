@@ -4,7 +4,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { Dots } from '../../ui/icons';
 import { DialogLayout } from '../../components/layouts/Dialog';
 import FormGroup from '../../components/FormGroup';
-import Input from '../../components/layouts/Input';
+import { Input } from '../../ui/input';
 import { fTags } from '../../utils/formatTags';
 import industries from '../../_mock/industries';
 import { useRouter } from 'next/router';
@@ -155,9 +155,10 @@ const ProjectsIndexItemDialog = ({ item, reloadProject }) => {
           <div className="pb-[30px] px-14">
             <FormGroup label="Project Title" imp={true} labelFor="project">
               <Input
+                variant="dark"
                 id="project"
                 value={rProjectTitle}
-                onChange={(e) => predictTitle(e.target.value)}
+                onChange={(e) => predictTitle(e)}
                 placeholder="Your Campaign, Product, or client"
               />
               <Transition
@@ -212,9 +213,10 @@ const ProjectsIndexItemDialog = ({ item, reloadProject }) => {
 
             <FormGroup label="Project Tags" imp={true} labelFor="prize">
               <Input
+                variant="dark"
                 id="prize"
                 value={pTags.join(', ')}
-                onChange={(e) => setPTags(fTags(e.target.value))}
+                onChange={(e) => setPTags(fTags(e))}
                 placeholder="graphic design, digital marketing, marketing"
               />
             </FormGroup>
@@ -225,9 +227,10 @@ const ProjectsIndexItemDialog = ({ item, reloadProject }) => {
               labelFor="indutry"
             >
               <Input
+                variant="dark"
                 id="industry"
                 value={rSelectedIndustry}
-                onChange={(e) => predictIndustry(e.target.value)}
+                onChange={(e) => predictIndustry(e)}
                 placeholder="Industry"
               />
               <Transition

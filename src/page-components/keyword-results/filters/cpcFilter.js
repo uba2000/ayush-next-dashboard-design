@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Layout from '../Layout';
-import Input from '../../../components/layouts/Input';
+import { Input } from '../../../ui/input';
 import { Button } from '../../../ui/button';
 
 const CPCFilter = () => {
@@ -12,8 +12,16 @@ const CPCFilter = () => {
         style={{ width: '177px' }}
       >
         <div className="p-[10px] flex">
-          <Input placeholder="Min" className="w-[78px] h-[21px] text-xs px-2" />
-          <Input placeholder="Max" className="w-[78px] h-[21px] text-xs px-2" />
+          <Input
+            variant="dark-small"
+            placeholder="Min"
+            className="w-[78px] h-[21px] text-xs px-2"
+          />
+          <Input
+            variant="dark-small"
+            placeholder="Max"
+            className="w-[78px] h-[21px] text-xs px-2"
+          />
         </div>
         <div>
           <Button className="w-full py-2">Apply</Button>

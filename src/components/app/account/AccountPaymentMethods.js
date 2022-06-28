@@ -12,7 +12,7 @@ import {
 import styles from '../../../styles/Account.module.css';
 import FormGroup from '../../FormGroup';
 import Box from '../../layouts/Box';
-import Input from '../../layouts/Input';
+import { Input } from '../../../ui/input';
 import useUser from '../../../hooks/useUser';
 import { post, setHeaders } from '../../../utils/http';
 import { Button } from '../../../ui/button';
@@ -112,32 +112,29 @@ function AccountPaymentMethods({ showMethods }) {
               <FormGroup label="Card Number" labelFor="cardno">
                 <Input
                   id="cardno"
-                  type="text"
                   value={cardNumber}
                   maxLength={16}
-                  onChange={(e) => setCardNumber(e.target.value)}
-                  className={`${styles.formGroupInput} dark:bg-darkMode-bg`}
+                  onChange={(value) => setCardNumber(value)}
+                  className={`${styles.formGroupInput}`}
                 />
               </FormGroup>
               <div className="grid md:grid-cols-2 gap-[18.32px] grid-cols-1">
                 <FormGroup label="Expiration Date" labelFor="expDate">
                   <Input
                     id="expDate"
-                    type="text"
                     value={expDate}
-                    onChange={(e) => setExpDate(e.target.value)}
+                    onChange={(e) => setExpDate(e)}
                     placeholder="MM/YY"
-                    className={`${styles.formGroupInput} dark:bg-darkMode-bg`}
+                    className={`${styles.formGroupInput}`}
                   />
                 </FormGroup>
                 <FormGroup label="Security Code" labelFor="secCode">
                   <Input
                     id="secCode"
-                    type="text"
                     value={secCode}
                     maxLength={3}
-                    onChange={(e) => setSecCode(e.target.value)}
-                    className={`${styles.formGroupInput} dark:bg-darkMode-bg`}
+                    onChange={(e) => setSecCode(e)}
+                    className={`${styles.formGroupInput}`}
                   />
                 </FormGroup>
               </div>
@@ -146,19 +143,17 @@ function AccountPaymentMethods({ showMethods }) {
               <FormGroup label="First Name" labelFor="firstName">
                 <Input
                   id="firstName"
-                  type="text"
                   value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  className={`${styles.formGroupInput} dark:bg-darkMode-bg`}
+                  onChange={(value) => setFirstName(value)}
+                  className={`${styles.formGroupInput}`}
                 />
               </FormGroup>
               <FormGroup label="Last Name" labelFor="lastName">
                 <Input
                   id="lastName"
-                  type="text"
                   value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className={`${styles.formGroupInput} dark:bg-darkMode-bg`}
+                  onChange={(e) => setLastName(e)}
+                  className={`${styles.formGroupInput}`}
                 />
               </FormGroup>
             </div>

@@ -45,19 +45,11 @@
   font-size: 16.3721px !important;
   line-height: 25px !important;
   width: 100% !important;
-  @apply flex-grow 
-  flex-shrink 
-  border 
+  @apply border 
   border-solid
-  dark:focus:text-white
-  focus:text-black
   dark:border-darkMode-border 
   border-ash 
-  pl-6 
-  py-3 
-  rounded-none 
-  h-[45px]
-  bg-white dark:bg-black !important;
+  h-[45px] !important;
 }
 
 .formGroupInput::placeholder,

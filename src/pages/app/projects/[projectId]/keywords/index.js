@@ -8,7 +8,7 @@ import DashboardLanding from '../../../../../components/app/DashboardLanding';
 import Box from '../../../../../components/layouts/Box';
 import { DialogLayout } from '../../../../../components/layouts/Dialog';
 import { Plus, X, XSolid, Tick } from '../../../../../ui/icons';
-import Input from '../../../../../components/layouts/Input';
+import { Input } from '../../../../../ui/input';
 import { fQue } from '../../../../../utils/formatQuestions';
 import { useProjectsContext } from '../../../../../context/projects';
 import { aQuestions } from '../../../../../utils/analyseQuestions';
@@ -242,8 +242,8 @@ function KeywordsPage() {
                               autoFocus
                               value={newKeyword}
                               placeholder="Enter keyword"
-                              onChange={(e) => setNewKeyword(e.target.value)}
-                              className="text-sm font-medium py-1 px-2 h-[35px] border-0"
+                              onChange={(e) => setNewKeyword(e)}
+                              className="text-sm dark:bg-black bg-white font-medium py-1 px-2 h-[35px] border-0"
                             />
                           </span>
                           <span

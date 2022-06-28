@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import FormGroup from '../../components/FormGroup';
 import { DialogLayout } from '../../components/layouts/Dialog';
-import Input from '../../components/layouts/Input';
+import { Input } from '../../ui/input';
 import industries from '../../_mock/industries';
 import { useAppContext } from '../../context/state';
 import useUser from '../../hooks/useUser';
@@ -95,9 +95,10 @@ const ProjectsIndexDialog = ({ projectDialog, closeProjectDialog }) => {
         <div className="pb-5">
           <FormGroup label="Project Title" imp={true} labelFor="project">
             <Input
+              variant="dark"
               id="project"
               value={newProject.title}
-              onChange={(e) => predictTitle(e.target.value)}
+              onChange={(e) => predictTitle(e)}
               placeholder="Your Campaign, Product, or client"
               autoComplete="off"
             />
@@ -162,11 +163,10 @@ const ProjectsIndexDialog = ({ projectDialog, closeProjectDialog }) => {
 
           <FormGroup label="Project Tags" imp={true} labelFor="prize">
             <Input
+              variant="dark"
               id="prize"
               value={newProject.tags.join(', ')}
-              onChange={(e) =>
-                dispatch({ type: 'setTags', value: e.target.value })
-              }
+              onChange={(e) => dispatch({ type: 'setTags', value: e })}
               placeholder="graphic design, digital marketing, marketing"
             />
           </FormGroup>
@@ -178,8 +178,9 @@ const ProjectsIndexDialog = ({ projectDialog, closeProjectDialog }) => {
           >
             <Input
               id="industry"
+              variant="dark"
               value={newProject.industry}
-              onChange={(e) => predictIndustry(e.target.value)}
+              onChange={(e) => predictIndustry(e)}
               placeholder="Industry"
               autoComplete="off"
             />

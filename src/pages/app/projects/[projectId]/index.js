@@ -22,6 +22,7 @@ import ArticleIndexItemDialog from '../../../../page-components/articles/Article
 import KeywordsIndexItemDialog from '../../../../page-components/keywords/KeywordsIndexItemDialog';
 import SearchTable from '../../../../components/layouts/Table/components/SearchTable';
 import { get, setHeaders } from '../../../../utils/http';
+import { Input } from '../../../../ui/input';
 
 const tabs = [
   { tab: 'Articles', q: 'a' },
@@ -357,11 +358,9 @@ function Index({ ssrQuery, articles, keywordList, project }) {
                     </div>
                     <div className="">
                       <div className="min-w-[190px] flex items-center border border-solid border-darkMode-border dark:bg-darkMode-bg h-[43px] bg-white max-w-[293px]">
-                        <input
-                          type="text"
+                        <Input
                           value={q}
-                          onChange={(e) => setQ(e.target.value)}
-                          className="flex-grow placeholder:text-darkMode-subText flex-shrink border-none pl-6 py-3 rounded-none dark:bg-darkMode-bg h-[40px] bg-white"
+                          onChange={(e) => setQ(e)}
                           placeholder="Search..."
                         />
                         <div className="py-3 pr-4 px-[15.5px] dark:bg-darkMode-bg h-[40px] bg-white cursor-pointer">
