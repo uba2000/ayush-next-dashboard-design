@@ -14,14 +14,16 @@ function AuthLayout({ children, metaTitle }) {
       </Head>
       <div className="bg-black absolute top-0 left-0 min-h-screen min-w-screen flex justify-center overflow-hidden">
         <div className="container">
-          {/* HEADER */}
-          <AuthNav />
+          <div className="flex flex-col h-full">
+            {/* HEADER */}
+            <AuthNav />
 
-          {/* MAIN BODY */}
-          <div className="flex container justify-center px-0">
-            <GradientDesign isTopView={true} />
+            {/* MAIN BODY */}
+            <div className="flex flex-grow container justify-center px-0 items-center">
+              <GradientDesign isTopView={true} />
 
-            {children}
+              {children}
+            </div>
           </div>
         </div>
       </div>
