@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 
 import { Dots } from '../../ui/icons';
@@ -11,8 +12,14 @@ import { post, setHeaders, deleteRequest } from '../../utils/http';
 import useUser from '../../hooks/useUser';
 import { fTags } from '../../utils/formatTags';
 import { Button } from '../../ui/button';
+import {
+  removeKeyword,
+  updateAKeyword,
+} from '../../features/project/projectSlice';
 
 const KeywordsIndexItemDialog = ({ item }) => {
+  const dispatch = useDispatch();
+
   const { user } = useUser();
 
   const router = useRouter();
@@ -21,6 +28,7 @@ const KeywordsIndexItemDialog = ({ item }) => {
   let [isOpen, setIsOpen] = useState(false);
   let [isEditOpen, setIsEditOpen] = useState(false);
   let [loading, setLoading] = useState(false);
+  let [editLoading, setEditLoading] = useState(false);
 
   const [keywordListTitle, setKeywordList] = useState(item.title);
   const [kTags, setKTags] = useState(item.tags);
@@ -54,17 +62,40 @@ const KeywordsIndexItemDialog = ({ item }) => {
     if (item.title !== keywordListTitle) {
       updateObject.title = keywordListTitle;
     }
-    updateObject.tags = kTags;
+    if (item.tags.join(', ') != kTags.join(', ')) {
+      updateObject.tags = kTags;
+    }
     if (item.industry != selectedIndustry) {
       updateObject.industry = selectedIndustry;
     }
 
-    await post({
-      url: `${process.env.BASE_URL}/api/project/update-keyword-details`,
-      headers: setHeaders({ token: user.accessToken }),
-      data: { ...updateObject, list_id: item._id },
-    });
-    closeEditModal();
+    if (
+      updateObject.hasOwnProperty('industry') ||
+      updateObject.hasOwnProperty('tags') ||
+      updateObject.hasOwnProperty('title')
+    ) {
+      setEditLoading(true);
+      try {
+        const { response } = await post({
+          url: `${process.env.BASE_URL}/api/project/update-keyword-details`,
+          headers: setHeaders({ token: user.accessToken }),
+          data: { ...updateObject, list_id: item._id },
+        });
+        if (response) {
+          dispatch(
+            updateAKeyword({
+              keywordList_id: item._id,
+              updateObject,
+            })
+          );
+          closeEditModal();
+          setEditLoading(false);
+        }
+      } catch (error) {
+        setEditLoading(false);
+        console.log(error);
+      }
+    }
   };
 
   const deleteKeyword = async () => {
@@ -76,6 +107,7 @@ const KeywordsIndexItemDialog = ({ item }) => {
         headers: setHeaders({ token: user.accessToken }),
       });
       if (response) {
+        dispatch(removeKeyword({ keywordList_id: item._id }));
         setLoading(false);
         closeModal();
       }
@@ -200,7 +232,11 @@ const KeywordsIndexItemDialog = ({ item }) => {
               <Button onClick={closeEditModal} variant="reset">
                 Cancel
               </Button>
-              <Button onClick={saveKeywordDetail} className="block w-fit">
+              <Button
+                onClick={saveKeywordDetail}
+                state={editLoading && 'loading'}
+                className="block w-fit"
+              >
                 Continue
               </Button>
             </div>

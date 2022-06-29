@@ -3,6 +3,7 @@ import React, { useState, Fragment, useEffect } from 'react';
 import { Menu, Tab, Transition } from '@headlessui/react';
 import { useRouter } from 'next/router';
 import { getSession } from 'next-auth/react';
+import { useSelector } from 'react-redux';
 
 import { useProjectsContext } from '../../../../context/projects';
 import ArticleLayout from '../../../../page-components/project-categories/ArticleLayout';
@@ -23,6 +24,8 @@ import KeywordsIndexItemDialog from '../../../../page-components/keywords/Keywor
 import SearchTable from '../../../../components/layouts/Table/components/SearchTable';
 import { get, setHeaders } from '../../../../utils/http';
 import { Input } from '../../../../ui/input';
+import { wrapper } from '../../../../store/store';
+import { setProjectPageData } from '../../../../features/project/projectSlice';
 
 const tabs = [
   { tab: 'Articles', q: 'a' },
@@ -30,8 +33,12 @@ const tabs = [
   { tab: 'Features', q: 'f' },
 ];
 
-function Index({ ssrQuery, articles, keywordList, project }) {
+function Index({ ssrQuery }) {
   const state = useProjectsContext();
+
+  const { articles, keywordList, project } = useSelector(
+    (state) => state.project.projectPage
+  );
 
   const router = useRouter();
   const { query } = router;
@@ -446,43 +453,48 @@ const TabLayout = ({ selected, children }) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const { query } = context;
-  try {
-    const session = await getSession(context);
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (context) => {
+    try {
+      const { query } = context;
 
-    if (session?.user) {
-      const { response, error } = await get({
-        url: `${process.env.BASE_URL}/api/project/${query.projectId}`,
-        headers: setHeaders({ token: session.user.accessToken }),
-      });
-      if (response) {
-        return {
-          props: {
-            ssrQuery: query,
-            feaures: [],
-            ...JSON.parse(JSON.stringify(response.data.data)),
-          },
-        };
+      const session = await getSession(context);
+
+      if (session?.user) {
+        const { response, error } = await get({
+          url: `${process.env.BASE_URL}/api/project/${query.projectId}`,
+          headers: setHeaders({ token: session.user.accessToken }),
+        });
+        if (response) {
+          store.dispatch(
+            setProjectPageData(JSON.parse(JSON.stringify(response.data.data)))
+          );
+          return {
+            props: {
+              ssrQuery: query,
+              feaures: [],
+              ...JSON.parse(JSON.stringify(response.data.data)),
+            },
+          };
+        }
       }
+      return {
+        redirect: {
+          destination: '/signin',
+          permanent: false,
+        },
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        redirect: {
+          destination: '/signin',
+          permanent: false,
+        },
+      };
     }
-
-    return {
-      redirect: {
-        destination: '/signin',
-        permanent: false,
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      redirect: {
-        destination: '/signin',
-        permanent: false,
-      },
-    };
   }
-}
+);
 
 Index.auth = true;
 export default Index;

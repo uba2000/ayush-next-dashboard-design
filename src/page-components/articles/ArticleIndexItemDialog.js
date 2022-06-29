@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
+import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 
 import { Dots } from '../../ui/icons';
@@ -8,8 +9,11 @@ import { DialogLayout } from '../../components/layouts/Dialog';
 import { Button } from '../../ui/button';
 import { deleteRequest, setHeaders } from '../../utils/http';
 import useUser from '../../hooks/useUser';
+import { removeArticle } from '../../features/project/projectSlice';
 
 const ArticleIndexItemDialog = ({ item }) => {
+  const dispatch = useDispatch();
+
   const { user } = useUser();
 
   const router = useRouter();
@@ -55,6 +59,7 @@ const ArticleIndexItemDialog = ({ item }) => {
         headers: setHeaders({ token: user.accessToken }),
       });
       if (response) {
+        dispatch(removeArticle({ article_id: item._id }));
         setLoading(false);
         closeModal();
       }

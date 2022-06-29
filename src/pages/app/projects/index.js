@@ -23,9 +23,7 @@ import {
   removeProject,
 } from '../../../features/project/projectSlice';
 
-function AllProjects({ projects }) {
-  const [allProjects, setAllProjects] = useState(projects);
-
+function AllProjects() {
   const contextState = useAppContext();
   const router = useRouter();
   const dispatch = useDispatch();
@@ -59,11 +57,7 @@ function AllProjects({ projects }) {
       router.push(`/app/projects/${row.original._id}?tab=a`);
     }
   };
-
-  const updateProjectChange = ({ project_id, ...rest }) => {
-    dispatch(removeProject({ project_id }));
-    // TODO: use https://codesandbox.io/s/zqxl6r190l?file=/reducers.js example to update projects
-  };
+  // TODO: use https://codesandbox.io/s/zqxl6r190l?file=/reducers.js example to update projects
 
   const tableInstance = useScaiTable(
     {
@@ -139,9 +133,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
         if (response) {
           store.dispatch(setProjects(response.data.data));
           return {
-            props: {
-              projects: response.data.data,
-            },
+            props: {},
           };
         }
       }

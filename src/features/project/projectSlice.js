@@ -9,6 +9,11 @@ import { setHeaders, get } from '../../utils/http';
 
 const initialState = {
   projects: [],
+  projectPage: {
+    articles: [],
+    keywordList: [],
+    project: null,
+  },
   // Keywords State
   keywords: returnKeywords.keywords,
   keywordList: returnKeywordList.keywordList,
@@ -56,6 +61,22 @@ export const getProjects = createAsyncThunk(
   }
 );
 
+const update = ({ items, id, updateObject }) => {
+  const projectIndex = items.findIndex((item) => item._id == id);
+  for (let key in updateObject) {
+    items[projectIndex][key] = updateObject[key];
+  }
+
+  return items;
+};
+
+const remove = ({ items, id }) => {
+  const newProjects = items.filter((item) => {
+    return item._id !== id;
+  });
+  return [...newProjects];
+};
+
 const projectSlice = createSlice({
   name: 'project',
   initialState,
@@ -69,23 +90,46 @@ const projectSlice = createSlice({
     setProjectFeatureList: (state, action) => {
       state.projectFeatureList = action.payload;
     },
+    setProjectPageData: (state, action) => {
+      let data = action.payload;
+      state.projectPage.articles = [...data.articles];
+      state.projectPage.project = data.project;
+      state.projectPage.keywordList = [...data.keywordList];
+    },
+    removeArticle: (state, action) => {
+      state.projectPage.articles = remove({
+        items: state.projectPage.articles,
+        id: action.payload.article_id,
+      });
+    },
+    updateAKeyword: (state, action) => {
+      state.projectPage.keywordList = update({
+        items: state.projectPage.keywordList,
+        id: action.payload.keywordList_id,
+        updateObject: action.payload.updateObject,
+      });
+    },
+    removeKeyword: (state, action) => {
+      state.projectPage.keywordList = remove({
+        items: state.projectPage.keywordList,
+        id: action.payload.keywordList_id,
+      });
+    },
     setProjects: (state, action) => {
-      console.log(action.payload);
       state.projects = action.payload;
     },
     updateAProject: (state, action) => {
-      const projectIndex = state.projects.findIndex(
-        (item) => item._id == action.payload.project_id
-      );
-      for (let key in action.payload.updateObject) {
-        state.projects[projectIndex][key] = action.payload.updateObject[key];
-      }
+      state.projects = update({
+        items: state.projects,
+        id: action.payload.project_id,
+        updateObject: action.payload.updateObject,
+      });
     },
     removeProject: (state, action) => {
-      const newProjects = state.projects.filter((item) => {
-        return item._id !== action.payload.project_id;
+      state.projects = remove({
+        items: state.projects,
+        id: action.payload.project_id,
       });
-      state.projects = [...newProjects];
     },
     setArticlesDetailsGenerate: (state, action) => {
       state.articlesDetailsGenerate = action.payload;
@@ -113,8 +157,12 @@ export default projectSlice.reducer;
 export const {
   setArticlesDetailsGenerate,
   setProjects,
+  removeArticle,
   removeProject,
+  removeKeyword,
+  updateAKeyword,
   updateAProject,
+  setProjectPageData,
   setKeywordQuestions,
   setKeywordsStackAnalysed,
 } = projectSlice.actions;

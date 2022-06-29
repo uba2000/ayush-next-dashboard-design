@@ -19,12 +19,15 @@ const masterReducer = (state, action) => {
           ...action.payload.project.projects,
           // ...state.project.projects,
         ],
+        projectPage: {
+          articles: [...action.payload.project.projectPage.articles],
+          keywordList: [...action.payload.project.projectPage.keywordList],
+          project: action.payload.project.projectPage.project,
+        },
       },
     };
-    console.log('server', nextState);
     return nextState;
   } else {
-    console.log('client', state);
     return combinedReducer(state, action);
   }
 };
