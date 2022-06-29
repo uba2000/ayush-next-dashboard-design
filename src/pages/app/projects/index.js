@@ -17,6 +17,11 @@ import SearchInput from '../../../components/SearchInput';
 import ProjectsIndexItemDialog from '../../../page-components/projects/ProjectsIndexItemDialog';
 import { setShowNewProject } from '../../../features/layout/layoutSlice';
 import { Button } from '../../../ui/button';
+import { wrapper } from '../../../store/store';
+import {
+  setProjects,
+  removeProject,
+} from '../../../features/project/projectSlice';
 
 function AllProjects({ projects }) {
   const [allProjects, setAllProjects] = useState(projects);
@@ -29,6 +34,8 @@ function AllProjects({ projects }) {
   const [loadingProjects, setLoadingProjects] = useState(true);
 
   const isShowNewProject = useSelector((state) => state.layout.showNewProject);
+
+  const storeProjects = useSelector((state) => state.project.projects);
 
   useEffect(() => {
     setTimeout(() => setProjectDialog(isShowNewProject), 200);
@@ -54,21 +61,14 @@ function AllProjects({ projects }) {
   };
 
   const updateProjectChange = ({ project_id, ...rest }) => {
-    setAllProjects(
-      allProjects.map((u) => {
-        if (u._id == project_id) {
-          u = { ...u, ...rest };
-        }
-        return u;
-      })
-    );
+    dispatch(removeProject({ project_id }));
     // TODO: use https://codesandbox.io/s/zqxl6r190l?file=/reducers.js example to update projects
   };
 
   const tableInstance = useScaiTable(
     {
       tableColumns: PROJECTS_COLUNM,
-      tableData: allProjects,
+      tableData: storeProjects,
     },
     [
       {
@@ -76,12 +76,7 @@ function AllProjects({ projects }) {
           <Settings className="mx-auto h-[18px] w-[18px] dark:text-white text-black" />
         ),
         Cell: ({ row }) => {
-          return (
-            <ProjectsIndexItemDialog
-              reloadProject={(payload) => updateProjectChange(payload)}
-              item={row.original}
-            />
-          );
+          return <ProjectsIndexItemDialog item={row.original} />;
         },
       },
     ]
@@ -131,38 +126,41 @@ function AllProjects({ projects }) {
 
 AllProjects.auth = true;
 
-export async function getServerSideProps(context) {
-  try {
-    const session = await getSession(context);
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (context) => {
+    try {
+      const session = await getSession(context);
 
-    if (session?.user) {
-      const { response, error } = await get({
-        url: `${process.env.BASE_URL}/api/project`,
-        headers: setHeaders({ token: session.user.accessToken }),
-      });
-      if (response) {
-        return {
-          props: {
-            projects: response.data.data,
-          },
-        };
+      if (session?.user) {
+        const { response, error } = await get({
+          url: `${process.env.BASE_URL}/api/project`,
+          headers: setHeaders({ token: session.user.accessToken }),
+        });
+        if (response) {
+          store.dispatch(setProjects(response.data.data));
+          return {
+            props: {
+              projects: response.data.data,
+            },
+          };
+        }
       }
+      return {
+        redirect: {
+          destination: '/signin',
+          permanent: false,
+        },
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        redirect: {
+          destination: '/signin',
+          permanent: false,
+        },
+      };
     }
-    return {
-      redirect: {
-        destination: '/signin',
-        permanent: false,
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      redirect: {
-        destination: '/signin',
-        permanent: false,
-      },
-    };
   }
-}
+);
 
 export default AllProjects;

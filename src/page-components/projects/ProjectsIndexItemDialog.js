@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
+import { useDispatch } from 'react-redux';
 
 import { Dots } from '../../ui/icons';
 import { DialogLayout } from '../../components/layouts/Dialog';
@@ -11,10 +12,16 @@ import { useRouter } from 'next/router';
 import { deleteRequest, post, setHeaders } from '../../utils/http';
 import useUser from '../../hooks/useUser';
 import { Button } from '../../ui/button';
+import {
+  removeProject,
+  updateAProject,
+} from '../../features/project/projectSlice';
 
-const ProjectsIndexItemDialog = ({ item, reloadProject }) => {
+const ProjectsIndexItemDialog = ({ item }) => {
   const router = useRouter();
   const { user } = useUser();
+
+  const dispatch = useDispatch();
 
   let [isOpen, setIsOpen] = useState(false);
   let [editIsOpen, setEditIsOpen] = useState(false);
@@ -61,7 +68,7 @@ const ProjectsIndexItemDialog = ({ item, reloadProject }) => {
       updateObject.title = rProjectTitle;
     }
     if (item.tags.join(', ') != pTags.join(', ')) {
-      updateObject.tags = rSelectedIndustry;
+      updateObject.tags = pTags;
     }
     if (item.industry != rSelectedIndustry) {
       updateObject.industry = rSelectedIndustry;
@@ -81,7 +88,10 @@ const ProjectsIndexItemDialog = ({ item, reloadProject }) => {
           headers: setHeaders({ token: user.accessToken }),
         });
         if (response) {
-          reloadProject({ ...updateObject });
+          const { project_id, ...uiChangeObj } = updateObject;
+          dispatch(
+            updateAProject({ project_id: item._id, updateObject: uiChangeObj })
+          );
           setLoading(false);
           closeEditModal();
         }
@@ -101,7 +111,7 @@ const ProjectsIndexItemDialog = ({ item, reloadProject }) => {
         headers: setHeaders({ token: user.accessToken }),
       });
       if (response) {
-        reloadProject({ project_id: item._id });
+        dispatch(removeProject({ project_id: item._id }));
         setLoading(false);
         closeModal();
       }
@@ -274,7 +284,9 @@ const ProjectsIndexItemDialog = ({ item, reloadProject }) => {
               <Button variant="reset" onClick={closeEditModal}>
                 Cancel
               </Button>
-              <Button state={loading && 'loading'}>Save Changes</Button>
+              <Button onClick={saveEdit} state={loading && 'loading'}>
+                Save Changes
+              </Button>
             </div>
           </div>
         </div>

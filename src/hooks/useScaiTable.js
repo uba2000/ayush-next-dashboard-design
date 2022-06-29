@@ -41,7 +41,7 @@ const useScaiTable = (
       : []
 ) => {
   const columns = useMemo(() => tableColumns, []);
-  const data = useMemo(() => tableData, []);
+  const data = tableData;
 
   const {
     getTableProps,

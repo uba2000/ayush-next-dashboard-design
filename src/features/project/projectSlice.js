@@ -8,11 +8,7 @@ import articles from '../../_mock/articles';
 import { setHeaders, get } from '../../utils/http';
 
 const initialState = {
-  projects: {
-    data: [],
-    loading: false,
-    error: '',
-  },
+  projects: [],
   // Keywords State
   keywords: returnKeywords.keywords,
   keywordList: returnKeywordList.keywordList,
@@ -48,11 +44,15 @@ const getAFeatureList = (id) => {
 export const getProjects = createAsyncThunk(
   'project/getProjects',
   async (session) => {
-    const { response } = await get({
-      url: `${process.env.BASE_URL}/api/project`,
-      headers: setHeaders({ token: session.user.accessToken }),
-    });
-    return response.data.data;
+    try {
+      const { response } = await get({
+        url: `${process.env.BASE_URL}/api/project`,
+        headers: setHeaders({ token: session.user.accessToken }),
+      });
+      return response.data.data;
+    } catch (error) {
+      // return thunkAPI.rejectWithValue('');
+    }
   }
 );
 
@@ -70,7 +70,22 @@ const projectSlice = createSlice({
       state.projectFeatureList = action.payload;
     },
     setProjects: (state, action) => {
-      state.projects.data = action.payload;
+      console.log(action.payload);
+      state.projects = action.payload;
+    },
+    updateAProject: (state, action) => {
+      const projectIndex = state.projects.findIndex(
+        (item) => item._id == action.payload.project_id
+      );
+      for (let key in action.payload.updateObject) {
+        state.projects[projectIndex][key] = action.payload.updateObject[key];
+      }
+    },
+    removeProject: (state, action) => {
+      const newProjects = state.projects.filter((item) => {
+        return item._id !== action.payload.project_id;
+      });
+      state.projects = [...newProjects];
     },
     setArticlesDetailsGenerate: (state, action) => {
       state.articlesDetailsGenerate = action.payload;
@@ -98,6 +113,8 @@ export default projectSlice.reducer;
 export const {
   setArticlesDetailsGenerate,
   setProjects,
+  removeProject,
+  updateAProject,
   setKeywordQuestions,
   setKeywordsStackAnalysed,
 } = projectSlice.actions;

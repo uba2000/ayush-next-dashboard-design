@@ -11,6 +11,7 @@ import { useAppContext } from '../../context/state';
 import useUser from '../../hooks/useUser';
 import { fTags } from '../../utils/formatTags';
 import { Button } from '../../ui/button';
+import { post, setHeaders } from '../../utils/http';
 
 const initialProjectDetails = {
   title: '',
