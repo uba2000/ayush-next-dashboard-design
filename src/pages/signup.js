@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import AuthLayout from '../components/AuthLayout';
 import { Button } from '../ui/button';
+import { Input } from '../ui/input';
 
 const Signup = () => {
   const router = useRouter();
@@ -55,13 +56,13 @@ const Signup = () => {
       <div className="z-20 w-full max-w-sm">
         {/* TITLE */}
         <div className="flex justify-center mb-2">
-          <p className="text-title mt-12 md:mt-12 font-bold text-center font-poppins flex flex-col">
+          <h1 className="text-title font-bold text-center font-poppins flex flex-col">
             Sign Up
-          </p>
+          </h1>
         </div>
         {/* SUBTITLE */}
         <div className="mb-3">
-          <p className="text-subtitle text-center font-poppins ">
+          <p className="text-subtitle text-center">
             I am so lorem ipum deloas In working with you sit amet, consectetur
             adipiscing elit. Porta pharetra scelerisque
           </p>
@@ -70,30 +71,30 @@ const Signup = () => {
         {/* FORM */}
         <form action="" className="w-full" onSubmit={onSubmitSignUp} ref={form}>
           <div className="">
-            <input
-              className="font-poppins px-5 py-3  text-base border border-white rounded-md focus:outline-none bg-black focus:border-green-600"
+            <Input
+              variant="auth"
               type="text"
               placeholder="Full Name"
               value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              onChange={(e) => setFullName(e)}
             />
           </div>
           <div className="mt-3">
-            <input
-              className="font-poppins px-5 py-3  text-base border border-white rounded-md focus:outline-none bg-black focus:border-green-600"
+            <Input
+              variant="auth"
               type="email"
               placeholder="Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e)}
             />
           </div>
           <div className="mt-3 relative">
-            <input
-              className="font-poppins px-5 py-3  text-base border border-white rounded-md focus:outline-none bg-black focus:border-green-600"
+            <Input
+              variant="auth"
               type={!passwordVisible ? 'password' : 'text'}
               placeholder="Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e)}
             />
             <div
               style={{

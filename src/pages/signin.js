@@ -6,6 +6,7 @@ import { signIn, getCsrfToken } from 'next-auth/react';
 
 import AuthLayout from '../components/AuthLayout';
 import { Button } from '../ui/button';
+import { Input } from '../ui/input';
 
 function Signin({ csrfToken }) {
   const router = useRouter();
@@ -56,13 +57,13 @@ function Signin({ csrfToken }) {
       <div className="z-20 w-full max-w-sm">
         {/* TITLE */}
         <div className="flex justify-center mb-2">
-          <p className="text-title mt-12 md:mt-12 font-bold text-center font-poppins flex flex-col ">
+          <h1 className="text-title font-bold text-center font-poppins flex flex-col ">
             Sign In
-          </p>
+          </h1>
         </div>
         {/* SUBTITLE */}
         <div className="mb-3">
-          <p className="text-subtitle text-center font-poppins ">
+          <p className="text-subtitle text-center tracking-[0.07px] max-w-[372px] mx-auto">
             I am so lorem ipum deloas In working with you sit amet, consectetur
             adipiscing elit. Porta pharetra scelerisque
           </p>
@@ -72,23 +73,24 @@ function Signin({ csrfToken }) {
         <form action="" className="w-full" onSubmit={onSubmitSignIn}>
           <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
           <div className="">
-            <input
-              className="font-poppins px-5 py-3  text-base border border-white rounded-md focus:outline-none bg-black focus:border-green-600"
+            <Input
+              variant="auth"
+              className="font-poppins px-5 py-3  text-base border border-white rounded-md focus:outline-none dark:bg-black focus:border-green-600"
               type="text"
               placeholder="Email"
               name="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e)}
             />
           </div>
           <div className="mt-3 relative">
-            <input
-              className="font-poppins px-5 py-3  text-base border border-white rounded-md focus:outline-none bg-black focus:border-green-600"
+            <Input
+              variant="auth"
               type={!passwordVisible ? 'password' : 'text'}
               placeholder="Password"
               name="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e)}
             />
             <div
               style={{

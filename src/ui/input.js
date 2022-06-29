@@ -39,14 +39,18 @@ export const Input = React.forwardRef(
               ? 'dark:bg-darkMode-bg bg-white'
               : variant == 'dark'
               ? `dark:bg-black bg-white 
-              dark:border-darkMode-border 
-              border-ash h-[40px]
-              border border-solid`
+                dark:border-darkMode-border 
+                border-ash h-[40px]
+                border border-solid`
               : variant == 'dark-small'
               ? `dark:bg-black bg-white 
-              dark:border-darkMode-border 
-              border-ash
-              border border-solid`
+                dark:border-darkMode-border 
+                border-ash
+                border border-solid`
+              : variant == 'auth'
+              ? `font-poppins px-5 py-3 text-base border
+                border-white border-solid rounded-md focus:outline-none 
+                dark:bg-black focus:border-green-600 h-auto`
               : ''
           }
           ${className} 
