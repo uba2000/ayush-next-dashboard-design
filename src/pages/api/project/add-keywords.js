@@ -11,8 +11,14 @@ export default async function (req, res) {
     case 'POST':
       try {
         const userAuth = checkAuth(req.headers);
-        const { project_id, title, tags, industry, keywordsQuestions } =
-          req.body;
+        const {
+          project_id,
+          title,
+          tags,
+          industry,
+          keywordsQuestions,
+          keywords = [],
+        } = req.body;
 
         const user = await User.findById(userAuth._id);
 
@@ -21,6 +27,7 @@ export default async function (req, res) {
           tags,
           industry,
           list: keywordsQuestions,
+          keywords: keywords,
           project_id: project_id,
         });
 

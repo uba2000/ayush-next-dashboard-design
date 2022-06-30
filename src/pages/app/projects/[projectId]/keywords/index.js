@@ -1,7 +1,6 @@
 import React, { useState, Fragment, useRef } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { useSession } from 'next-auth/react';
 
 import DashboardLayout from '../../../../../components/app/DasboardLayout';
 import DashboardLanding from '../../../../../components/app/DashboardLanding';
@@ -19,6 +18,8 @@ import { Button } from '../../../../../ui/button';
 
 function KeywordsPage() {
   const { user } = useUser();
+
+  const keywordBody = useRef(null);
 
   const router = useRouter();
   const { query } = router;
@@ -111,7 +112,8 @@ function KeywordsPage() {
             data: {
               title: 'Keyword List Title',
               industry: '',
-              tags: keywordsStackAnalysed,
+              tags: [],
+              keywords: keywordsStackAnalysed,
               keywordsQuestions: aQuestions(questions),
               project_id: query.projectId,
             },
@@ -130,6 +132,7 @@ function KeywordsPage() {
             data: {
               keywordId: query.keywordsId,
               keywordsQuestions: aQuestions(questions),
+              keywords: keywordsStackAnalysed,
             },
           });
 
@@ -145,6 +148,21 @@ function KeywordsPage() {
         setLoadingSaveAnalyze(false);
       }
     }
+  };
+
+  const listenToSaveKeyword = (e) => {
+    const keycode = e.keyCode ? e.keyCode : e.which;
+    if (keycode == '13') {
+      if (checkKeywordValid()) {
+        saveNewKeywordInput();
+      }
+    }
+  };
+
+  const openSHowNewKeywordFromBody = (e) => {
+    console.log(e.target);
+    console.log(keywordBody.current);
+    if (e.target == keywordBody.current) showNewKeywordInput();
   };
 
   return (
@@ -198,36 +216,38 @@ function KeywordsPage() {
         <div className="space-y-4 mt-[55px]">
           <Box className={``}>
             <ScrollbarsLayout h="597px">
-              <div className="min-h-full py-6 md:px-7 px-4 rounded-sm">
+              <div
+                className="min-h-full py-6 md:pl-7 pr-48 px-4 rounded-sm cursor-text"
+                onClick={openSHowNewKeywordFromBody}
+                id="keywordBody"
+                ref={keywordBody}
+              >
                 <div className="flex flex-wrap">
-                  {loadingQuestions ? (
+                  {questions.map((k) => (
+                    <Fragment key={k.id}>
+                      <Box
+                        type={'black'}
+                        className="p-2 text-left w-fit min-w-fit mb-[11px] mr-2 cursor-default"
+                      >
+                        <div className="flex space-x-[6px]">
+                          <span className="font-medium text-sm line-clamp-2">
+                            {k.question}
+                          </span>
+                          <span
+                            onClick={() => removeQuestion(k.id)}
+                            className="cursor-pointer flex items-center"
+                          >
+                            <XSolid className="w-[14px] h-[14px]" />
+                          </span>
+                        </div>
+                      </Box>
+                    </Fragment>
+                  ))}
+                  {loadingQuestions && (
                     <>
                       <span className="flex items-center pr-4 mb-[11px]">
                         Loading...
                       </span>
-                    </>
-                  ) : (
-                    <>
-                      {questions.map((k) => (
-                        <Fragment key={k.id}>
-                          <Box
-                            type={'black'}
-                            className="p-2 text-left w-fit min-w-fit mb-[11px] mr-2"
-                          >
-                            <div className="flex space-x-[6px]">
-                              <span className="font-medium text-sm line-clamp-2">
-                                {k.question}
-                              </span>
-                              <span
-                                onClick={() => removeQuestion(k.id)}
-                                className="cursor-pointer flex items-center"
-                              >
-                                <XSolid className="w-[14px] h-[14px]" />
-                              </span>
-                            </div>
-                          </Box>
-                        </Fragment>
-                      ))}
                     </>
                   )}
                   {isNewKeyword && (
@@ -239,6 +259,7 @@ function KeywordsPage() {
                         <div className="flex space-x-[6px]">
                           <span className="font-medium text-sm">
                             <Input
+                              onKeyDown={listenToSaveKeyword}
                               autoFocus
                               value={newKeyword}
                               placeholder="Enter keyword"

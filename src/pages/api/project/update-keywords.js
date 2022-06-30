@@ -10,7 +10,7 @@ export default async function (req, res) {
     case 'POST':
       try {
         const userAuth = checkAuth(req.headers);
-        const { keywordsQuestions, keywordId } = req.body;
+        const { keywordsQuestions, keywordId, keywords } = req.body;
 
         if (!keywordsQuestions || !keywordId) {
           return res.status(422).json({ message: 'Invalid Data' });
@@ -23,6 +23,7 @@ export default async function (req, res) {
           {
             $set: {
               list: keywordsQuestions,
+              keywords: keywords,
             },
           }
         );

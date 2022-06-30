@@ -51,6 +51,10 @@ const ProjectKeywordsListSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
+    keywords: {
+      type: [String],
+      default: [],
+    },
     industry: {
       type: String,
     },

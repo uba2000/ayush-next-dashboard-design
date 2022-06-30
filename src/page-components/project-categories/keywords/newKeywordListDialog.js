@@ -48,7 +48,7 @@ const NewKeywordListDialog = ({ isOpen, closeModal }) => {
           `/app/projects/${query.projectId}/keywords?keywordsId=${response.data.data._id}`
         );
       }
-      setLoading(false);
+      // setLoading(false);
     } catch (error) {
       setLoading(false);
       console.log(error);

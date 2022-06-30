@@ -231,7 +231,7 @@ export async function getServerSideProps(context) {
         return {
           props: {
             keywordQuestions: ssrProject.list || [],
-            keywords: ssrProject.tags || [],
+            keywords: ssrProject.keywords || [],
           },
         };
       }
