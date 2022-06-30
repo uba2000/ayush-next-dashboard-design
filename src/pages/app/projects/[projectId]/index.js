@@ -142,6 +142,22 @@ function Index({ ssrQuery }) {
     updateSelectedState(filter, indexOfMore);
   };
 
+  const doubleClickArtcleHandler = (e, row) => {
+    if (e.detail == 2) {
+      router.push(
+        `/app/projects/${query.projectId}/articles/edit/${row.original._id}`
+      );
+    }
+  };
+
+  const doubleClickKeywordHandler = (e, row) => {
+    if (e.detail == 2) {
+      router.push(
+        `/app/projects/${query.projectId}/keyword-list/${row.original._id}`
+      );
+    }
+  };
+
   const articleTableInstance = useScaiTable(
     {
       tableData: articles,
@@ -382,12 +398,20 @@ function Index({ ssrQuery }) {
             <Tab.Panels>
               <Tab.Panel>
                 <div className="mt-7">
-                  <TableLayout tableInstance={articleTableInstance} />
+                  <TableLayout
+                    tableInstance={articleTableInstance}
+                    rowToClick={true}
+                    rowClick={doubleClickArtcleHandler}
+                  />
                 </div>
               </Tab.Panel>
               <Tab.Panel>
                 <div className="mt-7">
-                  <TableLayout tableInstance={keywordsTableInstance} />
+                  <TableLayout
+                    tableInstance={keywordsTableInstance}
+                    rowToClick={true}
+                    rowClick={doubleClickKeywordHandler}
+                  />
                 </div>
               </Tab.Panel>
               <Tab.Panel>
