@@ -24,11 +24,11 @@ const GenerateContentDialog = ({
 
   const dispatch = useDispatch();
 
-  const [noArticles, setNoArticles] = useState(237);
+  const [noArticles, setNoArticles] = useState(100);
   const [articleTags, setArticleTags] = useState([]);
-  const [noQuestionPerArticles, setNoQuestionPerArticles] = useState(15);
+  const [noQuestionPerArticles, setNoQuestionPerArticles] = useState(5);
   const [includeInternalLinking, setIncludeInternalLinking] = useState(false);
-  const [noArticleTopicPerCluster, setNoArticleTopicPerCluster] = useState(15);
+  const [noArticleTopicPerCluster, setNoArticleTopicPerCluster] = useState(3);
 
   const generateContent = () => {
     dispatch(
@@ -55,6 +55,7 @@ const GenerateContentDialog = ({
       currentPlan.account_plan.period_limit - currentPlan.period_credit;
     let period = currentPlan.period_type == 'M' ? 'monthly' : 'yearly';
 
+    // TODO: calculate credits based on noArticles, noQuestionPerArticles, noArticleTopicPerCluster
     return `${fNumber(remainingCredit)} / ${fNumber(
       currentPlan.account_plan.period_limit
     )} ${period} credits left`;
@@ -77,9 +78,13 @@ const GenerateContentDialog = ({
                 <div className="">
                   <Box type={'black'}>
                     <Input
-                      variant="dark"
+                      variant="dark-nb"
+                      type="number"
+                      maxNumber={999}
                       value={noArticles}
-                      onChange={(e) => setNoArticles(e)}
+                      onChange={(e) => {
+                        if (e <= 999) setNoArticles(e);
+                      }}
                       className="py-1 px-2 text-[18px] font-medium w-[62px] text-center"
                     />
                   </Box>
@@ -102,8 +107,11 @@ const GenerateContentDialog = ({
                   <Box type={'black'}>
                     <Input
                       value={noQuestionPerArticles}
-                      variant="dark"
-                      onChange={(e) => setNoQuestionPerArticles(e)}
+                      variant="dark-nb"
+                      type="number"
+                      onChange={(e) => {
+                        if (e <= 10) setNoQuestionPerArticles(e);
+                      }}
                       className="py-1 px-2 text-[18px] font-medium w-[62px] text-center"
                     />
                   </Box>
@@ -151,9 +159,12 @@ const GenerateContentDialog = ({
                   <div className="">
                     <Box type={'black'}>
                       <Input
-                        variant="dark"
+                        variant="dark-nb"
+                        type="number"
                         value={noArticleTopicPerCluster}
-                        onChange={(e) => setNoArticleTopicPerCluster(e)}
+                        onChange={(e) => {
+                          if (e <= 25 && e >= 3) setNoArticleTopicPerCluster(e);
+                        }}
                         className="py-1 px-2 text-[18px] font-medium w-[62px] text-center"
                       />
                     </Box>
