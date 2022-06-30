@@ -193,7 +193,10 @@ const results = ({ keywordQuestions, keywords }) => {
                   </div>
                 </div>
                 <div className="mt-7">
-                  <TableLayout tableInstance={tableInstance} />
+                  <TableLayout
+                    tableInstance={tableInstance}
+                    defaultStyles={{ headerCenter: true }}
+                  />
                 </div>
               </div>
             </Tab.Panel>

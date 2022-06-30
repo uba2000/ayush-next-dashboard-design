@@ -109,6 +109,7 @@ export const KEYWORDSLIST_COLUNM = [
     Cell: ({ value }) => {
       return <span className="block text-center">{value}</span>;
     },
+    minWidth: '110px',
     filter: 'between',
     Filter: NumberRangeColumnFilter,
   },
@@ -118,6 +119,7 @@ export const KEYWORDSLIST_COLUNM = [
     Cell: ({ value }) => {
       return <span className="block text-center">{value}</span>;
     },
+    minWidth: '110px',
   },
   {
     Header: 'CPC',
@@ -125,6 +127,7 @@ export const KEYWORDSLIST_COLUNM = [
     Cell: ({ value }) => {
       return <span className="block text-center">{`${fCurrency(value)}`}</span>;
     },
+    minWidth: '110px',
   },
   {
     Header: 'Difficulty',
@@ -132,6 +135,7 @@ export const KEYWORDSLIST_COLUNM = [
     Cell: ({ value }) => {
       return <span className="block text-center">{value}</span>;
     },
+    minWidth: '110px',
   },
   {
     Header: 'Trending',
@@ -139,6 +143,7 @@ export const KEYWORDSLIST_COLUNM = [
     Cell: ({ value }) => {
       return <span className="block text-center">{value}%</span>;
     },
+    minWidth: '110px',
   },
   {
     Header: 'AIT',
@@ -146,6 +151,7 @@ export const KEYWORDSLIST_COLUNM = [
     Cell: ({ value }) => {
       return <span className="block text-center">{value}</span>;
     },
+    minWidth: '110px',
   },
 ];
 

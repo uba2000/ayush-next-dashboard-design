@@ -8,6 +8,7 @@ const TableLayout = ({
   bodyStyle = {},
   rowToClick = false,
   rowClick = () => {},
+  defaultStyles = { headerCenter: false },
 }) => {
   const {
     getTableProps,
@@ -46,7 +47,11 @@ const TableLayout = ({
                         minWidth: `${column.minWidth ? column.minWidth : ''}`,
                         maxWidth: `${column.maxWidth ? column.maxWidth : ''}`,
                       }}
-                      className="flex items-center space-x-1"
+                      className={`flex items-center space-x-1 ${
+                        !column.main && defaultStyles.headerCenter
+                          ? 'justify-center'
+                          : 'justify-start'
+                      }`}
                     >
                       {column.render('Header')}
                       <span>
