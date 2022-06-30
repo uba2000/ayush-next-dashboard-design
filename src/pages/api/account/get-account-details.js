@@ -13,7 +13,9 @@ export default async function handler(req, res) {
       try {
         let userAuth = checkAuth(req.headers);
 
-        const user = await User.findById(userAuth._id).select('current_plan');
+        const user = await User.findById(userAuth._id).select(
+          'current_plan full_name email address dob gender'
+        );
 
         const projectsIds = user.current_plan
           ? user.current_plan.projects.map((value) => {
@@ -30,11 +32,16 @@ export default async function handler(req, res) {
 
         const projectHistory = user.current_plan
           ? user.current_plan.projects.map((value) => {
+              let rest = userProjects.find(
+                (va) => va._id.toString() == value.project_id.toString()
+              )
+                ? userProjects.find(
+                    (va) => va._id.toString() == value.project_id.toString()
+                  )._doc
+                : {};
               return {
                 credits: value.credits,
-                ...userProjects.find(
-                  (va) => va._id.toString() == value.project_id.toString()
-                )._doc,
+                ...rest,
               };
             })
           : [];
