@@ -2,18 +2,18 @@ import { hash } from 'bcryptjs';
 
 import { checkAuth } from '../../../utils/checkAuth';
 import User from '../../../models/User';
-import dbConnect from "../../../utils/connect";
+import dbConnect from '../../../utils/connect';
 
 export default async function (req, res) {
-  const { method } = req
-  await dbConnect()
+  const { method } = req;
+  await dbConnect();
 
   switch (method) {
     case 'POST':
       try {
         let user = checkAuth(req.headers);
 
-        const { fullName, password, gender, dob, address } = req.body
+        const { fullName, password, gender, dob, address } = req.body;
 
         let updateObject = {};
 
@@ -36,20 +36,19 @@ export default async function (req, res) {
         await User.updateOne(
           { email: user.email },
           {
-            $set: updateObject
+            $set: updateObject,
           }
-        )
+        );
 
-        res.status(200).json({ success: true })
+        return res.status(200).json({ success: true });
       } catch (error) {
         console.log(error);
-        return res.status(500).send(error)
+        return res.status(500).send(error);
       }
       break;
 
     default:
-      res.status(400).json({ success: false })
-      break
+      return res.status(400).json({ success: false });
+      break;
   }
-
 }

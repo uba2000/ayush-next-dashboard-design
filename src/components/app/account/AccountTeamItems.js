@@ -5,13 +5,32 @@ import Link from 'next/link';
 import { Table } from '../../layouts/Table';
 import Box from '../../layouts/Box';
 import { Button } from '../../../ui/button';
+import { setHeaders, post } from '../../../utils/http';
+import useUser from '../../../hooks/useUser';
 
 const roles = ['owner', 'admin', 'editor'];
 
 function AccountTeamItems({ member }) {
-  const { email, role, full_name } = member;
+  const { user } = useUser();
+
+  const { email, role, full_name, _id } = member;
   const [selectedRole, setSelectedRole] = useState(role);
   const [open, setOpen] = useState(false);
+
+  const changeUserRole = async (role) => {
+    try {
+      const { response, error } = await post({
+        url: `${process.env.BASE_URL}/api/account/update-team-member`,
+        data: {
+          role: role,
+          memberId: _id,
+        },
+        headers: setHeaders({ token: user.accessToken }),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Table.Row>
@@ -121,13 +140,10 @@ function AccountTeamItems({ member }) {
                       className="absolute w-full border bg-white border-gray-800"
                     >
                       {roles.map((role) => (
-                        <Listbox.Option
-                          key={role}
-                          value={role}
-                          onClick={() => setOpen(true)}
-                        >
+                        <Listbox.Option key={role} value={role}>
                           {({ selected, active }) => (
                             <div
+                              onClick={() => changeUserRole(role)}
                               className={`capitalize cursor-pointer select-none relative py-2 px-9 transition ease-in duration-600 text-center  ${
                                 active
                                   ? 'text-white bg-primary'
