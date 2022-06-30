@@ -30,7 +30,11 @@ const GenerateContentDialog = ({
   const [includeInternalLinking, setIncludeInternalLinking] = useState(false);
   const [noArticleTopicPerCluster, setNoArticleTopicPerCluster] = useState(3);
 
-  const generateContent = () => {
+  const [loading, setLoading] = useState(false);
+
+  const generateContent = (e) => {
+    e.preventDefault();
+    setLoading(true);
     dispatch(
       setArticlesDetailsGenerate({
         noOfArticles: noArticles,
@@ -70,7 +74,10 @@ const GenerateContentDialog = ({
         isOpen={generateContentDialog}
         closeModal={setGenerateContentDialog}
       >
-        <div className="text-left py-[30px] px-[50px] space-y-8">
+        <form
+          onSubmit={generateContent}
+          className="text-left py-[30px] px-[50px] space-y-8"
+        >
           <div className="space-y-5">
             <DialogLayout.Title>Generate Content</DialogLayout.Title>
             <div className="">
@@ -207,7 +214,9 @@ const GenerateContentDialog = ({
           </div>
           <div className="flex space-x-[35px]">
             <div className="space-x-[11px] flex">
-              <Button onClick={generateContent}>Generate</Button>
+              <Button state={loading && 'loading'} type="submit">
+                Generate
+              </Button>
               <Button
                 variant="outline"
                 onClick={() => setGenerateContentDialog(false)}
@@ -221,7 +230,7 @@ const GenerateContentDialog = ({
               </span>
             </div>
           </div>
-        </div>
+        </form>
       </DialogLayout>
     </>
   );

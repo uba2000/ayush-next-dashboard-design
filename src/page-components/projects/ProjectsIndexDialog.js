@@ -57,7 +57,8 @@ const ProjectsIndexDialog = ({ projectDialog, closeProjectDialog }) => {
     setShowPredictIndustry(newProject.industry.length > 2);
   };
 
-  const continueProjectCreation = async () => {
+  const continueProjectCreation = async (e) => {
+    e.preventDefault();
     try {
       if (user.currentPlan) {
         setLoading(true);
@@ -92,7 +93,10 @@ const ProjectsIndexDialog = ({ projectDialog, closeProjectDialog }) => {
       isSharp={true}
       closeModal={closeProjectDialog}
     >
-      <div className="w-full text-left py-[30px] md:px-14 px-5">
+      <form
+        onSubmit={continueProjectCreation}
+        className="w-full text-left py-[30px] md:px-14 px-5"
+      >
         <div className="pb-5">
           <FormGroup label="Project Title" imp={true} labelFor="project">
             <Input
@@ -218,15 +222,12 @@ const ProjectsIndexDialog = ({ projectDialog, closeProjectDialog }) => {
 
         <div className="form-group flex mb-0 justify-between">
           <div className="space-x-4 flex">
-            <Button
-              state={loading && 'loading'}
-              onClick={continueProjectCreation}
-            >
+            <Button state={loading && 'loading'} type="submit">
               Next
             </Button>
           </div>
         </div>
-      </div>
+      </form>
     </DialogLayout>
   );
 };

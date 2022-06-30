@@ -56,7 +56,8 @@ const KeywordsIndexItemDialog = ({ item }) => {
     setIsEditOpen(true);
   }
 
-  const saveKeywordDetail = async () => {
+  const saveKeywordDetail = async (e) => {
+    e.preventDefault();
     let updateObject = {};
 
     if (item.title !== keywordListTitle) {
@@ -157,7 +158,10 @@ const KeywordsIndexItemDialog = ({ item }) => {
         isOpen={isEditOpen}
         closeModal={closeEditModal}
       >
-        <div className="w-full text-left pt-[30px] divide-y-[1px] dark:divide-darkMode-border divide-ash">
+        <form
+          onSubmit={saveKeywordDetail}
+          className="w-full text-left pt-[30px] divide-y-[1px] dark:divide-darkMode-border divide-ash"
+        >
           <div className="pb-[30px] px-14">
             <FormGroup label="Keyword List Title" imp={true} labelFor="keyword">
               <Input
@@ -233,7 +237,7 @@ const KeywordsIndexItemDialog = ({ item }) => {
                 Cancel
               </Button>
               <Button
-                onClick={saveKeywordDetail}
+                type="submit"
                 state={editLoading && 'loading'}
                 className="block w-fit"
               >
@@ -241,7 +245,7 @@ const KeywordsIndexItemDialog = ({ item }) => {
               </Button>
             </div>
           </div>
-        </div>
+        </form>
       </DialogLayout>
       <Menu as="div" className="">
         <div className="relative">

@@ -29,7 +29,8 @@ const NewKeywordListDialog = ({ isOpen, closeModal }) => {
     setShowPredictIndustry(selectedIndustry.length > 2);
   };
 
-  const continueKeywordCreation = async () => {
+  const continueKeywordCreation = async (e) => {
+    e.preventDefault();
     try {
       setLoading(true);
       const { response, error } = await post({
@@ -62,7 +63,10 @@ const NewKeywordListDialog = ({ isOpen, closeModal }) => {
       isOpen={isOpen}
       closeModal={closeModal}
     >
-      <div className="w-full text-left pt-[30px] divide-y-[1px] dark:divide-darkMode-border divide-ash">
+      <form
+        onSubmit={continueKeywordCreation}
+        className="w-full text-left pt-[30px] divide-y-[1px] dark:divide-darkMode-border divide-ash"
+      >
         <div className="pb-[30px] px-14">
           <FormGroup label="Keyword List Title" imp={true} labelFor="keyword">
             <Input
@@ -138,7 +142,7 @@ const NewKeywordListDialog = ({ isOpen, closeModal }) => {
               Cancel
             </Button>
             <Button
-              onClick={continueKeywordCreation}
+              type="submit"
               state={loading && 'loading'}
               className="block w-fit"
             >
@@ -146,7 +150,7 @@ const NewKeywordListDialog = ({ isOpen, closeModal }) => {
             </Button>
           </div>
         </div>
-      </div>
+      </form>
     </DialogLayout>
   );
 };

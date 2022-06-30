@@ -61,7 +61,8 @@ const ProjectsIndexItemDialog = ({ item }) => {
     setShowPredictIndustry(rSelectedIndustry.length > 2);
   };
 
-  const saveEdit = async () => {
+  const saveEdit = async (e) => {
+    e.preventDefault();
     let updateObject = {};
 
     if (item.title !== rProjectTitle) {
@@ -161,7 +162,10 @@ const ProjectsIndexItemDialog = ({ item }) => {
         closeModal={closeEditModal}
         isSharp={true}
       >
-        <div className="w-full text-left pt-[30px] divide-y-[1px] dark:divide-darkMode-border divide-ash">
+        <form
+          onSubmit={saveEdit}
+          className="w-full text-left pt-[30px] divide-y-[1px] dark:divide-darkMode-border divide-ash"
+        >
           <div className="pb-[30px] px-14">
             <FormGroup label="Project Title" imp={true} labelFor="project">
               <Input
@@ -284,12 +288,12 @@ const ProjectsIndexItemDialog = ({ item }) => {
               <Button variant="reset" onClick={closeEditModal}>
                 Cancel
               </Button>
-              <Button onClick={saveEdit} state={loading && 'loading'}>
+              <Button type="submit" state={loading && 'loading'}>
                 Save Changes
               </Button>
             </div>
           </div>
-        </div>
+        </form>
       </DialogLayout>
       <Menu as="div" className="">
         <div className="relative">
