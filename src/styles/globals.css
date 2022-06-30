@@ -638,6 +638,12 @@ abbr[title] {
   letter-spacing: 0.005em;
 }
 
+.generator-container .content #articleContentContainer {
+  padding: 4px;
+  width: 587px;
+  height: 834px;
+}
+
 .rdw-editor-toolbar {
   @apply dark:bg-darkMode-bg 
   bg-white 
@@ -651,23 +657,23 @@ abbr[title] {
   border-ash !important;
 }
 
+.rdw-editor-toolbar * {
+  @apply mb-0
+  bg-transparent
+  border-0 !important;
+}
+
 .rdw-option-wrapper {
   @apply text-darkMode-subText shadow-none !important;
 }
 
 .rdw-option-active {
-  @apply shadow dark:shadow-white shadow-black !important;
+  @apply dark:shadow-none shadow-none border border-solid border-ash dark:border-darkMode-border !important;
 }
 
 .editor-class,
 .rdw-editor-main {
   @apply pt-5 px-[46px];
-}
-
-.rdw-editor-toolbar * {
-  @apply mb-0
-  bg-transparent
-  border-0 !important;
 }
 
 .spinning-loader {
@@ -745,3 +751,11 @@ abbr[title] {
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
 } */
+
+.rdw-option-wrapper[title='Monospace'],
+.rdw-option-wrapper[title='Outdent'],
+.rdw-option-wrapper[title='Justify'],
+.rdw-option-wrapper[title='Unlink'],
+.rdw-option-wrapper[title='Indent'] {
+  display: none !important;
+}
