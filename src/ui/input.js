@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const Outer = tw.input`
   flex-grow 
-  placeholder:text-darkMode-subText
+  placeholder:text-darkMode-border
   flex-shrink
   border-none
   pl-6 py-3

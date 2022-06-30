@@ -156,12 +156,12 @@ function KeywordsPage() {
       if (checkKeywordValid()) {
         saveNewKeywordInput();
       }
+    } else if (keycode == '27') {
+      setIsNewKeyword(false);
     }
   };
 
   const openSHowNewKeywordFromBody = (e) => {
-    console.log(e.target);
-    console.log(keywordBody.current);
     if (e.target == keywordBody.current) showNewKeywordInput();
   };
 

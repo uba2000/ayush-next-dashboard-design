@@ -46,6 +46,7 @@ export default async function (req, res) {
           user_id: userAuth._id,
           active: true,
         }).select('title tags created_at industry');
+        console.log(projects);
         return res.status(200).json({ success: true, data: projects });
       } catch (error) {
         console.log(error);

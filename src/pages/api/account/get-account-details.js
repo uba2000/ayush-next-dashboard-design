@@ -27,18 +27,14 @@ export default async function handler(req, res) {
           _id: {
             $in: projectsIds,
           },
-          active: true,
         }).select('title tags created_at');
 
         const projectHistory = user.current_plan
           ? user.current_plan.projects.map((value) => {
-              let rest = userProjects.find(
+              const currentProject = userProjects.find(
                 (va) => va._id.toString() == value.project_id.toString()
-              )
-                ? userProjects.find(
-                    (va) => va._id.toString() == value.project_id.toString()
-                  )._doc
-                : {};
+              );
+              let rest = currentProject ? currentProject._doc : {};
               return {
                 credits: value.credits,
                 ...rest,

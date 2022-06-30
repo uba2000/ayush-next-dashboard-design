@@ -1,6 +1,7 @@
 import dbConnect from '../../../utils/connect';
 import ProjectKeywordsList from '../../../models/ProjectKeywordsList';
 import { checkAuth } from '../../../utils/checkAuth';
+import User from '../../../models/User';
 
 export default async function (req, res) {
   const { method } = req;
@@ -36,9 +37,17 @@ export default async function (req, res) {
       break;
     case 'DELETE':
       try {
-        let user = checkAuth(req.headers);
+        let userAuth = checkAuth(req.headers);
 
         const { keywordId } = req.body;
+
+        const user = await User.findById(userAuth._id);
+
+        user.current_plan.keywords = user.current_plan.keywords.filter(
+          (item) => item != keywordId
+        );
+
+        await user.save();
 
         await ProjectKeywordsList.deleteOne({ _id: keywordId });
 

@@ -2,7 +2,11 @@ import { format } from 'date-fns';
 import { fCurrency } from '../../../utils/formatNumber';
 
 const tagLayout = ({ value }) => {
-  return <span className="line-clamp-1 select-none">{value.join(', ')}</span>;
+  return (
+    <span className="line-clamp-1 select-none">
+      {value ? value.join(', ') : ''}
+    </span>
+  );
 };
 
 export const PROJECTS_COLUNM = [
@@ -161,7 +165,7 @@ export const ACCOUNT_HISTORY_COLUNM = [
     accessor: 'title',
     main: true,
     Cell: ({ value }) => {
-      return <span className="line-clamp-1">{value}</span>;
+      return <span className="line-clamp-1">{value || ''}</span>;
     },
   },
   {
@@ -179,7 +183,7 @@ export const ACCOUNT_HISTORY_COLUNM = [
     Header: 'Date',
     accessor: 'created_at',
     Cell: ({ value }) => {
-      return format(new Date(value), 'dd/MM/yyyy h:m bb');
+      return format(new Date(value || ''), 'dd/MM/yyyy h:m bb');
     },
     minWidth: '194px',
   },
