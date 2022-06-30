@@ -65,6 +65,15 @@ export default async function (req, res) {
             .json({ success: false, error: { message: 'No active plan!' } });
         }
 
+        if (
+          user.current_plan.projects.length + 1 >
+          user.current_plan.account_plan.total_projects
+        ) {
+          return res
+            .status(400)
+            .json({ success: false, error: { message: 'Upgrade plan!' } });
+        }
+
         const { title, tags, industry } = req.body;
 
         if (!title || !tags) {
