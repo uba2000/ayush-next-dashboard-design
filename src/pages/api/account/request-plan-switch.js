@@ -2,6 +2,7 @@ import { checkAuth } from '../../../utils/checkAuth';
 import dbConnect from '../../../utils/connect';
 import User from '../../../models/User';
 import Project from '../../../models/Project';
+import { paypalClient } from '../../../utils/paypal';
 
 export default async function handler(req, res) {
   const { method } = req;
