@@ -22,6 +22,7 @@ const NewKeywordListDialog = ({ isOpen, closeModal }) => {
   const [kTags, setKTags] = useState([]);
   const [selectedIndustry, setSelectedIndustry] = useState('');
   const [showPredictIndustry, setShowPredictIndustry] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const predictIndustry = (value) => {
     setSelectedIndustry(value);
@@ -30,6 +31,7 @@ const NewKeywordListDialog = ({ isOpen, closeModal }) => {
 
   const continueKeywordCreation = async () => {
     try {
+      setLoading(true);
       const { response, error } = await post({
         url: `${process.env.BASE_URL}/api/project/add-keywords`,
         headers: setHeaders({ token: user.accessToken }),
@@ -46,7 +48,9 @@ const NewKeywordListDialog = ({ isOpen, closeModal }) => {
           `/app/projects/${query.projectId}/keywords?keywordsId=${response.data.data._id}`
         );
       }
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
@@ -133,7 +137,11 @@ const NewKeywordListDialog = ({ isOpen, closeModal }) => {
             <Button variant="reset" onClick={closeModal}>
               Cancel
             </Button>
-            <Button onClick={continueKeywordCreation} className="block w-fit">
+            <Button
+              onClick={continueKeywordCreation}
+              state={loading && 'loading'}
+              className="block w-fit"
+            >
               Continue
             </Button>
           </div>
