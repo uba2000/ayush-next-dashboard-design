@@ -48,7 +48,9 @@ const TableLayout = ({
                         maxWidth: `${column.maxWidth ? column.maxWidth : ''}`,
                       }}
                       className={`flex items-center space-x-1 ${
-                        !column.main && defaultStyles.headerCenter
+                        !column.main &&
+                        column.id !== 'selection' &&
+                        defaultStyles.headerCenter
                           ? 'justify-center'
                           : 'justify-start'
                       }`}
