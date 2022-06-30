@@ -190,6 +190,36 @@ const FeaturesListSchema = new mongoose.Schema(
     },
   }
 );
+const MembersSchema = new mongoose.Schema(
+  {
+    member_id: {
+      type: String,
+      default: '',
+    },
+    full_name: {
+      type: String,
+      default: '',
+    },
+    email: {
+      type: String,
+      default: '',
+    },
+    accepted: {
+      type: Boolean,
+      default: false,
+    },
+    role: {
+      type: String,
+      default: 'editor',
+    },
+  },
+  {
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+    },
+  }
+);
 const UserSchema = new mongoose.Schema(
   {
     email: {
@@ -226,7 +256,7 @@ const UserSchema = new mongoose.Schema(
       default: 'owner',
     },
     members: {
-      type: Array,
+      type: [MembersSchema],
       default: [],
     },
     current_plan: {

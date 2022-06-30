@@ -9,6 +9,8 @@ import { DialogLayout } from '../../../components/layouts/Dialog';
 import { Input } from '../../../ui/input';
 import useUser from '../../../hooks/useUser';
 import { Button } from '../../../ui/button';
+import { setHeaders, post } from '../../../utils/http';
+import AccountTeamTablePending from '../../../components/app/account/AccountTeamTablePending';
 
 function Team() {
   const { user } = useUser();
@@ -17,6 +19,9 @@ function Team() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [targetTeamBTN, setTargetTeamBTN] = useState('---');
+  const [loading, setLoading] = useState(false);
+
+  const [tabIndex, setTabIndex] = useState(0);
 
   function closeModal() {
     setIsOpen(false);
@@ -26,76 +31,122 @@ function Team() {
     setIsOpen(true);
   }
 
-  const [tabIndex, setTabIndex] = useState(0);
-
   const updateTabIndex = (index) => {
     setTabIndex(index);
   };
 
+  const inviteMember = async (e) => {
+    e.preventDefault();
+    if (inviteEmail && inviteEmail.includes('@')) {
+      setLoading(true);
+      const { response, error } = await post({
+        url: `${process.env.BASE_URL}/api/account/invite-team-member`,
+        data: {
+          email: inviteEmail,
+        },
+        headers: setHeaders({ token: user.accessToken }),
+      });
+
+      if (response.status) {
+        setInviteEmail('');
+        setTabIndex(0);
+        setTabIndex(1);
+        closeModal();
+      }
+      setLoading(false);
+    }
+  };
+
   return (
-    <AccountLayout metaTitle="Team Members">
-      <Box type={'black'} className={styles.accountFramebox}>
-        <h3 className={styles.accountFrameboxTitle}>Invite Team</h3>
-        <p className={styles.accountFrameboxContent}>
-          Invite others to join your workspace. There will be an additional
-          charge of $30 month for each number that exceeds the user seats
-          available on your plan
-        </p>
-        <Button onClick={openModal}>Invite Team</Button>
-      </Box>
-      <div className="">
-        <Tab.Group
-          selectedIndex={tabIndex}
-          onChange={(index) => updateTabIndex(index)}
-        >
-          <Tab.List>
-            <div className="accountFrameboxNav">
-              <Tab as={Fragment}>
-                <Box
-                  type={`${tabIndex == 0 ? 'black' : ''}`}
-                  className={`accountFrameboxNavItem border-b-0 ${
-                    tabIndex == 0 && 'accountFrameboxNavItemActive'
-                  }`}
-                >
-                  Confirmed
-                </Box>
-              </Tab>
-              <Tab as={Fragment}>
-                <Box
-                  type={`${tabIndex == 1 ? 'black' : ''}`}
-                  className={`accountFrameboxNavItem border-b-0 border-l-0 ${
-                    tabIndex == 1 && 'accountFrameboxNavItemActive'
-                  }`}
-                >
-                  Pending
-                </Box>
-              </Tab>
-            </div>
-          </Tab.List>
-          <Tab.Panels>
-            <Tab.Panel>
-              <div className="w-full h-auto min-h-[62.45px]">
-                <AccountTeamTable
-                  targetTeamBTN={targetTeamBTN}
-                  isOpen={isOpen}
-                  closeModal={closeModal}
+    <>
+      <DialogLayout isOpen={isOpen} closeModal={closeModal}>
+        <form onSubmit={inviteMember} className="py-[100px] px-[150px]">
+          <div className="space-y-5">
+            <DialogLayout.Title as="h3" className="title">
+              Are you sure, you want to add this person in your account?
+            </DialogLayout.Title>
+            <div className="subtitle">
+              <div className="form-group mb-6">
+                <Input
+                  type="email"
+                  value={inviteEmail}
+                  onChange={(e) => setInviteEmail(e)}
+                  placeholder="example@gmail.com"
+                  className={`${styles.formGroupInput} text-center dark:bg-black`}
                 />
               </div>
-            </Tab.Panel>
-            <Tab.Panel>
-              <Box className="flex items-center justify-center w-full min-h-[295px]">
-                <div className="text-center py-9">
-                  <span className="capitalize font-bold text-3xl">
-                    There is no <br />
-                    pending account
-                  </span>
+            </div>
+          </div>
+
+          <div className="mt-8 space-x-3">
+            <Button type="submit" state={loading && 'loading'}>
+              Confirm
+            </Button>
+            <Button variant="reset" onClick={closeModal}>
+              Cancel
+            </Button>
+          </div>
+        </form>
+      </DialogLayout>
+      <AccountLayout metaTitle="Team Members">
+        <Box type={'black'} className={styles.accountFramebox}>
+          <h3 className={styles.accountFrameboxTitle}>Invite Team</h3>
+          <p className={styles.accountFrameboxContent}>
+            Invite others to join your workspace. There will be an additional
+            charge of $30 month for each number that exceeds the user seats
+            available on your plan
+          </p>
+          <Button onClick={openModal}>Invite Team</Button>
+        </Box>
+        <div className="">
+          <Tab.Group
+            selectedIndex={tabIndex}
+            onChange={(index) => updateTabIndex(index)}
+          >
+            <Tab.List>
+              <div className="accountFrameboxNav">
+                <Tab as={Fragment}>
+                  <Box
+                    type={`${tabIndex == 0 ? 'black' : ''}`}
+                    className={`accountFrameboxNavItem border-b-0 ${
+                      tabIndex == 0 && 'accountFrameboxNavItemActive'
+                    }`}
+                  >
+                    Confirmed
+                  </Box>
+                </Tab>
+                <Tab as={Fragment}>
+                  <Box
+                    type={`${tabIndex == 1 ? 'black' : ''}`}
+                    className={`accountFrameboxNavItem border-b-0 border-l-0 ${
+                      tabIndex == 1 && 'accountFrameboxNavItemActive'
+                    }`}
+                  >
+                    Pending
+                  </Box>
+                </Tab>
+              </div>
+            </Tab.List>
+            <Tab.Panels>
+              <Tab.Panel>
+                <div className="w-full h-auto min-h-[62.45px]">
+                  <AccountTeamTable
+                    targetTeamBTN={targetTeamBTN}
+                    isOpen={isOpen}
+                    closeModal={closeModal}
+                  />
                 </div>
-              </Box>
-            </Tab.Panel>
-          </Tab.Panels>
-        </Tab.Group>
-      </div>
-    </AccountLayout>
+              </Tab.Panel>
+              <Tab.Panel>
+                <div className="w-full h-auto">
+                  <AccountTeamTablePending />
+                </div>
+              </Tab.Panel>
+            </Tab.Panels>
+          </Tab.Group>
+        </div>
+      </AccountLayout>
+    </>
   );
 }
 

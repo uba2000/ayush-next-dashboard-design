@@ -9,7 +9,7 @@ import { Button } from '../../../ui/button';
 const roles = ['owner', 'admin', 'editor'];
 
 function AccountTeamItems({ member }) {
-  const { email, role, fullName } = member;
+  const { email, role, full_name } = member;
   const [selectedRole, setSelectedRole] = useState(role);
   const [open, setOpen] = useState(false);
 
@@ -68,7 +68,7 @@ function AccountTeamItems({ member }) {
         </Dialog>
       </Transition.Root>
       <Table.Data>
-        <span className="line-clamp-1">{fullName}</span>
+        <span className="line-clamp-1">{full_name}</span>
       </Table.Data>
       <Table.Data>
         <span className="lowercase">{email}</span>

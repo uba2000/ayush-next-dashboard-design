@@ -5,21 +5,15 @@ import AccountTeamItems from './AccountTeamItems';
 import styles from '../../../styles/Account.module.css';
 import Box from '../../layouts/Box';
 import useUser from '../../../hooks/useUser';
-import { setHeaders, get, post } from '../../../utils/http';
-import { DialogLayout } from '../../layouts/Dialog';
-import { Input } from '../../../ui/input';
+import { setHeaders, get } from '../../../utils/http';
 import { Loader } from '../../layouts/Loader';
-import { Button } from '../../../ui/button';
 
 function AccountTeamTable({ targetTeamBTN, closeModal, isOpen }) {
   const { user } = useUser();
 
-  const [inviteEmail, setInviteEmail] = useState('');
-
   const [teamMembers, setTeamMembers] = useState(false);
+  const [pendingTeamMembers, setPendingTeamMembers] = useState(false);
   const [stateTargetTeamBTN, setStateTargetTeamBTN] = useState(targetTeamBTN);
-
-  const [loading, setLoading] = useState(false);
 
   const getTeamMembers = async () => {
     setTeamMembers(false);
@@ -29,26 +23,8 @@ function AccountTeamTable({ targetTeamBTN, closeModal, isOpen }) {
     });
 
     if (response.status) {
-      setTeamMembers(response.data.data);
-    }
-  };
-
-  const inviteMember = async () => {
-    if (inviteEmail && inviteEmail.includes('@')) {
-      setLoading(true);
-      const { response, error } = await post({
-        url: `${process.env.BASE_URL}/api/account/invite-team-member`,
-        data: {
-          email: inviteEmail,
-        },
-        headers: setHeaders({ token: user.accessToken }),
-      });
-
-      if (response.status) {
-        getTeamMembers();
-        closeModal();
-      }
-      setLoading(false);
+      setTeamMembers(response.data.data.accepted);
+      setPendingTeamMembers(response.data.data.pending);
     }
   };
 
@@ -58,34 +34,6 @@ function AccountTeamTable({ targetTeamBTN, closeModal, isOpen }) {
 
   return (
     <>
-      <DialogLayout isOpen={isOpen} closeModal={closeModal}>
-        <div className="py-[100px] px-[150px]">
-          <div className="space-y-5">
-            <DialogLayout.Title as="h3" className="title">
-              Are you sure, you want to add this person in your account?
-            </DialogLayout.Title>
-            <div className="subtitle">
-              <div className="form-group mb-6">
-                <Input
-                  value={inviteEmail}
-                  onChange={(e) => setInviteEmail(e)}
-                  placeholder="example@gmail.com"
-                  className={`${styles.formGroupInput} text-center dark:bg-black`}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-8 space-x-3">
-            <Button onClick={inviteMember} state={loading && 'loading'}>
-              Confirm
-            </Button>
-            <Button variant="reset" onClick={closeModal}>
-              Cancel
-            </Button>
-          </div>
-        </div>
-      </DialogLayout>
       <Table className="border-b">
         <Table.Head className="dark:bg-black bg-white">
           <Table.Row>

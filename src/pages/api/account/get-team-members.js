@@ -16,27 +16,36 @@ export default async function handler(req, res) {
         const user = await User.findOne({ email: userAuth.email });
 
         let newArray = [];
+        let pendingArray = [];
 
         if (user) {
           if (user.members.length > 0) {
             forEach(user.members, async (value, index) => {
               if (value.accepted) {
-                let memberUser = await User.findOne({ _id: value._id });
                 newArray.push({
-                  fullName: memberUser.full_name,
-                  email: memberUser.email,
-                  ...value,
+                  ...value._doc,
+                });
+              } else {
+                pendingArray.push({
+                  ...value._doc,
                 });
               }
               if (index == user.members.length - 1) {
-                return res.status(200).json({ success: true, data: newArray });
+                return res.status(200).json({
+                  success: true,
+                  data: { accepted: newArray, pending: pendingArray },
+                });
               }
             });
           } else {
-            return res.status(200).json({ success: true, data: [] });
+            return res
+              .status(200)
+              .json({ success: true, data: { accepted: [], pending: [] } });
           }
         } else {
-          return res.status(200).json({ success: true, data: [] });
+          return res
+            .status(200)
+            .json({ success: true, data: { accepted: [], pending: [] } });
         }
       } catch (error) {
         console.log(error);
