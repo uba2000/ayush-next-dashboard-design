@@ -124,6 +124,8 @@ function KeywordsPage() {
             router.push(
               `/app/projects/${query.projectId}/keywords/${response.data.data._id}/results`
             );
+          } else if (error) {
+            setLoadingSaveAnalyze(false);
           }
         } else {
           const { response, error } = await post({

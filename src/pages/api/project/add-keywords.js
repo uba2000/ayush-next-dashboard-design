@@ -11,6 +11,18 @@ export default async function (req, res) {
     case 'POST':
       try {
         const userAuth = checkAuth(req.headers);
+
+        const user = await User.findById(userAuth._id);
+
+        if (
+          user.current_plan.keywords.length + 1 >
+          user.current_plan.account_plan.keyword_list_limit
+        ) {
+          return res
+            .status(400)
+            .json({ success: false, error: { message: 'Upgrade plan!' } });
+        }
+
         const {
           project_id,
           title,
@@ -19,8 +31,6 @@ export default async function (req, res) {
           keywordsQuestions,
           keywords = [],
         } = req.body;
-
-        const user = await User.findById(userAuth._id);
 
         const newProjectListKeyword = new ProjectKeywordsList({
           title,
