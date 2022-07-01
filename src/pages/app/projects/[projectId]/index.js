@@ -399,6 +399,7 @@ function Index({ ssrQuery }) {
               <Tab.Panel>
                 <div className="mt-7">
                   <TableLayout
+                    itemsName={'articles'}
                     tableInstance={articleTableInstance}
                     rowToClick={true}
                     rowClick={doubleClickArtcleHandler}
@@ -408,6 +409,7 @@ function Index({ ssrQuery }) {
               <Tab.Panel>
                 <div className="mt-7">
                   <TableLayout
+                    itemsName={'keywords'}
                     tableInstance={keywordsTableInstance}
                     rowToClick={true}
                     rowClick={doubleClickKeywordHandler}

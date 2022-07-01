@@ -194,6 +194,7 @@ const results = ({ keywordQuestions, keywords }) => {
                 </div>
                 <div className="mt-7">
                   <TableLayout
+                    itemsName={'keywords'}
                     tableInstance={tableInstance}
                     defaultStyles={{ headerCenter: true }}
                   />

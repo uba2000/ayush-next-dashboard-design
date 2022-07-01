@@ -8,6 +8,7 @@ const TableLayout = ({
   bodyStyle = {},
   rowToClick = false,
   rowClick = () => {},
+  itemsName,
   defaultStyles = { headerCenter: false },
 }) => {
   const {
@@ -132,6 +133,7 @@ const TableLayout = ({
         pages={page}
         gotoPage={gotoPage}
         pageCount={pageCount}
+        pageItemsName={itemsName}
       />
     </>
   );

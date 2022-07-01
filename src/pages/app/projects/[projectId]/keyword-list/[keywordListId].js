@@ -105,7 +105,11 @@ const KeywordListView = ({ keywords, keywordList }) => {
           </div>
           <div className="mt-7">
             {/*  */}
-            <TableLayout tableInstance={tableInstance} />
+            <TableLayout
+              itemsName={'keywords'}
+              defaultStyles={{ headerCenter: true }}
+              tableInstance={tableInstance}
+            />
           </div>
         </div>
       </ArticleLayout>
