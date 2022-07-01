@@ -17,7 +17,7 @@ function AuthNav() {
           </span>
         </a>
       </Link>
-      <div className="text md:text-xl font-poppins flex">
+      <div className="text md:text-xl font-poppins flex text-white">
         {router.pathname.includes('signin') ? (
           <Link href="/signup">
             <a className="h-[40.94px] flex items-center px-[29.49px] py-0 border border-white rounded-md cursor-pointer text-bold">

@@ -54,7 +54,7 @@ function Signin({ csrfToken }) {
   };
   return (
     <AuthLayout metaTitle="Sign In">
-      <div className="z-20 w-full max-w-sm">
+      <div className="z-20 w-full max-w-sm text-white">
         {/* TITLE */}
         <div className="flex justify-center mb-2">
           <h1 className="text-title font-bold text-center font-poppins flex flex-col ">
