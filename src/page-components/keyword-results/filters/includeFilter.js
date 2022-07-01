@@ -4,11 +4,17 @@ import { Tab } from '@headlessui/react';
 import Layout from '../Layout';
 import { Input } from '../../../ui/input';
 import { Button } from '../../../ui/button';
+import useTableSearchFilter from '../../../hooks/useTableSearchFilter';
 
-const IncludeFilter = () => {
+const IncludeFilter = ({ column = {} }) => {
+  const { value, onChange, applyChange } = useTableSearchFilter({
+    column,
+  });
+
   return (
     <Layout label={'Inlude'}>
-      <div
+      <form
+        onSubmit={applyChange}
         className="divide-y-2 dark:divide-darkMode-border divide-ash"
         style={{ width: '177px' }}
       >
@@ -52,6 +58,10 @@ const IncludeFilter = () => {
               <Tab.Panel>
                 <div>
                   <Input
+                    value={value}
+                    onChange={(e) => {
+                      onChange(e || undefined);
+                    }}
                     variant="dark-small"
                     placeholder="Type A keywords"
                     className="w-full h-[21px] text-xs px-2"
@@ -76,9 +86,11 @@ const IncludeFilter = () => {
           </div>
         </div>
         <div>
-          <Button className="w-full py-2">Apply</Button>
+          <Button type="submit" className="w-full py-2">
+            Apply
+          </Button>
         </div>
-      </div>
+      </form>
     </Layout>
   );
 };

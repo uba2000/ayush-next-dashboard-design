@@ -3,6 +3,7 @@ import {
   useTable,
   useSortBy,
   useGlobalFilter,
+  useFilters,
   usePagination,
   useRowSelect,
 } from 'react-table';
@@ -64,6 +65,7 @@ const useScaiTable = (
       columns,
       data,
     },
+    useFilters,
     useGlobalFilter,
     useSortBy,
     usePagination,

@@ -1,4 +1,12 @@
 import { format } from 'date-fns';
+
+import {
+  DifficultyFilter,
+  TrafficFilter,
+  VolumeFilter,
+  CPCFilter,
+  KeywordFilter,
+} from '../../../page-components/keyword-results';
 import { fCurrency } from '../../../utils/formatNumber';
 
 const tagLayout = ({ value }) => {
@@ -94,10 +102,6 @@ export const KEYWORDS_COLUNM = [
   },
 ];
 
-const NumberRangeColumnFilter = ({ column }) => {
-  return <>{JSON.stringify(column)}</>;
-};
-
 export const KEYWORDSLIST_COLUNM = [
   {
     Header: 'Keywords',
@@ -106,6 +110,8 @@ export const KEYWORDSLIST_COLUNM = [
     Cell: ({ value }) => {
       return <span className="line-clamp-1">{value}</span>;
     },
+    filter: 'search',
+    Filter: KeywordFilter,
   },
   {
     Header: 'Volume',
@@ -115,7 +121,7 @@ export const KEYWORDSLIST_COLUNM = [
     },
     minWidth: '110px',
     filter: 'between',
-    Filter: NumberRangeColumnFilter,
+    Filter: VolumeFilter,
   },
   {
     Header: 'Traffic',
@@ -124,6 +130,8 @@ export const KEYWORDSLIST_COLUNM = [
       return <span className="block text-center">{value}</span>;
     },
     minWidth: '110px',
+    filter: 'between',
+    Filter: TrafficFilter,
   },
   {
     Header: 'CPC',
@@ -132,6 +140,8 @@ export const KEYWORDSLIST_COLUNM = [
       return <span className="block text-center">{`${fCurrency(value)}`}</span>;
     },
     minWidth: '110px',
+    filter: 'between',
+    Filter: CPCFilter,
   },
   {
     Header: 'Difficulty',
@@ -140,6 +150,8 @@ export const KEYWORDSLIST_COLUNM = [
       return <span className="block text-center">{value}</span>;
     },
     minWidth: '110px',
+    filter: 'between',
+    Filter: DifficultyFilter,
   },
   {
     Header: 'Trending',
@@ -188,3 +200,5 @@ export const ACCOUNT_HISTORY_COLUNM = [
     minWidth: '194px',
   },
 ];
+
+export const ARTICLE_GENERATE_COLUMN = [];

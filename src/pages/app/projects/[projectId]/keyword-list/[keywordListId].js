@@ -66,13 +66,12 @@ const KeywordListView = ({ keywords, keywordList }) => {
         <div className="space-y-[26px]">
           <div className="flex justify-between">
             <div className="flex flex-grow space-x-2">
-              <VolumeFilter />
-              <TrafficFilter />
+              {tableInstance.headerGroups[0].headers[2].render('Filter')}
+              {tableInstance.headerGroups[0].headers[3].render('Filter')}
               <WordCountFilter />
-              <DifficultyFilter />
-              <CPCFilter />
-              <IncludeFilter />
-              <ExcludeFilter />
+              {tableInstance.headerGroups[0].headers[5].render('Filter')}
+              {tableInstance.headerGroups[0].headers[4].render('Filter')}
+              {tableInstance.headerGroups[0].headers[1].render('Filter')}
               <AllInTitleFilter />
             </div>
             <div className="flex space-x-2">
