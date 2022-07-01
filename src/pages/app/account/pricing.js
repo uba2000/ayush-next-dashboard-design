@@ -155,11 +155,11 @@ function pricing() {
                       <PlanLayout
                         plan={{
                           ...plan,
-                          price: calculateDiscountedPrice(plan.price),
+                          price: plan.yearPrice,
                         }}
                         title={plan.plan}
                         per={'yr'}
-                        amount={fNumber(calculateDiscountedPrice(plan.price))}
+                        amount={fNumber(plan.yearPrice)}
                       />
                     </Fragment>
                   ))}

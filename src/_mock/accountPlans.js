@@ -7,11 +7,12 @@ import { convertToSlug } from '../utils/sluggify';
 const plans = [
   {
     id: 'dbdc4630-2e72-4f32-9735-8d5df5f96d4f',
-    plan: 'Starter Plan',
+    plan: 'Basic Plan',
     monthLimit: 50000,
     totalProjects: 10,
     keywordListLimit: 10,
     price: 24,
+    yearPrice: 499,
   },
   {
     id: '55ec84f4-55cc-419b-b3e4-930b2c57882c',
@@ -19,7 +20,8 @@ const plans = [
     monthLimit: 100000,
     totalProjects: 20,
     keywordListLimit: 20,
-    price: 74,
+    price: 49,
+    yearPrice: 999,
   },
   {
     id: '11eb405d-e6a6-42f3-a48b-208bafeaf137',
@@ -28,6 +30,7 @@ const plans = [
     totalProjects: 40,
     keywordListLimit: 40,
     price: 149,
+    yearPrice: 1499,
   },
 ];
 
