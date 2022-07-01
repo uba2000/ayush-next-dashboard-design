@@ -8,6 +8,7 @@ import { get, setHeaders } from '../../../utils/http';
 import TableLayout from '../../../components/layouts/TableLayout';
 import useScaiTable from '../../../hooks/useScaiTable';
 import { ACCOUNT_HISTORY_COLUNM } from '../../../components/layouts/Table/columns';
+import { orderBy, sortBy } from 'lodash';
 
 function limits({ accountPlan, accountHistory }) {
   const [months] = useState([
@@ -235,10 +236,15 @@ export async function getServerSideProps(context) {
 
       if (response.status) {
         details = response.data.data;
+
         return {
           props: {
             accountPlan: details.user.current_plan || null,
-            accountHistory: details.history.projects || [],
+            accountHistory: orderBy(
+              details.history.projects || [],
+              ['created_at'],
+              ['desc']
+            ),
           },
         };
       }
