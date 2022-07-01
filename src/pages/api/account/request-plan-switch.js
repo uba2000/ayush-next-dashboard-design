@@ -25,11 +25,15 @@ export default async function handler(req, res) {
 
       let date = new Date();
 
+      const user = await User.findById(userAuth._id).select('current_plan');
+
       await User.findOneAndUpdate(
         { _id: userAuth._id },
         {
           $set: {
             current_plan: {
+              projects: [...user.current_plan.projects],
+              keywords: [...user.current_plan.keywords],
               period_type: period,
               period_credit: 0,
               plan_local_id: id,

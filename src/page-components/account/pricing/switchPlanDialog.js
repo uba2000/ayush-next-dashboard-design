@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { DialogLayout } from '../../../components/layouts/Dialog';
 import { post, setHeaders } from '../../../utils/http';
@@ -11,7 +11,10 @@ const SwitchPlanDialog = ({ isOpen, closeModal, plan, period }) => {
 
   const { user } = useUser();
 
+  const [loading, setLoading] = useState(false);
+
   const switchPlan = async () => {
+    setLoading(true);
     const { response, error } = await post({
       url: `${process.env.BASE_URL}/api/account/request-plan-switch`,
       headers: setHeaders({ token: user.accessToken }),
@@ -63,7 +66,9 @@ const SwitchPlanDialog = ({ isOpen, closeModal, plan, period }) => {
             </p>
           </div>
           <div className="space-x-1">
-            <Button onClick={switchPlan}>Proceed Switching</Button>
+            <Button state={loading && 'loading'} onClick={switchPlan}>
+              Proceed Switching
+            </Button>
             <Button
               variant="reset"
               className="dark:text-darkMode-subText text-ash"
