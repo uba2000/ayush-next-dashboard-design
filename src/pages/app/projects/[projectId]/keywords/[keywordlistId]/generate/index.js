@@ -18,7 +18,7 @@ import { post, setHeaders } from '../../../../../../../utils/http';
 import useUser from '../../../../../../../hooks/useUser';
 import Box from '../../../../../../../components/layouts/Box';
 import ScrollbarsLayout from '../../../../../../../components/layouts/Scrollbars';
-import EditorContainer from '../../../../../../../components/layouts/EditorContainer';
+import { EditorContainer } from '../../../../../../../components/layouts/EditorContainer';
 import articleContent from '../../../../../../../_mock/article-content';
 import { Button } from '../../../../../../../ui/button';
 

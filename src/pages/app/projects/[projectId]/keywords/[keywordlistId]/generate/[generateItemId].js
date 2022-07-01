@@ -6,7 +6,7 @@ import DashboardLayout from '../../../../../../../components/app/DasboardLayout'
 import Box from '../../../../../../../components/layouts/Box';
 import { X } from '../../../../../../../ui/icons';
 import ScrollbarsLayout from '../../../../../../../components/layouts/Scrollbars';
-import EditorContainer from '../../../../../../../components/layouts/EditorContainer';
+import { EditorContainer } from '../../../../../../../components/layouts/EditorContainer';
 
 const PreviewArticle = () => {
   const router = useRouter();

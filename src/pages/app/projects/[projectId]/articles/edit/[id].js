@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'next/router';
 import { getSession } from 'next-auth/react';
 import draftToHtml from 'draftjs-to-html';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 
 import ArticleLayout from '../../../../../../page-components/project-categories/ArticleLayout';
 import DashboardLayout from '../../../../../../components/app/DasboardLayout';
@@ -11,7 +13,7 @@ import { AppContext } from '../../../../../../context/state';
 import Box from '../../../../../../components/layouts/Box';
 import ArticleEditor from '../../../../../../page-components/project-categories/articles/ArticleEditor';
 import { Input } from '../../../../../../ui/input';
-import EditorContainer from '../../../../../../components/layouts/EditorContainer';
+import { EditorContainer } from '../../../../../../components/layouts/EditorContainer';
 import { post, get, setHeaders } from '../../../../../../utils/http';
 import { Button } from '../../../../../../ui/button';
 
@@ -30,6 +32,7 @@ class EditArticle extends Component {
       tags: _this.props.article.tags.join(', '),
       reserveTags: _this.props.article.tags.join(', '),
       stateArticleContent: _this.props.article.article_content,
+      reserveArticleContent: _this.props.article.article_content,
       showEditor: false,
       stats: {
         wordCount: 1000,
@@ -78,6 +81,20 @@ class EditArticle extends Component {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  downloadDocument = () => {
+    const input = document.getElementById('articleContentContainer');
+    html2canvas(input).then((canvas) => {
+      const imgWidth = 208;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pageCount = pdf.internal.getNumberOfPages();
+      pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
+      pdf.deletePage(pageCount);
+      pdf.save(`${this.state.title}.pdf`);
+    });
   };
 
   render() {
@@ -176,6 +193,8 @@ class EditArticle extends Component {
                           variant="reset"
                           onClick={() => {
                             this.setState({ title: this.state.reserveTitle });
+                            this.setState({ titleChange: false });
+                            layout.setToEditArticle(false);
                           }}
                         >
                           Reset
@@ -253,6 +272,8 @@ class EditArticle extends Component {
                           className="btn btn-reset"
                           onClick={() => {
                             this.setState({ tags: this.state.reserveTags });
+                            this.setState({ tagsChange: false });
+                            layout.setToEditArticle(false);
                           }}
                         >
                           Reset
@@ -268,22 +289,31 @@ class EditArticle extends Component {
                 </span>
               </div>
             </div>
-            <Box
-              type="black"
-              className={`generator-container relative ${
-                !showEditor ? 'md:pt-[25px] pt-[70px] md:px-[70px] px-4' : ''
-              }  pb-[25px]`}
-            >
-              <EditorContainer>
-                {!showEditor ? (
+            <Box type="black" className={`generator-container relative`}>
+              <div
+                ref={(response) => (this.componentRef = response)}
+                id="articleContentContainer"
+                className={`
+                  ${
+                    !showEditor
+                      ? 'block md:pt-[25px] pt-[70px] md:px-[70px] px-4'
+                      : 'hidden'
+                  }
+                    pb-[25px]
+                `}
+              >
+                <EditorContainer>
                   <div dangerouslySetInnerHTML={{ __html: body }}></div>
-                ) : (
+                </EditorContainer>
+              </div>
+              <div className={`${showEditor ? 'block' : 'hidden'} pb-[25px]`}>
+                <EditorContainer>
                   <ArticleEditor
                     content={stateArticleContent}
                     handleContent={this.handleEditorContent}
                   />
-                )}
-              </EditorContainer>
+                </EditorContainer>
+              </div>
               {!showEditor ? (
                 <div
                   className="absolute top-6 right-6 cursor-pointer"
@@ -311,6 +341,13 @@ class EditArticle extends Component {
                 <div className="absolute right-7 top-3 flex items-center space-x-2">
                   <Button
                     variant="outline"
+                    onClick={() => {
+                      this.setState({ showEditor: false });
+                      layout.setToEditArticle(false);
+                      this.handleEditorContent(
+                        this.state.reserveArticleContent
+                      );
+                    }}
                     className="text-[13px] py-[11px] px-5 leading-5"
                   >
                     Cancel
@@ -333,11 +370,21 @@ class EditArticle extends Component {
             <div className="md:flex grid grid-cols-1 gap-5 mt-6 md:justify-end">
               {!showEditor && (
                 <>
-                  <Button>Publish to Wordpress</Button>
+                  <Button onClick={this.downloadDocument}>
+                    Download Document
+                  </Button>
                 </>
               )}
             </div>
           </div>
+          {/* <div className={`text-black p-4`}>
+            <EditorContainer>
+              <div
+                id="articleContentContainer"
+                dangerouslySetInnerHTML={{ __html: body }}
+              ></div>
+            </EditorContainer>
+          </div> */}
         </ArticleLayout>
       </DashboardLayout>
     );

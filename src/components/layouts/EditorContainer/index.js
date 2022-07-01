@@ -1,11 +1,11 @@
 import React from 'react';
 
-const EditorContainer = ({ children }) => {
-  return (
-    <div className="generator-container nb">
+export const EditorContainer = React.forwardRef(
+  ({ children, ...rest }, ref) => (
+    <div className="generator-container nb" ref={ref} {...rest}>
       <div className="content">{children}</div>
     </div>
-  );
-};
+  )
+);
 
-export default EditorContainer;
+EditorContainer.displayName = 'EditorContainer';

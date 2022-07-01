@@ -4,7 +4,7 @@ import draftToHtml from 'draftjs-to-html';
 
 import { Tick, Processing, Waiting, ChevDown, Mini } from '../../ui/icons';
 import { Table } from '../../components/layouts/Table';
-import EditorContainer from '../../components/layouts/EditorContainer';
+import { EditorContainer } from '../../components/layouts/EditorContainer';
 import articleContent from '../../_mock/article-content';
 import { Button } from '../../ui/button';
 
