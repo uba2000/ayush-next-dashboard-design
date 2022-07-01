@@ -15,9 +15,9 @@ function isValidHttpUrl(url) {
 }
 
 export default async function handler(req, res) {
-  if (req.query.callbackUrl && !isValidHttpUrl(req.query.callbackUrl)) {
-    return res.status(500).send('');
-  }
+  // if (req.query.callbackUrl && !isValidHttpUrl(req.query.callbackUrl)) {
+  //   return res.status(500).send('');
+  // }
 
   return await NextAuth(req, res, {
     session: {
