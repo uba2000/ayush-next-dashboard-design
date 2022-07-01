@@ -34,6 +34,7 @@ class EditArticle extends Component {
       stateArticleContent: _this.props.article.article_content,
       reserveArticleContent: _this.props.article.article_content,
       showEditor: false,
+      downloadLoading: false,
       stats: {
         wordCount: 1000,
         plagiarism: 0,
@@ -84,16 +85,26 @@ class EditArticle extends Component {
   };
 
   downloadDocument = () => {
+    this.setState((prevState) => {
+      return {
+        downloadLoading: true,
+      };
+    });
     const input = document.getElementById('articleContentContainer');
     html2canvas(input).then((canvas) => {
       const imgWidth = 208;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'mm', 'a4');
-      const pageCount = pdf.internal.getNumberOfPages();
+      // const pageCount = pdf.internal.getNumberOfPages();
       pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
-      pdf.deletePage(pageCount);
+      // pdf.deletePage(pageCount);
       pdf.save(`${this.state.title}.pdf`);
+      this.setState((prevState) => {
+        return {
+          downloadLoading: false,
+        };
+      });
     });
   };
 
@@ -370,7 +381,10 @@ class EditArticle extends Component {
             <div className="md:flex grid grid-cols-1 gap-5 mt-6 md:justify-end">
               {!showEditor && (
                 <>
-                  <Button onClick={this.downloadDocument}>
+                  <Button
+                    state={this.state.downloadLoading && 'loading'}
+                    onClick={this.downloadDocument}
+                  >
                     Download Document
                   </Button>
                 </>
