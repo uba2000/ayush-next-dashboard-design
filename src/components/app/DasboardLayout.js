@@ -1,12 +1,18 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
+import { useSelector, useDispatch } from 'react-redux';
 // import { getSession } from 'next-auth/client'
 
 import DashboardFooter from '../layouts/DashboardFooter';
 import DashboardNav from '../layouts/DashboardNav';
 import ScrollbarsLayout from '../layouts/Scrollbars';
+import ErrorDialog from '../layouts/Dialog/ErrorDialog';
+import { setShowErrorDialog } from '../../features/error/errorSlice';
 
 function DashboardLayout({ children, customChildren, metaTitle }) {
+  const dispatch = useDispatch();
+
+  const { showErrorDialog, errorDetails } = useSelector((state) => state.error);
   return (
     <>
       <Head>
@@ -15,6 +21,11 @@ function DashboardLayout({ children, customChildren, metaTitle }) {
         </title>
       </Head>
       <div>
+        <ErrorDialog
+          isOpen={showErrorDialog}
+          errorDetails={errorDetails}
+          closeModal={() => dispatch(setShowErrorDialog(false))}
+        />
         <DashboardNav />
         <ScrollbarsLayout h="calc(100vh - 96.01px)">
           <div

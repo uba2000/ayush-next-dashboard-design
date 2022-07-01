@@ -68,7 +68,7 @@ export const Button = React.forwardRef(
       ) : (
         <Link href={link}>
           <a>
-            <Text>{children}</Text>
+            <Text shown={true}>{children}</Text>
           </a>
         </Link>
       )}

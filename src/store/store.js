@@ -3,10 +3,12 @@ import { HYDRATE, createWrapper } from 'next-redux-wrapper';
 
 import projectReducer from '../features/project/projectSlice';
 import layoutReducer from '../features/layout/layoutSlice';
+import errorReducer from '../features/error/errorSlice';
 
 const combinedReducer = combineReducers({
   project: projectReducer,
   layout: layoutReducer,
+  error: errorReducer,
 });
 
 const masterReducer = (state, action) => {

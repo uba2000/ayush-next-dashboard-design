@@ -2,6 +2,7 @@ import React, { useState, useReducer, Fragment, useEffect } from 'react';
 import { Transition } from '@headlessui/react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
 
 import FormGroup from '../../components/FormGroup';
 import { DialogLayout } from '../../components/layouts/Dialog';
@@ -12,6 +13,10 @@ import useUser from '../../hooks/useUser';
 import { fTags } from '../../utils/formatTags';
 import { Button } from '../../ui/button';
 import { post, setHeaders } from '../../utils/http';
+import {
+  setErrorDetails,
+  setShowErrorDialog,
+} from '../../features/error/errorSlice';
 
 const initialProjectDetails = {
   title: '',
@@ -35,6 +40,8 @@ const reducer = (state, action) => {
 
 const ProjectsIndexDialog = ({ projectDialog, closeProjectDialog }) => {
   const router = useRouter();
+
+  const dispatchStore = useDispatch();
 
   const { user } = useUser();
 
@@ -60,25 +67,27 @@ const ProjectsIndexDialog = ({ projectDialog, closeProjectDialog }) => {
   const continueProjectCreation = async (e) => {
     e.preventDefault();
     try {
-      if (user.currentPlan) {
-        setLoading(true);
-        const { data } = await axios.post(
-          `${process.env.BASE_URL}/api/project`,
-          {
-            title: newProject.title,
-            tags: newProject.tags,
-            industry: newProject.industry,
-          },
-          {
-            headers: { Authorization: `Bearer ${user.accessToken}` },
-          }
-        );
-        if (data.success) {
-          contextState.project.setNewProjectData(data.data);
-          router.push(`/app/projects/${data.data._id}/keywords`);
-        }
-      } else {
-        router.push('/app/account/pricing');
+      setLoading(true);
+      const { response, error } = await post({
+        url: `${process.env.BASE_URL}/api/project`,
+        data: {
+          title: newProject.title,
+          tags: newProject.tags,
+          industry: newProject.industry,
+        },
+        headers: setHeaders({ token: user.accessToken }),
+        error: (response) => {
+          closeProjectDialog();
+          setLoading(false);
+          dispatchStore(setShowErrorDialog(true));
+          dispatchStore(
+            setErrorDetails(response.data.error.details || undefined)
+          );
+        },
+      });
+      if (response) {
+        contextState.project.setNewProjectData(response.data.data);
+        router.push(`/app/projects/${response.data.data._id}/keywords`);
       }
     } catch (error) {
       console.log(error);

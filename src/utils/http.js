@@ -70,11 +70,9 @@ async function ajax({
       // Assign Response Error
       result.error = err;
 
-      error(err);
-
       // Handle Errors
       if (handleError) {
-        handleHttpError({ ...err, serverError, formErrors });
+        handleHttpError({ ...err, error, serverError, formErrors });
       }
     });
 
@@ -111,7 +109,7 @@ function handleHttpResponse({ response, success }) {
 }
 
 // Handle Response Errors
-function handleHttpError({ response, serverError, formErrors }) {
+function handleHttpError({ response, error, serverError, formErrors }) {
   // No Response Was Returned
   if (!response) {
     console.log('No Response Was Returned');
@@ -121,6 +119,8 @@ function handleHttpError({ response, serverError, formErrors }) {
     // );
     return;
   }
+
+  error(response);
 
   // Handle Error States / Codes
   switch (response.status) {
