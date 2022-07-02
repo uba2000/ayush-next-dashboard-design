@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Tab } from '@headlessui/react';
+import { useAsyncDebounce } from 'react-table';
 import { getSession } from 'next-auth/react';
 
 import {
@@ -23,6 +24,7 @@ import TableLayout from '../../../../../../../components/layouts/TableLayout';
 import useScaiTable from '../../../../../../../hooks/useScaiTable';
 import { setHeaders, get } from '../../../../../../../utils/http';
 import GenerateContentDialog from '../../../../../../../page-components/keyword-generate/GenerateContentDialog';
+import { Input } from '../../../../../../../ui/input';
 
 const results = ({ keywordQuestions, keywords }) => {
   const router = useRouter();
@@ -47,6 +49,13 @@ const results = ({ keywordQuestions, keywords }) => {
     },
     []
   );
+
+  const [resultSearch, setResultSearch] = useState(
+    tableInstance.globalFilter || ''
+  );
+  const searchOnChange = useAsyncDebounce((value) => {
+    tableInstance.setGlobalFilter(value || undefined);
+  }, 300);
 
   return (
     <DashboardLayout metaTitle="Keywords Result">
@@ -136,9 +145,22 @@ const results = ({ keywordQuestions, keywords }) => {
           <Tab.Panels>
             <Tab.Panel>
               <div className="space-y-[26px]">
-                <Box className={'py-5 px-[31px]'}>
+                <div className="relative">
+                  <Input
+                    value={resultSearch}
+                    onChange={(value) => {
+                      setResultSearch(value);
+                      searchOnChange(value);
+                    }}
+                    className="h-full py-5 px-[31px] border border-solid border-ash dark:border-darkMode-border"
+                  />
+                  <div className="absolute right-[32px] bottom-[21px]">
+                    <SearchIcon className="h-5 w-5 dark:text-white text-black" />
+                  </div>
+                </div>
+                <Box className={'py-5 px-[31px] hidden'}>
                   <div className="flex justify-between">
-                    <div>
+                    <div className="">
                       <span className="text-sm font-medium capitalize">
                         {keywords.map(
                           (k, index) =>

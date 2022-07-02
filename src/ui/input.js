@@ -10,6 +10,7 @@ const Outer = tw.input`
   pl-6 py-3
   rounded-none
   h-[40px]
+  outline-none
 `;
 
 export const Input = React.forwardRef(

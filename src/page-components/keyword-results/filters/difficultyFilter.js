@@ -21,7 +21,6 @@ const DifficultyFilter = ({ column = {} }) => {
       <form
         onSubmit={applyChange}
         className="divide-y-2 dark:divide-darkMode-border divide-ash"
-        style={{ width: '177px' }}
       >
         <div className="p-[10px] flex">
           <Input
@@ -30,7 +29,7 @@ const DifficultyFilter = ({ column = {} }) => {
             name="min"
             value={minValue || ''}
             onChange={(e) => onChangeMin(e)}
-            placeholder={`Min (${min})`}
+            placeholder={`Min`}
             className="w-[78px] h-[21px] text-xs px-2"
           />
           <Input
@@ -39,7 +38,7 @@ const DifficultyFilter = ({ column = {} }) => {
             name="max"
             value={maxValue || ''}
             onChange={(e) => onChangeMax(e)}
-            placeholder={`Max (${max})`}
+            placeholder={`Max`}
             className="w-[78px] h-[21px] text-xs px-2"
           />
         </div>

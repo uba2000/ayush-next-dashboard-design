@@ -7,10 +7,7 @@ import { Button } from '../../../ui/button';
 const WordCountFilter = () => {
   return (
     <Layout label={'Word Count'}>
-      <div
-        className="divide-y-2 dark:divide-darkMode-border divide-ash"
-        style={{ width: '177px' }}
-      >
+      <div className="divide-y-2 dark:divide-darkMode-border divide-ash">
         <div className="p-[10px] flex">
           <Input
             variant="dark-small"
