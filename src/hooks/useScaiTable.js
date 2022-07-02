@@ -13,7 +13,7 @@ import ProjectsIndexItemDialog from '../page-components/projects/ProjectsIndexIt
 import { Settings } from '../ui/icons';
 
 const useScaiTable = (
-  { tableColumns, tableData, scaiPageSize = 10 },
+  { tableColumns, tableData, scaiPageSize = 50 },
   afterColumn = [
     {
       Header: (
