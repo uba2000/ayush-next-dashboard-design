@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 
 const useTableSearchFilter = ({ column, searchType = 'include' }) => {
-  const { filterValue = '', preFilteredRows, setFilter } = column;
+  const {
+    filterValue = '',
+    preFilteredRows = [],
+    setFilter = () => {},
+  } = column;
 
   const count = preFilteredRows.length;
 

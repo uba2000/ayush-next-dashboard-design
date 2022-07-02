@@ -1,7 +1,12 @@
 import React, { useMemo, useState } from 'react';
 
 const useTableRangeFilter = ({ column, valueType = 'int' }) => {
-  const { filterValue = [], preFilteredRows, setFilter, id } = column;
+  const {
+    filterValue = [],
+    preFilteredRows = [],
+    setFilter = () => {},
+    id = '',
+  } = column;
 
   const [min, max] = useMemo(() => {
     let min = preFilteredRows.length ? preFilteredRows[0].values[id] : 0;
