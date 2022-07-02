@@ -25,7 +25,7 @@ import { KEYWORDSLIST_COLUNM } from '../../../../../components/layouts/Table/col
 import TableLayout from '../../../../../components/layouts/TableLayout';
 import { setHeaders, get } from '../../../../../utils/http';
 
-const KeywordListView = ({ keywords, keywordList }) => {
+const KeywordListView = ({ keywords, keywordList, project }) => {
   const router = useRouter();
   const { query } = router;
 
@@ -54,6 +54,10 @@ const KeywordListView = ({ keywords, keywordList }) => {
       />
       <ArticleLayout
         crumbs={[
+          {
+            link: `/app/projects/${query.projectId}`,
+            txt: project.title,
+          },
           { link: `/app/projects/${query.projectId}?tab=k`, txt: 'Keywords' },
           { link: '', txt: keywordList.title },
         ]}
@@ -128,12 +132,15 @@ export async function getServerSideProps(context) {
         headers: setHeaders({ token: session.user.accessToken }),
       });
       if (response) {
-        const ssrKeywordList = JSON.parse(JSON.stringify(response.data.data));
+        const ssrKeywordList = JSON.parse(
+          JSON.stringify(response.data.data.ssrProject)
+        );
         const keywords = ssrKeywordList.list;
         return {
           props: {
             keywords: keywords,
             keywordList: ssrKeywordList,
+            project: JSON.parse(JSON.stringify(response.data.data.project)),
           },
         };
       }

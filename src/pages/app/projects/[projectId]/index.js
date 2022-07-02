@@ -194,7 +194,12 @@ function Index({ ssrQuery }) {
 
   return (
     <DashboardLayout metaTitle={`${project.title}`}>
-      <ArticleLayout crumbs={[{ link: '', txt: tabs[tabIndex].tab }]}>
+      <ArticleLayout
+        crumbs={[
+          { link: `/app/projects/${query.projectId}`, txt: project.title },
+          { link: '', txt: tabs[tabIndex].tab },
+        ]}
+      >
         <div className="mt-[57px] relative">
           <div className="absolute right-0 -top-[61px] flex justify-end mb-8">
             {tabIndex == 0 ? (

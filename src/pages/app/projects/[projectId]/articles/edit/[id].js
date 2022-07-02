@@ -130,8 +130,12 @@ class EditArticle extends Component {
         <ArticleLayout
           crumbs={[
             {
-              txt: 'Articles',
               link: `/app/projects/${router.query.projectId}`,
+              txt: this.props.project.title,
+            },
+            {
+              txt: 'Articles',
+              link: `/app/projects/${router.query.projectId}?tab=a`,
             },
             { txt: this.state.title },
           ]}
@@ -419,7 +423,8 @@ export async function getServerSideProps(context) {
       if (response) {
         return {
           props: {
-            article: JSON.parse(JSON.stringify(response.data.data)),
+            article: JSON.parse(JSON.stringify(response.data.data.ssrArticle)),
+            project: JSON.parse(JSON.stringify(response.data.data.ssrProject)),
             user: session.user,
           },
         };

@@ -1,5 +1,6 @@
 import dbConnect from '../../../../../utils/connect';
 import ProjectKeywordsList from '../../../../../models/ProjectKeywordsList';
+import Project from '../../../../../models/Project';
 import { checkAuth } from '../../../../../utils/checkAuth';
 
 export default async function (req, res) {
@@ -17,10 +18,13 @@ export default async function (req, res) {
           _id: keywordId,
           user_id: userAuth._id,
         });
+        const project = await Project.findById(ssrProject.project_id).select(
+          'title'
+        );
 
         return res.status(200).json({
           success: true,
-          data: ssrProject,
+          data: { ssrProject, project },
         });
       } catch (error) {
         console.log(error);
