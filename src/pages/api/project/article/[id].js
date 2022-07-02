@@ -12,7 +12,10 @@ export default async function (req, res) {
 
         const { id } = req.query;
 
-        let ssrArticle = await ProjectArticles.findById(id);
+        let ssrArticle = await ProjectArticles.findOne({
+          _id: id,
+          user_id: userAuth._id,
+        });
 
         return res.status(200).json({
           success: true,

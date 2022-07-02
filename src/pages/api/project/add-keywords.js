@@ -39,6 +39,7 @@ export default async function (req, res) {
           list: keywordsQuestions,
           keywords: keywords,
           project_id: project_id,
+          user_id: userAuth._id,
         });
 
         user.current_plan.keywords.push(newProjectListKeyword._id);

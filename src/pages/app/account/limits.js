@@ -116,7 +116,7 @@ function limits({ accountPlan, accountHistory }) {
                       <LimitsDetailsLayout
                         title={`${
                           accountPlan
-                            ? `${accountPlan.projects.length || 0} of ${
+                            ? `${accountPlan.plan_projects.length || 0} of ${
                                 accountPlan.account_plan.total_projects
                               }`
                             : '---'
@@ -128,7 +128,7 @@ function limits({ accountPlan, accountHistory }) {
                       <LimitsDetailsLayout
                         title={`${
                           accountPlan
-                            ? `${accountPlan.keywords.length || 0} of ${
+                            ? `${accountPlan.plan_keywords.length || 0} of ${
                                 accountPlan.account_plan.keyword_list_limit
                               }`
                             : '---'

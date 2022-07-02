@@ -13,7 +13,10 @@ export default async function (req, res) {
 
         const { keywordId } = req.query;
 
-        let ssrProject = await ProjectKeywordsList.findById(keywordId);
+        let ssrProject = await ProjectKeywordsList.findOne({
+          _id: keywordId,
+          user_id: userAuth._id,
+        });
 
         return res.status(200).json({
           success: true,

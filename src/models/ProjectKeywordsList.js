@@ -43,6 +43,10 @@ const ProjectKeywordsListSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       required: true,
     },
+    user_id: {
+      type: mongoose.Schema.ObjectId,
+      required: true,
+    },
     title: {
       type: String,
       required: true,

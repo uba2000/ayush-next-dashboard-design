@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { getSession } from 'next-auth/react';
 import { Switch } from '@headlessui/react';
 
 import { RoundTickActive } from '../../../ui/icons/round-tick-active';
@@ -12,8 +13,9 @@ import SwitchPlanDialog from '../../../page-components/account/pricing/switchPla
 import accountPlan from '../../../_mock/accountPlans';
 import useUser from '../../../hooks/useUser';
 import { Button } from '../../../ui/button';
+import { setHeaders, get } from '../../../utils/http';
 
-function pricing() {
+function pricing({ currentPlan }) {
   const [enabled, setEnabled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -29,9 +31,9 @@ function pricing() {
   const planDuration = () => (!enabled ? 'M' : 'Y');
 
   const currentPlanId = (plan) => {
-    if (user.currentPlan)
-      if (user.currentPlan.plan_local_id == plan.id)
-        if (planDuration() == user.currentPlan.period_type) return true;
+    if (currentPlan)
+      if (currentPlan.plan_local_id == plan.id)
+        if (planDuration() == currentPlan.period_type) return true;
     return false;
   };
 
@@ -619,4 +621,44 @@ function pricing() {
 }
 
 pricing.auth = true;
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  try {
+    if (session?.user) {
+      let details = {};
+      const { response, error } = await get({
+        url: `${process.env.BASE_URL}/api/account/get-account-details`,
+        headers: setHeaders({ token: session.user.accessToken }),
+      });
+
+      if (response.status) {
+        details = response.data.data;
+
+        return {
+          props: {
+            currentPlan: details.user.current_plan,
+          },
+        };
+      }
+    }
+
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  }
+}
+
 export default pricing;

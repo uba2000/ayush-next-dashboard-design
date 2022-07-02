@@ -17,6 +17,10 @@ const ProjectArticleSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       required: true,
     },
+    user_id: {
+      type: mongoose.Schema.ObjectId,
+      required: true,
+    },
     keywordlist_id: {
       type: mongoose.Schema.ObjectId,
       required: true,

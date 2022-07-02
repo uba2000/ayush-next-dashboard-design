@@ -32,8 +32,14 @@ export default async function handler(req, res) {
         {
           $set: {
             current_plan: {
-              projects: [...user.current_plan.projects],
-              keywords: [...user.current_plan.keywords],
+              projects: user.current_plan
+                ? [...user.current_plan.projects]
+                : [],
+              keywords: user.current_plan
+                ? [...user.current_plan.keywords]
+                : [],
+              plan_projects: [],
+              plan_keywords: [],
               period_type: period,
               period_credit: 0,
               plan_local_id: id,

@@ -92,7 +92,15 @@ const CurrentPlanSchem = new mongoose.Schema(
       type: [AccountProjectHistorySchema],
       default: null,
     },
+    plan_projects: {
+      type: [AccountProjectHistorySchema],
+      default: null,
+    },
     keywords: {
+      type: [mongoose.Schema.ObjectId],
+      default: null,
+    },
+    plan_keywords: {
       type: [mongoose.Schema.ObjectId],
       default: null,
     },

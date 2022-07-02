@@ -28,6 +28,7 @@ export default async function (req, res) {
           tags,
           article_content,
           project_id,
+          user_id: userAuth._id,
           keywordlist_id,
           word_count: articleWordCount,
         });
