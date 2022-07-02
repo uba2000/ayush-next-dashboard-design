@@ -46,6 +46,7 @@ const results = ({ keywordQuestions, keywords }) => {
     {
       tableColumns: KEYWORDSLIST_COLUNM,
       tableData: keywordQuestions,
+      scaiPageSize: 50,
     },
     []
   );

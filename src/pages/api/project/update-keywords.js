@@ -20,9 +20,10 @@ export default async function (req, res) {
         await ProjectKeywordsList.updateOne(
           {
             _id: keywordId,
+            user_id: userAuth._id,
           },
           {
-            $set: {
+            $push: {
               list: keywordsQuestions,
               keywords: keywords,
             },

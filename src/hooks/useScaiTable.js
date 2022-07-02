@@ -13,7 +13,7 @@ import ProjectsIndexItemDialog from '../page-components/projects/ProjectsIndexIt
 import { Settings } from '../ui/icons';
 
 const useScaiTable = (
-  { tableColumns, tableData },
+  { tableColumns, tableData, scaiPageSize = 10 },
   afterColumn = [
     {
       Header: (
@@ -59,6 +59,7 @@ const useScaiTable = (
     pageOptions,
     gotoPage,
     pageCount,
+    setPageSize,
     selectedFlatRows,
   } = useTable(
     {
@@ -77,7 +78,11 @@ const useScaiTable = (
     }
   );
 
-  const { globalFilter, pageIndex } = state;
+  const { globalFilter, pageIndex, pageSize } = state;
+
+  useEffect(() => {
+    setPageSize(scaiPageSize);
+  }, []);
 
   return {
     getTableProps,
@@ -97,6 +102,7 @@ const useScaiTable = (
     globalFilter,
     pageIndex,
     selectedFlatRows,
+    setPageSize,
     rowsLength: data.length,
   };
 };
