@@ -24,7 +24,7 @@ const contents = KEYWORDS_NAME.map((keyword) => {
     id: faker.datatype.number({ min: 1234567, max: 1234585, precision: 1 }),
     title: keyword,
     status: sample(['completed', 'processing', 'waiting']),
-    words: faker.datatype.number({ min: 200, max: 1000, precision: 1 }),
+    words: 1716,
   };
 });
 
@@ -37,7 +37,7 @@ export const generateArticlesContent = (contents) => {
         title: c.question,
         status: sample(['c', 'p', 'w']),
         tags: contents.articleTags,
-        words: faker.datatype.number({ min: 200, max: 1000, precision: 1 }),
+        words: 1716,
       };
     }),
     ['status'],

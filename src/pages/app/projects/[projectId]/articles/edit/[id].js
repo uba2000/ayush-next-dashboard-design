@@ -4,6 +4,7 @@ import { getSession } from 'next-auth/react';
 import draftToHtml from 'draftjs-to-html';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
+import { forEach } from 'lodash';
 
 import ArticleLayout from '../../../../../../page-components/project-categories/ArticleLayout';
 import DashboardLayout from '../../../../../../components/app/DasboardLayout';
@@ -25,6 +26,7 @@ class EditArticle extends Component {
 
     const _this = this;
     this.state = {
+      numberOfWords: _this.props.article.word_count,
       titleChange: false,
       tagsChange: false,
       title: _this.props.article.title,
@@ -105,6 +107,17 @@ class EditArticle extends Component {
           downloadLoading: false,
         };
       });
+    });
+  };
+
+  countWords = (data) => {
+    let wordsCount = 0;
+    forEach(data.blocks, (value) => {
+      let line = value.text;
+      wordsCount = wordsCount + line.split(' ').length;
+    });
+    this.setState({
+      numberOfWords: wordsCount,
     });
   };
 
@@ -300,7 +313,7 @@ class EditArticle extends Component {
               </div>
               <div className="flex justify-end items-end">
                 <span className="text-xs text-right font-medium">
-                  1682 Words
+                  {this.state.numberOfWords} Words
                 </span>
               </div>
             </div>
@@ -325,6 +338,7 @@ class EditArticle extends Component {
                 <EditorContainer>
                   <ArticleEditor
                     content={stateArticleContent}
+                    countWords={this.countWords}
                     handleContent={this.handleEditorContent}
                   />
                 </EditorContainer>
