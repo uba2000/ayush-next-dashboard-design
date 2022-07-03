@@ -51,7 +51,7 @@ export const Input = React.forwardRef(
               : variant == 'auth'
               ? `font-poppins px-5 py-3 text-base border
                 border-white border-solid rounded-md focus:outline-none 
-                bg-black focus:border-green-600 h-auto`
+                dark:bg-black bg-black focus:border-green-600 h-auto`
               : variant == 'dark-nb'
               ? `dark:bg-black bg-white`
               : ''
