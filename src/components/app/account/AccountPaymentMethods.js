@@ -1,4 +1,7 @@
 import React, { useRef, useState } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import valid from 'card-validator';
 
 import {
   RadioChecked,
@@ -16,6 +19,7 @@ import { Input } from '../../../ui/input';
 import useUser from '../../../hooks/useUser';
 import { post, setHeaders } from '../../../utils/http';
 import { Button } from '../../../ui/button';
+import FieldErrorText from '../../layouts/FieldErrorText';
 
 function AccountPaymentMethods({ showMethods }) {
   const { user } = useUser();
@@ -25,22 +29,16 @@ function AccountPaymentMethods({ showMethods }) {
   const [cardChecked, setCardChecked] = useState(false);
   const [payPalChecked, setPayPalChecked] = useState(!cardChecked);
 
-  const [cardNumber, setCardNumber] = useState('');
-  const [expDate, setExpDate] = useState('');
-  const [secCode, setSecCode] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-
   const [loading, setLoading] = useState(false);
 
-  const createNewMethod = async () => {
+  const createNewMethod = async (values, submitProps) => {
     setLoading(true);
     let reqObject = {
-      cardNumber,
-      firstName,
-      lastName,
-      expDate,
-      secCode,
+      cardNumber: values.cardNumber,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      expDate: values.expDate,
+      secCode: values.secCode,
     };
 
     const { response, error } = await post({
@@ -50,10 +48,45 @@ function AccountPaymentMethods({ showMethods }) {
     });
 
     if (response.status) {
+      submitProps.resetForm();
       setLoading(false);
       showMethods();
     }
   };
+
+  const initialValues = {
+    cardNumber: '',
+    firstName: '',
+    lastName: '',
+    expDate: '',
+    secCode: '',
+  };
+
+  const validationSchema = Yup.object({
+    cardNumber: Yup.string()
+      .test(
+        'test-number',
+        'credit card number is invalid',
+        (value) => valid.number(value).isValid
+      )
+      .required(),
+    expDate: Yup.string()
+      .test(
+        'test-number',
+        'credit card number is invalid',
+        (value) => valid.expirationDate(value).isValid
+      )
+      .required(),
+    secCode: Yup.string()
+      .test(
+        'test-number',
+        'credit card number is invalid',
+        (value) => valid.cvv(value).isValid
+      )
+      .required(),
+    firstName: Yup.string().required('first name is required'),
+    lastName: Yup.string().required('last name is required'),
+  });
 
   return (
     <Box type="black">
@@ -104,60 +137,76 @@ function AccountPaymentMethods({ showMethods }) {
         <div
           className={`${styles.accountFrameboxCardSection} border-b border-ash dark:border-darkMode-border`}
         >
-          <form
-            ref={paymentForm}
-            className="pl-[23px] pr-[23px] py-6 cardItemStyle"
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={createNewMethod}
           >
-            <div className="grid md:grid-cols-2 gap-[18.32px] grid-cols-1">
-              <FormGroup label="Card Number" labelFor="cardno">
-                <Input
-                  id="cardno"
-                  value={cardNumber}
-                  maxLength={16}
-                  onChange={(value) => setCardNumber(value)}
-                  className={`${styles.formGroupInput}`}
-                />
-              </FormGroup>
+            <Form
+              ref={paymentForm}
+              className="pl-[23px] pr-[23px] py-6 cardItemStyle"
+            >
               <div className="grid md:grid-cols-2 gap-[18.32px] grid-cols-1">
-                <FormGroup label="Expiration Date" labelFor="expDate">
-                  <Input
-                    id="expDate"
-                    value={expDate}
-                    onChange={(e) => setExpDate(e)}
-                    placeholder="MM/YY"
+                <FormGroup label="Card Number" labelFor="cardno">
+                  <Field
+                    as={Input}
+                    returnEvent={true}
+                    id="cardno"
+                    name="cardNumber"
+                    maxLength={16}
                     className={`${styles.formGroupInput}`}
                   />
+                  <ErrorMessage name="cardNumber" component={FieldErrorText} />
                 </FormGroup>
-                <FormGroup label="Security Code" labelFor="secCode">
-                  <Input
-                    id="secCode"
-                    value={secCode}
-                    maxLength={3}
-                    onChange={(e) => setSecCode(e)}
+                <div className="grid md:grid-cols-2 gap-[18.32px] grid-cols-1">
+                  <FormGroup label="Expiration Date" labelFor="expDate">
+                    <Field
+                      as={Input}
+                      returnEvent={true}
+                      id="expDate"
+                      name="expDate"
+                      placeholder="MM/YY"
+                      className={`${styles.formGroupInput}`}
+                    />
+                    <ErrorMessage name="expDate" component={FieldErrorText} />
+                  </FormGroup>
+                  <FormGroup label="Security Code" labelFor="secCode">
+                    <Field
+                      as={Input}
+                      returnEvent={true}
+                      id="secCode"
+                      name="secCode"
+                      maxLength={3}
+                      className={`${styles.formGroupInput}`}
+                    />
+                    <ErrorMessage name="secCode" component={FieldErrorText} />
+                  </FormGroup>
+                </div>
+              </div>
+              <div className="grid md:grid-cols-2 gap-[18.32px] grid-cols-1">
+                <FormGroup label="First Name" labelFor="firstName">
+                  <Field
+                    as={Input}
+                    returnEvent={true}
+                    id="firstName"
+                    name="firstName"
                     className={`${styles.formGroupInput}`}
                   />
+                  <ErrorMessage name="firstName" component={FieldErrorText} />
+                </FormGroup>
+                <FormGroup label="Last Name" labelFor="lastName">
+                  <Field
+                    as={Input}
+                    returnEvent={true}
+                    id="lastName"
+                    name="lastName"
+                    className={`${styles.formGroupInput}`}
+                  />
+                  <ErrorMessage name="lastName" component={FieldErrorText} />
                 </FormGroup>
               </div>
-            </div>
-            <div className="grid md:grid-cols-2 gap-[18.32px] grid-cols-1">
-              <FormGroup label="First Name" labelFor="firstName">
-                <Input
-                  id="firstName"
-                  value={firstName}
-                  onChange={(value) => setFirstName(value)}
-                  className={`${styles.formGroupInput}`}
-                />
-              </FormGroup>
-              <FormGroup label="Last Name" labelFor="lastName">
-                <Input
-                  id="lastName"
-                  value={lastName}
-                  onChange={(e) => setLastName(e)}
-                  className={`${styles.formGroupInput}`}
-                />
-              </FormGroup>
-            </div>
-          </form>
+            </Form>
+          </Formik>
         </div>
       )}
       <div

@@ -1,5 +1,7 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { Transition, Dialog, Tab } from '@headlessui/react';
+import React, { Fragment, useState } from 'react';
+import { Tab } from '@headlessui/react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 import styles from '../../../styles/Account.module.css';
 import AccountLayout from '../../../components/app/account/AccountLayout';
@@ -11,11 +13,10 @@ import useUser from '../../../hooks/useUser';
 import { Button } from '../../../ui/button';
 import { setHeaders, post } from '../../../utils/http';
 import AccountTeamTablePending from '../../../components/app/account/AccountTeamTablePending';
+import FieldErrorText from '../../../components/layouts/FieldErrorText';
 
 function Team() {
   const { user } = useUser();
-
-  const [inviteEmail, setInviteEmail] = useState('');
 
   const [isOpen, setIsOpen] = useState(false);
   const [targetTeamBTN, setTargetTeamBTN] = useState('---');
@@ -35,58 +36,71 @@ function Team() {
     setTabIndex(index);
   };
 
-  const inviteMember = async (e) => {
-    e.preventDefault();
-    if (inviteEmail && inviteEmail.includes('@')) {
-      setLoading(true);
-      const { response, error } = await post({
-        url: `${process.env.BASE_URL}/api/account/invite-team-member`,
-        data: {
-          email: inviteEmail,
-        },
-        headers: setHeaders({ token: user.accessToken }),
-      });
+  const inviteMember = async (values, submitProps) => {
+    setLoading(true);
+    const { response, error } = await post({
+      url: `${process.env.BASE_URL}/api/account/invite-team-member`,
+      data: {
+        email: values.email,
+      },
+      headers: setHeaders({ token: user.accessToken }),
+    });
 
-      if (response.status) {
-        setInviteEmail('');
-        setTabIndex(0);
-        setTabIndex(1);
-        closeModal();
-      }
-      setLoading(false);
+    if (response.status) {
+      submitProps.resetForm();
+      setTabIndex(0);
+      setTabIndex(1);
+      closeModal();
     }
+    setLoading(false);
   };
+
+  const initialValues = {
+    email: '',
+  };
+
+  const validationSchema = Yup.object({
+    email: Yup.string().email('invalid email').required('email is required'),
+  });
 
   return (
     <>
       <DialogLayout isOpen={isOpen} closeModal={closeModal}>
-        <form onSubmit={inviteMember} className="py-[100px] px-[150px]">
-          <div className="space-y-5">
-            <DialogLayout.Title as="h3" className="title">
-              Are you sure, you want to add this person in your account?
-            </DialogLayout.Title>
-            <div className="subtitle">
-              <div className="form-group mb-6">
-                <Input
-                  type="email"
-                  value={inviteEmail}
-                  onChange={(e) => setInviteEmail(e)}
-                  placeholder="example@gmail.com"
-                  className={`${styles.formGroupInput} text-center dark:bg-black`}
-                />
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={inviteMember}
+        >
+          <Form className="py-[100px] px-[150px]">
+            <div className="space-y-5">
+              <DialogLayout.Title as="h3" className="title">
+                Are you sure, you want to add this person in your account?
+              </DialogLayout.Title>
+              <div className="subtitle">
+                <div className="form-group mb-6">
+                  <Field
+                    as={Input}
+                    returnEvent={true}
+                    type="email"
+                    name="email"
+                    placeholder="example@gmail.com"
+                    className={`${styles.formGroupInput} text-center dark:bg-black`}
+                  />
+                  <ErrorMessage name="email" component={FieldErrorText} />
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="mt-8 space-x-3">
-            <Button type="submit" state={loading && 'loading'}>
-              Confirm
-            </Button>
-            <Button variant="reset" onClick={closeModal}>
-              Cancel
-            </Button>
-          </div>
-        </form>
+            <div className="mt-8 space-x-3">
+              <Button type="submit" state={loading && 'loading'}>
+                Confirm
+              </Button>
+              <Button variant="reset" onClick={closeModal}>
+                Cancel
+              </Button>
+            </div>
+          </Form>
+        </Formik>
       </DialogLayout>
       <AccountLayout metaTitle="Team Members">
         <Box type={'black'} className={styles.accountFramebox}>

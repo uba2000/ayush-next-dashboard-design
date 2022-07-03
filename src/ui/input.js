@@ -22,6 +22,7 @@ export const Input = React.forwardRef(
       value = '',
       variant = 'normal',
       onChange = () => {},
+      returnEvent = false,
       ...rest
     },
     ref
@@ -33,7 +34,9 @@ export const Input = React.forwardRef(
         placeholder={placeholder}
         {...rest}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => {
+          returnEvent ? onChange(e) : onChange(e.target.value);
+        }}
         className={`
           ${
             variant == 'normal'

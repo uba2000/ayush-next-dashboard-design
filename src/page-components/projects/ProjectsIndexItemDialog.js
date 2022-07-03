@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { useDispatch } from 'react-redux';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 import { Dots } from '../../ui/icons';
 import { DialogLayout } from '../../components/layouts/Dialog';
@@ -16,6 +18,7 @@ import {
   removeProject,
   updateAProject,
 } from '../../features/project/projectSlice';
+import FieldErrorText from '../../components/layouts/FieldErrorText';
 
 const ProjectsIndexItemDialog = ({ item }) => {
   const router = useRouter();
@@ -61,18 +64,17 @@ const ProjectsIndexItemDialog = ({ item }) => {
     setShowPredictIndustry(rSelectedIndustry.length > 2);
   };
 
-  const saveEdit = async (e) => {
-    e.preventDefault();
+  const saveEdit = async (values) => {
     let updateObject = {};
 
-    if (item.title !== rProjectTitle) {
-      updateObject.title = rProjectTitle;
+    if (item.title !== values.title) {
+      updateObject.title = values.title;
     }
-    if (item.tags.join(', ') != pTags.join(', ')) {
-      updateObject.tags = pTags;
+    if (item.tags.join(', ') != values.tags) {
+      updateObject.tags = values.tags.split(', ');
     }
-    if (item.industry != rSelectedIndustry) {
-      updateObject.industry = rSelectedIndustry;
+    if (item.industry != values.industry) {
+      updateObject.industry = values.industry;
     }
 
     if (
@@ -126,6 +128,17 @@ const ProjectsIndexItemDialog = ({ item }) => {
     router.push(`/app/projects/${item._id}?tab=a`);
   };
 
+  const initialValues = {
+    title: item.title,
+    tags: item.tags.join(', '),
+    industry: item.industry || '',
+  };
+
+  const validationSchema = Yup.object({
+    title: Yup.string().required('project title is required'),
+    tags: Yup.string().required('project tag(s) is required'),
+  });
+
   return (
     <>
       {/* Delete Dialog */}
@@ -162,138 +175,148 @@ const ProjectsIndexItemDialog = ({ item }) => {
         closeModal={closeEditModal}
         isSharp={true}
       >
-        <form
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
           onSubmit={saveEdit}
-          className="w-full text-left pt-[30px] divide-y-[1px] dark:divide-darkMode-border divide-ash"
         >
-          <div className="pb-[30px] px-14">
-            <FormGroup label="Project Title" imp={true} labelFor="project">
-              <Input
-                variant="dark"
-                id="project"
-                value={rProjectTitle}
-                onChange={(e) => predictTitle(e)}
-                placeholder="Your Campaign, Product, or client"
-              />
-              <Transition
-                as={Fragment}
-                show={showPredict}
-                enter="transition ease-out duration-100 overflow-hidden"
-                enterFrom="transform min-h-0"
-                enterTo="transform max-h-[105px] h-auto"
-                leave="transition ease-in"
-                leaveFrom="transform duration-75 max-h-[105px] h-auto"
-                leaveTo="transform min-h-0"
+          <Form className="w-full text-left pt-[30px] divide-y-[1px] dark:divide-darkMode-border divide-ash">
+            <div className="pb-[30px] px-14">
+              <FormGroup label="Project Title" imp={true} labelFor="project">
+                <Field
+                  as={Input}
+                  returnEvent={true}
+                  variant="dark"
+                  id="project"
+                  name="title"
+                  placeholder="Your Campaign, Product, or client"
+                />
+                <ErrorMessage name="title" component={FieldErrorText} />
+                <Transition
+                  as={Fragment}
+                  show={showPredict && false}
+                  enter="transition ease-out duration-100 overflow-hidden"
+                  enterFrom="transform min-h-0"
+                  enterTo="transform max-h-[105px] h-auto"
+                  leave="transition ease-in"
+                  leaveFrom="transform duration-75 max-h-[105px] h-auto"
+                  leaveTo="transform min-h-0"
+                >
+                  <ul className="predict-title max-h-[176px] overflow-y-scroll">
+                    <li className="px-[27.18px] py-[10px]">
+                      <span
+                        className="cursor-pointer"
+                        onClick={() => {
+                          setRProjectTitle(`${rProjectTitle} Class Notes`);
+                          setPredictTitle(false);
+                        }}
+                      >
+                        {rProjectTitle}{' '}
+                        <span className="font-bold">Class Notes</span>
+                      </span>
+                    </li>
+                    <li className="px-[27.18px] py-[10px]">
+                      <span
+                        className="cursor-pointer"
+                        onClick={() => {
+                          setRProjectTitle(`${rProjectTitle} Agency`);
+                          setPredictTitle(false);
+                        }}
+                      >
+                        {rProjectTitle}{' '}
+                        <span className="font-bold">Agency</span>
+                      </span>
+                    </li>
+                    <li className="px-[27.18px] py-[10px]">
+                      <span
+                        className="cursor-pointer"
+                        onClick={() => {
+                          setRProjectTitle(`${rProjectTitle} Book Article`);
+                          setPredictTitle(false);
+                        }}
+                      >
+                        {rProjectTitle}{' '}
+                        <span className="font-bold">Book Article</span>
+                      </span>
+                    </li>
+                  </ul>
+                </Transition>
+              </FormGroup>
+
+              <FormGroup label="Project Tags" imp={true} labelFor="prize">
+                <Field
+                  as={Input}
+                  returnEvent={true}
+                  variant="dark"
+                  id="prize"
+                  name="tags"
+                  placeholder="graphic design, digital marketing, marketing"
+                />
+                <ErrorMessage name="tags" component={FieldErrorText} />
+              </FormGroup>
+
+              <FormGroup
+                label="Industry(optional)"
+                className="mb-0"
+                labelFor="indutry"
               >
-                <ul className="predict-title max-h-[176px] overflow-y-scroll">
-                  <li className="px-[27.18px] py-[10px]">
-                    <span
-                      className="cursor-pointer"
-                      onClick={() => {
-                        setRProjectTitle(`${rProjectTitle} Class Notes`);
-                        setPredictTitle(false);
-                      }}
-                    >
-                      {rProjectTitle}{' '}
-                      <span className="font-bold">Class Notes</span>
-                    </span>
-                  </li>
-                  <li className="px-[27.18px] py-[10px]">
-                    <span
-                      className="cursor-pointer"
-                      onClick={() => {
-                        setRProjectTitle(`${rProjectTitle} Agency`);
-                        setPredictTitle(false);
-                      }}
-                    >
-                      {rProjectTitle} <span className="font-bold">Agency</span>
-                    </span>
-                  </li>
-                  <li className="px-[27.18px] py-[10px]">
-                    <span
-                      className="cursor-pointer"
-                      onClick={() => {
-                        setRProjectTitle(`${rProjectTitle} Book Article`);
-                        setPredictTitle(false);
-                      }}
-                    >
-                      {rProjectTitle}{' '}
-                      <span className="font-bold">Book Article</span>
-                    </span>
-                  </li>
-                </ul>
-              </Transition>
-            </FormGroup>
-
-            <FormGroup label="Project Tags" imp={true} labelFor="prize">
-              <Input
-                variant="dark"
-                id="prize"
-                value={pTags.join(', ')}
-                onChange={(e) => setPTags(fTags(e))}
-                placeholder="graphic design, digital marketing, marketing"
-              />
-            </FormGroup>
-
-            <FormGroup
-              label="Industry(optional)"
-              className="mb-0"
-              labelFor="indutry"
-            >
-              <Input
-                variant="dark"
-                id="industry"
-                value={rSelectedIndustry}
-                onChange={(e) => predictIndustry(e)}
-                placeholder="Industry"
-              />
-              <Transition
-                as={Fragment}
-                show={showPredictIndustry}
-                enter="transition ease-out duration-100 overflow-hidden"
-                enterFrom="transform min-h-0"
-                enterTo="transform max-h-[105px] h-auto"
-                leave="transition ease-in"
-                leaveFrom="transform duration-75 max-h-[105px] h-auto"
-                leaveTo="transform min-h-0"
-              >
-                <ul className="predict-title max-h-[176px] overflow-y-scroll">
-                  {industries.map((industry, index) => {
-                    return (
-                      <li className="px-[27.18px] py-[10px]" key={index}>
-                        <span
-                          className="cursor-pointer"
-                          onClick={() => {
-                            setRSelectedIndustry(industry);
-                            setShowPredictIndustry(false);
-                          }}
-                        >
-                          <span className="font-bold">{industry}</span>
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </Transition>
-            </FormGroup>
-          </div>
-
-          <div className="form-group px-14 py-4 flex mb-0 justify-between">
-            <div className="flex items-center">
-              <span className="dark:text-darkMode-subText text-black">
-                Make sure to save the changes
-              </span>
+                <Field
+                  as={Input}
+                  returnEvent={true}
+                  variant="dark"
+                  id="industry"
+                  name="industry"
+                  placeholder="Industry"
+                />
+                <ErrorMessage name="industry" component={FieldErrorText} />
+                <Transition
+                  as={Fragment}
+                  show={showPredictIndustry && false}
+                  enter="transition ease-out duration-100 overflow-hidden"
+                  enterFrom="transform min-h-0"
+                  enterTo="transform max-h-[105px] h-auto"
+                  leave="transition ease-in"
+                  leaveFrom="transform duration-75 max-h-[105px] h-auto"
+                  leaveTo="transform min-h-0"
+                >
+                  <ul className="predict-title max-h-[176px] overflow-y-scroll">
+                    {industries.map((industry, index) => {
+                      return (
+                        <li className="px-[27.18px] py-[10px]" key={index}>
+                          <span
+                            className="cursor-pointer"
+                            onClick={() => {
+                              setRSelectedIndustry(industry);
+                              setShowPredictIndustry(false);
+                            }}
+                          >
+                            <span className="font-bold">{industry}</span>
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </Transition>
+              </FormGroup>
             </div>
-            <div className="space-x-4 flex">
-              <Button variant="reset" onClick={closeEditModal}>
-                Cancel
-              </Button>
-              <Button type="submit" state={loading && 'loading'}>
-                Save Changes
-              </Button>
+
+            <div className="form-group px-14 py-4 flex mb-0 justify-between">
+              <div className="flex items-center">
+                <span className="dark:text-darkMode-subText text-black">
+                  Make sure to save the changes
+                </span>
+              </div>
+              <div className="space-x-4 flex">
+                <Button variant="reset" onClick={closeEditModal}>
+                  Cancel
+                </Button>
+                <Button type="submit" state={loading && 'loading'}>
+                  Save Changes
+                </Button>
+              </div>
             </div>
-          </div>
-        </form>
+          </Form>
+        </Formik>
       </DialogLayout>
       <Menu as="div" className="">
         <div className="relative">

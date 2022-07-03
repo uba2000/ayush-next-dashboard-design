@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import axios from 'axios';
 import { signIn, getCsrfToken } from 'next-auth/react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 import AuthLayout from '../components/AuthLayout';
 import { Button } from '../ui/button';
@@ -16,22 +18,20 @@ function ForgetPassword({ csrfToken }) {
 
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  const initialValues = {
+    email: '',
+  };
 
+  const onSubmit = async (values, submitProps) => {
     setLoading(true);
 
     try {
-      if (!email || !email.includes('@')) {
-        // Show error...
-        return;
-      }
       setLoading(true);
 
       const { response, error } = await post({
         url: `${process.env.BASE_URL}/api/auth/forget-password`,
         data: {
-          email,
+          email: values.email,
         },
       });
 
@@ -45,6 +45,10 @@ function ForgetPassword({ csrfToken }) {
       console.log(error);
     }
   };
+
+  const validationSchema = Yup.object({
+    email: Yup.string().email('invalid email').required('email is required'),
+  });
 
   return (
     <AuthLayout metaTitle="Forgot Password">
@@ -64,29 +68,36 @@ function ForgetPassword({ csrfToken }) {
         </div>
 
         {/* FORM */}
-        <form action="" className="w-full" onSubmit={onSubmit}>
-          <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-          <div className="">
-            <Input
-              variant="auth"
-              type="email"
-              placeholder="Email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e)}
-            />
-          </div>
-          <div className="mt-3">
-            <Button
-              className="w-full"
-              type="submit"
-              variant="gradient"
-              state={loading && 'loading'}
-            >
-              Send recovery mail
-            </Button>
-          </div>
-        </form>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          <Form className="w-full">
+            <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+            <div className="">
+              <Field
+                as={Input}
+                returnEvent={true}
+                variant="auth"
+                type="email"
+                placeholder="Email"
+                name="email"
+              />
+              <ErrorMessage name="email" component={FieldErrorText} />
+            </div>
+            <div className="mt-3">
+              <Button
+                className="w-full"
+                type="submit"
+                variant="gradient"
+                state={loading && 'loading'}
+              >
+                Send recovery mail
+              </Button>
+            </div>
+          </Form>
+        </Formik>
       </div>
     </AuthLayout>
   );

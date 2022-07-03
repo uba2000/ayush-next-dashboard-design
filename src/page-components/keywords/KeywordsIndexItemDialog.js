@@ -2,6 +2,8 @@ import React, { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 import { Dots } from '../../ui/icons';
 import { DialogLayout } from '../../components/layouts/Dialog';
@@ -16,6 +18,7 @@ import {
   removeKeyword,
   updateAKeyword,
 } from '../../features/project/projectSlice';
+import FieldErrorText from '../../components/layouts/FieldErrorText';
 
 const KeywordsIndexItemDialog = ({ item }) => {
   const dispatch = useDispatch();
@@ -56,18 +59,17 @@ const KeywordsIndexItemDialog = ({ item }) => {
     setIsEditOpen(true);
   }
 
-  const saveKeywordDetail = async (e) => {
-    e.preventDefault();
+  const saveKeywordDetail = async (values) => {
     let updateObject = {};
 
-    if (item.title !== keywordListTitle) {
-      updateObject.title = keywordListTitle;
+    if (item.title !== values.title) {
+      updateObject.title = values.title;
     }
-    if (item.tags.join(', ') != kTags.join(', ')) {
-      updateObject.tags = kTags;
+    if (item.tags.join(', ') != values.tags) {
+      updateObject.tags = values.tags.split(', ');
     }
-    if (item.industry != selectedIndustry) {
-      updateObject.industry = selectedIndustry;
+    if (item.industry != values.industry) {
+      updateObject.industry = values.industry;
     }
 
     if (
@@ -122,6 +124,17 @@ const KeywordsIndexItemDialog = ({ item }) => {
     router.push(`/app/projects/${query.projectId}/keyword-list/${item._id}`);
   };
 
+  const initialValues = {
+    title: item.title,
+    tags: item.tags.join(', '),
+    industry: item.industry || '',
+  };
+
+  const validationSchema = Yup.object({
+    title: Yup.string().required('keywords list title is required'),
+    tags: Yup.string().required('keywords list tag(s) is required'),
+  });
+
   return (
     <>
       {/* delete */}
@@ -158,94 +171,107 @@ const KeywordsIndexItemDialog = ({ item }) => {
         isOpen={isEditOpen}
         closeModal={closeEditModal}
       >
-        <form
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
           onSubmit={saveKeywordDetail}
-          className="w-full text-left pt-[30px] divide-y-[1px] dark:divide-darkMode-border divide-ash"
         >
-          <div className="pb-[30px] px-14">
-            <FormGroup label="Keyword List Title" imp={true} labelFor="keyword">
-              <Input
-                variant="dark"
-                id="keyword"
-                value={keywordListTitle}
-                onChange={(e) => setKeywordList(e)}
-                placeholder="Graphic Design keywords"
-              />
-            </FormGroup>
-
-            <FormGroup label="Keywords List Tags*" imp={true} labelFor="tags">
-              <Input
-                id="tags"
-                variant="dark"
-                value={kTags.join(', ')}
-                onChange={(e) => setKTags(fTags(e))}
-                placeholder="graphic design, digital marketing, marketing"
-              />
-            </FormGroup>
-
-            <FormGroup
-              label="Industry(optional)"
-              className="mb-0"
-              labelFor="indutry"
-            >
-              <Input
-                variant="dark"
-                id="industry"
-                value={selectedIndustry}
-                onChange={(e) => predictIndustry(e)}
-                placeholder="Industry"
-              />
-              <Transition
-                as={Fragment}
-                show={showPredictIndustry}
-                enter="transition ease-out duration-100 overflow-hidden"
-                enterFrom="transform min-h-0"
-                enterTo="transform max-h-[105px] h-auto"
-                leave="transition ease-in"
-                leaveFrom="transform duration-75 max-h-[105px] h-auto"
-                leaveTo="transform min-h-0"
+          <Form className="w-full text-left pt-[30px] divide-y-[1px] dark:divide-darkMode-border divide-ash">
+            <div className="pb-[30px] px-14">
+              <FormGroup
+                label="Keyword List Title"
+                imp={true}
+                labelFor="keyword"
               >
-                <ul className="predict-title max-h-[176px] overflow-y-scroll">
-                  {industries.map((industry, index) => {
-                    return (
-                      <li className="px-[27.18px] py-[10px]" key={index}>
-                        <span
-                          className="cursor-pointer"
-                          onClick={() => {
-                            setSelectedIndustry(industry);
-                            setShowPredictIndustry(false);
-                          }}
-                        >
-                          <span className="font-bold">{industry}</span>
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </Transition>
-            </FormGroup>
-          </div>
+                <Field
+                  as={Input}
+                  returnEvent={true}
+                  variant="dark"
+                  id="keyword"
+                  name="title"
+                  placeholder="Graphic Design keywords"
+                />
+                <ErrorMessage name="title" component={FieldErrorText} />
+              </FormGroup>
 
-          <div className="form-group px-14 py-4 flex mb-0 justify-between">
-            <div className="flex items-center">
-              <span className="dark:text-darkMode-subText text-black">
-                Make sure to save the changes
-              </span>
-            </div>
-            <div className="space-x-4 flex">
-              <Button onClick={closeEditModal} variant="reset">
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                state={editLoading && 'loading'}
-                className="block w-fit"
+              <FormGroup label="Keywords List Tags*" imp={true} labelFor="tags">
+                <Field
+                  as={Input}
+                  returnEvent={true}
+                  id="tags"
+                  variant="dark"
+                  name="tags"
+                  placeholder="graphic design, digital marketing, marketing"
+                />
+                <ErrorMessage name="tags" component={FieldErrorText} />
+              </FormGroup>
+
+              <FormGroup
+                label="Industry(optional)"
+                className="mb-0"
+                labelFor="indutry"
               >
-                Continue
-              </Button>
+                <Field
+                  as={Input}
+                  returnEvent={true}
+                  variant="dark"
+                  id="industry"
+                  name="industry"
+                  placeholder="Industry"
+                />
+                <ErrorMessage name="industry" component={FieldErrorText} />
+                <Transition
+                  as={Fragment}
+                  show={showPredictIndustry && false}
+                  enter="transition ease-out duration-100 overflow-hidden"
+                  enterFrom="transform min-h-0"
+                  enterTo="transform max-h-[105px] h-auto"
+                  leave="transition ease-in"
+                  leaveFrom="transform duration-75 max-h-[105px] h-auto"
+                  leaveTo="transform min-h-0"
+                >
+                  <ul className="predict-title max-h-[176px] overflow-y-scroll">
+                    {industries.map((industry, index) => {
+                      return (
+                        <li className="px-[27.18px] py-[10px]" key={index}>
+                          <span
+                            className="cursor-pointer"
+                            onClick={() => {
+                              setSelectedIndustry(industry);
+                              setShowPredictIndustry(false);
+                            }}
+                          >
+                            <span className="font-bold">{industry}</span>
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </Transition>
+              </FormGroup>
             </div>
-          </div>
-        </form>
+
+            <div className="form-group px-14 py-4 flex mb-0 justify-between">
+              <div className="flex items-center">
+                <span className="dark:text-darkMode-subText text-black">
+                  Make sure to save the changes
+                </span>
+              </div>
+              <div className="space-x-4 flex">
+                <Button onClick={closeEditModal} variant="reset">
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  state={editLoading && 'loading'}
+                  className="block w-fit"
+                >
+                  Continue
+                </Button>
+              </div>
+            </div>
+          </Form>
+        </Formik>
       </DialogLayout>
       <Menu as="div" className="">
         <div className="relative">
