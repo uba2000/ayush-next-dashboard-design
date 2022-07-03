@@ -47,14 +47,15 @@ function AccountBillingSubscription({ currentPlan }) {
   }
 
   const checkPlanExist = () => {
-    return !!user.currentPlan;
+    return !!currentPlan;
   };
 
   const showMoreDialog = (toCall) => {
     if (!checkPlanExist()) {
       router.push('/app/account/pricing');
+    } else {
+      toCall(true);
     }
-    toCall(true);
   };
 
   return (

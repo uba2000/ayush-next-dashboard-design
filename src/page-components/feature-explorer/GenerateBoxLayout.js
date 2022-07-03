@@ -13,7 +13,7 @@ const GenerateBoxLayout = ({ index, content, addToFavourite }) => {
     <Box className="p-4">
       <div className="flex space-x-4">
         <div className="">
-          <div className="h-6 w-6 rounded-full border dark:border-darkMode-border border-ash flex justify-center items-center">
+          <div className="hidden h-6 w-6 rounded-full border dark:border-darkMode-border border-ash justify-center items-center">
             <span className="text-xs leading-[18px]">0{index}</span>
           </div>
         </div>

@@ -70,9 +70,6 @@ export default async function handler(req, res) {
 
             return {
               email: user.email,
-              gender: user.gender,
-              address: user.address,
-              dob: user.dob,
               fullName: user.full_name,
               access_token: token,
               refresh_token: refreshToken,
@@ -92,9 +89,7 @@ export default async function handler(req, res) {
     },
     callbacks: {
       async jwt({ token, user, account }) {
-        // console.log('Help');
         // TODO: refresh token here...
-        // console.log({ token, user, account });
         if (account && user) {
           let { access_token, refresh_token, ...fUser } = user;
           return {
@@ -112,9 +107,6 @@ export default async function handler(req, res) {
         session.user.accessToken = token.accessToken;
         session.user.currentPlan = token.current_plan;
         session.user.fullName = token.fullName;
-        session.user.dob = token.dob;
-        session.user.address = token.address;
-        session.user.gender = token.gender;
         session.user.refreshToken = token.refreshToken;
         session.user.accessTokenExpires = token.accessTokenExpires;
 
