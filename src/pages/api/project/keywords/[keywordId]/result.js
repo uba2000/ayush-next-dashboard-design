@@ -18,9 +18,13 @@ export default async function (req, res) {
           _id: keywordId,
           user_id: userAuth._id,
         });
-        const project = await Project.findById(ssrProject.project_id).select(
-          'title'
-        );
+
+        let project = null;
+        if (ssrProject) {
+          project = await Project.findById(ssrProject.project_id).select(
+            'title'
+          );
+        }
 
         return res.status(200).json({
           success: true,

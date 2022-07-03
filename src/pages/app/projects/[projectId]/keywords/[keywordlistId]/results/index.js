@@ -31,6 +31,7 @@ const results = ({ keywordQuestions, keywords }) => {
   const { query } = router;
 
   const [generateContentDialog, setGenerateContentDialog] = useState(false);
+  const [pageKeywords, setPageKeywords] = useState(keywordQuestions);
 
   const openGenerateContentDialog = () => {
     setGenerateContentDialog(true);
@@ -45,7 +46,7 @@ const results = ({ keywordQuestions, keywords }) => {
   const tableInstance = useScaiTable(
     {
       tableColumns: KEYWORDSLIST_COLUNM,
-      tableData: keywordQuestions,
+      tableData: pageKeywords,
       scaiPageSize: 50,
     },
     []
@@ -181,7 +182,12 @@ const results = ({ keywordQuestions, keywords }) => {
                     <WordCountFilter />
                     {tableInstance.headerGroups[0].headers[5].render('Filter')}
                     {tableInstance.headerGroups[0].headers[4].render('Filter')}
-                    {tableInstance.headerGroups[0].headers[1].render('Filter')}
+                    {tableInstance.headerGroups[0].headers[1].render('Filter', {
+                      filterOptions: {
+                        items: pageKeywords,
+                        setItems: setPageKeywords,
+                      },
+                    })}
                     <AllInTitleFilter />
                   </div>
                   <div className="flex space-x-2">
@@ -253,7 +259,9 @@ export async function getServerSideProps(context) {
         headers: setHeaders({ token: session.user.accessToken }),
       });
       if (response) {
-        const ssrProject = JSON.parse(JSON.stringify(response.data.data));
+        const ssrProject = JSON.parse(
+          JSON.stringify(response.data.data.ssrProject)
+        );
         return {
           props: {
             keywordQuestions: ssrProject.list || [],

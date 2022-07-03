@@ -72,6 +72,8 @@ export default async function (req, res) {
 
         user.current_plan.keywords.push(newProjectListKeyword._id);
 
+        user.current_plan.plan_keywords.push(newProjectListKeyword._id);
+
         await user.save();
 
         await newProjectListKeyword.save();

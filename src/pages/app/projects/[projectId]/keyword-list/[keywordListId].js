@@ -31,6 +31,8 @@ const KeywordListView = ({ keywords, keywordList, project }) => {
 
   const [generateContentDialog, setGenerateContentDialog] = useState(false);
 
+  const [pageKeywords, setPageKeywords] = useState(keywords);
+
   const openGenerateContentDialog = () => {
     setGenerateContentDialog(true);
   };
@@ -38,7 +40,7 @@ const KeywordListView = ({ keywords, keywordList, project }) => {
   const tableInstance = useScaiTable(
     {
       tableColumns: KEYWORDSLIST_COLUNM,
-      tableData: keywords,
+      tableData: pageKeywords,
     },
     []
   );
@@ -75,7 +77,12 @@ const KeywordListView = ({ keywords, keywordList, project }) => {
               <WordCountFilter />
               {tableInstance.headerGroups[0].headers[5].render('Filter')}
               {tableInstance.headerGroups[0].headers[4].render('Filter')}
-              {tableInstance.headerGroups[0].headers[1].render('Filter')}
+              {tableInstance.headerGroups[0].headers[1].render('Filter', {
+                filterOptions: {
+                  items: pageKeywords,
+                  setItems: setPageKeywords,
+                },
+              })}
               <AllInTitleFilter />
             </div>
             <div className="flex space-x-2">

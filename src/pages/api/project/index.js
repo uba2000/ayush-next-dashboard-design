@@ -115,6 +115,11 @@ export default async function (req, res) {
           credits: 0,
         });
 
+        user.current_plan.plan_projects.push({
+          project_id: newProject._id,
+          credits: 0,
+        });
+
         await user.save();
 
         await newProject.save();
