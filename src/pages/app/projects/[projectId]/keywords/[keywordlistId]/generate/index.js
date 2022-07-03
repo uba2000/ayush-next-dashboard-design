@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
 import draftToHtml from 'draftjs-to-html';
 import { forEach } from 'lodash';
-import { useSelector, useDispatch } from 'react-redux';
 
 import { Table } from '../../../../../../../components/layouts/Table';
 import DashboardLayout from '../../../../../../../components/app/DasboardLayout';
