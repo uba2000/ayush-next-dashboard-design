@@ -7,8 +7,8 @@ import Layout from '../Layout';
 const LimitExceed = ({ closeModal }) => {
   const router = useRouter();
 
-  const goToPricing = () => {
-    router.push('/app/account/pricing');
+  const goToPricing = (url) => {
+    router.push(url);
     closeModal();
   };
   return (
@@ -17,9 +17,14 @@ const LimitExceed = ({ closeModal }) => {
       closeModal={closeModal}
       errorName="Plan Limit Exceeded"
     >
-      <Button onClick={goToPricing}>Upgrade Plan</Button>
-      <Button variant="reset" className="dark:text-darkMode-subText text-ash">
-        Cancel
+      <Button onClick={() => goToPricing('/app/account/pricing')}>
+        Upgrade Plan
+      </Button>
+      <Button
+        onClick={() => goToPricing('/app/account/limits')}
+        variant="reset"
+      >
+        Check Limit
       </Button>
     </Layout>
   );

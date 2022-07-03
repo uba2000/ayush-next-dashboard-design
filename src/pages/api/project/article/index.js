@@ -2,6 +2,7 @@ import dbConnect from '../../../../utils/connect';
 import { checkAuth } from '../../../../utils/checkAuth';
 import User from '../../../../models/User';
 import ProjectArticles from '../../../../models/ProjectArticles';
+import errorTypes from '../../../../_mock/errorTypes';
 
 export default async function (req, res) {
   const { method } = req;
@@ -23,6 +24,29 @@ export default async function (req, res) {
           articleWordCount,
         } = req.body;
 
+        if (!user.current_plan) {
+          return res.status(422).json({
+            success: false,
+            error: {
+              message: 'No active plan!',
+              details: { type: errorTypes.NO_PLAN },
+            },
+          });
+        }
+
+        if (
+          new Date(user.current_plan.next_billing_date).getTime() <
+          new Date().getTime()
+        ) {
+          return res.status(422).json({
+            success: false,
+            error: {
+              message: 'Upgrade plan!',
+              details: { type: errorTypes.PLAN_EXPIRED },
+            },
+          });
+        }
+
         const newProjectArticle = new ProjectArticles({
           title,
           tags,
@@ -39,7 +63,13 @@ export default async function (req, res) {
           periodCredits + articleWordCount >
           user.current_plan.account_plan.period_limit
         ) {
-          return res.status(400).send({ message: 'Credit Limit Exceeded!' });
+          return res.status(422).json({
+            success: false,
+            error: {
+              message: 'Credit Limit Exceeded!',
+              details: { type: errorTypes.LIMIT_EXCEED },
+            },
+          });
         }
 
         const userProjectIndex = user.current_plan.projects.findIndex(

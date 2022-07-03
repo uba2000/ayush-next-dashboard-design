@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
 import draftToHtml from 'draftjs-to-html';
 import { forEach } from 'lodash';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Table } from '../../../../../../../components/layouts/Table';
 import DashboardLayout from '../../../../../../../components/app/DasboardLayout';
@@ -21,8 +22,13 @@ import ScrollbarsLayout from '../../../../../../../components/layouts/Scrollbars
 import { EditorContainer } from '../../../../../../../components/layouts/EditorContainer';
 import articleContent from '../../../../../../../_mock/article-content';
 import { Button } from '../../../../../../../ui/button';
+import {
+  setErrorDetails,
+  setShowErrorDialog,
+} from '../../../../../../../features/error/errorSlice';
 
 const Index = () => {
+  const dispatchStore = useDispatch();
   const router = useRouter();
   const { query } = router;
   const { user } = useUser();
@@ -59,6 +65,13 @@ const Index = () => {
           project_id: query.projectId,
           keywordlist_id: query.keywordlistId,
           articleWordCount: article.words,
+        },
+        error: (response) => {
+          setIsCompleteDialog(false);
+          dispatchStore(setShowErrorDialog(true));
+          dispatchStore(
+            setErrorDetails(response.data.error.details || undefined)
+          );
         },
       });
     }

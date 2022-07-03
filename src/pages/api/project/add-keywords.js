@@ -2,6 +2,7 @@ import dbConnect from '../../../utils/connect';
 import ProjectKeywordsList from '../../../models/ProjectKeywordsList';
 import User from '../../../models/User';
 import { checkAuth } from '../../../utils/checkAuth';
+import errorTypes from '../../../_mock/errorTypes';
 
 export default async function (req, res) {
   const { method } = req;
@@ -14,13 +15,40 @@ export default async function (req, res) {
 
         const user = await User.findById(userAuth._id);
 
+        if (!user.current_plan) {
+          return res.status(422).json({
+            success: false,
+            error: {
+              message: 'No active plan!',
+              details: { type: errorTypes.NO_PLAN },
+            },
+          });
+        }
+
+        if (
+          new Date(user.current_plan.next_billing_date).getTime() <
+          new Date().getTime()
+        ) {
+          return res.status(422).json({
+            success: false,
+            error: {
+              message: 'Upgrade plan!',
+              details: { type: errorTypes.PLAN_EXPIRED },
+            },
+          });
+        }
+
         if (
           user.current_plan.keywords.length + 1 >
           user.current_plan.account_plan.keyword_list_limit
         ) {
-          return res
-            .status(400)
-            .json({ success: false, error: { message: 'Upgrade plan!' } });
+          return res.status(422).json({
+            success: false,
+            error: {
+              message: 'Upgrade plan!',
+              details: { type: errorTypes.LIMIT_EXCEED },
+            },
+          });
         }
 
         const {

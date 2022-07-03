@@ -118,7 +118,7 @@ const ProjectsIndexDialog = ({ projectDialog, closeProjectDialog }) => {
             />
             <Transition
               as={Fragment}
-              show={showPredict}
+              show={showPredict && false}
               enter="transition ease-out duration-100 overflow-hidden"
               enterFrom="transform min-h-0"
               enterTo="transform max-h-[105px] h-auto"
@@ -200,7 +200,7 @@ const ProjectsIndexDialog = ({ projectDialog, closeProjectDialog }) => {
             />
             <Transition
               as={Fragment}
-              show={showPredictIndustry}
+              show={showPredictIndustry && false}
               enter="transition ease-out duration-100 overflow-hidden"
               enterFrom="transform min-h-0"
               enterTo="transform max-h-[105px] h-auto"
