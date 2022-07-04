@@ -9,9 +9,9 @@ export default async function (req, res) {
   switch (method) {
     case 'POST':
       try {
-        let user = checkAuth(req.headers);
+        let userAuth = checkAuth(req.headers);
 
-        const { title, tags, newContent, article_id } = req.body;
+        const { title, tags, newContent, word_count, article_id } = req.body;
 
         let updateObject = {};
 
@@ -24,9 +24,12 @@ export default async function (req, res) {
         if (newContent) {
           updateObject.article_content = newContent;
         }
+        if (word_count) {
+          updateObject.word_count = word_count;
+        }
 
         await ProjectArticles.updateOne(
-          { _id: article_id },
+          { _id: article_id, user_id: userAuth._id },
           {
             $set: updateObject,
           }

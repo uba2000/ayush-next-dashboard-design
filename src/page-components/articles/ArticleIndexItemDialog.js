@@ -9,6 +9,7 @@ import { DialogLayout } from '../../components/layouts/Dialog';
 import { Button } from '../../ui/button';
 import { deleteRequest, setHeaders } from '../../utils/http';
 import useUser from '../../hooks/useUser';
+import { setToEditArticle } from '../../features/layout/layoutSlice';
 import { removeArticle } from '../../features/project/projectSlice';
 
 const ArticleIndexItemDialog = ({ item }) => {
@@ -40,12 +41,15 @@ const ArticleIndexItemDialog = ({ item }) => {
     switch (type) {
       case 'edit':
         state.layout.setToEditArticle(true);
+        dispatch(setToEditArticle(true));
         break;
       case 'view':
         state.layout.setToEditArticle(false);
+        dispatch(setToEditArticle(false));
         break;
       default:
         state.layout.setToEditArticle(false);
+        dispatch(setToEditArticle(false));
     }
     router.push(articleEditLink);
   };

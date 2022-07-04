@@ -14,14 +14,19 @@ export default async function (req, res) {
 
         const { projectId } = req.query;
 
-        const thisProjects = await Project.findById(projectId).select('title');
+        const thisProjects = await Project.findOne({
+          _id: projectId,
+          user_id: userAuth._id,
+        }).select('title');
 
         let ssrArticles = await ProjectArticles.find({
           project_id: projectId,
+          user_id: userAuth._id,
         }).select('title tags created_at industry');
 
         let ssrKeywordLists = await ProjectKeywordsList.find({
           project_id: projectId,
+          user_id: userAuth._id,
         }).select('title tags created_at industry');
 
         // TODO: get features on this PROJECT...

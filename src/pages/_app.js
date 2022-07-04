@@ -34,7 +34,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       router.events.off('routeChangeError', handleStop);
     };
   }, [router]);
-
+  // TODO: use network hook to check if online then diplay page else display error page
+  // to prevent routing to '/api/auth/error'
   return (
     <>
       <Progress isAnimating={isAnimating} />

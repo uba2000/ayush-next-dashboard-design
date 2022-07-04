@@ -25,6 +25,7 @@ const contents = KEYWORDS_NAME.map((keyword) => {
     title: keyword,
     status: sample(['completed', 'processing', 'waiting']),
     words: 1716,
+    saved: false,
   };
 });
 
@@ -38,6 +39,7 @@ export const generateArticlesContent = (contents) => {
         status: sample(['c', 'p', 'w']),
         tags: contents.articleTags,
         words: 1716,
+        saved: false,
       };
     }),
     ['status'],

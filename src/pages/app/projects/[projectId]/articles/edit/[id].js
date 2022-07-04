@@ -74,6 +74,9 @@ class EditArticle extends Component {
     let updateObject = {};
     updateObject.article_id = this.props.router.query.id;
     updateObject[field] = value;
+    if (field == 'newContent') {
+      updateObject.word_count = this.state.numberOfWords;
+    }
 
     try {
       await post({

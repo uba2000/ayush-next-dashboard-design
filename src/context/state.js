@@ -1,16 +1,16 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react';
 
 export const AppContext = createContext();
 
 export function AppWrapper({ children }) {
-
-  const [toEditArticle, setToEditArticle] = useState(false)
-  const [newProjectData, setNewProjectData] = useState(null)
-  const [isShowNewProject, setIsShowNewProject] = useState(false)
-  const [isShowEditArticle, setIsShowEditArticle] = useState(false)
+  const [toEditArticle, setToEditArticle] = useState(false);
+  const [newProjectData, setNewProjectData] = useState(null);
+  const [isShowNewProject, setIsShowNewProject] = useState(false);
+  const [isShowEditArticle, setIsShowEditArticle] = useState(false);
 
   let sharedState = {
     layout: {
+      // X
       showNewProject: isShowNewProject,
       setShowNewProject: setIsShowNewProject,
 
@@ -22,14 +22,12 @@ export function AppWrapper({ children }) {
     },
     project: {
       newProjectData,
-      setNewProjectData
-    }
-  }
+      setNewProjectData,
+    },
+  };
 
   return (
-    <AppContext.Provider value={sharedState}>
-      {children}
-    </AppContext.Provider>
+    <AppContext.Provider value={sharedState}>{children}</AppContext.Provider>
   );
 }
 

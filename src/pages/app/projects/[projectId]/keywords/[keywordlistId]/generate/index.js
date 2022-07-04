@@ -25,6 +25,7 @@ import {
   setErrorDetails,
   setShowErrorDialog,
 } from '../../../../../../../features/error/errorSlice';
+import ArticleEditor from '../../../../../../../page-components/project-categories/articles/ArticleEditor';
 
 const Index = () => {
   const dispatchStore = useDispatch();
@@ -35,6 +36,7 @@ const Index = () => {
   const dispatch = useDispatch();
 
   const [showGenerate, setShowGenerate] = useState(true);
+  const [showEdit, setShowEdit] = useState(false);
 
   const [completeCount, setCompleteCount] = useState(0);
 
@@ -54,7 +56,7 @@ const Index = () => {
   const triggerComplete = async (status, article = null) => {
     if (status == 'c') {
       setCompleteCount(++completeCount);
-      await post({
+      const { response } = await post({
         url: `${process.env.BASE_URL}/api/project/article`,
         headers: setHeaders({ token: user.accessToken }),
         data: {
@@ -73,10 +75,16 @@ const Index = () => {
           );
         },
       });
+      if (response) {
+        // TODO: save articles here...
+        return response.data.data;
+      }
     }
     if (completeCount == allContents.length) {
       setIsCompleteDialog(true);
     }
+    // TODO: save articles here...
+    return false;
   };
 
   const closeGenerationCompleteDialog = () => {
@@ -93,6 +101,7 @@ const Index = () => {
   };
 
   const [previewData, setPreviewData] = useState(null);
+  const [editData, setEditData] = useState(null);
 
   const previewArticle = (state, payload = null) => {
     switch (state) {
@@ -109,6 +118,56 @@ const Index = () => {
     }
   };
 
+  const editArticle = async (state, payload = null) => {
+    switch (state) {
+      case 'e': // p: preview
+        setEditData(payload);
+        setShowEdit(true);
+        break;
+      case 'he': // hp: hide preview
+        // save edited content...
+        setShowEdit(false);
+        try {
+          const { response } = await post({
+            url: `${process.env.BASE_URL}/api/project/article/update-article`,
+            headers: setHeaders({ token: user.accessToken }),
+            data: {
+              newContent: editData.article_content,
+              word_count: editData.words,
+              article_id: editData._id,
+            },
+          });
+          if (response) {
+            setEditData(payload);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
+  const countWords = (data) => {
+    let wordsCount = 0;
+    forEach(data.blocks, (value) => {
+      let line = value.text;
+      wordsCount = wordsCount + line.split(' ').length;
+    });
+    setEditData({
+      ...editData,
+      words: wordsCount,
+    });
+  };
+
+  const handleEditorContent = (content) => {
+    setEditData({
+      ...editData,
+      article_content: content,
+    });
+  };
+
   useEffect(() => {
     if (!articlesDetailsGenerate) {
       router.push('/app/projects');
@@ -121,7 +180,9 @@ const Index = () => {
 
   return (
     <DashboardLayout metaTitle="Generate Articles">
-      <div className={`${showGenerate ? 'block' : 'hidden'} w-full`}>
+      <div
+        className={`${showGenerate && !showEdit ? 'block' : 'hidden'} w-full`}
+      >
         <DialogLayout
           isOpen={isCompleteDialog}
           closeModal={closeGenerationCompleteDialog}
@@ -195,6 +256,7 @@ const Index = () => {
                         content={content}
                         triggerComplete={triggerComplete}
                         index={index}
+                        showEdit={(article) => editArticle('e', article)}
                         showPreview={(article) => previewArticle('p', article)}
                       />
                     </Fragment>
@@ -255,6 +317,51 @@ const Index = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className={`${showEdit ? 'block' : 'hidden'} w-full`}>
+        {showEdit && (
+          <div className="w-full">
+            <Box>
+              <div className="py-[19px] px-[50px]">
+                <div className="flex space-x-[50px]">
+                  <div className="">
+                    <PreviewArticleHeadLayout
+                      title={'ID'}
+                      subTitle={editData.id || ''}
+                    />
+                  </div>
+                  <div className="flex-grow">
+                    <PreviewArticleHeadLayout
+                      title={'Title'}
+                      subTitle={editData.title || ''}
+                    />
+                  </div>
+                  <div
+                    className="flex items-center cursor-pointer"
+                    onClick={() => editArticle('he')}
+                  >
+                    <X className="text-red w-[25px] h-[25px]" />
+                  </div>
+                </div>
+              </div>
+            </Box>
+            <Box type={'black'} className="border-t-0">
+              <div className="py-[25px] w-full">
+                <ScrollbarsLayout h="650px">
+                  <div className="pr-12">
+                    <EditorContainer>
+                      <ArticleEditor
+                        content={editData.article_content}
+                        countWords={countWords}
+                        handleContent={handleEditorContent}
+                      />
+                    </EditorContainer>
+                  </div>
+                </ScrollbarsLayout>
+              </div>
+            </Box>
+          </div>
+        )}
       </div>
       <div className={`${!showGenerate ? 'block' : 'hidden'} w-full`}>
         {!showGenerate && (

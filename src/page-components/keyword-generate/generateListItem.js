@@ -7,13 +7,24 @@ import { Table } from '../../components/layouts/Table';
 import { EditorContainer } from '../../components/layouts/EditorContainer';
 import articleContent from '../../_mock/article-content';
 import { Button } from '../../ui/button';
+import { useAppContext } from '../../context/state';
 
-const GenerateListItem = ({ content, triggerComplete, index, showPreview }) => {
+const GenerateListItem = ({
+  content,
+  triggerComplete,
+  index,
+  showPreview,
+  showEdit,
+}) => {
   const router = useRouter();
   const { query } = router;
 
+  const layoutState = useAppContext();
+
   const [openSmallPreview, setOpenSmallPreview] = useState(false);
   const [processStatus, setProcessStatus] = useState(content.status);
+  const [articleId, setArticleId] = useState(null);
+  const [thisArticleContent, setThisArticleContent] = useState(null);
 
   const showSmallPreview = () => {
     setOpenSmallPreview(!openSmallPreview);
@@ -25,24 +36,41 @@ const GenerateListItem = ({ content, triggerComplete, index, showPreview }) => {
   //   );
   // };
 
-  useEffect(() => {
+  const editArticle = () => {
+    layoutState.layout.setToEditArticle(true);
+    router.push(`/app/projects/${query.projectId}/articles/edit/${articleId}`);
+  };
+
+  useEffect(async () => {
     if (processStatus == 'c') {
-      triggerComplete('c', {
+      setThisArticleContent(articleContent);
+      const { _id } = await triggerComplete('c', {
         ...content,
         article_content: articleContent,
       });
+      setArticleId(_id);
     } else if (processStatus == 'w') {
       setTimeout(() => {
         setProcessStatus('p');
-        setTimeout(() => {
+        setTimeout(async () => {
+          setThisArticleContent(articleContent);
           setProcessStatus('c');
-          triggerComplete('c', { ...content, article_content: articleContent });
+          const { _id } = await triggerComplete('c', {
+            ...content,
+            article_content: articleContent,
+          });
+          setArticleId(_id);
         }, 2000 + index * 1000);
       }, 3000 + index * 1000);
     } else if (processStatus == 'p') {
-      setTimeout(() => {
+      setTimeout(async () => {
+        setThisArticleContent(articleContent);
         setProcessStatus('c');
-        triggerComplete('c', { ...content, article_content: articleContent });
+        const { _id } = await triggerComplete('c', {
+          ...content,
+          article_content: articleContent,
+        });
+        setArticleId(_id);
       }, 2000 + index * 1000);
     }
   }, []);
@@ -96,7 +124,18 @@ const GenerateListItem = ({ content, triggerComplete, index, showPreview }) => {
             <Button onClick={() => showPreview(content)}>Preview</Button>
           </div>
           <div className="table-cell relative z-10 pt-[25px]">
-            <Button variant="reset">Edit Article</Button>
+            <Button
+              onClick={() =>
+                showEdit({
+                  ...content,
+                  article_content: thisArticleContent,
+                  _id: articleId,
+                })
+              }
+              variant="reset"
+            >
+              Edit Article
+            </Button>
           </div>
           <div
             className="absolute table-cell bg-gradient-to-t dark:from-[#000000f2] from-[#fffffff2] to-transparent"
