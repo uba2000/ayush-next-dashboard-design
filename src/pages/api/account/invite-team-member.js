@@ -14,7 +14,18 @@ export default async function (req, res) {
 
         const invitedUser = await User.findOne({ email: email });
 
+        const user = await User.findById(userAuth._id);
+
         // TODO: send email to user to accept
+
+        if (user.members.find((item) => item.email === email)) {
+          return res.status(422).json({
+            success: false,
+            error: {
+              message: 'Email already invited!',
+            },
+          });
+        }
 
         await User.updateOne(
           { email: userAuth.email },

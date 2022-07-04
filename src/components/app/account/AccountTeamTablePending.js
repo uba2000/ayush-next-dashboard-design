@@ -15,13 +15,7 @@ import AccountTeamsItemPending from './AccountTeamsItemPending';
 function AccountTeamTablePending({ targetTeamBTN, closeModal }) {
   const { user } = useUser();
 
-  const [inviteEmail, setInviteEmail] = useState('');
-
   const [teamMembers, setTeamMembers] = useState(false);
-  const [pendingTeamMembers, setPendingTeamMembers] = useState(false);
-  const [stateTargetTeamBTN, setStateTargetTeamBTN] = useState(targetTeamBTN);
-
-  const [loading, setLoading] = useState(false);
 
   const getTeamMembers = async () => {
     setTeamMembers(false);
@@ -32,24 +26,6 @@ function AccountTeamTablePending({ targetTeamBTN, closeModal }) {
 
     if (response.status) {
       setTeamMembers(response.data.data.pending);
-    }
-  };
-
-  const inviteMember = async () => {
-    if (inviteEmail && inviteEmail.includes('@')) {
-      setLoading(true);
-      const { response, error } = await post({
-        url: `${process.env.BASE_URL}/api/account/invite-team-member`,
-        data: {
-          email: inviteEmail,
-        },
-        headers: setHeaders({ token: user.accessToken }),
-      });
-
-      if (response.status) {
-        getTeamMembers();
-      }
-      setLoading(false);
     }
   };
 
