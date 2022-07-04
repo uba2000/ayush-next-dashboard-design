@@ -309,7 +309,9 @@ const AddToMenu = ({}) => {
                 type="text"
                 value={q}
                 variant="dark"
-                onChange={(e) => setQ(e)}
+                onChange={(e) => {
+                  setQ(e.target.value);
+                }}
                 style={{ paddingLeft: '12px' }}
                 className="flex-grow flex-shrink border-0 py-3 text-xs rounded-none dark:bg-darkMode-bg h-[40px] bg-white"
                 placeholder="Search..."
