@@ -14,13 +14,13 @@ const ExcludeFilter = ({ options }) => {
 
   const onApply = () => {
     if (keywords.length > 0) {
-      setItems(
-        reserveItems.filter((item) => {
-          return keywords.some((newItem) => {
-            return !item.question.toLowerCase().includes(newItem.toLowerCase());
-          });
-        })
-      );
+      let returnItems = reserveItems;
+      forEach(keywords, (value, index) => {
+        returnItems = returnItems.filter(
+          (item) => !item.question.toLowerCase().includes(value.toLowerCase())
+        );
+      });
+      setItems(returnItems);
     }
   };
   return (
@@ -31,7 +31,10 @@ const ExcludeFilter = ({ options }) => {
             <Input
               value={keywords.join(',')}
               onChange={(e) => {
-                setKeywords(e.split(','));
+                if (e === '') {
+                  setItems(reserveItems);
+                  setKeywords([]);
+                } else setKeywords(e.split(','));
               }}
               variant="dark-small"
               placeholder="Type A keywords"
