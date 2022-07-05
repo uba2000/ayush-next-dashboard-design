@@ -3,6 +3,7 @@ import React from 'react';
 
 import { Logo } from '../../ui/icons/logo';
 import AccountBadge from './AccountBadge';
+import { useThemeContext } from '../../context/theme';
 
 const headerStyle = {
   minHeight: '108.02px',
@@ -10,6 +11,7 @@ const headerStyle = {
 };
 
 function DashboardNav() {
+  const state = useThemeContext();
   return (
     <header
       id="header"
@@ -21,7 +23,7 @@ function DashboardNav() {
           <Link href="/app/dashboard">
             <a className=" flex space-x-[11px] items-center whitespace-nowrap">
               <span>
-                <Logo />
+                <Logo isDark={!state.themeMode.isDarkMode} />
               </span>
               <span className="hidden tracking-tighter md:text-brand text-[30.4024px] font-medium font-poppins text-black dark:text-white">
                 SEO Content .Ai
