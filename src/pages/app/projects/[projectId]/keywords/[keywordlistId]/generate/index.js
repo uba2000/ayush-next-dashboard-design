@@ -76,6 +76,9 @@ const Index = () => {
         },
       });
       if (response) {
+        if (completeCount == allContents.length) {
+          setIsCompleteDialog(true);
+        }
         // TODO: save articles here...
         return response.data.data;
       }
