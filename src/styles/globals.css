@@ -90,7 +90,7 @@ li {
 input {
   width: 100%;
   transition: all 0.4s;
-  @apply dark:bg-darkMode-bg bg-white !important;
+  @apply dark:bg-darkMode-bg bg-white focus-visible:outline-none !important;
 }
 
 .section-title {
