@@ -1,6 +1,9 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Tab } from '@headlessui/react';
 import { getSession } from 'next-auth/react';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import { useRouter } from 'next/router';
 
 import AccountLayout from '../../../components/app/account/AccountLayout';
 import AccountBillingSubscription from '../../../components/app/account/AccountBillingSubscription';
@@ -9,8 +12,18 @@ import AccountBillingInvoices from '../../../components/app/account/AccountBilli
 import AccountAvailablePaymentMethod from '../../../components/app/account/AccountAvailablePaymentMethod';
 import AccountPaymentMethods from '../../../components/app/account/AccountPaymentMethods';
 import { get, setHeaders } from '../../../utils/http';
+import { DialogLayout } from '../../../components/layouts/Dialog';
+import { X } from '../../../ui/icons';
 
-function billing({ paymentMethods, currentPlan }) {
+console.log(process.env.STRIPE_CLIENT_PUBLIC_KEY);
+const stripePromise = loadStripe(
+  'pk_test_51JH1OEEOvhBgdP3wopZQ9CS9nAj6bMrpJ6PJk4VB5aoE2w1LtZmlwAkuxUCRDHua8clckICf8t5BWZnnFqC9ZZOJ00rcgO9Nag'
+);
+function billing({ paymentMethods, currentPlan, intent }) {
+  const router = useRouter();
+
+  const { query } = router;
+
   const [tabIndex, setTabIndex] = useState(0);
 
   const [isNewPaymentMethod, setIsNewPaymentMethod] = useState(false);
@@ -18,6 +31,38 @@ function billing({ paymentMethods, currentPlan }) {
   const updateTabIndex = (index) => {
     setTabIndex(index);
   };
+
+  const options = {
+    // passing the client secret obtained in step 2
+    clientSecret: intent.client_secret,
+    // Fully customizable with appearance API.
+    appearance: {
+      /*...*/
+      theme: 'stripe',
+      colorPrimary: '#0570de',
+      colorBackground: '#111111',
+      colorText: '#30313d',
+      colorDanger: '#FF3749',
+      fontFamily: 'Poppins, sans-serif',
+      spacingUnit: '2px',
+      borderRadius: '0px',
+    },
+  };
+
+  const [openBillingProcessing, setOpenBillingProcessing] = useState(false);
+
+  const closeBillingProcessing = () => {
+    setOpenBillingProcessing(false);
+    router.push('/app/account/billing');
+  };
+
+  useEffect(() => {
+    if (query.setup_intent && query.setup_intent_client_secret) {
+      updateTabIndex(2);
+      setIsNewPaymentMethod(true);
+      setOpenBillingProcessing(true);
+    }
+  }, []);
 
   return (
     <AccountLayout metaTitle="Billing">
@@ -78,9 +123,14 @@ function billing({ paymentMethods, currentPlan }) {
                   newMethod={() => setIsNewPaymentMethod(true)}
                 />
               ) : (
-                <AccountPaymentMethods
-                  showMethods={() => setIsNewPaymentMethod(false)}
-                />
+                <Elements stripe={stripePromise} options={options}>
+                  <AccountPaymentMethods
+                    intent={intent}
+                    openBillingProcessing={openBillingProcessing}
+                    closeBillingProcessing={closeBillingProcessing}
+                    showMethods={() => setIsNewPaymentMethod(false)}
+                  />
+                </Elements>
               )}
             </div>
           </Tab.Panel>
@@ -111,6 +161,7 @@ export async function getServerSideProps(context) {
             currentPlan: JSON.parse(
               JSON.stringify(response.data.data.currentPlan)
             ),
+            intent: JSON.parse(JSON.stringify(response.data.data.intent)),
           },
         };
       }

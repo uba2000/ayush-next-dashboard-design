@@ -125,23 +125,19 @@ const CurrentPlanSchem = new mongoose.Schema(
 );
 const PaymentMethodSchema = new mongoose.Schema(
   {
-    card_number: {
+    stripe_intent_id: {
       type: String,
       required: true,
     },
-    first_name: {
+    client_secret: {
       type: String,
       required: true,
     },
-    last_name: {
+    stripe_customer_id: {
       type: String,
       required: true,
     },
-    exp_date: {
-      type: String,
-      required: true,
-    },
-    security_code: {
+    stripe_payment_method_id: {
       type: String,
       required: true,
     },
