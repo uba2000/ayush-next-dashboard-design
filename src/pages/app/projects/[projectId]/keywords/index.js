@@ -32,6 +32,7 @@ function KeywordsPage() {
   const [newKeyword, setNewKeyword] = useState('');
   const [questions, setQuestions] = useState([]);
   const [loadingQuestions, setLoadingQuestions] = useState(false);
+  const [loadingCSV, setLoadingCSV] = useState(false);
   const [loadingSaveAnalyze, setLoadingSaveAnalyze] = useState(false);
 
   const openErrorDialog = () => {
@@ -43,6 +44,7 @@ function KeywordsPage() {
   };
 
   const CSVButton = useRef(null);
+  const CSVForm = useRef(null);
 
   const showNewKeywordInput = () => {
     setNewKeyword('');
@@ -61,7 +63,7 @@ function KeywordsPage() {
         });
 
         if (data.success) {
-          if (!checkQuestionLength) {
+          if (!checkQuestionLength()) {
             const newQuestions = fQue(data.questions);
             setQuestions(newQuestions);
           } else {
@@ -94,15 +96,82 @@ function KeywordsPage() {
     CSVButton.current.click();
   };
 
-  const handleCSVImport = (e) => {
-    if (e.target.files[0].type !== 'application/csv') {
+  const handleCSVImport = async (e) => {
+    if (e.target.files[0].type !== 'text/csv') {
       CSVButton.current.form.reset();
       openErrorDialog();
+      CSVForm.current.reset();
+      return;
     }
+    setLoadingCSV(true);
+    // extract keywords...
+    await onChangeImportCSV(e.target.files);
+  };
+
+  const onChangeImportCSV = (csvFile) => {
+    return new Promise((resolve, reject) => {
+      let fileArr = [];
+      if (window.FileReader) {
+        let reader = new FileReader();
+
+        reader.readAsText(csvFile[0]);
+
+        // Columns
+        // [0] -> #
+        // [1] -> Keyword
+        // [2] -> Country
+        // [3] -> Difficulty
+        // [4] -> Volume
+        // [5] -> CPC
+        // [6] -> CPS
+        // [7] -> Parent Keyword
+        // [8] -> Last Update
+        // [9] -> SERP Features
+        // [10] -> Global Volume
+        // [11] -> Traffic Potential
+        reader.onload = function (event) {
+          let csv = event.currentTarget.result;
+          let rows = csv.split(/\r\n|\n/);
+
+          for (let i = 0; i < rows.length; i++) {
+            let row = rows[i].split(/\t/);
+            let col = [];
+
+            for (let j = 0; j < row.length; j++) {
+              col.push(row[j].split(/\"/)[1]);
+            }
+
+            // contains all rows arranged in column order
+            fileArr.push(col);
+          }
+          // First [0] item in 'fileArr' are the header columns
+          let header = fileArr[0];
+
+          // get all keywords [1]
+          let CSVKeywords = [];
+          for (let k = 1; k < fileArr.length; k++) {
+            // TODO: store keywords for this research
+            // setKeywordsStackAnalysed([...keywordsStackAnalysed, fileArr[k][1]]);
+            CSVKeywords.push(`${fileArr[k][1]}Search for:${fileArr[k][7]}`);
+          }
+          if (!checkQuestionLength()) {
+            const newQuestions = fQue(CSVKeywords);
+            setQuestions(newQuestions);
+          } else {
+            const addQues = fQue([...CSVKeywords]);
+            setQuestions([...questions, ...addQues]);
+          }
+
+          setLoadingCSV(false);
+          CSVForm.current.reset();
+          resolve();
+        };
+      }
+    });
   };
 
   const handleKeywordAnalysis = async () => {
-    if (checkQuestionLength) {
+    if (checkQuestionLength()) {
       try {
         setLoadingSaveAnalyze(true);
         if (!query.keywordsId) {
@@ -305,11 +374,12 @@ function KeywordsPage() {
                 Go Back
               </button>
               <div className="md:space-x-4 justify-between flex">
-                <form className="relative">
+                <form ref={CSVForm} className="relative">
                   <Button
                     variant="reset"
                     onClick={clickCSVImport}
                     className="text-sm"
+                    state={loadingCSV && 'loading'}
                   >
                     Import CSV
                   </Button>

@@ -4,7 +4,7 @@ import tw from 'tailwind-styled-components';
 import Box from '../../../components/layouts/Box';
 import { DialogLayout } from '../../../components/layouts/Dialog';
 import Slider from '../../../components/layouts/Slider';
-import usePaypal from '../../../hooks/usePaypal';
+// import usePaypal from '../../../hooks/usePaypal';
 import useUser from '../../../hooks/useUser';
 import { Button } from '../../../ui/button';
 import { fCurrency } from '../../../utils/formatNumber';
@@ -14,7 +14,7 @@ const BetweenStyle = tw.div`flex justify-between`;
 const MoreProjectsDialog = ({ isOpen, closeModal }) => {
   const { user } = useUser();
 
-  const { scriptLoaded } = usePaypal();
+  // const { scriptLoaded } = usePaypal();
 
   const [noOfAddOns, setNoOfAddOns] = useState(1);
   const [standardPlan, setStandardPlan] = useState(
