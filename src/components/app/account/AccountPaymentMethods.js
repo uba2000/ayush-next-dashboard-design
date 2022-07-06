@@ -49,7 +49,7 @@ function AccountPaymentMethods({
 
   const paymentForm = useRef(null);
 
-  const [cardChecked, setCardChecked] = useState(false);
+  const [cardChecked, setCardChecked] = useState(true);
   const [payPalChecked, setPayPalChecked] = useState(!cardChecked);
 
   const [loading, setLoading] = useState(false);
@@ -186,10 +186,7 @@ function AccountPaymentMethods({
           validationSchema={validationSchema}
           onSubmit={handleStripeSubmit}
         >
-          <Form
-            ref={paymentForm}
-            className="pl-[23px] pr-[23px] py-6 cardItemStyle"
-          >
+          <Form ref={paymentForm} className=" py-6 cardItemStyle">
             <div className="flex justify-between py-[21px] px-[30px] items-center border-b border-ash dark:border-darkMode-border">
               <h4 className="text-sm font-semibold">
                 Select Method for the future payment
@@ -277,28 +274,39 @@ function AccountPaymentMethods({
                     </FormGroup>
                   </div>
                 </div>
-                <PaymentElement />
-                <div className="grid md:grid-cols-2 gap-[18.32px] grid-cols-1">
-                  <FormGroup label="First Name" labelFor="firstName">
-                    <Field
-                      as={Input}
-                      returnEvent={true}
-                      id="firstName"
-                      name="firstName"
-                      className={`${styles.formGroupInput}`}
-                    />
-                    <ErrorMessage name="firstName" component={FieldErrorText} />
-                  </FormGroup>
-                  <FormGroup label="Last Name" labelFor="lastName">
-                    <Field
-                      as={Input}
-                      returnEvent={true}
-                      id="lastName"
-                      name="lastName"
-                      className={`${styles.formGroupInput}`}
-                    />
-                    <ErrorMessage name="lastName" component={FieldErrorText} />
-                  </FormGroup>
+                <div className={`${stripe ? 'block' : 'hidden'}`}>
+                  <PaymentElement />
+                  <div className="mt-3 grid md:grid-cols-2 gap-[18.32px] grid-cols-1">
+                    <FormGroup label="First Name" labelFor="firstName">
+                      <Field
+                        as={Input}
+                        returnEvent={true}
+                        id="firstName"
+                        name="firstName"
+                        className={`${styles.formGroupInput}`}
+                      />
+                      <ErrorMessage
+                        name="firstName"
+                        component={FieldErrorText}
+                      />
+                    </FormGroup>
+                    <FormGroup label="Last Name" labelFor="lastName">
+                      <Field
+                        as={Input}
+                        returnEvent={true}
+                        id="lastName"
+                        name="lastName"
+                        className={`${styles.formGroupInput}`}
+                      />
+                      <ErrorMessage
+                        name="lastName"
+                        component={FieldErrorText}
+                      />
+                    </FormGroup>
+                  </div>
+                </div>
+                <div className={`${!stripe ? 'block' : 'hidden'}`}>
+                  Loading...
                 </div>
               </div>
             )}

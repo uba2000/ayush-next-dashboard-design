@@ -12,6 +12,7 @@ import AccountBillingInvoices from '../../../components/app/account/AccountBilli
 import AccountAvailablePaymentMethod from '../../../components/app/account/AccountAvailablePaymentMethod';
 import AccountPaymentMethods from '../../../components/app/account/AccountPaymentMethods';
 import { get, setHeaders } from '../../../utils/http';
+import { useThemeContext } from '../../../context/theme';
 import { DialogLayout } from '../../../components/layouts/Dialog';
 import { X } from '../../../ui/icons';
 
@@ -20,6 +21,7 @@ const stripePromise = loadStripe(
   'pk_test_51JH1OEEOvhBgdP3wopZQ9CS9nAj6bMrpJ6PJk4VB5aoE2w1LtZmlwAkuxUCRDHua8clckICf8t5BWZnnFqC9ZZOJ00rcgO9Nag'
 );
 function billing({ paymentMethods, currentPlan, intent }) {
+  const state = useThemeContext();
   const router = useRouter();
 
   const { query } = router;
@@ -38,14 +40,48 @@ function billing({ paymentMethods, currentPlan, intent }) {
     // Fully customizable with appearance API.
     appearance: {
       /*...*/
-      theme: 'stripe',
-      colorPrimary: '#0570de',
-      colorBackground: '#111111',
-      colorText: '#30313d',
-      colorDanger: '#FF3749',
-      fontFamily: 'Poppins, sans-serif',
-      spacingUnit: '2px',
-      borderRadius: '0px',
+      theme: 'none',
+      rules: {
+        '.Tab': {
+          backgroundColor: !state.themeMode.isDarkMode
+            ? 'rgb(17,17,17)'
+            : '#ffffff',
+        },
+        '.Tab--selected': {
+          border: `1px solid ${
+            !state.themeMode.isDarkMode
+              ? 'rgb(177,177,177)'
+              : 'rgb(247, 249, 250)'
+          }`,
+        },
+        '.TabLabel': {
+          colorText: !state.themeMode.isDarkMode ? '#ffffff' : '#000000',
+        },
+        '.Input': {
+          padding: '11.5px 17.18px',
+          fontFamily: 'Poppins',
+          border: `1px solid ${
+            !state.themeMode.isDarkMode ? 'rgb(177,177,177)' : '#000000'
+          }`,
+          colorText: !state.themeMode.isDarkMode ? '#ffffff' : '#000000',
+          backgroundColor: !state.themeMode.isDarkMode
+            ? 'rgb(17,17,17)'
+            : '#ffffff',
+          fontWeight: '600',
+          fontSize: '16px',
+          lineHeight: '25px',
+          height: '45px',
+          outline: 'none',
+          borderRadius: '0px',
+        },
+        '.Label': {
+          fontFamily: 'Poppins',
+          fontWeight: '600',
+          fontSize: '18px',
+          lineHeight: '135%',
+          marginBottom: '12px',
+        },
+      },
     },
   };
 
@@ -117,12 +153,13 @@ function billing({ paymentMethods, currentPlan, intent }) {
           </Tab.Panel>
           <Tab.Panel>
             <div>
-              {!isNewPaymentMethod ? (
+              <div className={`${!isNewPaymentMethod ? 'block' : 'hidden'}`}>
                 <AccountAvailablePaymentMethod
                   paymentMethods={paymentMethods}
                   newMethod={() => setIsNewPaymentMethod(true)}
                 />
-              ) : (
+              </div>
+              <div className={`${isNewPaymentMethod ? 'block' : 'hidden'}`}>
                 <Elements stripe={stripePromise} options={options}>
                   <AccountPaymentMethods
                     intent={intent}
@@ -131,7 +168,7 @@ function billing({ paymentMethods, currentPlan, intent }) {
                     showMethods={() => setIsNewPaymentMethod(false)}
                   />
                 </Elements>
-              )}
+              </div>
             </div>
           </Tab.Panel>
         </Tab.Panels>
