@@ -7,7 +7,7 @@ import {
   CPCFilter,
   KeywordFilter,
 } from '../../../page-components/keyword-results';
-import { fCurrency } from '../../../utils/formatNumber';
+import { fCurrency, fNumberWithCommas } from '../../../utils/formatNumber';
 
 const tagLayout = ({ value }) => {
   return (
@@ -183,6 +183,9 @@ export const ACCOUNT_HISTORY_COLUNM = [
   {
     Header: 'Credits',
     accessor: 'credits',
+    Cell: ({ value }) => {
+      return <span className="line-clamp-1">{fNumberWithCommas(value)}</span>;
+    },
     minWidth: '140px',
   },
   {

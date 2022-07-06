@@ -9,6 +9,7 @@ import TableLayout from '../../../components/layouts/TableLayout';
 import useScaiTable from '../../../hooks/useScaiTable';
 import { ACCOUNT_HISTORY_COLUNM } from '../../../components/layouts/Table/columns';
 import { orderBy, sortBy } from 'lodash';
+import { fNumberWithCommas } from '../../../utils/formatNumber';
 
 function limits({ accountPlan, accountHistory }) {
   const [months] = useState([
@@ -98,7 +99,9 @@ function limits({ accountPlan, accountHistory }) {
                       <LimitsDetailsLayout
                         title={`${
                           accountPlan
-                            ? `${accountPlan.account_plan.period_limit} Credits`
+                            ? `${fNumberWithCommas(
+                                accountPlan.account_plan.period_limit
+                              )} Credits`
                             : '---'
                         }`}
                         titleHead={`${
@@ -162,7 +165,11 @@ function limits({ accountPlan, accountHistory }) {
                         <LimitsDetailsLayout
                           title={`${
                             accountPlan
-                              ? `${accountPlan.period_credit} Of ${accountPlan.account_plan.period_limit}`
+                              ? `${fNumberWithCommas(
+                                  accountPlan.period_credit
+                                )} Of ${fNumberWithCommas(
+                                  accountPlan.account_plan.period_limit
+                                )}`
                               : '---'
                           }`}
                           titleHead={'Total Credits'}
