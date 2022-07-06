@@ -70,9 +70,11 @@ const Index = () => {
         error: (response) => {
           setIsCompleteDialog(false);
           dispatchStore(setShowErrorDialog(true));
-          dispatchStore(
-            setErrorDetails(response.data.error.details || undefined)
-          );
+          if (response.data.error.details) {
+            dispatchStore(
+              setErrorDetails(response.data.error.details || undefined)
+            );
+          }
         },
       });
       if (response) {
