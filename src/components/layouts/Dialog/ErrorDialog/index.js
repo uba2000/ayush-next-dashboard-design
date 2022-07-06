@@ -1,6 +1,12 @@
 import React from 'react';
 
-import { LimitExceed, NoPlanExist, PlanExpired } from './Dialogs';
+import {
+  LimitExceed,
+  NoPlanExist,
+  PlanExpired,
+  NoPaymentMethod,
+  Default,
+} from './Dialogs';
 import { DialogLayout } from '..';
 import errorTypes from '../../../../_mock/errorTypes';
 
@@ -20,9 +26,12 @@ const ErrorDialog = ({
       case errorTypes.PLAN_EXPIRED:
         return <PlanExpired closeModal={closeModal} />;
         break;
+      case errorTypes.NO_PAYMENT_METHOD:
+        return <NoPaymentMethod closeModal={closeModal} />;
+        break;
 
       default:
-        <></>;
+        <Default closeModal={closeModal} />;
         break;
     }
   };
