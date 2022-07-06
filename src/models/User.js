@@ -85,7 +85,7 @@ const CurrentPlanSchem = new mongoose.Schema(
       default: null,
     },
     plan_local_id: {
-      type: String,
+      type: mongoose.Schema.ObjectId,
       required: true,
     },
     projects: {
@@ -144,7 +144,7 @@ const PaymentMethodSchema = new mongoose.Schema(
     type: {
       type: String,
       // Default -> D
-      default: 'D',
+      default: '',
     },
   },
   {
@@ -275,6 +275,10 @@ const UserSchema = new mongoose.Schema(
     subscriptions: {
       type: [SubscriptionSchema],
       default: [],
+    },
+    stripe_customer_id: {
+      type: String,
+      default: null,
     },
     payment_methods: {
       type: [PaymentMethodSchema],

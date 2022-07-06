@@ -10,16 +10,14 @@ import DashboardLanding from '../../../components/app/DashboardLanding';
 import { Table } from '../../../components/layouts/Table';
 import { fNumber } from '../../../utils/formatNumber';
 import SwitchPlanDialog from '../../../page-components/account/pricing/switchPlanDialog';
-import accountPlan from '../../../_mock/accountPlans';
 import useUser from '../../../hooks/useUser';
 import { Button } from '../../../ui/button';
 import { setHeaders, get } from '../../../utils/http';
 
-function pricing({ currentPlan }) {
+function pricing({ currentPlan, plans }) {
   const [enabled, setEnabled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
-  const [plans] = useState(accountPlan);
   const [discount] = useState(20);
 
   const { user } = useUser();
@@ -32,7 +30,7 @@ function pricing({ currentPlan }) {
 
   const currentPlanId = (plan) => {
     if (currentPlan)
-      if (currentPlan.plan_local_id == plan.id)
+      if (currentPlan.plan_local_id == plan._id)
         if (planDuration() == currentPlan.period_type) return true;
     return false;
   };
@@ -141,7 +139,7 @@ function pricing({ currentPlan }) {
               {!enabled ? (
                 <div className="grid md:grid-cols-3 grid-cols-2 mt-5 gap-[30px] ml-auto">
                   {plans.map((plan) => (
-                    <Fragment key={plan.id}>
+                    <Fragment key={plan._id}>
                       <PlanLayout
                         plan={plan}
                         title={plan.plan}
@@ -153,7 +151,7 @@ function pricing({ currentPlan }) {
               ) : (
                 <div className="grid md:grid-cols-3 grid-cols-2 mt-5 gap-[30px] ml-auto">
                   {plans.map((plan) => (
-                    <Fragment key={plan.id}>
+                    <Fragment key={plan._id}>
                       <PlanLayout
                         plan={{
                           ...plan,
@@ -639,6 +637,7 @@ export async function getServerSideProps(context) {
         return {
           props: {
             currentPlan: details.user.current_plan,
+            plans: details.plans,
           },
         };
       }

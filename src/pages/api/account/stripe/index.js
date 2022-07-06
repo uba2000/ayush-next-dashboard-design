@@ -1,4 +1,6 @@
 import Stripe from 'stripe';
+import User from '../../../../models/User';
+import { checkAuth } from '../../../../utils/checkAuth';
 
 import dbConnect from '../../../../utils/connect';
 
@@ -8,13 +10,19 @@ export default async function (req, res) {
 
   switch (method) {
     case 'GET':
+      const userAuth = checkAuth(req.headers);
+
+      const user = await User.findById(userAuth._id);
+
       const stripe = Stripe(process.env.STRIPE_SERVER_SECRET_KEY);
 
-      const customer = await stripe.customers.create();
+      const customer = user.stripe_customer_id
+        ? { id: user.stripe_customer_id }
+        : await stripe.customers.create();
 
       const setupIntent = await stripe.setupIntents.create({
         customer: customer.id,
-        payment_method_types: ['bancontact', 'card', 'ideal'],
+        payment_method_types: ['card'],
       });
 
       return res.status(200).json({

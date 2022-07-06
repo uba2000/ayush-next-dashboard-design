@@ -19,19 +19,19 @@ export default async function (req, res) {
         let { payment_method, customer_id, client_secret, intent_id } =
           req.body;
 
-        await User.findOneAndUpdate(
-          { _id: userAuth._id },
-          {
-            $push: {
-              payment_methods: {
-                stripe_intent_id: intent_id,
-                client_secret: client_secret,
-                stripe_customer_id: customer_id,
-                stripe_payment_method_id: payment_method,
-              },
-            },
-          }
-        );
+        const user = await User.findById(userAuth._id);
+
+        const paymentMethodType = user.payment_methods.length > 1 ? '' : 'D';
+
+        user.payment_methods.push({
+          stripe_intent_id: intent_id,
+          type: paymentMethodType,
+          client_secret: client_secret,
+          stripe_customer_id: customer_id,
+          stripe_payment_method_id: payment_method,
+        });
+
+        await user.save();
 
         return res.status(200).json({ success: true });
       } catch (error) {

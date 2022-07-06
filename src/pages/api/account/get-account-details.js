@@ -2,6 +2,7 @@ import { checkAuth } from '../../../utils/checkAuth';
 import dbConnect from '../../../utils/connect';
 import User from '../../../models/User';
 import Project from '../../../models/Project';
+import Plan from '../../../models/Plan';
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -16,6 +17,8 @@ export default async function handler(req, res) {
         const user = await User.findById(userAuth._id).select(
           'current_plan full_name email address dob gender'
         );
+
+        const allPlans = await Plan.find({ active: true });
 
         const projectsIds = user.current_plan
           ? user.current_plan.projects.map((value) => {
@@ -49,6 +52,7 @@ export default async function handler(req, res) {
             history: {
               projects: projectHistory,
             },
+            plans: allPlans,
           },
         });
       } catch (error) {

@@ -1,12 +1,18 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { DialogLayout } from '../../../components/layouts/Dialog';
 import { post, setHeaders } from '../../../utils/http';
 import useUser from '../../../hooks/useUser';
 import { Button } from '../../../ui/button';
+import {
+  setErrorDetails,
+  setShowErrorDialog,
+} from '../../../features/error/errorSlice';
 
 const SwitchPlanDialog = ({ isOpen, closeModal, plan, period }) => {
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const { user } = useUser();
@@ -19,10 +25,21 @@ const SwitchPlanDialog = ({ isOpen, closeModal, plan, period }) => {
       url: `${process.env.BASE_URL}/api/account/request-plan-switch`,
       headers: setHeaders({ token: user.accessToken }),
       data: { ...plan, period },
+      error: (response) => {
+        if (response.status == 422) {
+          setLoading(false);
+          if (response.data) {
+            dispatch(setErrorDetails(response.data.error.details || undefined));
+          }
+        }
+        dispatch(setShowErrorDialog(true));
+      },
     });
 
     if (response.status) {
       router.push('/app/account/limits');
+    } else {
+      setLoading(false);
     }
   };
 
