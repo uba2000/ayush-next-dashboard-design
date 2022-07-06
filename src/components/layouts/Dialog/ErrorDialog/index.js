@@ -5,7 +5,7 @@ import {
   NoPlanExist,
   PlanExpired,
   NoPaymentMethod,
-  Default,
+  DefaultError,
 } from './Dialogs';
 import { DialogLayout } from '..';
 import errorTypes from '../../../../_mock/errorTypes';
@@ -31,7 +31,7 @@ const ErrorDialog = ({
         break;
 
       default:
-        <Default closeModal={closeModal} />;
+        return <DefaultError closeModal={closeModal} />;
         break;
     }
   };

@@ -4,7 +4,7 @@ import { Button } from '../../../../../ui/button';
 
 import Layout from '../Layout';
 
-const Default = ({ closeModal }) => {
+const DefaultError = ({ closeModal }) => {
   const router = useRouter();
 
   const goToPricing = (url) => {
@@ -13,7 +13,7 @@ const Default = ({ closeModal }) => {
   };
   return (
     <Layout
-      errorMessage="Check your internet connection and try again."
+      errorMessage="Check your internet connection or try again."
       closeModal={closeModal}
       errorName="Unexpected Error."
     >
@@ -24,4 +24,4 @@ const Default = ({ closeModal }) => {
   );
 };
 
-export { Default };
+export { DefaultError };
