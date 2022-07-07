@@ -15,6 +15,7 @@ import ScrollbarsLayout from '../../../../../components/layouts/Scrollbars';
 import { post, setHeaders } from '../../../../../utils/http';
 import useUser from '../../../../../hooks/useUser';
 import { Button } from '../../../../../ui/button';
+import KeywordBox from '../../../../../page-components/keywords/KeywordBox';
 
 function KeywordsPage() {
   const { user } = useUser();
@@ -80,9 +81,15 @@ function KeywordsPage() {
     setIsNewKeyword(false);
   };
 
-  const removeQuestion = (id) => {
+  const removeQuestion = async (id) => {
     let newQuestions = questions.filter((n) => n.id != id);
-    projectsState.setKeywordQuestions(aQuestions(newQuestions));
+    setQuestions(newQuestions);
+  };
+
+  const changeQuestion = async (value, id) => {
+    const toChangeIndex = questions.findIndex((n) => n.id == id);
+    let newQuestions = questions;
+    newQuestions[toChangeIndex].question = value;
     setQuestions(newQuestions);
   };
 
@@ -174,6 +181,8 @@ function KeywordsPage() {
     if (checkQuestionLength()) {
       try {
         setLoadingSaveAnalyze(true);
+        let keywordsQuestionDFS = await aQuestions(questions);
+        projectsState.setKeywordQuestions(keywordsQuestionDFS);
         if (!query.keywordsId) {
           const { response, error } = await post({
             url: `${process.env.BASE_URL}/api/project/add-keywords`,
@@ -183,13 +192,12 @@ function KeywordsPage() {
               industry: '',
               tags: [],
               keywords: keywordsStackAnalysed,
-              keywordsQuestions: aQuestions(questions),
+              keywordsQuestions: keywordsQuestionDFS,
               project_id: query.projectId,
             },
           });
 
           if (response) {
-            projectsState.setKeywordQuestions(aQuestions(questions));
             router.push(
               `/app/projects/${query.projectId}/keywords/${response.data.data._id}/results`
             );
@@ -202,13 +210,12 @@ function KeywordsPage() {
             headers: setHeaders({ token: user.accessToken }),
             data: {
               keywordId: query.keywordsId,
-              keywordsQuestions: aQuestions(questions),
+              keywordsQuestions: keywordsQuestionDFS,
               keywords: keywordsStackAnalysed,
             },
           });
 
           if (response) {
-            projectsState.setKeywordQuestions(aQuestions(questions));
             router.push(
               `/app/projects/${query.projectId}/keywords/${query.keywordsId}/results`
             );
@@ -296,22 +303,11 @@ function KeywordsPage() {
                 <div className="flex flex-wrap">
                   {questions.map((k) => (
                     <Fragment key={k.id}>
-                      <Box
-                        type={'black'}
-                        className="p-2 text-left w-fit min-w-fit mb-[11px] mr-2 cursor-default"
-                      >
-                        <div className="flex space-x-[6px]">
-                          <span className="font-medium text-sm line-clamp-2">
-                            {k.question}
-                          </span>
-                          <span
-                            onClick={() => removeQuestion(k.id)}
-                            className="cursor-pointer flex items-center"
-                          >
-                            <XSolid className="w-[14px] h-[14px]" />
-                          </span>
-                        </div>
-                      </Box>
+                      <KeywordBox
+                        k={k}
+                        removeQuestion={removeQuestion}
+                        setNewKeywordValue={changeQuestion}
+                      />
                     </Fragment>
                   ))}
                   {loadingQuestions && (
