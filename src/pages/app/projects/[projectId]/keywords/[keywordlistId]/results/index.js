@@ -192,7 +192,8 @@ const results = ({ keywordQuestions, keywords }) => {
                   </div>
                   <div className="flex space-x-2">
                     <AddToMenu
-                    // setOpenNewKeywordList={openKeywordDialog}
+                      rows={tableInstance.selectedFlatRows}
+                      currentKeywordListId={query.keywordlistId}
                     />
                     <ExportMenu />
                     <div>
