@@ -13,6 +13,8 @@ import useUser from '../../../hooks/useUser';
 import { post, setHeaders, get } from '../../../utils/http';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import NewKeywordListDialog from '../../project-categories/keywords/newKeywordListDialog';
+import ScrollbarsLayout from '../../../components/layouts/Scrollbars';
 
 const initialKeywordListDetails = {
   title: '',
@@ -148,156 +150,11 @@ const AddToMenu = ({}) => {
   return (
     <>
       {/* New Keyword List */}
-      <DialogLayout
-        isSharp={true}
-        widthRestrict={'max-w-[1300px]'}
+      <NewKeywordListDialog
+        isNew={true}
         isOpen={openNewKeywordList}
         closeModal={() => setOpenNewKeywordList(false)}
-      >
-        <div className="border-b dark:border-b-darkMode-border border-b-ash py-6 px-14">
-          <div className="flex justify-between">
-            <div className="flex items-center">
-              <span className="font-bold">Provide Keywords list Details</span>
-            </div>
-            <div>
-              <Button
-                variant="reset"
-                onClick={() => setOpenNewKeywordList(false)}
-              >
-                Cancel
-              </Button>
-              <Button onClick={continueKeywordCreation}>Create List</Button>
-            </div>
-          </div>
-        </div>
-        <div className="w-full text-left pt-[30px] pb-10">
-          <div className="px-14">
-            <FormGroup
-              label="Keywords List Title"
-              imp={true}
-              labelFor="project"
-            >
-              <Input
-                id="project"
-                variant="dark"
-                value={newKeywordList.title}
-                onChange={(e) => predictTitle(e)}
-                placeholder="Graphic Design keywords"
-              />
-              <Transition
-                as={Fragment}
-                show={showPredict}
-                enter="transition ease-out duration-100 overflow-hidden"
-                enterFrom="transform min-h-0"
-                enterTo="transform max-h-[105px] h-auto"
-                leave="transition ease-in"
-                leaveFrom="transform duration-75 max-h-[105px] h-auto"
-                leaveTo="transform min-h-0"
-              >
-                <ul className="predict-title max-h-[176px] overflow-y-scroll">
-                  <li className="px-[27.18px] py-[10px]">
-                    <span
-                      className="cursor-pointer"
-                      onClick={() => {
-                        dispatch({
-                          type: 'setTitle',
-                          value: `${newKeywordList.title} Class Notes`,
-                        });
-                        setPredictTitle(false);
-                      }}
-                    >
-                      {newKeywordList.title}{' '}
-                      <span className="font-bold">Class Notes</span>
-                    </span>
-                  </li>
-                  <li className="px-[27.18px] py-[10px]">
-                    <span
-                      className="cursor-pointer"
-                      onClick={() => {
-                        dispatch({
-                          type: 'setTitle',
-                          value: `${newKeywordList.title} Agency`,
-                        });
-                        setPredictTitle(false);
-                      }}
-                    >
-                      {newKeywordList.title}{' '}
-                      <span className="font-bold">Agency</span>
-                    </span>
-                  </li>
-                  <li className="px-[27.18px] py-[10px]">
-                    <span
-                      className="cursor-pointer"
-                      onClick={() => {
-                        dispatch({
-                          type: 'setTitle',
-                          value: `${newKeywordList.title} Book Article`,
-                        });
-                        setPredictTitle(false);
-                      }}
-                    >
-                      {newKeywordList.title}{' '}
-                      <span className="font-bold">Book Article</span>
-                    </span>
-                  </li>
-                </ul>
-              </Transition>
-            </FormGroup>
-
-            <FormGroup label="Keywords List Tags" imp={true} labelFor="prize">
-              <Input
-                id="prize"
-                value={newKeywordList.tags.join(', ')}
-                variant="dark"
-                onChange={(e) => dispatch({ type: 'setTags', value: e })}
-                placeholder="graphic design, digital marketing, marketing"
-              />
-            </FormGroup>
-
-            <FormGroup
-              label="Industry (optional)"
-              className="mb-0"
-              labelFor="indutry"
-            >
-              <Input
-                id="industry"
-                variant="dark"
-                value={newKeywordList.industry}
-                onChange={(e) => predictIndustry(e)}
-                placeholder="Industry"
-              />
-              <Transition
-                as={Fragment}
-                show={showPredictIndustry}
-                enter="transition ease-out duration-100 overflow-hidden"
-                enterFrom="transform min-h-0"
-                enterTo="transform max-h-[105px] h-auto"
-                leave="transition ease-in"
-                leaveFrom="transform duration-75 max-h-[105px] h-auto"
-                leaveTo="transform min-h-0"
-              >
-                <ul className="predict-title max-h-[176px] overflow-y-scroll">
-                  {industries.map((industry, index) => {
-                    return (
-                      <li className="px-[27.18px] py-[10px]" key={index}>
-                        <span
-                          className="cursor-pointer"
-                          onClick={() => {
-                            dispatch({ type: 'setIndustry', value: industry });
-                            setShowPredictIndustry(false);
-                          }}
-                        >
-                          <span className="font-bold">{industry}</span>
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </Transition>
-            </FormGroup>
-          </div>
-        </div>
-      </DialogLayout>
+      />
       <Layout label={'Add to'} origin={'right'} type="menu" icon={<Icon />}>
         <div
           className="divide-y-2 dark:divide-darkMode-border divide-ash"
@@ -322,13 +179,15 @@ const AddToMenu = ({}) => {
             </div>
           </div>
           <div className="border-b border-t-0 border-solid dark:border-darkMode-border border-ash">
-            <ul>
-              {searchFor(keywordList).map((item) => (
-                <Fragment key={item._id}>
-                  <ListItem item={item} toggleToChecked={toggleToChecked} />
-                </Fragment>
-              ))}
-            </ul>
+            <ScrollbarsLayout h="199.85px">
+              <ul className="max-h-[199.85px]">
+                {searchFor(keywordList).map((item) => (
+                  <Fragment key={item._id}>
+                    <ListItem item={item} toggleToChecked={toggleToChecked} />
+                  </Fragment>
+                ))}
+              </ul>
+            </ScrollbarsLayout>
           </div>
           <Layout.Item>
             <div>
@@ -383,7 +242,7 @@ const ListItem = ({ item, toggleToChecked }) => {
       <span className="h-6">
         <CheckBox checked={checked} />
       </span>
-      <span className="text-sm select-none">{item.title}</span>
+      <span className="text-sm select-none line-clamp-1">{item.title}</span>
     </li>
   );
 };

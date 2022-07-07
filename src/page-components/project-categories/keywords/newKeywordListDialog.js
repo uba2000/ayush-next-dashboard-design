@@ -14,7 +14,7 @@ import useUser from '../../../hooks/useUser';
 import { Button } from '../../../ui/button';
 import FieldErrorText from '../../../components/layouts/FieldErrorText';
 
-const NewKeywordListDialog = ({ isOpen, closeModal }) => {
+const NewKeywordListDialog = ({ isOpen, closeModal, isNew = false }) => {
   const { user } = useUser();
 
   const router = useRouter();
@@ -81,8 +81,35 @@ const NewKeywordListDialog = ({ isOpen, closeModal }) => {
         validationSchema={validationSchema}
         onSubmit={continueKeywordCreation}
       >
-        <Form className="w-full text-left pt-[30px] divide-y-[1px] dark:divide-darkMode-border divide-ash">
-          <div className="pb-[30px] px-14">
+        <Form
+          className={`w-full text-left ${
+            !isNew ? 'pt-[30px]' : ''
+          } divide-y-[1px] dark:divide-darkMode-border divide-ash`}
+        >
+          {isNew && (
+            <div className="py-4 px-14">
+              <div className="flex justify-between">
+                <div className="flex items-center">
+                  <span className="font-bold">
+                    Provide Keywords list Details
+                  </span>
+                </div>
+                <div className="flex">
+                  <Button variant="reset" onClick={closeModal}>
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    state={loading && 'loading'}
+                    className="block w-fit"
+                  >
+                    Continue
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+          <div className={`pb-[30px] ${isNew ? 'pt-[30px]' : ''} px-14`}>
             <FormGroup label="Keyword List Title" imp={true} labelFor="keyword">
               <Field
                 as={Input}
@@ -152,25 +179,27 @@ const NewKeywordListDialog = ({ isOpen, closeModal }) => {
             </FormGroup>
           </div>
 
-          <div className="form-group px-14 py-4 flex mb-0 justify-between">
-            <div className="flex items-center">
-              <span className="dark:text-darkMode-subText text-black">
-                Make sure to save the changes
-              </span>
+          {!isNew && (
+            <div className="form-group px-14 py-4 flex mb-0 justify-between">
+              <div className="flex items-center">
+                <span className="dark:text-darkMode-subText text-black">
+                  Make sure to save the changes
+                </span>
+              </div>
+              <div className="space-x-4 flex">
+                <Button variant="reset" onClick={closeModal}>
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  state={loading && 'loading'}
+                  className="block w-fit"
+                >
+                  Continue
+                </Button>
+              </div>
             </div>
-            <div className="space-x-4 flex">
-              <Button variant="reset" onClick={closeModal}>
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                state={loading && 'loading'}
-                className="block w-fit"
-              >
-                Continue
-              </Button>
-            </div>
-          </div>
+          )}
         </Form>
       </Formik>
     </DialogLayout>
