@@ -16,27 +16,7 @@ import { useEffect } from 'react';
 import NewKeywordListDialog from '../../project-categories/keywords/newKeywordListDialog';
 import ScrollbarsLayout from '../../../components/layouts/Scrollbars';
 
-const initialKeywordListDetails = {
-  title: '',
-  tags: [],
-  industry: '',
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'setTitle':
-      return { ...state, title: action.value };
-    case 'setTags':
-      let arrTags = fTags(action.value);
-      return { ...state, tags: arrTags };
-    case 'setIndustry':
-      return { ...state, industry: action.value };
-    default:
-      return state;
-  }
-};
-
-const AddToMenu = ({}) => {
+const AddToMenu = ({ rows = [], currentKeywordListId = '' }) => {
   const { user } = useUser();
 
   const router = useRouter();
@@ -44,56 +24,13 @@ const AddToMenu = ({}) => {
 
   const [openNewKeywordList, setOpenNewKeywordList] = useState(false);
 
-  const [showPredict, setPredictTitle] = useState(false);
-  // const [keywords, setKeywords] = useState(projectState.keywords)
-  const [showPredictIndustry, setShowPredictIndustry] = useState(false);
   const [keywordList, setKeywordList] = useState([]);
   const [loadingKeywordList, setLoadingKeywordList] = useState(true);
-  const [keywordList1, setKeywordList1] = useState(false);
-  const [keywordList2, setKeywordList2] = useState(false);
 
   const [checkedKeywordList, setCheckedKeywordList] = useState([]);
 
-  const [newKeywordList, dispatch] = useReducer(
-    reducer,
-    initialKeywordListDetails
-  );
-
-  const predictIndustry = (value) => {
-    dispatch({ type: 'setIndustry', value });
-    setShowPredictIndustry(newKeywordList.industry.length > 2);
-  };
-
   const openKeywordDialog = () => {
     setOpenNewKeywordList(true);
-  };
-
-  const predictTitle = (value) => {
-    dispatch({ type: 'setTitle', value });
-    setPredictTitle(newKeywordList.title.length > 2);
-  };
-
-  const continueKeywordCreation = async () => {
-    try {
-      const { response, error } = await post({
-        url: `${process.env.BASE_URL}/api/project/add-keywords`,
-        headers: setHeaders({ token: user.accessToken }),
-        data: {
-          title: newKeywordList.title,
-          industry: newKeywordList.industry,
-          tags: newKeywordList.tags,
-          project_id: query.projectId,
-        },
-      });
-
-      if (response) {
-        router.push(
-          `/app/projects/${query.projectId}/keywords?keywordsId=${response.data.data._id}`
-        );
-      }
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const toggleToChecked = ({ item, type }) => {
@@ -181,11 +118,17 @@ const AddToMenu = ({}) => {
           <div className="border-b border-t-0 border-solid dark:border-darkMode-border border-ash">
             <ScrollbarsLayout h="199.85px">
               <ul className="max-h-[199.85px]">
-                {searchFor(keywordList).map((item) => (
-                  <Fragment key={item._id}>
-                    <ListItem item={item} toggleToChecked={toggleToChecked} />
-                  </Fragment>
-                ))}
+                {searchFor(keywordList)
+                  .filter((listItem) => listItem._id !== currentKeywordListId)
+                  .map((item) => (
+                    <Fragment key={item._id}>
+                      <ListItem
+                        item={item}
+                        rowsToAdd={rows}
+                        toggleToChecked={toggleToChecked}
+                      />
+                    </Fragment>
+                  ))}
               </ul>
             </ScrollbarsLayout>
           </div>
@@ -227,11 +170,37 @@ const Icon = () => {
   );
 };
 
-const ListItem = ({ item, toggleToChecked }) => {
+const ListItem = ({ item, toggleToChecked, rowsToAdd = [] }) => {
+  const { user } = useUser();
+
   const [checked, setChecked] = useState(item.checked);
-  const checkList = () => {
-    setChecked(!checked);
-    toggleToChecked({ item, type: !checked ? 'add' : 'remove' });
+  const [showLoading, setShowLoading] = useState(false);
+
+  const checkList = async () => {
+    // save selected items to this keyword...
+    if (!checked) {
+      if (rowsToAdd.length > 0) {
+        try {
+          setShowLoading(true);
+          const { response, error } = await post({
+            url: `${process.env.BASE_URL}/api/project/keywords/add-to-keyword-list`,
+            headers: setHeaders({ token: user.accessToken }),
+            data: {
+              keywords: rowsToAdd.map((row) => {
+                const { _id, ...ret } = row.original;
+                return ret;
+              }),
+              keywordsListId: item._id,
+            },
+          });
+          if (response) {
+            setShowLoading(false);
+            setChecked(true);
+            // toggleToChecked({ item, type: !checked ? 'add' : 'remove' });
+          }
+        } catch (error) {}
+      }
+    }
   };
 
   return (
@@ -240,7 +209,12 @@ const ListItem = ({ item, toggleToChecked }) => {
       className="p-2 flex items-center cursor-pointer space-x-2"
     >
       <span className="h-6">
-        <CheckBox checked={checked} />
+        {!showLoading ? (
+          <CheckBox checked={checked} />
+        ) : (
+          // spinning loader
+          <></>
+        )}
       </span>
       <span className="text-sm select-none line-clamp-1">{item.title}</span>
     </li>

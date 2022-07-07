@@ -86,7 +86,10 @@ const KeywordListView = ({ keywords, keywordList, project }) => {
               <AllInTitleFilter />
             </div>
             <div className="flex space-x-2">
-              <AddToMenu />
+              <AddToMenu
+                rows={tableInstance.selectedFlatRows}
+                currentKeywordListId={keywordList._id}
+              />
               <ExportMenu />
               <div>
                 <button
