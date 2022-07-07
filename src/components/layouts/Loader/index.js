@@ -1,14 +1,18 @@
-import React from 'react'
+import React from 'react';
 
 export const Loader = React.forwardRef(
-  ({ className, ...rest }, ref) => (
+  ({ className, w = '36px', h = '36px', ...rest }, ref) => (
     <div
-      className={`spinning-loader w-9 h-9 mx-auto ${className ? className : ''}`}
+      className={`spinning-loader mx-auto ${className ? className : ''}`}
+      style={{
+        width: w,
+        height: h,
+      }}
       role="status"
       {...rest}
       ref={ref}
     ></div>
   )
-)
+);
 
 Loader.displayName = 'Loader';

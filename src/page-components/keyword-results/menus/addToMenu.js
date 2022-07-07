@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import NewKeywordListDialog from '../../project-categories/keywords/newKeywordListDialog';
 import ScrollbarsLayout from '../../../components/layouts/Scrollbars';
+import { Loader } from '../../../components/layouts/Loader';
 
 const AddToMenu = ({ rows = [], currentKeywordListId = '' }) => {
   const { user } = useUser();
@@ -208,12 +209,13 @@ const ListItem = ({ item, toggleToChecked, rowsToAdd = [] }) => {
       onClick={() => checkList()}
       className="p-2 flex items-center cursor-pointer space-x-2"
     >
-      <span className="h-6">
+      <span className="h-6 flex items-center">
         {!showLoading ? (
           <CheckBox checked={checked} />
         ) : (
-          // spinning loader
-          <></>
+          <>
+            <Loader w={'20px'} h={'20px'} className={'border-2'} />
+          </>
         )}
       </span>
       <span className="text-sm select-none line-clamp-1">{item.title}</span>
