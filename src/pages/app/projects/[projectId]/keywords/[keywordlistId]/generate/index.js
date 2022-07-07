@@ -185,52 +185,52 @@ const Index = () => {
 
   return (
     <DashboardLayout metaTitle="Generate Articles">
+      <DialogLayout
+        isOpen={isCompleteDialog}
+        closeModal={closeGenerationCompleteDialog}
+      >
+        <div className="px-[130px] py-20 relative">
+          <div
+            className="absolute top-[30px] right-7 cursor-pointer"
+            onClick={closeGenerationCompleteDialog}
+          >
+            <span>
+              <X className="w-[21px] h-[21px]" />
+            </span>
+          </div>
+          <div className="space-y-6">
+            <div className="mb-[26.85px]">
+              <span>
+                <RoundTickActive className="w-12 h-12 mx-auto text-primary" />
+              </span>
+            </div>
+            <div className="space-y-2">
+              <DialogLayout.Title
+                className={'capitalize text-xl font-semibold'}
+              >
+                Content generated Successfully!
+              </DialogLayout.Title>
+              <p className="dark:text-darkMode-subText text-ash">
+                Et leo, enim in non sed quis sed. Auctor natoque auctor risus
+                amet quis mauris. Interdum et nisi, pellentesque id lectus.
+              </p>
+            </div>
+            <div className="space-x-4">
+              <Button onClick={startNewProject}>Start Another Project</Button>
+              <Button
+                variant="reset"
+                onClick={viewAllProjects}
+                className="dark:text-darkMode-subText text-ash"
+              >
+                View All Articles
+              </Button>
+            </div>
+          </div>
+        </div>
+      </DialogLayout>
       <div
         className={`${showGenerate && !showEdit ? 'block' : 'hidden'} w-full`}
       >
-        <DialogLayout
-          isOpen={isCompleteDialog}
-          closeModal={closeGenerationCompleteDialog}
-        >
-          <div className="px-[130px] py-20 relative">
-            <div
-              className="absolute top-[30px] right-7 cursor-pointer"
-              onClick={closeGenerationCompleteDialog}
-            >
-              <span>
-                <X className="w-[21px] h-[21px]" />
-              </span>
-            </div>
-            <div className="space-y-6">
-              <div className="mb-[26.85px]">
-                <span>
-                  <RoundTickActive className="w-12 h-12 mx-auto text-primary" />
-                </span>
-              </div>
-              <div className="space-y-2">
-                <DialogLayout.Title
-                  className={'capitalize text-xl font-semibold'}
-                >
-                  Content generated Successfully!
-                </DialogLayout.Title>
-                <p className="dark:text-darkMode-subText text-ash">
-                  Et leo, enim in non sed quis sed. Auctor natoque auctor risus
-                  amet quis mauris. Interdum et nisi, pellentesque id lectus.
-                </p>
-              </div>
-              <div className="space-x-4">
-                <Button onClick={startNewProject}>Start Another Project</Button>
-                <Button
-                  variant="reset"
-                  onClick={viewAllProjects}
-                  className="dark:text-darkMode-subText text-ash"
-                >
-                  View All Articles
-                </Button>
-              </div>
-            </div>
-          </div>
-        </DialogLayout>
         <div className="w-full">
           <div>
             <Table>
@@ -351,9 +351,9 @@ const Index = () => {
               </div>
             </Box>
             <Box type={'black'} className="border-t-0">
-              <div className="py-[25px] w-full">
+              <div className="pb-[25px] w-full">
                 <ScrollbarsLayout h="650px">
-                  <div className="pr-12">
+                  <div className="pr-0">
                     <EditorContainer>
                       <ArticleEditor
                         content={editData.article_content}
