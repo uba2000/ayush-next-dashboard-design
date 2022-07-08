@@ -1,6 +1,41 @@
 import { faker } from '@faker-js/faker';
 
-export function aQuestions(questions) {
+import { post } from './http';
+
+export async function aQuestions(questions) {
+  const post_array = [];
+
+  post_array.push({
+    location_name: 'United States',
+    language_name: 'English',
+    bid: 999.0,
+    match: 'exact',
+    keywords: questions.map((item) => item.question),
+  });
+
+  const { response, error } = await post({
+    url: `https://api.dataforseo.com/v3/keywords_data/google_ads/ad_traffic_by_keywords/live`,
+    auth: {
+      username: 'christian@whitelabelresell.com',
+      password: ',apNYFE__8PgYg.9',
+    },
+    data: post_array,
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
+
+  console.log(response);
+
+  if (response) {
+    var result = response['data']['tasks'];
+
+    console.log(result);
+  } else if (error) {
+    console.log(error);
+  }
+  debugger;
+
   return questions.map((question) => {
     return {
       ...question,
@@ -11,6 +46,6 @@ export function aQuestions(questions) {
       trending: faker.datatype.number({ min: 0, max: 100, precision: 1 }),
       ait: faker.datatype.number({ min: 0, max: 300, precision: 1 }),
       checked: false,
-    }
-  })
+    };
+  });
 }
