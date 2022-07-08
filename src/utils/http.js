@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const setHeaders = ({ token }) => {
   return {
+    'content-type': 'application/json',
     Authorization: `Bearer ${token}`,
   };
 };
