@@ -24,21 +24,12 @@ const GenerateListItem = ({
   const [openSmallPreview, setOpenSmallPreview] = useState(false);
   const [processStatus, setProcessStatus] = useState(content.status);
   const [articleId, setArticleId] = useState(null);
-  const [thisArticleContent, setThisArticleContent] = useState(null);
+  const [thisArticleContent, setThisArticleContent] = useState(
+    content.article_content
+  );
 
   const showSmallPreview = () => {
     setOpenSmallPreview(!openSmallPreview);
-  };
-
-  // const showPreview = () => {
-  //   router.push(
-  //     `/app/projects/${query.projectId}/keywords/${query.keywordlistId}/generate/${content.id}`
-  //   );
-  // };
-
-  const editArticle = () => {
-    layoutState.layout.setToEditArticle(true);
-    router.push(`/app/projects/${query.projectId}/articles/edit/${articleId}`);
   };
 
   useEffect(async () => {
@@ -115,7 +106,7 @@ const GenerateListItem = ({
             <EditorContainer>
               <div
                 dangerouslySetInnerHTML={{
-                  __html: draftToHtml(JSON.parse(articleContent)),
+                  __html: draftToHtml(JSON.parse(thisArticleContent)),
                 }}
               ></div>
             </EditorContainer>

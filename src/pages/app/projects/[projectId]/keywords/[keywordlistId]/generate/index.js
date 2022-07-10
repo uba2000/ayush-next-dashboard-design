@@ -40,13 +40,13 @@ const Index = () => {
 
   const [completeCount, setCompleteCount] = useState(0);
 
-  const articlesDetailsGenerate = useSelector(
-    (state) => state.project.articlesDetailsGenerate
+  const [stopSaving, setStopSaving] = useState(false);
+
+  const articlesDetailsGenerate = useSelector((state) =>
+    generateArticlesContent(state.project.articlesDetailsGenerate)
   );
 
-  const [allContents] = useState(
-    generateArticlesContent(articlesDetailsGenerate)
-  );
+  const [allContents, setAllContents] = useState(articlesDetailsGenerate);
   const [isCompleteDialog, setIsCompleteDialog] = useState(false);
 
   const processArticlesContent = () => {
@@ -54,39 +54,48 @@ const Index = () => {
   };
 
   const triggerComplete = async (status, article = null) => {
-    if (status == 'c') {
-      setCompleteCount(++completeCount);
-      const { response } = await post({
-        url: `${process.env.BASE_URL}/api/project/article`,
-        headers: setHeaders({ token: user.accessToken }),
-        data: {
-          title: article.title,
-          tags: article.tags || [],
-          article_content: articleContent,
-          project_id: query.projectId,
-          keywordlist_id: query.keywordlistId,
-          articleWordCount: article.words,
-        },
-        error: (response) => {
-          setIsCompleteDialog(false);
-          dispatchStore(setShowErrorDialog(true));
-          if (response.data.error.details) {
-            dispatchStore(
-              setErrorDetails(response.data.error.details || undefined)
-            );
+    if (!stopSaving) {
+      if (status == 'c') {
+        setCompleteCount(++completeCount);
+        const thisContentArticleIndex = allContents.findIndex(
+          (n) => n.id == article.id
+        );
+        let thisContentArticle = allContents;
+        thisContentArticle[thisContentArticleIndex] = article;
+        setAllContents(thisContentArticle);
+        const { response } = await post({
+          url: `${process.env.BASE_URL}/api/project/article`,
+          headers: setHeaders({ token: user.accessToken }),
+          data: {
+            title: article.title,
+            tags: article.tags || [],
+            article_content: articleContent,
+            project_id: query.projectId,
+            keywordlist_id: query.keywordlistId,
+            articleWordCount: article.words,
+          },
+          error: (response) => {
+            setIsCompleteDialog(false);
+            dispatchStore(setShowErrorDialog(true));
+            setStopSaving(true);
+            if (response.data.error.details) {
+              dispatchStore(
+                setErrorDetails(response.data.error.details || undefined)
+              );
+            }
+          },
+        });
+        if (response) {
+          if (completeCount == allContents.length) {
+            setIsCompleteDialog(true);
           }
-        },
-      });
-      if (response) {
-        if (completeCount == allContents.length) {
-          setIsCompleteDialog(true);
+          // TODO: save articles here...
+          return response.data.data;
         }
-        // TODO: save articles here...
-        return response.data.data;
       }
-    }
-    if (completeCount == allContents.length) {
-      setIsCompleteDialog(true);
+      if (completeCount == allContents.length) {
+        setIsCompleteDialog(true);
+      }
     }
     // TODO: save articles here...
     return false;
@@ -123,6 +132,8 @@ const Index = () => {
     }
   };
 
+  const [loadingArticleEdit, setLoadingArticleEdit] = useState(false);
+
   const editArticle = async (state, payload = null) => {
     switch (state) {
       case 'e': // p: preview
@@ -131,7 +142,8 @@ const Index = () => {
         break;
       case 'he': // hp: hide preview
         // save edited content...
-        setShowEdit(false);
+        setLoadingArticleEdit(true);
+        console.log('he', editData);
         try {
           const { response } = await post({
             url: `${process.env.BASE_URL}/api/project/article/update-article`,
@@ -141,13 +153,26 @@ const Index = () => {
               word_count: editData.words,
               article_id: editData._id,
             },
+            // show error
           });
           if (response) {
+            const contentIndex = allContents.findIndex(
+              (n) => n.id == editData.id
+            );
+            let a = allContents;
+            a[contentIndex].article_content = editData.article_content;
+            setAllContents(a);
             setEditData(payload);
+            setShowEdit(false);
           }
+          setLoadingArticleEdit(false);
         } catch (error) {
           console.log(error);
+          setLoadingArticleEdit(false);
         }
+        break;
+      case 'close':
+        setShowEdit(false);
         break;
       default:
         break;
@@ -164,6 +189,7 @@ const Index = () => {
       ...editData,
       words: wordsCount,
     });
+    console.log('count', editData);
   };
 
   const handleEditorContent = (content) => {
@@ -171,6 +197,7 @@ const Index = () => {
       ...editData,
       article_content: content,
     });
+    console.log('edit', editData);
   };
 
   useEffect(() => {
@@ -254,18 +281,17 @@ const Index = () => {
                 </Table.Row>
               </Table.Head>
               <Table.Body>
-                {articlesDetailsGenerate &&
-                  processArticlesContent().map((content, index) => (
-                    <Fragment key={content.id}>
-                      <GenerateListItem
-                        content={content}
-                        triggerComplete={triggerComplete}
-                        index={index}
-                        showEdit={(article) => editArticle('e', article)}
-                        showPreview={(article) => previewArticle('p', article)}
-                      />
-                    </Fragment>
-                  ))}
+                {allContents.map((content, index) => (
+                  <Fragment key={content.id}>
+                    <GenerateListItem
+                      content={content}
+                      triggerComplete={triggerComplete}
+                      index={index}
+                      showEdit={(article) => editArticle('e', article)}
+                      showPreview={(article) => previewArticle('p', article)}
+                    />
+                  </Fragment>
+                ))}
               </Table.Body>
             </Table>
           </div>
@@ -332,20 +358,29 @@ const Index = () => {
                   <div className="">
                     <PreviewArticleHeadLayout
                       title={'ID'}
-                      subTitle={editData.id || ''}
+                      subTitle={editData ? editData.id : ''}
                     />
                   </div>
                   <div className="flex-grow">
                     <PreviewArticleHeadLayout
                       title={'Title'}
-                      subTitle={editData.title || ''}
+                      subTitle={editData ? editData.title : ''}
                     />
                   </div>
-                  <div
-                    className="flex items-center cursor-pointer"
-                    onClick={() => editArticle('he')}
-                  >
-                    <X className="text-red w-[25px] h-[25px]" />
+                  <div className="flex items-center cursor-pointer">
+                    <Button
+                      variant="reset"
+                      className="btn btn-reset"
+                      onClick={() => editArticle('close')}
+                    >
+                      Reset
+                    </Button>
+                    <Button
+                      state={loadingArticleEdit && 'loading'}
+                      onClick={() => editArticle('he')}
+                    >
+                      Save
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -356,7 +391,7 @@ const Index = () => {
                   <div className="pr-0">
                     <EditorContainer>
                       <ArticleEditor
-                        content={editData.article_content}
+                        content={editData ? editData.article_content : ''}
                         countWords={countWords}
                         handleContent={handleEditorContent}
                       />

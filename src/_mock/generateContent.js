@@ -40,6 +40,7 @@ export const generateArticlesContent = (contents) => {
         tags: contents.articleTags,
         words: 1716,
         saved: false,
+        article_content: '',
       };
     }),
     ['status'],

@@ -114,6 +114,7 @@ function handleHttpError({ response, error, serverError, formErrors }) {
   // No Response Was Returned
   if (!response) {
     console.log('No Response Was Returned');
+    error({ status: 449 });
     // this.error(
     // 	"There was an error",
     // 	"Please try again later"
