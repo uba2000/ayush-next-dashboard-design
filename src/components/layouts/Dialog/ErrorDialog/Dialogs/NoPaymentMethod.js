@@ -8,7 +8,7 @@ const NoPaymentMethod = ({ closeModal }) => {
   const router = useRouter();
 
   const goToPricing = () => {
-    router.push('/app/account/billing');
+    router.push('/app/account/billing?tab=p');
     closeModal();
   };
   return (

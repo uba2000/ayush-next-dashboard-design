@@ -51,10 +51,6 @@ const Index = () => {
   const [allContents, setAllContents] = useState(articlesDetailsGenerate);
   const [isCompleteDialog, setIsCompleteDialog] = useState(false);
 
-  const processArticlesContent = () => {
-    return allContents;
-  };
-
   const triggerComplete = async (status, article = null) => {
     if (canTriggerComplete) {
       if (status == 'c') {
@@ -465,25 +461,25 @@ const PreviewArticleHeadLayout = ({ title, subTitle }) => {
 
 Index.auth = true;
 
-export async function getServerSideProps(context) {
-  const { query } = context;
-  try {
-    const session = await getSession(context);
+// export async function getServerSideProps(context) {
+//   const { query } = context;
+//   try {
+//     const session = await getSession(context);
 
-    if (session?.user) {
-      return {
-        props: {},
-      };
-    }
-  } catch (error) {
-    console.log(error);
-    return {
-      redirect: {
-        destination: '/signin',
-        permanent: false,
-      },
-    };
-  }
-}
+//     if (session?.user) {
+//       return {
+//         props: {},
+//       };
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       redirect: {
+//         destination: '/signin',
+//         permanent: false,
+//       },
+//     };
+//   }
+// }
 
 export default Index;

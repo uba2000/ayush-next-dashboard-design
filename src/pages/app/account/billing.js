@@ -16,6 +16,12 @@ import { useThemeContext } from '../../../context/theme';
 import { DialogLayout } from '../../../components/layouts/Dialog';
 import { X } from '../../../ui/icons';
 
+const tabs = [
+  { tab: 'Subscriptions', q: 's' },
+  { tab: 'Invoices', q: 'i' },
+  { tab: 'Payment Methods', q: 'p' },
+];
+
 console.log(process.env.STRIPE_CLIENT_PUBLIC_KEY);
 const stripePromise = loadStripe(
   'pk_test_51JH1OEEOvhBgdP3wopZQ9CS9nAj6bMrpJ6PJk4VB5aoE2w1LtZmlwAkuxUCRDHua8clckICf8t5BWZnnFqC9ZZOJ00rcgO9Nag'
@@ -92,12 +98,25 @@ function billing({ paymentMethods, currentPlan, intent }) {
     router.push('/app/account/billing');
   };
 
+  const checkWhichTab = () => {
+    let cQuery = query;
+    if (cQuery.tab) {
+      let queryTabIndex = tabs.findIndex((t) => t.q == cQuery.tab);
+      if (queryTabIndex != -1) {
+        setTabIndex(queryTabIndex);
+      } else {
+        setTabIndex(0);
+      }
+    }
+  };
+
   useEffect(() => {
     if (query.setup_intent && query.setup_intent_client_secret) {
       updateTabIndex(2);
       setIsNewPaymentMethod(true);
       setOpenBillingProcessing(true);
     }
+    checkWhichTab();
   }, []);
 
   return (
