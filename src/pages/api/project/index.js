@@ -126,7 +126,9 @@ export default async function (req, res) {
         return res.status(200).json({ success: true, data: newProject });
       } catch (error) {
         console.log(error);
-        return res.status(500).send(error);
+        return res.status(500).send({
+          success: false,
+        });
       }
       break;
 

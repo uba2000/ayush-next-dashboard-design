@@ -68,34 +68,32 @@ const ProjectsIndexDialog = ({ projectDialog, closeProjectDialog }) => {
   };
 
   const continueProjectCreation = async (values, submitProps) => {
-    try {
-      setLoading(true);
-      const { response, error } = await post({
-        url: `${process.env.BASE_URL}/api/project`,
-        data: {
-          title: values.title,
-          tags: values.tags.split(', '),
-          industry: values.industry,
-        },
-        headers: setHeaders({ token: user.accessToken }),
-        error: (response) => {
-          closeProjectDialog();
-          setLoading(false);
-          dispatchStore(setShowErrorDialog(true));
+    setLoading(true);
+    const { response, error } = await post({
+      url: `${process.env.BASE_URL}/api/project`,
+      data: {
+        title: values.title,
+        tags: values.tags.split(', '),
+        industry: values.industry,
+      },
+      headers: setHeaders({ token: user.accessToken }),
+      error: (response) => {
+        if (response.status == 422) {
           dispatchStore(
             setErrorDetails(response.data.error.details || undefined)
           );
-        },
-      });
-      if (response) {
-        // submitProps.resetForm();
-        submitProps.setSubmitting(false);
-        contextState.project.setNewProjectData(response.data.data);
-        router.push(`/app/projects/${response.data.data._id}/keywords`);
-      }
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
+        }
+        dispatchStore(setShowErrorDialog(true));
+        setLoading(false);
+        closeProjectDialog();
+      },
+    });
+    console.log({ response, error });
+    if (response) {
+      // submitProps.resetForm();
+      submitProps.setSubmitting(false);
+      contextState.project.setNewProjectData(response.data.data);
+      router.push(`/app/projects/${response.data.data._id}/keywords`);
     }
   };
 

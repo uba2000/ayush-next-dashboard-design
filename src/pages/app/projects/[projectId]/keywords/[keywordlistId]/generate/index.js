@@ -27,6 +27,8 @@ import {
 } from '../../../../../../../features/error/errorSlice';
 import ArticleEditor from '../../../../../../../page-components/project-categories/articles/ArticleEditor';
 
+let canTriggerComplete = true;
+
 const Index = () => {
   const dispatchStore = useDispatch();
   const router = useRouter();
@@ -54,9 +56,8 @@ const Index = () => {
   };
 
   const triggerComplete = async (status, article = null) => {
-    if (!stopSaving) {
+    if (canTriggerComplete) {
       if (status == 'c') {
-        setCompleteCount(++completeCount);
         const thisContentArticleIndex = allContents.findIndex(
           (n) => n.id == article.id
         );
@@ -75,29 +76,29 @@ const Index = () => {
             articleWordCount: article.words,
           },
           error: (response) => {
-            setIsCompleteDialog(false);
-            dispatchStore(setShowErrorDialog(true));
-            setStopSaving(true);
             if (response.data.error.details) {
               dispatchStore(
                 setErrorDetails(response.data.error.details || undefined)
               );
             }
+            setIsCompleteDialog(false);
+            setStopSaving(true);
+            canTriggerComplete = false;
+            dispatchStore(setShowErrorDialog(true));
           },
         });
         if (response) {
+          setCompleteCount(++completeCount);
           if (completeCount == allContents.length) {
             setIsCompleteDialog(true);
           }
           // TODO: save articles here...
           return response.data.data;
         }
+        return false;
       }
-      if (completeCount == allContents.length) {
-        setIsCompleteDialog(true);
-      }
+      return true;
     }
-    // TODO: save articles here...
     return false;
   };
 
@@ -204,6 +205,7 @@ const Index = () => {
     if (!articlesDetailsGenerate) {
       router.push('/app/projects');
     }
+    canTriggerComplete = true;
   }, []);
 
   if (!articlesDetailsGenerate) {

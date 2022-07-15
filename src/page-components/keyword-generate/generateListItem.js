@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import draftToHtml from 'draftjs-to-html';
 
-import { Tick, Processing, Waiting, ChevDown, Mini } from '../../ui/icons';
+import { Tick, Processing, Waiting, ChevDown, Mini, X } from '../../ui/icons';
 import { Table } from '../../components/layouts/Table';
 import { EditorContainer } from '../../components/layouts/EditorContainer';
 import articleContent from '../../_mock/article-content';
@@ -34,34 +34,51 @@ const GenerateListItem = ({
 
   useEffect(async () => {
     if (processStatus == 'c') {
-      setThisArticleContent(articleContent);
-      const { _id } = await triggerComplete('c', {
+      const isComplete = await triggerComplete('c', {
         ...content,
         article_content: articleContent,
       });
-      setArticleId(_id);
+      if (isComplete) {
+        setThisArticleContent(articleContent);
+        setArticleId(isComplete._id);
+      } else {
+        setProcessStatus('f');
+      }
     } else if (processStatus == 'w') {
-      setTimeout(() => {
-        setProcessStatus('p');
-        setTimeout(async () => {
-          setThisArticleContent(articleContent);
-          setProcessStatus('c');
-          const { _id } = await triggerComplete('c', {
-            ...content,
-            article_content: articleContent,
-          });
-          setArticleId(_id);
-        }, 2000 + index * 1000);
+      setTimeout(async () => {
+        const canContinue = await triggerComplete('c', null);
+        if (canContinue) {
+          setProcessStatus('p');
+          setTimeout(async () => {
+            const isComplete = await triggerComplete('c', {
+              ...content,
+              article_content: articleContent,
+            });
+            if (isComplete) {
+              setThisArticleContent(articleContent);
+              setProcessStatus('c');
+              setArticleId(isComplete._id);
+            } else {
+              setProcessStatus('f');
+            }
+          }, 2000 + index * 1000);
+        } else {
+          setProcessStatus('f');
+        }
       }, 3000 + index * 1000);
     } else if (processStatus == 'p') {
       setTimeout(async () => {
-        setThisArticleContent(articleContent);
-        setProcessStatus('c');
-        const { _id } = await triggerComplete('c', {
+        const isComplete = await triggerComplete('c', {
           ...content,
           article_content: articleContent,
         });
-        setArticleId(_id);
+        if (isComplete) {
+          setThisArticleContent(articleContent);
+          setProcessStatus('c');
+          setArticleId(isComplete._id);
+        } else {
+          setProcessStatus('f');
+        }
       }, 2000 + index * 1000);
     }
   }, []);
@@ -160,6 +177,8 @@ const TableStatus = ({ processStatus }) => {
         return 'Processing';
       case 'w':
         return 'Waiting';
+      case 'f':
+        return 'Failed';
 
       default:
         return '';
@@ -177,36 +196,40 @@ const TableStatus = ({ processStatus }) => {
           <span>
             <Processing {...dim} />
           </span>
+        ) : processStatus == 'w' ? (
+          <span>
+            <svg
+              {...dim}
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                width="16"
+                height="16"
+                rx="8"
+                className="dark:fill-black fill-white"
+              />
+              <path
+                d="M8 15.0029C4.13401 15.0029 1 11.8689 1 8.00293C1 4.13694 4.13401 1.00293 8 1.00293C11.866 1.00293 15 4.13694 15 8.00293C15 11.8689 11.866 15.0029 8 15.0029Z"
+                className="dark:stroke-white stroke-black"
+                strokeWidth="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M6 11L7.60933 9.3102C7.8594 9.04771 7.99992 8.69167 8 8.3204V4"
+                className="dark:stroke-white stroke-black"
+                strokeWidth="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
         ) : (
-          processStatus == 'w' && (
+          processStatus == 'f' && (
             <span>
-              <svg
-                {...dim}
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  width="16"
-                  height="16"
-                  rx="8"
-                  className="dark:fill-black fill-white"
-                />
-                <path
-                  d="M8 15.0029C4.13401 15.0029 1 11.8689 1 8.00293C1 4.13694 4.13401 1.00293 8 1.00293C11.866 1.00293 15 4.13694 15 8.00293C15 11.8689 11.866 15.0029 8 15.0029Z"
-                  className="dark:stroke-white stroke-black"
-                  strokeWidth="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M6 11L7.60933 9.3102C7.8594 9.04771 7.99992 8.69167 8 8.3204V4"
-                  className="dark:stroke-white stroke-black"
-                  strokeWidth="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+              <X className={`${dim.className} text-red`} />
             </span>
           )
         )}
