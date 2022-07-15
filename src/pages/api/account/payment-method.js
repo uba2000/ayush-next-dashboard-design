@@ -21,7 +21,7 @@ export default async function (req, res) {
 
         const user = await User.findById(userAuth._id);
 
-        const paymentMethodType = user.payment_methods.length > 1 ? '' : 'D';
+        const paymentMethodType = user.payment_methods.length == 0 ? 'D' : '';
 
         user.payment_methods.push({
           stripe_intent_id: intent_id,

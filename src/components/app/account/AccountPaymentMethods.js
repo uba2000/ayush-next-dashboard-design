@@ -65,6 +65,7 @@ function AccountPaymentMethods({
 
     if (response.status) {
       // close modal...
+      setLoading(false);
     }
   };
 
@@ -152,19 +153,18 @@ function AccountPaymentMethods({
 
   return (
     <>
-      <DialogLayout
-        isOpen={openBillingProcessing}
-        closeModal={closeBillingProcessing}
-      >
+      <DialogLayout isOpen={openBillingProcessing} closeModal={() => {}}>
         <div className="md:px-[130px] px-4 py-20 relative">
-          <div
-            className="absolute top-[30px] right-7 cursor-pointer"
-            onClick={closeBillingProcessing}
-          >
-            <span>
-              <X className="w-[21px] h-[21px]" />
-            </span>
-          </div>
+          {!isProcessing && (
+            <div
+              className="absolute top-[30px] right-7 cursor-pointer"
+              onClick={closeBillingProcessing}
+            >
+              <span>
+                <X className="w-[21px] h-[21px]" />
+              </span>
+            </div>
+          )}
           <div className="space-y-6">
             <div className="mb-[26.85px]">
               <span>{/* Spinning loader */}</span>

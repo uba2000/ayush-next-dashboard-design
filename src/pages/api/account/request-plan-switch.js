@@ -108,11 +108,16 @@ export default async function handler(req, res) {
         return res.status(200).json({ success: true });
       } catch (error) {
         console.log(error);
-        const paymentIntentRetrieved = await stripe.paymentIntents.retrieve(
-          error.raw.payment_intent.id
-        );
-        console.log(paymentIntentRetrieved);
-        return res.status(500).send(error);
+        // const paymentIntentRetrieved = await stripe.paymentIntents.retrieve(
+        //   error.raw.payment_intent.id
+        // );
+        // console.log(paymentIntentRetrieved);
+        return res.status(422).json({
+          success: false,
+          error: {
+            message: 'An error occured!',
+          },
+        });
       }
       break;
 

@@ -27,11 +27,9 @@ const SwitchPlanDialog = ({ isOpen, closeModal, plan, period }) => {
       data: { ...plan, period },
       error: (response) => {
         if (response.status == 422) {
-          setLoading(false);
-          if (response.data) {
-            dispatch(setErrorDetails(response.data.error.details || undefined));
-          }
+          dispatch(setErrorDetails(response.data.error.details || undefined));
         }
+        setLoading(false);
         dispatch(setShowErrorDialog(true));
       },
     });

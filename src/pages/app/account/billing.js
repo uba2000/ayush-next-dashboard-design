@@ -22,7 +22,7 @@ const tabs = [
   { tab: 'Payment Methods', q: 'p' },
 ];
 
-console.log(process.env.STRIPE_CLIENT_PUBLIC_KEY);
+// console.log(process.env.STRIPE_CLIENT_PUBLIC_KEY);
 const stripePromise = loadStripe(
   'pk_test_51JH1OEEOvhBgdP3wopZQ9CS9nAj6bMrpJ6PJk4VB5aoE2w1LtZmlwAkuxUCRDHua8clckICf8t5BWZnnFqC9ZZOJ00rcgO9Nag'
 );
@@ -95,7 +95,7 @@ function billing({ paymentMethods, currentPlan, intent }) {
 
   const closeBillingProcessing = () => {
     setOpenBillingProcessing(false);
-    router.push('/app/account/billing');
+    router.push('/app/account/billing?tab=p');
   };
 
   const checkWhichTab = () => {
@@ -113,7 +113,7 @@ function billing({ paymentMethods, currentPlan, intent }) {
   useEffect(() => {
     if (query.setup_intent && query.setup_intent_client_secret) {
       updateTabIndex(2);
-      setIsNewPaymentMethod(true);
+      setIsNewPaymentMethod(false);
       setOpenBillingProcessing(true);
     }
     checkWhichTab();
