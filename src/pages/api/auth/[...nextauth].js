@@ -88,6 +88,10 @@ export default async function handler(req, res) {
       signIn: '/signin',
     },
     callbacks: {
+      // async redirect(baseUrl) {
+      //   console.log(baseUrl);
+      //   return baseUrl.baseUrl;
+      // },
       async jwt({ token, user, account }) {
         // TODO: refresh token here...
         if (account && user) {

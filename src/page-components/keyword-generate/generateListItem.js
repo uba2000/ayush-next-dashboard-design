@@ -9,6 +9,9 @@ import articleContent from '../../_mock/article-content';
 import { Button } from '../../ui/button';
 import { useAppContext } from '../../context/state';
 
+let xArticleContent = '';
+let amDone = false;
+
 const GenerateListItem = ({
   content,
   triggerComplete,
@@ -27,60 +30,69 @@ const GenerateListItem = ({
   const [thisArticleContent, setThisArticleContent] = useState(
     content.article_content
   );
+  xArticleContent = thisArticleContent;
 
   const showSmallPreview = () => {
     setOpenSmallPreview(!openSmallPreview);
   };
 
   useEffect(async () => {
-    if (processStatus == 'c') {
-      const isComplete = await triggerComplete('c', {
-        ...content,
-        article_content: articleContent,
-      });
-      if (isComplete) {
-        setThisArticleContent(articleContent);
-        setArticleId(isComplete._id);
-      } else {
-        setProcessStatus('f');
-      }
-    } else if (processStatus == 'w') {
-      setTimeout(async () => {
-        const canContinue = await triggerComplete('c', null);
-        if (canContinue) {
-          setProcessStatus('p');
-          setTimeout(async () => {
-            const isComplete = await triggerComplete('c', {
-              ...content,
-              article_content: articleContent,
-            });
-            if (isComplete) {
-              setThisArticleContent(articleContent);
-              setProcessStatus('c');
-              setArticleId(isComplete._id);
-            } else {
-              setProcessStatus('f');
-            }
-          }, 2000 + index * 1000);
-        } else {
-          setProcessStatus('f');
-        }
-      }, 3000 + index * 1000);
-    } else if (processStatus == 'p') {
-      setTimeout(async () => {
+    if (!amDone) {
+      if (processStatus == 'c') {
         const isComplete = await triggerComplete('c', {
           ...content,
           article_content: articleContent,
         });
         if (isComplete) {
           setThisArticleContent(articleContent);
-          setProcessStatus('c');
           setArticleId(isComplete._id);
+          amDone = true;
         } else {
           setProcessStatus('f');
         }
-      }, 2000 + index * 1000);
+      } else if (processStatus == 'w') {
+        setTimeout(async () => {
+          const canContinue = await triggerComplete('c', null);
+          if (canContinue) {
+            setProcessStatus('p');
+            setTimeout(async () => {
+              const isComplete = await triggerComplete('c', {
+                ...content,
+                article_content: articleContent,
+              });
+              if (isComplete) {
+                setThisArticleContent(articleContent);
+                setProcessStatus('c');
+                setArticleId(isComplete._id);
+                amDone = true;
+              } else {
+                setProcessStatus('f');
+              }
+            }, 2000 + index * 1000);
+          } else {
+            setProcessStatus('f');
+          }
+        }, 3000 + index * 1000);
+      } else if (processStatus == 'p') {
+        setTimeout(async () => {
+          const isComplete = await triggerComplete('c', {
+            ...content,
+            article_content: articleContent,
+          });
+          if (isComplete) {
+            setThisArticleContent(articleContent);
+            setProcessStatus('c');
+            setArticleId(isComplete._id);
+            amDone = true;
+          } else {
+            setProcessStatus('f');
+          }
+        }, 2000 + index * 1000);
+      }
     }
+    return () => {
+      amDone = false;
+    };
   }, []);
 
   return (
