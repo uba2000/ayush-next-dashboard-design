@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useMemo } from 'react';
+import React, { Fragment, useState, useMemo, useRef } from 'react';
 import { Tab } from '@headlessui/react';
 import { forEach } from 'lodash';
 
@@ -6,13 +6,18 @@ import Layout from '../Layout';
 import { Input } from '../../../ui/input';
 import { Button } from '../../../ui/button';
 import useTableSearchFilter from '../../../hooks/useTableSearchFilter';
+import { splitToArray } from '../../../utils/formatTags';
 
 const IncludeFilter = ({ column = {}, options }) => {
   const { items, setItems } = options;
   const reserveItems = useMemo(() => items, []);
 
-  const [anyWordValue, setAnyWordValue] = useState([]);
-  const [allWordValue, setAllWordValue] = useState([]);
+  const layout = useRef();
+
+  const [active, setActive] = useState(false);
+
+  const [anyWordValue, setAnyWordValue] = useState('');
+  const [allWordValue, setAllWordValue] = useState('');
 
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -20,13 +25,21 @@ const IncludeFilter = ({ column = {}, options }) => {
     setTabIndex(index);
   };
 
+  const setInactive = () => {
+    setItems(reserveItems);
+    setAnyWordValue('');
+    setAllWordValue('');
+  };
+
   const effectApplyChange = (e) => {
     e.preventDefault();
 
     if (tabIndex == 1) {
-      if (anyWordValue.length > 0) {
+      layout.current.setToActive(`Include: Any of ${anyWordValue}`);
+      const filterFrom = splitToArray(anyWordValue);
+      if (filterFrom.length > 0) {
         let returnItems = reserveItems;
-        forEach(anyWordValue, (value, index) => {
+        forEach(filterFrom, (value, index) => {
           returnItems = returnItems.filter((item) =>
             item.question.toLowerCase().includes(value.toLowerCase())
           );
@@ -34,9 +47,11 @@ const IncludeFilter = ({ column = {}, options }) => {
         setItems(returnItems);
       }
     } else if (tabIndex == 0) {
-      if (allWordValue.length > 0) {
+      layout.current.setToActive(`Include: All of ${allWordValue}`);
+      const filterFrom = splitToArray(allWordValue);
+      if (filterFrom.length > 0) {
         let returnItems = reserveItems;
-        forEach(allWordValue, (value, index) => {
+        forEach(filterFrom, (value, index) => {
           returnItems = returnItems.filter(
             (item) => item.question.toLowerCase() === value.toLowerCase()
           );
@@ -47,7 +62,7 @@ const IncludeFilter = ({ column = {}, options }) => {
   };
 
   return (
-    <Layout label={'Inlude'}>
+    <Layout ref={layout} label={'Inlude'} setInactive={setInactive}>
       <form
         onSubmit={effectApplyChange}
         className="divide-y-2 dark:divide-darkMode-border divide-ash"
@@ -95,12 +110,12 @@ const IncludeFilter = ({ column = {}, options }) => {
               <Tab.Panel>
                 <div>
                   <Input
-                    value={allWordValue.join(',')}
+                    value={allWordValue}
                     onChange={(e) => {
                       if (e === '') {
                         setItems(reserveItems);
-                        setAllWordValue([]);
-                      } else setAllWordValue(e.split(','));
+                        setAllWordValue('');
+                      } else setAllWordValue(e);
                     }}
                     variant="dark-small"
                     placeholder="Type A keywords"
@@ -111,12 +126,12 @@ const IncludeFilter = ({ column = {}, options }) => {
               <Tab.Panel>
                 <div>
                   <Input
-                    value={anyWordValue.join(',')}
+                    value={anyWordValue}
                     onChange={(e) => {
                       if (e === '') {
                         setItems(reserveItems);
-                        setAnyWordValue([]);
-                      } else setAnyWordValue(e.split(','));
+                        setAnyWordValue('');
+                      } else setAnyWordValue(e);
                     }}
                     variant="dark-small"
                     placeholder="Type A keywords"
@@ -126,13 +141,11 @@ const IncludeFilter = ({ column = {}, options }) => {
               </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>
-          {tabIndex == 1 && (
-            <div className="" style={{ marginTop: '5px' }}>
-              <p className="dark:text-darkMode-subText text-ash font-medium text-sm">
-                Separate multiple words by commas.
-              </p>
-            </div>
-          )}
+          <div className="" style={{ marginTop: '5px' }}>
+            <p className="dark:text-darkMode-subText text-ash font-medium text-sm">
+              Separate multiple words by commas.
+            </p>
+          </div>
         </div>
         <div>
           <Button type="submit" className="w-full py-2">
