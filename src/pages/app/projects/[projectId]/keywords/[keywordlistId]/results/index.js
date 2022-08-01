@@ -25,6 +25,7 @@ import useScaiTable from '../../../../../../../hooks/useScaiTable';
 import { setHeaders, get } from '../../../../../../../utils/http';
 import GenerateContentDialog from '../../../../../../../page-components/keyword-generate/GenerateContentDialog';
 import { Input } from '../../../../../../../ui/input';
+import { aQuestions } from '../../../../../../../utils/analyseQuestions';
 
 const results = ({ keywordQuestions, keywords }) => {
   const router = useRouter();
@@ -58,6 +59,12 @@ const results = ({ keywordQuestions, keywords }) => {
   const searchOnChange = useAsyncDebounce((value) => {
     tableInstance.setGlobalFilter(value || undefined);
   }, 300);
+
+  const requeryKeywords = () => {
+    const aKeywords = aQuestions(keywords);
+    setPageKeywords(aKeywords);
+    // save in db...
+  };
 
   return (
     <DashboardLayout metaTitle="Keywords Research">
@@ -147,19 +154,16 @@ const results = ({ keywordQuestions, keywords }) => {
           <Tab.Panels>
             <Tab.Panel>
               <div className="space-y-[26px]">
-                <div className="relative">
+                <form className="relative">
                   <Input
-                    value={resultSearch}
-                    onChange={(value) => {
-                      setResultSearch(value);
-                      searchOnChange(value);
-                    }}
+                    value={keywords.join(', ')}
+                    onChange={(value) => {}}
                     className="h-full py-5 px-[31px] border border-solid border-ash dark:border-darkMode-border"
                   />
                   <div className="absolute right-[32px] bottom-[21px]">
                     <SearchIcon className="h-5 w-5 dark:text-white text-black" />
                   </div>
-                </div>
+                </form>
                 <Box className={'py-5 px-[31px] hidden'}>
                   <div className="flex justify-between">
                     <div className="">
@@ -263,6 +267,7 @@ export async function getServerSideProps(context) {
         const ssrProject = JSON.parse(
           JSON.stringify(response.data.data.ssrProject)
         );
+        console.log(ssrProject.keywords);
         return {
           props: {
             keywordQuestions: ssrProject.list || [],

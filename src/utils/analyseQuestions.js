@@ -2,15 +2,17 @@ import { faker } from '@faker-js/faker';
 
 import { post } from './http';
 
-export async function aQuestions(questions) {
+export async function aQuestions(questions, noArr = false) {
   const post_array = [];
+
+  const aKeywords = noArr ? questions : questions.map((item) => item.question);
 
   post_array.push({
     location_name: 'United States',
     language_name: 'English',
     bid: 999.0,
     match: 'exact',
-    keywords: questions.map((item) => item.question),
+    keywords: aKeywords,
   });
 
   const { response, error } = await post({
@@ -34,7 +36,6 @@ export async function aQuestions(questions) {
   } else if (error) {
     console.log(error);
   }
-  debugger;
 
   return questions.map((question) => {
     return {
@@ -45,7 +46,6 @@ export async function aQuestions(questions) {
       difficulty: faker.datatype.number({ min: 0, max: 2, precision: 0.01 }),
       trending: faker.datatype.number({ min: 0, max: 100, precision: 1 }),
       ait: faker.datatype.number({ min: 0, max: 300, precision: 1 }),
-      checked: false,
     };
   });
 }
