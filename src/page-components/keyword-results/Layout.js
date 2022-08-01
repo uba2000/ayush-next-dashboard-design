@@ -17,6 +17,12 @@ const Layout = React.forwardRef(
         setIsActive(true);
         console.log('Set Active');
       },
+      setToInactiveHandler() {
+        setToInactive();
+      },
+      closeBox() {
+        setIsOpen(false);
+      },
     }));
 
     const setToInactive = () => {
@@ -47,11 +53,11 @@ const Layout = React.forwardRef(
               ) : (
                 <Box
                   type="none"
-                  className="max-w-[200px] cursor-pointer bg-primary border-primary"
+                  className="max-w-[200px] cursor-pointer bg-primary text-white border-primary"
                   onClick={() => setToInactive()}
                 >
-                  <div className="flex px-3 space-x-3">
-                    <span className="line-clamp-1 py-2 flex-grow font-medium text-sm">
+                  <div className="flex px-3 space-x-1 py-2">
+                    <span className="line-clamp-1 flex-grow font-medium text-sm">
                       {activeText}
                     </span>
                     <span className="justify-center flex items-center">

@@ -1,40 +1,58 @@
-import React, { Fragment, useMemo, useState } from 'react';
+import React, { Fragment, useMemo, useState, useRef } from 'react';
 import { Tab } from '@headlessui/react';
 
 import Layout from '../Layout';
 import { Input } from '../../../ui/input';
 import { Button } from '../../../ui/button';
 import { forEach } from 'lodash';
+import { splitToArray } from '../../../utils/formatTags';
 
 const ExcludeFilter = ({ options }) => {
   const [keywords, setKeywords] = useState([]);
+  const [anyWordValue, setAnyWordValue] = useState('');
 
   const { items, setItems } = options;
   const reserveItems = useMemo(() => items, []);
 
-  const onApply = () => {
-    if (keywords.length > 0) {
-      let returnItems = reserveItems;
-      forEach(keywords, (value, index) => {
-        returnItems = returnItems.filter(
-          (item) => !item.question.toLowerCase().includes(value.toLowerCase())
+  const layout = useRef();
+
+  const setInactive = () => {
+    setItems(reserveItems);
+    setAnyWordValue('');
+  };
+
+  const effectApplyChange = (e) => {
+    e.preventDefault();
+
+    layout.current.setToActive(`Exclude: Any of ${items.length}`);
+    const filterFrom = splitToArray(anyWordValue);
+    if (filterFrom.length > 0) {
+      let returnItems = [];
+      forEach(reserveItems, (value, index) => {
+        let check = filterFrom.some((item) =>
+          value.question.toLowerCase().includes(item.toLowerCase())
         );
+        if (!check) returnItems.push(value);
       });
       setItems(returnItems);
     }
   };
   return (
-    <Layout label={'Exclude'}>
-      <div className="divide-y-2 dark:divide-darkMode-border divide-ash">
+    <Layout label={'Exclude'} ref={layout} setInactive={setInactive}>
+      <form
+        onSubmit={effectApplyChange}
+        className="divide-y-2 dark:divide-darkMode-border divide-ash"
+      >
         <div className="p-[10px] pb-[5px] space-y-[5px]">
           <div>
             <Input
-              value={keywords.join(',')}
+              value={anyWordValue}
               onChange={(e) => {
                 if (e === '') {
                   setItems(reserveItems);
-                  setKeywords([]);
-                } else setKeywords(e.split(','));
+                  layout.current.setToInactiveHandler();
+                  setAnyWordValue('');
+                } else setAnyWordValue(e);
               }}
               variant="dark-small"
               placeholder="Type A keywords"
@@ -48,11 +66,11 @@ const ExcludeFilter = ({ options }) => {
           </div>
         </div>
         <div>
-          <Button onClick={onApply} className="w-full py-2">
+          <Button type="submit" className="w-full py-2">
             Apply
           </Button>
         </div>
-      </div>
+      </form>
     </Layout>
   );
 };

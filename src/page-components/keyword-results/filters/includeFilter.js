@@ -10,14 +10,15 @@ import { splitToArray } from '../../../utils/formatTags';
 
 const IncludeFilter = ({ column = {}, options }) => {
   const { items, setItems } = options;
+  const r = items;
   const reserveItems = useMemo(() => items, []);
 
   const layout = useRef();
 
-  const [active, setActive] = useState(false);
-
   const [anyWordValue, setAnyWordValue] = useState('');
   const [allWordValue, setAllWordValue] = useState('');
+
+  const [inputValue, setInputValue] = useState('');
 
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -35,20 +36,21 @@ const IncludeFilter = ({ column = {}, options }) => {
     e.preventDefault();
 
     if (tabIndex == 1) {
-      layout.current.setToActive(`Include: Any of ${anyWordValue}`);
-      const filterFrom = splitToArray(anyWordValue);
+      layout.current.setToActive(`Include: Any of ${items.length}`);
+      const filterFrom = splitToArray(inputValue);
       if (filterFrom.length > 0) {
-        let returnItems = reserveItems;
-        forEach(filterFrom, (value, index) => {
-          returnItems = returnItems.filter((item) =>
-            item.question.toLowerCase().includes(value.toLowerCase())
+        let returnItems = [];
+        forEach(reserveItems, (value, index) => {
+          let check = filterFrom.some((item) =>
+            value.question.toLowerCase().includes(item.toLowerCase())
           );
+          if (check) returnItems.push(value);
         });
         setItems(returnItems);
       }
     } else if (tabIndex == 0) {
-      layout.current.setToActive(`Include: All of ${allWordValue}`);
-      const filterFrom = splitToArray(allWordValue);
+      layout.current.setToActive(`Include: All of ${items.length}`);
+      const filterFrom = splitToArray(inputValue);
       if (filterFrom.length > 0) {
         let returnItems = reserveItems;
         forEach(filterFrom, (value, index) => {
@@ -107,7 +109,7 @@ const IncludeFilter = ({ column = {}, options }) => {
               </Tab>
             </Tab.List>
             <Tab.Panels style={{ marginTop: '5px' }}>
-              <Tab.Panel>
+              {/* <Tab.Panel>
                 <div>
                   <Input
                     value={allWordValue}
@@ -115,6 +117,7 @@ const IncludeFilter = ({ column = {}, options }) => {
                       if (e === '') {
                         setItems(reserveItems);
                         setAllWordValue('');
+                        layout.current.setToInactiveHandler();
                       } else setAllWordValue(e);
                     }}
                     variant="dark-small"
@@ -124,23 +127,25 @@ const IncludeFilter = ({ column = {}, options }) => {
                 </div>
               </Tab.Panel>
               <Tab.Panel>
-                <div>
-                  <Input
-                    value={anyWordValue}
-                    onChange={(e) => {
-                      if (e === '') {
-                        setItems(reserveItems);
-                        setAnyWordValue('');
-                      } else setAnyWordValue(e);
-                    }}
-                    variant="dark-small"
-                    placeholder="Type A keywords"
-                    className="w-full h-[21px] text-xs px-2"
-                  />
-                </div>
-              </Tab.Panel>
+                
+              </Tab.Panel> */}
             </Tab.Panels>
           </Tab.Group>
+          <div>
+            <Input
+              value={inputValue}
+              onChange={(e) => {
+                if (e === '') {
+                  setItems(reserveItems);
+                  setInputValue('');
+                  layout.current.setToInactiveHandler();
+                } else setInputValue(e);
+              }}
+              variant="dark-small"
+              placeholder="Type A keywords"
+              className="w-full h-[21px] text-xs px-2"
+            />
+          </div>
           <div className="" style={{ marginTop: '5px' }}>
             <p className="dark:text-darkMode-subText text-ash font-medium text-sm">
               Separate multiple words by commas.
