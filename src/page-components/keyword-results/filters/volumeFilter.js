@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 import Layout from '../Layout';
 import { Input } from '../../../ui/input';
@@ -9,15 +9,17 @@ const VolumeFilter = ({ column = {} }) => {
   const {
     min,
     max,
+    layout,
+    setInactive,
     minValue,
     maxValue,
     onChangeMin,
     onChangeMax,
     applyChange,
-  } = useTableRangeFilter({ column });
+  } = useTableRangeFilter({ column, filterName: 'Volume' });
 
   return (
-    <Layout label={'Volume'}>
+    <Layout label={'Volume'} ref={layout} setInactive={setInactive}>
       <form
         onSubmit={applyChange}
         className="divide-y-2 dark:divide-darkMode-border divide-ash"

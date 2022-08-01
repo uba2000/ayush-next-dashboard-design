@@ -10,13 +10,9 @@ import { splitToArray } from '../../../utils/formatTags';
 
 const IncludeFilter = ({ column = {}, options }) => {
   const { items, setItems } = options;
-  const r = items;
   const reserveItems = useMemo(() => items, []);
 
   const layout = useRef();
-
-  const [anyWordValue, setAnyWordValue] = useState('');
-  const [allWordValue, setAllWordValue] = useState('');
 
   const [inputValue, setInputValue] = useState('');
 
@@ -28,17 +24,16 @@ const IncludeFilter = ({ column = {}, options }) => {
 
   const setInactive = () => {
     setItems(reserveItems);
-    setAnyWordValue('');
-    setAllWordValue('');
+    setInputValue('');
   };
 
   const effectApplyChange = (e) => {
     e.preventDefault();
 
     if (tabIndex == 1) {
-      layout.current.setToActive(`Include: Any of ${items.length}`);
       const filterFrom = splitToArray(inputValue);
       if (filterFrom.length > 0) {
+        layout.current.setToActive(`Include: Any of ${items.length}`);
         let returnItems = [];
         forEach(reserveItems, (value, index) => {
           let check = filterFrom.some((item) =>
@@ -47,11 +42,12 @@ const IncludeFilter = ({ column = {}, options }) => {
           if (check) returnItems.push(value);
         });
         setItems(returnItems);
+        layout.current.closeBox();
       }
     } else if (tabIndex == 0) {
-      layout.current.setToActive(`Include: All of ${items.length}`);
       const filterFrom = splitToArray(inputValue);
       if (filterFrom.length > 0) {
+        layout.current.setToActive(`Include: All of ${items.length}`);
         let returnItems = reserveItems;
         forEach(filterFrom, (value, index) => {
           returnItems = returnItems.filter(
@@ -59,6 +55,7 @@ const IncludeFilter = ({ column = {}, options }) => {
           );
         });
         setItems(returnItems);
+        layout.current.closeBox();
       }
     }
   };
@@ -108,28 +105,7 @@ const IncludeFilter = ({ column = {}, options }) => {
                 )}
               </Tab>
             </Tab.List>
-            <Tab.Panels style={{ marginTop: '5px' }}>
-              {/* <Tab.Panel>
-                <div>
-                  <Input
-                    value={allWordValue}
-                    onChange={(e) => {
-                      if (e === '') {
-                        setItems(reserveItems);
-                        setAllWordValue('');
-                        layout.current.setToInactiveHandler();
-                      } else setAllWordValue(e);
-                    }}
-                    variant="dark-small"
-                    placeholder="Type A keywords"
-                    className="w-full h-[21px] text-xs px-2"
-                  />
-                </div>
-              </Tab.Panel>
-              <Tab.Panel>
-                
-              </Tab.Panel> */}
-            </Tab.Panels>
+            <Tab.Panels style={{ marginTop: '5px' }}></Tab.Panels>
           </Tab.Group>
           <div>
             <Input

@@ -8,7 +8,6 @@ import { forEach } from 'lodash';
 import { splitToArray } from '../../../utils/formatTags';
 
 const ExcludeFilter = ({ options }) => {
-  const [keywords, setKeywords] = useState([]);
   const [anyWordValue, setAnyWordValue] = useState('');
 
   const { items, setItems } = options;
@@ -24,9 +23,9 @@ const ExcludeFilter = ({ options }) => {
   const effectApplyChange = (e) => {
     e.preventDefault();
 
-    layout.current.setToActive(`Exclude: Any of ${items.length}`);
     const filterFrom = splitToArray(anyWordValue);
     if (filterFrom.length > 0) {
+      layout.current.setToActive(`Exclude: Any of ${items.length}`);
       let returnItems = [];
       forEach(reserveItems, (value, index) => {
         let check = filterFrom.some((item) =>
@@ -35,6 +34,7 @@ const ExcludeFilter = ({ options }) => {
         if (!check) returnItems.push(value);
       });
       setItems(returnItems);
+      layout.current.closeBox();
     }
   };
   return (

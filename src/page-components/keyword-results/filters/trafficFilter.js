@@ -9,15 +9,17 @@ const TrafficFilter = ({ column = {} }) => {
   const {
     min,
     max,
+    layout,
+    setInactive,
     minValue,
     maxValue,
     onChangeMin,
     onChangeMax,
     applyChange,
-  } = useTableRangeFilter({ column });
+  } = useTableRangeFilter({ column, filterName: 'Traffic' });
 
   return (
-    <Layout label={'Traffic'}>
+    <Layout label={'Traffic'} ref={layout} setInactive={setInactive}>
       <form
         onSubmit={applyChange}
         className="divide-y-2 dark:divide-darkMode-border divide-ash"

@@ -7,6 +7,7 @@ export function fJoinTags(tags) {
 }
 
 export function splitToArray(tags) {
+  if (tags == '' || !tags) return [];
   return tags.split(',').map((item) => {
     return item.trim();
   });

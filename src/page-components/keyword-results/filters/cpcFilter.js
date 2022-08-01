@@ -9,15 +9,17 @@ const CPCFilter = ({ column = {} }) => {
   const {
     min,
     max,
+    layout,
+    setInactive,
     minValue,
     maxValue,
     onChangeMin,
     onChangeMax,
     applyChange,
-  } = useTableRangeFilter({ column, valueType: 'float' });
+  } = useTableRangeFilter({ column, valueType: 'float', filterName: 'CPC' });
 
   return (
-    <Layout label={'CPC'}>
+    <Layout label={'CPC'} ref={layout} setInactive={setInactive}>
       <form
         onSubmit={applyChange}
         className="divide-y-2 dark:divide-darkMode-border divide-ash"

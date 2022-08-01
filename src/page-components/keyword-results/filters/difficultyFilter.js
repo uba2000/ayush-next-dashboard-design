@@ -9,15 +9,21 @@ const DifficultyFilter = ({ column = {} }) => {
   const {
     min,
     max,
+    layout,
+    setInactive,
     minValue,
     maxValue,
     onChangeMin,
     onChangeMax,
     applyChange,
-  } = useTableRangeFilter({ column, valueType: 'float' });
+  } = useTableRangeFilter({
+    column,
+    valueType: 'float',
+    filterName: 'Difficulty',
+  });
 
   return (
-    <Layout label={'Difficulty'}>
+    <Layout label={'Difficulty'} ref={layout} setInactive={setInactive}>
       <form
         onSubmit={applyChange}
         className="divide-y-2 dark:divide-darkMode-border divide-ash"
@@ -30,6 +36,7 @@ const DifficultyFilter = ({ column = {} }) => {
             value={minValue || ''}
             onChange={(e) => onChangeMin(e)}
             placeholder={`Min`}
+            novalidate
             className="w-[78px] h-[21px] text-xs px-2"
           />
           <Input
@@ -39,6 +46,7 @@ const DifficultyFilter = ({ column = {} }) => {
             value={maxValue || ''}
             onChange={(e) => onChangeMax(e)}
             placeholder={`Max`}
+            novalidate
             className="w-[78px] h-[21px] text-xs px-2"
           />
         </div>
