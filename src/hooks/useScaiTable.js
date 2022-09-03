@@ -61,6 +61,9 @@ const useScaiTable = (
     pageCount,
     setPageSize,
     selectedFlatRows,
+    preFilteredRows,
+    setFilter,
+    rows,
   } = useTable(
     {
       columns,
@@ -103,6 +106,9 @@ const useScaiTable = (
     pageIndex,
     selectedFlatRows,
     setPageSize,
+    preFilteredRows,
+    setFilter,
+    rows,
     rowsLength: data.length,
   };
 };

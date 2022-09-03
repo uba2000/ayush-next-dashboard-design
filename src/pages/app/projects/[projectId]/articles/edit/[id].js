@@ -104,7 +104,8 @@ class EditArticle extends Component {
       // const pageCount = pdf.internal.getNumberOfPages();
       pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
       // pdf.deletePage(pageCount);
-      pdf.save(`${this.state.title}.pdf`);
+      pdf.save(`${this.state.title}-scai.pdf`);
+      pdf.addPage();
       this.setState((prevState) => {
         return {
           downloadLoading: false,
@@ -335,6 +336,7 @@ class EditArticle extends Component {
               >
                 <EditorContainer>
                   <div dangerouslySetInnerHTML={{ __html: body }}></div>
+                  <div className="html2pdf__page-break"></div>
                 </EditorContainer>
               </div>
               <div className={`${showEditor ? 'block' : 'hidden'} pb-[25px]`}>
