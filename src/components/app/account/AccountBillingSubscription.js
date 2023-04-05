@@ -47,7 +47,9 @@ function AccountBillingSubscription({ currentPlan }) {
   }
 
   const checkPlanExist = () => {
-    return !!currentPlan;
+    // return !!currentPlan;
+    // for testing purposes
+    return true;
   };
 
   const showMoreDialog = (toCall) => {
